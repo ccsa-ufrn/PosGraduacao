@@ -4,7 +4,7 @@ Este repositório não consiste em uma aplicação completa, é apenas um conjun
 </p>
 
 <p>
-Observe que puramente através deste repositório você não terá acesso aos dados do SIGAA. Para mais informações, confira a wiki da <a href="https://www.info.ufrn.br/wikisistemas/doku.php?id=desenvolvimento:especificacoes:api_servicos">API OpenSIG</a>, serviço desenvolvido e mantido pela <a href="https://info.ufrn.br/html/">Sinfo</a>. Tal entidade que irá fornecer as credenciais de acesso para serem inseridas no arquivo <a href="/src/OAuth/Client.php">/src/OAuth/Client.php</a>.
+Observe que puramente através deste repositório você não terá acesso aos dados do SIGAA. Para mais informações, confira a wiki da <a href="https://www.info.ufrn.br/wikisistemas/doku.php?id=desenvolvimento:especificacoes:api_servicos">API OpenSIG</a>, serviço desenvolvido e mantido pela <a href="https://info.ufrn.br/html/">Sinfo</a>. Tal entidade que irá fornecer as credenciais de acesso para serem inseridas no arquivo <a href="/src/OAuth2/Client.php">/src/OAuth2/Client.php</a>.
 </p>
 
 <h2>Licenças</h2>
