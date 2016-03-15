@@ -14,6 +14,6 @@ const TOKEN_ENDPOINT         = 'http://apitestes.info.ufrn.br/authz-server/oauth
 $client = new OAuth2\Client();
 $accessToken = $client->getAccessToken(TOKEN_ENDPOINT, OAuth2\Client::GRANT_TYPE_CLIENT_CREDENTIALS);
 
-var_dump($accessToken);
+//var_dump($accessToken);
 
 ?>
