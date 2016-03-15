@@ -30,8 +30,10 @@ Modificações (Mazuh <marcell-mz@hotmail.com> <https://github.com/Mazuh>):
     - Credenciais de acesso agora são atributos private (ao invés de protected);
     - Remoção dos métodos de getters das credenciais;
     - Remoção da possibilidade (e obrigatoriedade) de passar credenciais por construtor da classe
-        (deve ser passado pelo programador manualmente em tempo de desenvolvimento);
+        (deve ser passado pelo programador manualmente em tempo de desenvolvimento*);
     - Remoção de aspas simples no parâmetro de class_exists usado no getAccessToken (implicava em erro);
+    
+    README: cuidado, NÃO commitar este arquivo após digitar as credenciais.
 */
 namespace OAuth2;
 
@@ -83,7 +85,6 @@ class Client
     README
     Os atributos abaixo devem ser preenchidos manualmente com
     as credenciais fornecidas pelo servidor oauth.
-    Após concluir qualquer alteração no código, incluir este arquivo ao .gitignore por segurança.
     */
     
     /**
