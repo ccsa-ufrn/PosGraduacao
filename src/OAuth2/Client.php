@@ -24,10 +24,20 @@
  * @author      Anis Berejeb <anis.berejeb@gmail.com>
  * @version     1.3.0
  */
+
+/*
+Modificações (Mazuh <marcell-mz@hotmail.com> <https://github.com/Mazuh>):
+    - Credenciais de acesso agora são atributos private (ao invés de protected);
+    - Remoção dos métodos de getters das credenciais;
+    - Remoção da possibilidade (e obrigatoriedade) de passar credenciais por construtor da classe
+        (deve ser passado pelo programador manualmente em tempo de desenvolvimento);
+    - Remoção de aspas simples no parâmetro de class_exists usado no getAccessToken (implicava em erro);
+*/
 namespace OAuth2;
 
 class Client
 {
+    
     /**
      * Different AUTH method
      */
@@ -67,19 +77,28 @@ class Client
     const HTTP_FORM_CONTENT_TYPE_APPLICATION = 0;
     const HTTP_FORM_CONTENT_TYPE_MULTIPART = 1;
 
+    
+    
+    /*
+    README
+    Os atributos abaixo devem ser preenchidos manualmente com
+    as credenciais fornecidas pelo servidor oauth.
+    Após concluir qualquer alteração no código, incluir este arquivo ao .gitignore por segurança.
+    */
+    
     /**
      * Client ID
      *
      * @var string
      */
-    protected $client_id = null;
+    private $client_id = '';
 
     /**
      * Client Secret
      *
      * @var string
      */
-    protected $client_secret = null;
+    private $client_secret = '';
 
     /**
      * Client Authentication method
@@ -140,45 +159,23 @@ class Client
     /**
      * Construct
      *
-     * @param string $client_id Client ID
-     * @param string $client_secret Client Secret
+     * //@param string $client_id Client ID
+     * //@param string $client_secret Client Secret
      * @param int    $client_auth (AUTH_TYPE_URI, AUTH_TYPE_AUTHORIZATION_BASIC, AUTH_TYPE_FORM)
      * @param string $certificate_file Indicates if we want to use a certificate file to trust the server. Optional, defaults to null.
      * @return void
      */
-    public function __construct($client_id, $client_secret, $client_auth = self::AUTH_TYPE_URI, $certificate_file = null)
+    public function __construct($client_auth = self::AUTH_TYPE_URI, $certificate_file = null)
     {
         if (!extension_loaded('curl')) {
             throw new Exception('The PHP exention curl must be installed to use this library.', Exception::CURL_NOT_FOUND);
         }
 
-        $this->client_id     = $client_id;
-        $this->client_secret = $client_secret;
         $this->client_auth   = $client_auth;
         $this->certificate_file = $certificate_file;
         if (!empty($this->certificate_file)  && !is_file($this->certificate_file)) {
             throw new InvalidArgumentException('The certificate file was not found', InvalidArgumentException::CERTIFICATE_NOT_FOUND);
         }
-    }
-
-    /**
-     * Get the client Id
-     *
-     * @return string Client ID
-     */
-    public function getClientId()
-    {
-        return $this->client_id;
-    }
-
-    /**
-     * Get the client Secret
-     *
-     * @return string Client Secret
-     */
-    public function getClientSecret()
-    {
-        return $this->client_secret;
     }
 
     /**
