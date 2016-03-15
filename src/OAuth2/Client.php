@@ -85,6 +85,7 @@ class Client
     README
     Os atributos abaixo devem ser preenchidos manualmente com
     as credenciais fornecidas pelo servidor oauth.
+    NÃO DAR COMMIT COM OS ATRIBUTOS PREENCHIDOS.
     */
     
     /**
