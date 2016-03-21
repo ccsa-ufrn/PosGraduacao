@@ -35,13 +35,32 @@ class ClientPPGP
     
     
     /**
-     * Construct
-     * Configura um client oauth para acessar o stricto-sensu service da OpenSIG.
+     * Solicita ao servidor a lista de discentes do ppgp.
      *
      * @return array com todos os discentes conforme previsto no swagger
      */
     function discentes(){
         $url = ClientOpenSIG::URL_SERVICE_ROOT['stricto-sensu']."consulta/discente/".ClientPPGP::COD_PPGP;
         return $this->client->fetch($url)['result'];
+    }
+    
+    /**
+     * Solicita ao servidor a lista de discentes e retorna somente os de um ano de ingresso específico.
+     *
+     * @param string ano em formato AAAA
+     * @return array com todos os discentes (filtrados por ano) conforme previsto no swagger
+     */
+    function discentesPorAno($ano){
+        $discentes = $this->discentes();
+        $discentesFiltrados = array();
+        
+        foreach($discentes as $discente){
+            $posicao = strpos($discente['matricula'], $ano); // a matricula indica o ano
+            if (!($posicao === false) && $posicao == 0){ // encontrou e tá no início
+                $discentesFiltrados[] = $discente;
+            }
+        }
+        
+        return $discentesFiltrados;
     }
 }
