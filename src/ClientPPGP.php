@@ -10,7 +10,7 @@ Classe de acesso fácil aos dados do PPGP recuperados do SIGAA.
 
 README: swagger dos json na wiki da OpenSIG.
 */
-class ClientPPGP
+class ClientPPGP extends ClientOpenSIG
 {
     /* Identificação única da unidade do programa, dado coletado manualmente via busca do SIGAA. */
     const COD_PPGP = '1672';
@@ -32,6 +32,16 @@ class ClientPPGP
         $this->client = $client; // atributo
     }
     
+    
+    /**
+     * Solicita ao servidor a lista da equipe do ppgp.
+     *
+     * @return array com todos a equipe conforme previsto no swagger
+     */
+    function equipe(){
+        $url = ClientOpenSIG::URL_SERVICE_ROOT['stricto-sensu']."consulta/equipeprograma/".ClientPPGP::COD_PPGP;
+        return $this->client->fetch($url)['result'];
+    }
     
     /**
      * Solicita ao servidor a lista de discentes do ppgp.
