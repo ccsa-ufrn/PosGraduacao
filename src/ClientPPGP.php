@@ -54,6 +54,16 @@ class ClientPPGP extends ClientOpenSIG
     }
     
     /**
+     * Solicita ao servidor a lista de projetos do ppgp.
+     *
+     * @return array com todos os projetos conforme previsto no swagger
+     */
+    function projetos(){
+        $url = ClientOpenSIG::URL_SERVICE_ROOT['stricto-sensu']."consulta/projeto/".ClientPPGP::COD_PPGP;
+        return $this->client->fetch($url)['result'];
+    }
+    
+    /**
      * Solicita ao servidor a lista de discentes e retorna somente os de um ano de ingresso específico.
      *
      * @param string ano em formato AAAA
