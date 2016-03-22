@@ -1,7 +1,7 @@
 <?php
 
 /*
-Lista todos os discentes do PPGP
+Lista todos os docentes do PPGP
 TODO: 
 - link do docente para sua página oficial, exemplo: https://sigaa.ufrn.br/sigaa/public/docente/portal.jsf?siape=1064645
 - ou lattes
@@ -14,7 +14,7 @@ $equipe = $ppgp->equipe();
 
 ?>
 
-<h3>Corpo Docente do PPGP</h3>
+<h3>PPGP: Equipe</h3>
 
 <table style="text-align: center">
     
