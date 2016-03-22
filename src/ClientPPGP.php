@@ -4,7 +4,6 @@ require_once("ClientOpenSIG.php");
 require_once(ClientOpenSIG::OAUTH_ROOT_DIR."Client.php");
 require_once(ClientOpenSIG::OAUTH_ROOT_DIR."GrantType/IGrantType.php");
 require_once(ClientOpenSIG::OAUTH_ROOT_DIR."GrantType/ClientCredentials.php");
-require_once(ClientOpenSIG::OAUTH_ROOT_DIR."GrantType/AuthorizationCode.php");
 
 /*
 Classe de acesso fácil aos dados do PPGP recuperados do SIGAA.
