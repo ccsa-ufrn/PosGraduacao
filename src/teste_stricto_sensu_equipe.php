@@ -23,6 +23,7 @@ $equipe = $ppgp->equipe();
         <th>Vínculo</th>
         <th>Nível</th>
         <th>E-mail</th>
+        <th>E-mail</th>
     </tr>
     
     <?php foreach ($equipe as $membro): ?>
@@ -32,6 +33,7 @@ $equipe = $ppgp->equipe();
         <td><?php echo $membro['vinculo']; ?></td>
         <td><?php echo $membro['nivel']; ?></td>
         <td><?php echo $membro['email']; ?></td>
+        <td><?php var_dump($ppgp->docentePorNome($membro['nome'])); ?></td>
     </tr>
     
     <?php endforeach; ?>

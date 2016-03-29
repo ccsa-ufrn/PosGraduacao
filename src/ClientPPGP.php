@@ -82,4 +82,17 @@ class ClientPPGP extends ClientOpenSIG
         
         return $discentesFiltrados;
     }
+    
+    /**
+     * Solicita ao servidor os dados de um docente encontrado por nome.
+     *
+     * @param string nome do docente em caracteres comuns
+     * @return array com informações do docente conforme previsto no swagger
+     */
+    function docentePorNome($nome){
+        $url = ClientOpenSIG::URL_SERVICE_ROOT['docente']."consulta/perfilnome/".urlencode($nome);
+        $res = $this->client->fetch($url);
+        //return $url;
+        return var_dump($res);
+    }
 }

@@ -17,6 +17,7 @@ abstract class ClientOpenSIG
         'ensino'        => ClientOpenSIG::API_URL_ROOT."ensino-services/services/",
         'usuario'       => ClientOpenSIG::API_URL_ROOT."usuario-services/services/", // deprecated
         'stricto-sensu' => ClientOpenSIG::API_URL_ROOT."stricto-sensu-services/services/",
+        'docente'       => ClientOpenSIG::API_URL_ROOT."docente-services/services/",
     ];
     
     
