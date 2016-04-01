@@ -1,31 +1,68 @@
 <?php
 
 /*
-Lista todos os projetos do PPGP
+Lista todos os discentes do PPGP
 */
 require_once("ClientAPIsistemas.php");
 require_once("ClientPPGP.php");
 
-$ppgp = new ClientPPGP();
-$projetos = $ppgp->projetos();
-var_dump($projetos[0]);
+$clientPPGP = new ClientPPGP();
+$discentes = isset($_GET['ano']) ? $clientPPGP->discentesPorAno($_GET['ano']) : $clientPPGP->discentes();
+
 ?>
 
-<h3>PPGP: Projetos de Pesquisa</h3>
+<form method="get" action="teste_stricto_sensu_discente.php">
+    <h3>PPGP: Discentes</h3>
+    
+    <label for="inAno">Buscar alunos por</label>
+    <input type="number" name="ano" id="inAno" step="1" min="1960" max="<?php echo date('Y'); ?>" placeholder="ano de ingresso" value="<?php echo $_GET['ano']; ?>" required="required"/>
+    
+    <input type="submit" value="Filtrar"/>
+    <a href="teste_stricto_sensu_discente.php"><input type="button" value="Todos"/></a>
+</form>
 
-<ul>
+<br/>
+
+<?php if (count($discentes)): ?>
+
+<table style="text-align: center">
     
-    <?php foreach ($projetos as $projeto): ?>
+    <tr>
+        <th>Matrícula</th>
+        <th>Nome</th>
+        <th>Nível</th>
+        <th>Orientação</th>
+        <th>Coorientação</th>
+    </tr>
     
-    <li id="<?php echo $projeto['idProjeto']; ?>">
-        
-        [<?php echo $projeto['ano']; ?>] <?php echo $projeto['titulo']; ?>
-        <ul>
-            <li>Ok</li>
-        </ul>
-        
-    </li>
+    <?php foreach ($discentes as $discente): ?>
+    
+    <tr id="<?php echo $discente['idDiscente']; ?>">
+        <td><?php echo $discente['matricula']; ?></td>
+        <td><?php echo $discente['nome']; ?></td>
+        <td><?php echo $discente['descricaoNivel']; ?></td>
+        <td><?php
+            if (isset($discente['orientacoesAcademica'][0])): 
+                echo $discente['orientacoesAcademica'][0]['nome'];
+            else:
+                echo "(Nenhuma)";
+            endif; ?></td>
+        <td><?php
+            if (isset($discente['orientacoesAcademica'][1])): 
+                echo $discente['orientacoesAcademica'][1]['nome'];
+            else:
+                echo "(Nenhuma)";
+            endif; ?></td>
+    </tr>
     
     <?php endforeach; ?>
     
-</ul>
+</table>
+
+<?php else: ?>
+
+<div>
+    <p>Nada encontrado.</p>
+</div>
+
+<?php endif; ?>

@@ -38,7 +38,8 @@ class ClientPPGP extends ClientAPIsistemas
      *
      * @return array com todos a equipe conforme previsto no swagger
      */
-    function equipe(){
+    function equipe()
+    {
         $url = ClientAPIsistemas::URL_SERVICE_ROOT['stricto-sensu']."consulta/equipeprograma/".ClientPPGP::COD_PPGP;
         return $this->client->fetch($url)['result'];
     }
@@ -48,7 +49,8 @@ class ClientPPGP extends ClientAPIsistemas
      *
      * @return array com todos os discentes conforme previsto no swagger
      */
-    function discentes(){
+    function discentes()
+    {
         $url = ClientAPIsistemas::URL_SERVICE_ROOT['stricto-sensu']."consulta/discente/".ClientPPGP::COD_PPGP;
         return $this->client->fetch($url)['result'];
     }
@@ -58,7 +60,8 @@ class ClientPPGP extends ClientAPIsistemas
      *
      * @return array com todos os projetos conforme previsto no swagger
      */
-    function projetos(){
+    function projetos()
+    {
         $url = ClientAPIsistemas::URL_SERVICE_ROOT['stricto-sensu']."consulta/projeto/".ClientPPGP::COD_PPGP;
         return $this->client->fetch($url)['result'];
     }
@@ -69,7 +72,8 @@ class ClientPPGP extends ClientAPIsistemas
      * @param string ano em formato AAAA
      * @return array com todos os discentes (filtrados por ano) conforme previsto no swagger
      */
-    function discentesPorAno($ano){
+    function discentesPorAno($ano)
+    {
         $discentes = $this->discentes();
         $discentesFiltrados = array();
 
@@ -91,7 +95,8 @@ class ClientPPGP extends ClientAPIsistemas
      * @return bool false caso tenha havido algum erro ou o docente
      *                não possua lattes no cadastro.
      */
-    function lattesDoDocentePorNome($nome){
+    function lattesDoDocentePorNome($nome)
+    {
         if ($docente = $this->docentePorNome($nome)){
             $lattes = $docente['lattes'];
             
@@ -114,7 +119,8 @@ class ClientPPGP extends ClientAPIsistemas
      * @return array associativo com informações do docente conforme previsto no swagger
      * @return bool false em caso de nada encontrado
      */
-    function docentePorNome($nome){
+    function docentePorNome($nome)
+    {
         $docentes = $this->buscaDocentePorParteDoNome(str_replace(' ', '_', $nome));
         return isset($docentes[0]) ? $docentes[0] : false;
     }
@@ -126,7 +132,8 @@ class ClientPPGP extends ClientAPIsistemas
      *               espaços ' ' por underscore '_' sempre que preciso
      * @return array numérico com todos os docentes encontrados pelo nome do parâmetro
      */
-    function buscaDocentePorParteDoNome($parteDoNome){
+    function buscaDocentePorParteDoNome($parteDoNome)
+    {
         $url = ClientAPIsistemas::URL_SERVICE_ROOT['docente']."consulta/perfilnome/".$parteDoNome;
         return $this->client->fetch($url)['result'];
     }
