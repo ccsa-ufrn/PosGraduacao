@@ -23,17 +23,19 @@ $equipe = $ppgp->equipe();
         <th>Vínculo</th>
         <th>Nível</th>
         <th>E-mail</th>
-        <th>E-mail</th>
     </tr>
     
     <?php foreach ($equipe as $membro): ?>
     
     <tr id="<?php echo $membro['idEquipePrograma']; ?>">
-        <td><?php echo $membro['nome']; ?></td>
+        <td style="text-align: left">
+            <?php echo $membro['nome']; ?>
+            <?php if ($lattes=$ppgp->lattesDoDocentePorNome($membro['nome'])): ?>
+            <a href="<?php echo $lattes; ?>" target="_blank"><img src="http://www.ufpa.br/ppba/images/lattes.gif" alt="CV Lattes"/></a><?php endif; ?>
+        </td>
         <td><?php echo $membro['vinculo']; ?></td>
         <td><?php echo $membro['nivel']; ?></td>
         <td><?php echo $membro['email']; ?></td>
-        <td><?php var_dump($ppgp->docentePorNome($membro['nome'])); ?></td>
     </tr>
     
     <?php endforeach; ?>
