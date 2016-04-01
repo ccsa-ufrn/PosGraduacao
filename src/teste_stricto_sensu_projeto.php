@@ -1,68 +1,61 @@
 <?php
 
 /*
-Lista todos os discentes do PPGP
+Lista todos os projetos do PPGP
 */
 require_once("ClientAPIsistemas.php");
 require_once("ClientPPGP.php");
 
-$clientPPGP = new ClientPPGP();
-$discentes = isset($_GET['ano']) ? $clientPPGP->discentesPorAno($_GET['ano']) : $clientPPGP->discentes();
-
+$ppgp = new ClientPPGP();
+$projetos = $ppgp->projetos();
 ?>
 
-<form method="get" action="teste_stricto_sensu_discente.php">
-    <h3>PPGP: Discentes</h3>
-    
-    <label for="inAno">Buscar alunos por</label>
-    <input type="number" name="ano" id="inAno" step="1" min="1960" max="<?php echo date('Y'); ?>" placeholder="ano de ingresso" value="<?php echo $_GET['ano']; ?>" required="required"/>
-    
-    <input type="submit" value="Filtrar"/>
-    <a href="teste_stricto_sensu_discente.php"><input type="button" value="Todos"/></a>
-</form>
+<script type="text/javascript">
+    /* Altera a visibilidade dos detalhes do obj clicado 
+    PS: Gambiarra temporária */
+    function alternar(obj){
+        var idDetalhes = "detalhes-" + obj.getAttribute("id");
+        var objDetalhes = document.getElementById(idDetalhes);
+        
+        var isVisivel = objDetalhes.getAttribute("style") == "";
+        
+        objDetalhes.setAttribute("style", (isVisivel ? "display: none" : ""));
+    }
+</script>
 
-<br/>
+<h3>PPGP: Projetos de Pesquisa</h3>
 
-<?php if (count($discentes)): ?>
-
-<table style="text-align: center">
+<ul>
     
-    <tr>
-        <th>Matrícula</th>
-        <th>Nome</th>
-        <th>Nível</th>
-        <th>Orientação</th>
-        <th>Coorientação</th>
-    </tr>
+    <?php foreach ($projetos as $projeto): ?>
     
-    <?php foreach ($discentes as $discente): ?>
-    
-    <tr id="<?php echo $discente['idDiscente']; ?>">
-        <td><?php echo $discente['matricula']; ?></td>
-        <td><?php echo $discente['nome']; ?></td>
-        <td><?php echo $discente['descricaoNivel']; ?></td>
-        <td><?php
-            if (isset($discente['orientacoesAcademica'][0])): 
-                echo $discente['orientacoesAcademica'][0]['nome'];
-            else:
-                echo "(Nenhuma)";
-            endif; ?></td>
-        <td><?php
-            if (isset($discente['orientacoesAcademica'][1])): 
-                echo $discente['orientacoesAcademica'][1]['nome'];
-            else:
-                echo "(Nenhuma)";
-            endif; ?></td>
-    </tr>
-    
+    <li id="<?php echo $projeto['idProjeto']; ?>" onclick="alternar(this)">
+        
+        <a href="#"><?php echo $projeto['titulo']; ?></a>
+        
+        <ul id="detalhes-<?php echo $projeto['idProjeto']; ?>" style="display: none">
+            <li><strong>Código:</strong> <?php echo $projeto['codPrefixo'].$projeto['codNumero']."-".$projeto['codAno']; ?></li>
+            <li><strong>Situação:</strong> <?php echo $projeto['situacaoProjeto']; ?></li>
+            <li><strong>Início:</strong> <?php echo $projeto['dataInicio']; ?></li>
+            <li><strong>Fim:</strong> <?php echo $projeto['dataFim']; ?></li>
+            <li><strong>Palavras-chave:</strong> <?php echo $projeto['palavraChave']; ?></li>
+            <li><strong>Área de Conhecimento:</strong> <?php echo $projeto['areaConhecimento']; ?></li>
+            <li><strong>Grupo de Pesquisa:</strong> <?php echo $projeto['grupaPesquisa']; ?></li>
+            <li><strong>Linha de Pesquisa:</strong> <?php echo $projeto['linhaPesquisa']; ?></li>
+            <li><strong>Descrição:</strong> <?php echo $projeto['descricao']; ?></li>
+            <li><strong>E-mail:</strong> <?php echo $projeto['email']; ?></li>
+            <li>
+                <strong>Membros:</strong>
+                <ul>
+                    <?php foreach ($projeto['membrosProjeto'] as $membro): ?>
+                    <li><?php echo $membro['nome']." (".$membro['caterogia'].", ".$membro['funcao'].")"; ?>)</li>
+                    <?php endforeach; ?>
+                </ul>
+            </li>
+        </ul>
+        
+    </li>
+    <br/>
     <?php endforeach; ?>
     
-</table>
-
-<?php else: ?>
-
-<div>
-    <p>Nada encontrado.</p>
-</div>
-
-<?php endif; ?>
+</ul>
