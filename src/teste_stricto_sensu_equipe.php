@@ -6,7 +6,7 @@ TODO:
 - link do docente para sua página oficial, exemplo: https://sigaa.ufrn.br/sigaa/public/docente/portal.jsf?siape=1064645
 - ou lattes
 */
-require_once("ClientOpenSIG.php");
+require_once("ClientAPIsistemas.php");
 require_once("ClientPPGP.php");
 
 $ppgp = new ClientPPGP();

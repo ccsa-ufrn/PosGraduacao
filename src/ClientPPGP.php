@@ -1,23 +1,23 @@
 <?php
 
-require_once("ClientOpenSIG.php");
-require_once(ClientOpenSIG::OAUTH_ROOT_DIR."Client.php");
-require_once(ClientOpenSIG::OAUTH_ROOT_DIR."GrantType/IGrantType.php");
-require_once(ClientOpenSIG::OAUTH_ROOT_DIR."GrantType/ClientCredentials.php");
+require_once("ClientAPIsistemas.php");
+require_once(ClientAPIsistemas::OAUTH_ROOT_DIR."Client.php");
+require_once(ClientAPIsistemas::OAUTH_ROOT_DIR."GrantType/IGrantType.php");
+require_once(ClientAPIsistemas::OAUTH_ROOT_DIR."GrantType/ClientCredentials.php");
 
 /*
 Classe de acesso fácil aos dados do PPGP recuperados do SIGAA.
 
-README: swagger dos json na wiki da OpenSIG.
+README: swagger dos json na wiki da APIsistemas.
 */
-class ClientPPGP extends ClientOpenSIG
+class ClientPPGP extends ClientAPIsistemas
 {
     /* Identificação única da unidade do programa, dado coletado manualmente via busca do SIGAA. */
     const COD_PPGP = '1672';
 
     /**
      * Construct
-     * Configura um client oauth para acessar o stricto-sensu service da OpenSIG.
+     * Configura um client oauth para acessar o stricto-sensu service da APIsistemas.
      *
      * @return void
      */
@@ -25,9 +25,9 @@ class ClientPPGP extends ClientOpenSIG
     {
         $client = new OAuth2\Client(); // wrapper terceiro
 
-        $token = $client->getAccessToken(ClientOpenSIG::TOKEN_ENDPOINT, OAuth2\Client::GRANT_TYPE_CLIENT_CREDENTIALS);
+        $token = $client->getAccessToken(ClientAPIsistemas::TOKEN_ENDPOINT, OAuth2\Client::GRANT_TYPE_CLIENT_CREDENTIALS);
         $client->setAccessToken($token['result']['access_token']);
-        $client->setAccessTokenType(OAuth2\Client::ACCESS_TOKEN_BEARER); // requerido pela opensig
+        $client->setAccessTokenType(OAuth2\Client::ACCESS_TOKEN_BEARER); // requerido pela APIsistemas
 
         $this->client = $client; // atributo
     }
@@ -39,7 +39,7 @@ class ClientPPGP extends ClientOpenSIG
      * @return array com todos a equipe conforme previsto no swagger
      */
     function equipe(){
-        $url = ClientOpenSIG::URL_SERVICE_ROOT['stricto-sensu']."consulta/equipeprograma/".ClientPPGP::COD_PPGP;
+        $url = ClientAPIsistemas::URL_SERVICE_ROOT['stricto-sensu']."consulta/equipeprograma/".ClientPPGP::COD_PPGP;
         return $this->client->fetch($url)['result'];
     }
 
@@ -49,7 +49,7 @@ class ClientPPGP extends ClientOpenSIG
      * @return array com todos os discentes conforme previsto no swagger
      */
     function discentes(){
-        $url = ClientOpenSIG::URL_SERVICE_ROOT['stricto-sensu']."consulta/discente/".ClientPPGP::COD_PPGP;
+        $url = ClientAPIsistemas::URL_SERVICE_ROOT['stricto-sensu']."consulta/discente/".ClientPPGP::COD_PPGP;
         return $this->client->fetch($url)['result'];
     }
 
@@ -59,7 +59,7 @@ class ClientPPGP extends ClientOpenSIG
      * @return array com todos os projetos conforme previsto no swagger
      */
     function projetos(){
-        $url = ClientOpenSIG::URL_SERVICE_ROOT['stricto-sensu']."consulta/projeto/".ClientPPGP::COD_PPGP;
+        $url = ClientAPIsistemas::URL_SERVICE_ROOT['stricto-sensu']."consulta/projeto/".ClientPPGP::COD_PPGP;
         return $this->client->fetch($url)['result'];
     }
 
@@ -127,7 +127,7 @@ class ClientPPGP extends ClientOpenSIG
      * @return array numérico com todos os docentes encontrados pelo nome do parâmetro
      */
     function buscaDocentePorParteDoNome($parteDoNome){
-        $url = ClientOpenSIG::URL_SERVICE_ROOT['docente']."consulta/perfilnome/".$parteDoNome;
+        $url = ClientAPIsistemas::URL_SERVICE_ROOT['docente']."consulta/perfilnome/".$parteDoNome;
         return $this->client->fetch($url)['result'];
     }
 }

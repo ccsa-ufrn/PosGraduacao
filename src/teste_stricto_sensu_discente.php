@@ -3,7 +3,7 @@
 /*
 Lista todos os discentes do PPGP
 */
-require_once("ClientOpenSIG.php");
+require_once("ClientAPIsistemas.php");
 require_once("ClientPPGP.php");
 
 $clientPPGP = new ClientPPGP();
