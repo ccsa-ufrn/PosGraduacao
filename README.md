@@ -11,6 +11,6 @@ Observe que puramente através deste repositório você não terá acesso aos da
 <p>Foi utilizada a <a href="http://www.gnu.org/licenses/gpl-2.0.en.html">GNU GPL v2</a> para os códigos aqui abertos. Clique abaixo para ver...<br/>
 <ul>
 <li>a licença <a href="LICENSE">deste sistema</a> (cópia melhor legível <a href="http://choosealicense.com/licenses/gpl-2.0/">aqui</a>); e</li>
-<li>o repositório original do <a href="https://github.com/adoy/PHP-OAuth2">wrapper PHP-OAuth2</a> que está integrado.</li>
+<li>o repositório do <a href="https://github.com/adoy/PHP-OAuth2">wrapper PHP-OAuth2</a> que está integrado aqui.</li>
 </ul>
 </p>
