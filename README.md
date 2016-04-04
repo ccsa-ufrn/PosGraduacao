@@ -4,11 +4,11 @@ Este repositório não consiste em uma aplicação completa, é apenas um conjun
 </p>
 
 <p>
-Observe que puramente através deste repositório você não terá acesso aos dados do SIGAA. Para mais informações, confira a wiki da <a href="https://www.info.ufrn.br/wikisistemas/doku.php?id=desenvolvimento:especificacoes:api_servicos">API.sistemas</a>, serviço desenvolvido e mantido pela <a href="https://info.ufrn.br/html/">Sinfo</a>. Tal entidade quem irá fornecer as credenciais de acesso para serem inseridas no arquivo <a href="/src/OAuth2/Client.php">/src/OAuth2/Client.php</a>.
+Observe que puramente através deste repositório você não terá acesso aos dados do SIGAA. Para mais informações sobre como fazer isso, confira a wiki da <a href="https://www.info.ufrn.br/wikisistemas/doku.php?id=desenvolvimento:especificacoes:api_servicos">API.sistemas</a>, serviço desenvolvido e mantido pela <a href="https://info.ufrn.br/html/">Sinfo</a>. Tal entidade quem irá fornecer as credenciais de acesso para serem colocadas no arquivo <a href="/src/OAuth2/Client.php">/src/OAuth2/Client.php</a>.
 </p>
 
 <h2>Licenças</h2>
-<p>Foi utilizada a <a href="https://opensource.org/licenses/MIT">GNU GPL v2</a> para os códigos aqui abertos. Clique abaixo para ver...<br/>
+<p>Foi utilizada a <a href="http://www.gnu.org/licenses/gpl-2.0.en.html">GNU GPL v2</a> para os códigos aqui abertos. Clique abaixo para ver...<br/>
 <ul>
 <li>a licença <a href="LICENSE">deste sistema</a> (cópia melhor legível <a href="http://choosealicense.com/licenses/gpl-2.0/">aqui</a>); e</li>
 <li>o repositório original do <a href="https://github.com/adoy/PHP-OAuth2">wrapper PHP-OAuth2</a> que está integrado.</li>
