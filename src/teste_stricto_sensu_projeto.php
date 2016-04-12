@@ -24,6 +24,7 @@ $projetos = $ppgp->projetos();
 </script>
 
 <h3>PPGP: Projetos de Pesquisa</h3>
+<hr/>
 
 <ul>
     
@@ -31,7 +32,7 @@ $projetos = $ppgp->projetos();
     
     <li id="<?php echo $projeto['idProjeto']; ?>" onclick="alternar(this)">
         
-        <a href="#"><?php echo $projeto['titulo']; ?></a>
+        <a href=""><?php echo $projeto['titulo']; ?></a>
         
         <ul id="detalhes-<?php echo $projeto['idProjeto']; ?>" style="display: none">
             <li><strong>Código:</strong> <?php echo $projeto['codPrefixo'].$projeto['codNumero']."-".$projeto['codAno']; ?></li>

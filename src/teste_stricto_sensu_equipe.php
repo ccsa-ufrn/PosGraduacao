@@ -15,6 +15,7 @@ $equipe = $ppgp->equipe();
 ?>
 
 <h3>PPGP: Equipe</h3>
+<hr/>
 
 <table style="text-align: center">
     

@@ -11,9 +11,10 @@ $discentes = isset($_GET['ano']) ? $clientPPGP->discentesPorAno($_GET['ano']) : 
 
 ?>
 
-<form method="get" action="teste_stricto_sensu_discente.php">
-    <h3>PPGP: Discentes</h3>
+<h3>PPGP: Discentes</h3>
+<hr/>
     
+<form method="get" action="teste_stricto_sensu_discente.php">    
     <label for="inAno">Buscar alunos por</label>
     <input type="number" name="ano" id="inAno" step="1" min="1960" max="<?php echo date('Y'); ?>" placeholder="ano de ingresso" value="<?php echo $_GET['ano']; ?>" required="required"/>
     
