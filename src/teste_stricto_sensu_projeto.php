@@ -20,6 +20,7 @@ $projetos = $ppgp->projetos();
         var isVisivel = objDetalhes.getAttribute("style") == "";
         
         objDetalhes.setAttribute("style", (isVisivel ? "display: none" : ""));
+        return false;
     }
 </script>
 
@@ -30,9 +31,9 @@ $projetos = $ppgp->projetos();
     
     <?php foreach ($projetos as $projeto): ?>
     
-    <li id="<?php echo $projeto['idProjeto']; ?>" onclick="alternar(this)">
+    <li id="projeto-<?php echo $projeto['idProjeto']; ?>">
         
-        <a href=""><?php echo $projeto['titulo']; ?></a>
+        <a id="<?php echo $projeto['idProjeto']; ?>" onclick="return alternar(this)" href="#"><?php echo $projeto['titulo']; ?></a>
         
         <ul id="detalhes-<?php echo $projeto['idProjeto']; ?>" style="display: none">
             <li><strong>Código:</strong> <?php echo $projeto['codPrefixo'].$projeto['codNumero']."-".$projeto['codAno']; ?></li>
