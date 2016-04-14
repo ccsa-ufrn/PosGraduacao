@@ -618,7 +618,8 @@
                     <div id="page-wrap">
 
 
-
+                        <link rel="stylesheet" href="prototipo_estilo.css" type="text/css">
+                        
                         <div class="row">
                             <div class="page-heading span12 clearfix alt-bg none">
                                 <h1>Pós-Graduação em Gestão Pública</h1>
@@ -628,12 +629,10 @@
 
                         <div class="inner-page-wrap has-no-sidebar clearfix">
 
-                            <nav class="pull-left" style="height: 610px;
-                                                          margin-right: 25px;
-                                                          background-color: #ecf0f1">
+                            <nav class="pull-left" id="menu-ppgp">
 
                                 <ul class="nav nav-pills nav-stacked">
-                                    <li style="padding-left: 12px">Sobre o PPGP</li>
+                                    <li class="h">Sobre o PPGP</li>
                                     <li><a href="prototipo_ppgp.php"><!-- Exterior icon by Icons8 -->
                                         <img class="icon icons8-Exterior" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA5klEQVRYhe3SoU4DQRSF4U9UEBQCgamvwFTxKijSB0CRijpwPAAKhUTia4rDoXiCWnSDqFjMJVkmm9ApOySlc5Irduece35xqaraXsd4wCNO/rL4EJd4RRPzhisclS4fYdEqXiTfLzgtUXyAG3xE0TsmrfdJ/Guwxm1ketE55rF8hTuMO3zjeFuF9xkXvylOF84DJgd4jXuc5RSnR7bENYYZO4aRWdriSJ98P7JRRnGqrqP9UdNWoC997ZttYh4UBBjkBvoGKBcoDdAk0+Xtmv0C2CS/uwC53gpQAf4PQN+zOwBV+6NPsaDVYBvtSzkAAAAASUVORK5CYII=" width="32" height="32"> Início</a></li>
                                     <li><a href="blablabla.php"><!-- Library icon by Icons8 -->

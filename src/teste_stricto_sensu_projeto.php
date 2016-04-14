@@ -24,16 +24,17 @@ $projetos = $ppgp->projetos();
     }
 </script>
 
+
 <h3>PPGP: Projetos de Pesquisa</h3>
 <hr/>
 
-<ul>
+<ul id="lista-projetos">
     
     <?php foreach ($projetos as $projeto): ?>
     
-    <li id="projeto-<?php echo $projeto['idProjeto']; ?>">
+    <li id="projeto-<?php echo $projeto['idProjeto']; ?>" class="lista-projetos-item">
         
-        <a id="<?php echo $projeto['idProjeto']; ?>" onclick="return alternar(this)" href="#"><?php echo $projeto['titulo']; ?></a>
+        <a class="lista-projetos-item-titulo" id="<?php echo $projeto['idProjeto']; ?>" onclick="return alternar(this)" href="#"><?php echo $projeto['titulo']; ?></a>
         
         <ul id="detalhes-<?php echo $projeto['idProjeto']; ?>" style="display: none">
             <li><strong>Código:</strong> <?php echo $projeto['codPrefixo'].$projeto['codNumero']."-".$projeto['codAno']; ?></li>
