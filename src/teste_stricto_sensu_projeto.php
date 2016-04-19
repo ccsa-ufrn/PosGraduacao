@@ -12,7 +12,6 @@ $projetos = $ppgp->projetos();
 
 <script type="text/javascript" src="alternar-visibilidades.js"></script>
 
-
 <h3>PPGP: Projetos de Pesquisa</h3>
 <hr/>
 
