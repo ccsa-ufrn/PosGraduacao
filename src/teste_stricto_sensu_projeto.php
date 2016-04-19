@@ -10,19 +10,7 @@ $ppgp = new ClientPPGP();
 $projetos = $ppgp->projetos();
 ?>
 
-<script type="text/javascript">
-    /* Altera a visibilidade dos detalhes do obj clicado 
-    PS: Gambiarra temporária */
-    function alternar(obj){
-        var idDetalhes = "detalhes-" + obj.getAttribute("id");
-        var objDetalhes = document.getElementById(idDetalhes);
-        
-        var isVisivel = objDetalhes.getAttribute("style") == "";
-        
-        objDetalhes.setAttribute("style", (isVisivel ? "display: none" : ""));
-        return false;
-    }
-</script>
+<script type="text/javascript" src="alternar-visibilidades.js"></script>
 
 
 <h3>PPGP: Projetos de Pesquisa</h3>
@@ -41,7 +29,9 @@ $projetos = $ppgp->projetos();
     
     <li id="projeto-<?php echo $projeto['idProjeto']; ?>" class="lista-projetos-item">
         
-        <a class="lista-projetos-item-titulo" id="<?php echo $projeto['idProjeto']; ?>" onclick="return alternar(this)" href="#"><?php echo $projeto['titulo']; ?></a>
+        <a class="lista-projetos-item-titulo" id="<?php echo $projeto['idProjeto']; ?>" onclick="return alternar('detalhes-<?php echo $projeto['idProjeto']; ?>')" href="#">
+            <?php echo $projeto['titulo']; ?>
+        </a>
         
         <ul id="detalhes-<?php echo $projeto['idProjeto']; ?>" style="display: none">
             <li><strong>Código:</strong> <?php echo $projeto['codPrefixo'].$projeto['codNumero']."-".$projeto['codAno']; ?></li>
