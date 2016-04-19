@@ -17,11 +17,16 @@ $discentes = isset($_GET['ano']) ? $clientPPGP->discentesPorAno($_GET['ano']) : 
 <hr/>
 
 <form method="get" action="prototipo_discentes.php">    
-    <label for="inAno">Buscar alunos por</label>
+    <label for="inAno">Especificar busca por</label>
     <input type="number" name="ano" id="inAno" step="1" min="1960" max="<?php echo date('Y'); ?>" placeholder="ano de ingresso" value="<?php echo $_GET['ano']; ?>" required="required"/>
 
-    <input type="submit" value="Filtrar"/>
-    <a href="prototipo_discentes.php"><input type="button" value="Todos"/></a>
+    <div>
+        <span>e</span>
+        <input type="submit" value="Filtrar" class="btn btn-primary"/>
+        <span>ou</span>
+        <a href="prototipo_discentes.php"><input type="button" value="Exibir todos" class="btn btn-success"/></a>
+    </div>
+
 </form>
 
 <br/>
