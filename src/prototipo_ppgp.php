@@ -662,25 +662,54 @@
 
                                 <div class="page-content clearfix">
 
-
-
                                     <h3 class="page-title">O Programa (PPGP)</h3>
                                     <hr>
-                                    <p>Administração é a área responsável pelo gerenciamento dos recursos 
-                                        humanos, materiais e financeiros de uma organização. O administrador é o
-                                        profissional responsável pelo planejamento das estratégias e pelo 
-                                        gerenciamento do dia a dia de uma empresa. Ele ajuda a definir, a 
-                                        analisar e a cumprir as metas da organização. Trabalha em praticamente 
-                                        todos os departamentos, nos quais gere recursos financeiros, materiais, 
-                                        humanos e mercadológicos. Conduz as relações entre a empresa e os 
-                                        empregados, participando dos processos de seleção, admissão e demissão 
-                                        de funcionários, e do relacionamento com os sindicatos de cada 
-                                        categoria. Implementa planos de carreira e programas de benefícios. 
-                                        Coordena, ainda, os recursos materiais da companhia, controlando a 
-                                        compra e a estocagem de matérias-primas e produtos finais. No setor 
-                                        financeiro, cuida de orçamentos e fluxo de caixa. Também se envolve com a
-                                        publicidade e o marketing, na promoção de vendas dos produtos ou 
-                                        serviços.</p>
+
+                                    <div class="">
+                                        <div class="pull-left" style="margin-right: 20px">
+                                            <strong>Endereço:</strong><br/>
+                                            Programa de Pós-Graduação em Gestão Pública<br/>
+                                            Edifício do Centro de Ciências Sociais Aplicadas<br/>
+                                            Campus Universitário - Bairro Lagoa Nova - Caixa Postal 1630<br/>
+                                            CEP: 59078-970 - NATAL/RN - BRASIL<br/>
+                                            <br/>
+                                        </div>
+                                        <div class="">
+                                            <strong>Telefone:</strong><br/>
+                                            +55 84 3342-2288 Ramal: 182<br/>
+                                            +55 84 99474-6765<br/>
+                                            <strong>E-mail:</strong> ppgp.ufrn@gmail.com<br/>
+                                            <strong>Atendimento</strong> De Segunda à Sexta-Feira<br/>
+                                            08:00 às 11:30  13:30 às 17h00.<br/>
+                                        </div>
+                                    </div>
+                                    
+                                    <h4>Apresentação</h4>
+                                    <p>O Programa de Pós-Graduação em Gestão Pública - PPGP da Universidade Federal do Rio Grande do Norte - UFRN, é parte integrante do Centro de Ciências Sociais Aplicadas - CCSA e foi criado em 2010.</p>
+                                    <p>Atualmente oferece o curso de Mestrado Profissional em Gestão Pública, em nível de pós-graduação stricto sensu, com o intuito de preparar dirigentes de instituições públicas.O Corpo Docente do Curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colaboradores.</p>
+                                    <p>O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações.</p>
+
+                                    <h4>Objetivo geral</h4>
+                                    <p>O Curso de Mestrado Profissional em Gestão Pública tem como finalidade a qualificação de quadros para a administração pública com capacidade de refletir sobre o novo papel do Estado em um contexto globalizado, com atuação em rede, com novas formas organizacionais, com múltiplos provedores e com uma sociedade mais organizada e mais escolarizada. A profissionalização dos servidores é uma necessidade do Estado e somente com profissionais com uma base teórica sólida o Estado será capaz de cumprir seu papel junto à sociedade</p>
+
+                                    <h4>Objetivos específicos</h4>
+                                    <ul>
+                                        <li>Aprimorar o conhecimento dos profissionais em gestão pública, buscando o aperfeiçoamento e a atualização nessa área;</li>
+                                        <li>Promover a valorização e o desenvolvimento de competências de gestão dos servidores públicos através do desenvolvimento de conhecimentos, atitudes e comportamentos voltados para sua atuação na gestão pública;</li>
+                                        <li>Formar uma visão atualizada da gestão pública procurando analisar o contexto atual e as últimas inovações no campo de estudo da gestão pública;</li>
+                                        <li>Fornecer conhecimentos gerenciais capazes de dar subsídios para a tomada de decisões dos servidores em um ambiente de incerteza, visando melhorar a qualidade e a efetividade do seu trabalho;</li>
+                                        <li>Formar profissionais capazes de disseminar o conhecimento no setor público a partir da reflexão sobre as práticas atuais em função do conteúdo do Curso.</li>
+                                    </ul>
+
+                                    <h4>Perfil do egresso</h4>
+                                    <p>O Mestrado Profissional em Gestão Pública propicia uma formação multidisciplinar de modo a assegurar a compreensão da complexidade das questões normativas, organizacionais e decisórias que demarcam a administração pública e a torna singular. Assegura também uma sólida formação em áreas específicas da administração pública para assegurar as condições de governança e, assim, permitir um processo de formulação, implementação e avaliação das políticas públicas em sintonia com o interesse público.  Igualmente, faz com que o mestrando domine diferentes metodologias de intervenção nos processos econômicos, sociais, políticos e administrativos.</p>
+                                    <p>O aluno formado no curso de Mestrado Profissional em Gestão Pública será um gestor público capaz de atuar em um cenário de constantes mudanças e exigências cada vez maiores quanto aos resultados do setor público, bem como no que diz respeito à transparência e accountability. A partir dos conhecimentos adquiridos espera-se que tenha capacidade para diagnosticar, analisar e tomar decisões tanto no campo da gestão organizacional como no universo das políticas públicas.</p>
+
+                                    <h4>Características do processo seletivo</h4>
+                                    <p>A seleção conta com as seguintes etapas: (1) Teste ANPAD (2) Redação, com caráter eliminatório; (3) Entrevista Técnica, realizada pela Comissão de Seleção e/ou por outros professores integrantes do PPGP. Serão contemplados aspectos relacionados às motivações e interesses acadêmicos do candidato referentes ao Curso de Mestrado Profissional em Gestão Pública, bem como será discutido seu anteprojeto de pesquisa, que poderá ser constituído por um Anteprojeto de Proposta de Intervenção ou por um Anteprojeto de Dissertação de Mestrado.</p>
+                                    <p>A <strong>Proposta de Intervenção</strong> é um documento de intenção, simplificado, de realização de mudança ou inovação administrativa em uma determinada instituição pública, objetivando melhoria de desempenho (aumento de eficiência, redução de custos, mudança social ou “accountability”). Deve conter a seguinte estrutura: <strong>Introdução</strong> (referência ao que se pretende fazer, com indicação da instituição objeto da intervenção, objetivo geral e objetivos específicos a serem alcançados); <strong>Revisão da Literatura</strong> (abordagem sumaria das fontes bibliográficas básicas, em especial daquelas ligadas diretamente ao assunto a ser abordado); <strong>Metodologia</strong> (explicitação dos métodos a serem utilizados na proposta); <strong>Modelo Atual</strong> (descrição ampla e completa de sistema particular de gestão prevalecente em uma instituição pública determinada, e que é objeto do Projeto de Intervenção, com uma informação extremamente detalhada e pormenorizada de sua forma de operacionalização e dos problemas identificados); <strong>Modelo Proposto</strong> (descrição ampla e completa de sistema particular de gestão a ser implantado em uma instituição pública determinada. com uma informação extremamente detalhada e pormenorizada de sua forma de operacionalização); <strong>Avaliação de Resultados</strong> (análise comparativa dos dois modelos – atual e proposto – com evidência explicita e fundamentada das vantagens do sistema novo sobre o antigo); <strong>Referências</strong> (fontes bibliográficas pesquisadas).</p>
+                                    <p>A <strong>Dissertação de Mestrado</strong> constitui-se em instrumento no qual o aluno deverá demonstrar domínio do tema escolhido, capacidade de sistematização de ideias e utilização de uma metodologia científica adequada. Obedecerá à seguinte estrutura: Título; Introdução; Problema e Objetivos de Pesquisa; Justificativa; Revisão da Literatura; Metodologia da Pesquisa; Cronograma; Referências.</p>
+                                    <p>O número de vagas é definido em função da capacidade de orientação de cada professor do programa e de forma a manter um processo contínuo de seleção.</p>
 
                                 </div>
 
