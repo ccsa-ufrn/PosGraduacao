@@ -30,7 +30,14 @@ $projetos = $ppgp->projetos();
 
 <ul id="lista-projetos">
     
-    <?php foreach ($projetos as $projeto): ?>
+    <?php
+    $anoAnterior = 0;
+    foreach ($projetos as $projeto):
+    ?>
+    
+    <?php if ($anoAnterior != $projeto['ano']): ?>
+    <li style="list-style-type: none; color: #fff; background-color: #2574A9; padding-left: 20px;"><?php echo $anoAnterior = $projeto['ano']; ?></li>
+    <?php endif; ?>
     
     <li id="projeto-<?php echo $projeto['idProjeto']; ?>" class="lista-projetos-item">
         
