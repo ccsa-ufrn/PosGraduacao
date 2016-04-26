@@ -663,8 +663,18 @@
 
                                 <div class="page-content clearfix">
                                     
+                                    <div id="carregando">
+                                        <p>Carregando. Aguarde...</p>
+                                    </div>
+                                    
                                     <?php include("teste_stricto_sensu_equipe.php"); ?>
-
+                                    
+                                    <script type="text/javascript">
+                                        /* Não façam isso em casa. Veio-me à cabeça fazer isso. */
+                                        document.getElementById("carregando").innerHTML = "";
+                                    </script>
+                                    
+                                    
                                 </div>
 
 
