@@ -1,8 +1,10 @@
 <?php
 
+$nomeFiltro = isset($_GET['ano']) ? $_GET['ano'] : 'Todos';
+
 define('EOL', "<br/>");
 define('URL_ROOT_DOWNLOAD', "localhost/OAuth2Client-OpenSIG-PHP/src/");
-define('TITULO', "Alunos PPGP");
+define('TITULO', "Alunos PPGP - $nomeFiltro");
 define('DESCRICAO', "Lista de contatos de alunos do Programa de Pós-Graduação em Gestão Pública.");
 
 /** Includes */

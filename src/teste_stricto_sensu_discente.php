@@ -57,6 +57,14 @@ $discentes = isset($_GET['ano']) ? $clientPPGP->discentesPorAno($_GET['ano']) : 
 
 <?php endforeach; ?>
 
+<br/>
+
+<p>Se você tiver autorização, poderá <a href="download_planilha_alunos.php<?php
+    if (isset($_GET['ano'])):
+    echo '?ano='.$_GET['ano']; 
+    endif; ?>" target="_blank">baixar esta lista</a>.</p>
+<p>Durante a fase de testes, o download é livre, pois os dados privados estão ocultos.</p>
+
 <?php else: ?>
 
 <div>
