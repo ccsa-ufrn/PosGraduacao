@@ -16,31 +16,53 @@ $client = new ClientPPGP();
 
 // propriedades
 $objPHPExcel->getProperties()->setCreator("Mazuh")
-    ->setLastModifiedBy("AssTec CCSA")
-    ->setTitle(TITULO)
-    ->setDescription(DESCRICAO);
+            ->setLastModifiedBy("AssTec CCSA")
+            ->setTitle(TITULO)
+            ->setDescription(DESCRICAO);
 
+$sheet = $objPHPExcel->setActiveSheetIndex(0);
 
-// preenche células - cabeçalho
-$objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue("A1", 'Matrícula')
-            ->setCellValue("B1", 'Nome')
-            ->setCellValue("C1", 'E-mail')
-            ->setCellValue("D1", 'Telefone')
-            ->setCellValue("E1", 'Celular');
+// estilo das células - padrão
+$styleCentralizado = array(
+    'alignment' => array(
+        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+    )
+);
 
-// preenche células - dados
+$sheet->getDefaultStyle()->applyFromArray($styleCentralizado);
+
+// estilo - largura das colunas
+$sheet->getColumnDimension('A')->setWidth(15);
+$sheet->getColumnDimension('B')->setWidth(60);
+$sheet->getColumnDimension('C')->setWidth(40);
+$sheet->getColumnDimension('D')->setWidth(30);
+$sheet->getColumnDimension('E')->setWidth(30);
+
+// estilo - cabeçalho
+$sheet->getStyle('A1')->getFont()->setBold(true);
+$sheet->getStyle('B1')->getFont()->setBold(true);
+$sheet->getStyle('C1')->getFont()->setBold(true);
+$sheet->getStyle('D1')->getFont()->setBold(true);
+$sheet->getStyle('E1')->getFont()->setBold(true);
+
+// povoamento - cabeçalho
+$sheet->setCellValue("A1", 'Matrícula');
+$sheet->setCellValue("B1", 'Nome');
+$sheet->setCellValue("C1", 'E-mail');
+$sheet->setCellValue("D1", 'Telefone');
+$sheet->setCellValue("E1", 'Celular');
+
+// povoamento - dados
 $discentes = isset($_GET['ano']) ? $client->discentesPorAno($_GET['ano']) : $client->discentes();
 
 foreach ($discentes as $key => $discente){
     $posY = $key + 2;
 
-    $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue("A$posY", $discente['matricula'])
-                ->setCellValue("B$posY", $discente['nome'])
-                ->setCellValue("C$posY", $discente['email'])
-                ->setCellValue("D$posY", 'TODO')
-                ->setCellValue("E$posY", 'TODO');
+    $sheet->setCellValue("A$posY", $discente['matricula']);
+    $sheet->setCellValue("B$posY", $discente['nome']);
+    $sheet->setCellValue("C$posY", $discente['email']);
+    $sheet->setCellValue("D$posY", 'TODO');
+    $sheet->setCellValue("E$posY", 'TODO');
 }
 
 
