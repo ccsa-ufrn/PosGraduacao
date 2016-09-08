@@ -4,7 +4,10 @@
 Lista todos os docentes do PPGP
 */
 
-require_once("ClientAPIsistemas.php");
+require_once("http://localhost/wordpress/wp-content/ppgp/ClientAPIsistemas.php");
+//require_once("http://localhost/wordpress/wp-content/ppgp/OAuth2/Client.php");
+//require_once("http://localhost/wordpress/wp-content/ppgp/ClientStrictoSensu.php");
+require_once("OAuth2/Client.php");
 require_once("ClientStrictoSensu.php");
 
 $strictoSensu = new ClientStrictoSensu(ClientStrictoSensu::COD_UNIDADE['ppgp']);
