@@ -1,1 +1,0 @@
-Adaptação do código para rodar numa página WordPress usando o plugin PHP Exec (http://priyadi.net/archives/2005/03/02/wordpress-php-exec-plugin/). Aos poucos também está sendo feita a refatoração para estar pronto para receber outras unidades além do PPGP.
