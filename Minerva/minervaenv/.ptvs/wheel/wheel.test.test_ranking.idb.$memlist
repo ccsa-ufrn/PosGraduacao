@@ -1,0 +1,14 @@
+arch
+genver
+abi
+COMBINATIONS
+make_wheel
+WheelFile
+majver
+WHEELPAT
+pyver
+WHEELS
+TestRanking
+get_supported
+sup
+unittest

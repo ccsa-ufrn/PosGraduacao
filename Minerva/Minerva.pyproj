@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>cbb0347c-3ebc-4d3b-a28c-0a079cc4b834</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectTypeGuids>{789894c7-04a9-4a11-a6b5-3f4435165112};{1b580a1a-fdb3-4b32-83e1-6407eb2722e6};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <StartupFile>runserver.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <LaunchProvider>Web launcher</LaunchProvider>
+    <OutputPath>.</OutputPath>
+    <StaticUriPattern>^/static/.*</StaticUriPattern>
+    <StaticUriRewrite>^/$(MSBuildProjectName)/static/.*</StaticUriRewrite>
+    <PythonWsgiHandler>$(MSBuildProjectName).app</PythonWsgiHandler>
+    <Name>Minerva</Name>
+    <RootNamespace>Minerva</RootNamespace>
+    <InterpreterId>{2d947795-8e27-4ad0-865d-594c8714f81b}</InterpreterId>
+    <InterpreterVersion>3.5</InterpreterVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="runserver.py" />
+    <Compile Include="Minerva\__init__.py" />
+    <Compile Include="Minerva\views.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Minerva\" />
+    <Folder Include="Minerva\static\" />
+    <Folder Include="Minerva\static\content\" />
+    <Folder Include="Minerva\static\fonts\" />
+    <Folder Include="Minerva\static\scripts\" />
+    <Folder Include="Minerva\templates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="requirements.txt" />
+    <Content Include="Minerva\static\content\bootstrap.css" />
+    <Content Include="Minerva\static\content\bootstrap.min.css" />
+    <Content Include="Minerva\static\content\site.css" />
+    <Content Include="Minerva\static\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Minerva\static\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Minerva\static\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Minerva\static\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Minerva\static\scripts\bootstrap.js" />
+    <Content Include="Minerva\static\scripts\bootstrap.min.js" />
+    <Content Include="Minerva\static\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Minerva\static\scripts\jquery-1.10.2.js" />
+    <Content Include="Minerva\static\scripts\jquery-1.10.2.min.js" />
+    <Content Include="Minerva\static\scripts\jquery-1.10.2.min.map" />
+    <Content Include="Minerva\static\scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Minerva\static\scripts\jquery.validate.js" />
+    <Content Include="Minerva\static\scripts\jquery.validate.min.js" />
+    <Content Include="Minerva\static\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Minerva\static\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Minerva\static\scripts\modernizr-2.6.2.js" />
+    <Content Include="Minerva\static\scripts\respond.js" />
+    <Content Include="Minerva\static\scripts\respond.min.js" />
+    <Content Include="Minerva\static\scripts\_references.js" />
+    <Content Include="Minerva\templates\about.html" />
+    <Content Include="Minerva\templates\contact.html" />
+    <Content Include="Minerva\templates\index.html" />
+    <Content Include="Minerva\templates\layout.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="minervaenv\">
+      <Id>{2d947795-8e27-4ad0-865d-594c8714f81b}</Id>
+      <BaseInterpreter>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</BaseInterpreter>
+      <Version>3.5</Version>
+      <Description>minervaenv (Python 64-bit 3.5)</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <LibraryPath>Lib\</LibraryPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>Amd64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
+  <!-- Specify pre- and post-build commands in the BeforeBuild and 
+       AfterBuild targets below. -->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <AutoAssignPort>True</AutoAssignPort>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
