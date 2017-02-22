@@ -22,7 +22,8 @@ named requirements.txt, and not readme.md, license nor other root repository fil
 
 And now, at this Minerva homonic subfolder, create and activate a virtual environment.
 
-$ virtualenv . 
+$ virtualenv .
+
 $ ./Scripts/activate
 
 You will notice a (Minerva) prefixing your prompt string if it worked.
@@ -34,6 +35,7 @@ If packages installation went successfully, you can now start the local server.
 Once again, change directory to another hominic subsubfolder called Minerva:
 
 $ cd Minerva
+
 $ python runserver.py
 
 Caution, most Linux distributions use binary python as python2 by default, so pay attention
