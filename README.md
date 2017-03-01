@@ -6,42 +6,38 @@ postgraduate programs at Applied Social Sciences Center
 (CCSA) in Universidade Federal do 
 Rio Grande do Norte (UFRN).
 
-Under GPL 3.
+Licensed by GPL 3.
 
-## Setting up development enviroment
+## Setting up development environment
 
-Make sure to use Python 3.5.3 and has pip and virtualenv installed.
+Make sure to use Python 3.5 and has its pip with virtualenv installed. Caution: at most Linux distributions, the command python stands for python2 binary by default, and the same happens with pip. So, below here, I type python3 and pip3 only because they're Lubuntu 16.10 default binaries for my desired versions; but these commands may be typed differently in your local machine, so just be aware of the versions that you're using here and everything should be ok (ie, if you type 'python' and your OS use python 3.5, then it's fine for you to keep typing 'python', and so on).
+
 Start by cloning this repository in a local folder and change directory to it.
 
-Already inside our (relative) root, use this command lines:
+Then, already inside our repository root, use this command lines to create and activate the virtual environment:
 
-$ cd Minerva
+```
+$ cd ./MinervaEnv
+$ python3 -m virtualenv ./
+$ source ./bin/activate
+```
 
-Do not get confused: after using the command above, if you try executing "ls", you should see a file
-named requirements.txt, and not readme.md, license nor other root repository files.
-
-And now, at this Minerva homonic subfolder, create and activate a virtual environment.
-
-$ virtualenv .
-
-$ ./Scripts/activate
+(Quick tip: if you're using a Windows, I think you should to use something like ```YOUR_LOCAL_PYTHON3_BIN_PATH/virtualenv.py ./``` and ```./Scripts/activate```)
 
 You will notice a (Minerva) prefixing your prompt string if it worked.
-And then install all required libs:
+Now install all required libs:
 
-$ pip install -r ./requirements.txt
+```
+$ pip3 install -r ./requirements.txt
+```
 
-If packages installation went successfully, you can now start the local server.
-Once again, change directory to another hominic subsubfolder called Minerva:
+If packages installation went successfully, you can now start the local server:
 
-$ cd Minerva
+```
+$ python3 runserver.py
+```
 
-$ python runserver.py
+If you did everything right, your terminal will output the URL for you to access using a web browser.
+It should be http://localhost:4444/ but read the output to be sure.
 
-Caution, most Linux distributions use binary python as python2 by default, so pay attention
-and use the required Python version at the beggining of this readme file.
-
-If you did everything fine, your terminal will output the URL for you to access using a web browser.
-By default, it's http://localhost:5555/ but read the output to be sure. 
-
-You'll see then the application running locally.
+You should see the application running locally now. And doubts, open an issue!
