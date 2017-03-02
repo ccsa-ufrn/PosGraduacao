@@ -3,10 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} - My Flask Application</title>
+    <title>Minerva{{ ': ' ~ program.name }} (UFRN)</title>
+
+    <link rel="shortcut icon" href="https://www.ccsa.ufrn.br/portal/wp-content/uploads/2014/08/favicon.fw_.png"/>
+
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
-    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <!-- <script src="/static/scripts/modernizr-2.6.2.js"></script> -->
 </head>
 
 <body>
@@ -18,13 +21,31 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand">Application name</a>
+                <a href="/" class="navbar-brand">{{ program.initials }}</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('about') }}">About</a></li>
-                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    <li><a href="{{ url_for('home') }}"> Início </a></li>
+                    <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Estrutura <span class="caret"></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('home') }}">Linhas de pesquisa</a></li>
+                            <li><a href="{{ url_for('home') }}">Disciplinas</a></li>
+                            <li><a href="{{ url_for('home') }}">Infraestrutura</a></li>
+                            <li><a href="{{ url_for('home') }}">Integração</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Equipe <span class="caret"></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('home') }}">Administradores</a></li>
+                            <li><a href="{{ url_for('home') }}">Docentes</a></li>
+                            <li><a href="{{ url_for('home') }}">Estudantes</a></li>
+                            <li><a href="{{ url_for('home') }}">Projetos de pesquisa</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{ url_for('home') }}"> Calendário </a></li>
+                    <li><a href="{{ url_for('home') }}"> Documentos </a></li>
                 </ul>
             </div>
         </div>
@@ -34,7 +55,7 @@
         {% block content %}{% endblock %}
         <hr />
         <footer>
-            <p>&copy; {{ year }} - My Flask Application</p>
+            <p>&copy; 2017 - Projeto Minerva (Centro de Ciências Sociais Aplicadas, Universidade Federal do Rio Grande do Norte)</p>
         </footer>
     </div>
 
