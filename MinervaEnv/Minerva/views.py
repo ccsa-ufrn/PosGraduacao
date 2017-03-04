@@ -7,6 +7,8 @@ from Minerva import app
 
 
 
+DEFAULT_PROGRAM_INITIALS = 'PPGP'
+
 PROGRAMS = {
     'PPGP': {
         'name': 'Gestão Pública',
@@ -60,9 +62,18 @@ PROGRAMS = {
 
 
 
+@app.route('/')
+@app.route('/home')
+@app.route('/inicio')
+def home():
+    """Render the default post graduation program page."""
+    return program(DEFAULT_PROGRAM_INITIALS)
+
+
+
 @app.route('/<string:program_initials>')
-def home(program_initials=None):
-    """Render program page."""
+def program(program_initials=None):
+    """Render a post graduation program page."""
     program_initials = program_initials.upper()
 
     if program_initials is None or not program_initials in PROGRAMS:

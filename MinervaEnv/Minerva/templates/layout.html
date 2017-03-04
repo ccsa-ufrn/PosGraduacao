@@ -14,8 +14,10 @@
 </head>
 
 <body>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
+            
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -24,7 +26,9 @@
                 </button>
                 <a href="/" class="navbar-brand">{% if program %} {{ program.initials }} {% else %} Minerva {% endif %}</a>
             </div>
+
             <div class="navbar-collapse collapse">
+                
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('page_not_found') }}"> Início </a></li>
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -59,7 +63,9 @@
                     </li>
                     <li><a href="{{ url_for('page_not_found') }}"> Acesso Privado </a></li>
                 </ul>
+
             </div>
+            
         </div>
     </div>
 
