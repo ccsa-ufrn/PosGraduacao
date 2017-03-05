@@ -2,15 +2,15 @@
 -------------------------------------------------- */
 
 body {
-    /* Set padding to keep main menu and footer places */
+    /* Set padding to protect main menu top place */
     padding-top: 50px;
-    padding-bottom: 20px;
 }
 
 .body-content {
     /* Set padding to keep content from hitting the edges */
     padding-left: 15px;
     padding-right: 15px;
+    padding-bottom: 20px;
 }
 
 
@@ -25,4 +25,26 @@ body {
 .navbar .container .navbar-header a{
     color: #FFF;
     font-weight: bold;
+}
+
+/* FOOTER
+-------------------------------------------------- */
+
+footer{
+    background-color: #96281B;
+    /* Set padding to keep content footer from hitting the edges */
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+footer p{
+    color: #fff;
+}
+
+footer p a,
+footer p a:hover
+footer p a:visited{
+    color: #bdc3c7;
 }

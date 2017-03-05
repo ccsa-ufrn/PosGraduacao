@@ -50,10 +50,11 @@
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Equipe <span class="caret"></a>
                         <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('page_not_found') }}">Projetos de pesquisa</a></li>
                             <li><a href="{{ url_for('page_not_found') }}">Administradores</a></li>
                             <li><a href="{{ url_for('page_not_found') }}">Docentes</a></li>
                             <li><a href="{{ url_for('page_not_found') }}">Estudantes</a></li>
-                            <li><a href="{{ url_for('page_not_found') }}">Projetos de pesquisa</a></li>
+                            <li><a href="{{ url_for('page_not_found') }}">Egressos</a></li>
                         </ul>
                     </li>
                     <li><a href="{{ url_for('page_not_found') }}"> Calendário </a></li>
@@ -97,11 +98,14 @@
     <div class="container body-content">
         {% block content %}{% endblock %}
         <hr/>
-        <footer>
+    </div>
+
+    <footer>
+        <div class="container">
             <p>&copy; 2017 - Minerva Project (Centro de Ciências Sociais Aplicadas, Universidade Federal do Rio Grande do Norte)</p>
             <p><a href="https://github.com/Mazuh/Minerva" target="_blank">Free source</a>, licensed by GPL3</p>
-        </footer>
-    </div>
+        </div>
+    </footer>
 
     <script src="/static/jquery3/jquery-3.1.1.js"></script>
     <script src="/static/bootstrap3/js/bootstrap.js"></script>
