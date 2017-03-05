@@ -1,21 +1,23 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt-br">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minerva {% if program %} {{ ': ' ~ program.name }} {% endif %} (UFRN)</title>
+    <title>Minerva{% if program %}{{ ': ' ~ program.initials }}{% endif %} (UFRN)</title>
 
+    <meta name="description" content="Plataforma acadêmica dos programas de pós-graduação CCSA da UFRN."/>
+    <meta name="author" content="Mazuh"/>
 
     <link rel="shortcut icon" href="https://www.ccsa.ufrn.br/portal/wp-content/uploads/2014/08/favicon.fw_.png"/>
 
     <link rel="stylesheet" type="text/css" href="/static/bootstrap3/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/site.css" />
-    
+    <link rel="stylesheet" type="text/css" href="/static/css/general.css" />
 </head>
 
 <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             
             <div class="navbar-header">
@@ -24,13 +26,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand">{% if program %} {{ program.initials }} {% else %} Minerva {% endif %}</a>
+                {% if program %}
+                <a href="/{{ program.initials }}" class="navbar-brand">{{ program.initials }}</a>
+                {% else %}
+                <a href="/" class="navbar-brand">Minerva</a>
+                {% endif %}
             </div>
 
             <div class="navbar-collapse collapse">
                 
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('page_not_found') }}"> Início </a></li>
+                    <li><a href="/{% if program %}{{ program.initials }}{% endif %}"> Início </a></li>
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Estrutura <span class="caret"></a>
                         <ul class="dropdown-menu">
@@ -58,7 +64,23 @@
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Mais Pós-Graduações <span class="caret"></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('page_not_found') }}">Gestão Pública</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Disponíveis na Minerva</li>
+                            
+                            {% for key, program_item in programs_list.items() %}
+                            {% if program_item['signedIn'] %}
+                            <li><a href="/{{ program_item['initials'] }}">{{ program_item['name'] }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Páginas externas (SIGAA)</li>                            
+
+                            {% for key, program_item in programs_list.items() %}
+                            {% if not program_item['signedIn'] %}
+                            <li><a href="/{{ program_item['initials'] }}" target="_blank">{{ program_item['name'] }}</a></li>
+                            {% endif %}
+                            {% endfor %}
                         </ul>
                     </li>
                     <li><a href="{{ url_for('page_not_found') }}"> Acesso Privado </a></li>
@@ -67,13 +89,14 @@
             </div>
             
         </div>
-    </div>
+    </nav>
 
     <div class="container body-content">
         {% block content %}{% endblock %}
         <hr />
         <footer>
-            <p>&copy; 2017 - Projeto Minerva (Centro de Ciências Sociais Aplicadas, Universidade Federal do Rio Grande do Norte)</p>
+            <p>&copy; 2017 - Minerva Project (Centro de Ciências Sociais Aplicadas, Universidade Federal do Rio Grande do Norte)</p>
+            <p><a href="https://github.com/Mazuh/Minerva" target="_blank">Free source</a>, licensed by GPL3</p>
         </footer>
     </div>
 

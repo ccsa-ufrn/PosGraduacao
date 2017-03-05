@@ -84,6 +84,7 @@ def program(program_initials=None):
     return render_template(
         'index.html',
         program=PROGRAMS[program_initials],
+        programs_list=PROGRAMS
     )
 
 
