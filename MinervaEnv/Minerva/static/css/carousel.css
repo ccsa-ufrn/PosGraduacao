@@ -12,11 +12,28 @@
     z-index: 10;
 }
 
+.carousel-caption .carousel-caption-content{
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.carousel-indicators li{
+    background-color: #D91E18;
+    border-color: #000;
+}
+
+.carousel-indicators .active{
+    background-color: #22313F;
+}
+
 .carousel .item {
     /* Declare heights because of positioning of img element */
     height: 500px;
     background-color: #777;
 }
+
 .carousel-inner > .item > img {
     position: absolute;
     top: 0;
