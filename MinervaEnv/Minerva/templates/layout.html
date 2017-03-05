@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" type="text/css" href="/static/bootstrap3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/general.css" />
+    {% block styles %}{% endblock %}
 </head>
 
 <body>
@@ -74,7 +75,7 @@
                             {% endfor %}
 
                             <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Páginas externas (SIGAA)</li>                            
+                            <li class="dropdown-header">Páginas externas (SIGAA)</li> 
 
                             {% for key, program_item in programs_list.items() %}
                             {% if not program_item['signedIn'] %}
@@ -91,9 +92,11 @@
         </div>
     </nav>
 
+    {% block precontent %}{% endblock %}
+
     <div class="container body-content">
         {% block content %}{% endblock %}
-        <hr />
+        <hr/>
         <footer>
             <p>&copy; 2017 - Minerva Project (Centro de Ciências Sociais Aplicadas, Universidade Federal do Rio Grande do Norte)</p>
             <p><a href="https://github.com/Mazuh/Minerva" target="_blank">Free source</a>, licensed by GPL3</p>

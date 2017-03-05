@@ -1,29 +1,28 @@
-﻿body {
+﻿/* GLOBAL
+-------------------------------------------------- */
+
+body {
+    /* Set padding to keep main menu and footer places */
     padding-top: 50px;
     padding-bottom: 20px;
 }
 
-/* Set padding to keep content from hitting the edges */
 .body-content {
+    /* Set padding to keep content from hitting the edges */
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-/*
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-*/
+
+/* NAVBAR
+-------------------------------------------------- */
 
 .navbar-default{
-    background: rgb(217, 30, 24);
+    background-color: #D91E18;
 }
 
 .navbar .container .navbar-nav > li > a,
 .navbar .container .navbar-header a{
-    color: #fff;
+    color: #FFF;
     font-weight: bold;
 }
