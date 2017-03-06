@@ -5,6 +5,7 @@ Routes and views for the flask application.
 from flask import render_template, redirect
 from Minerva import app
 
+import Minerva.util.keyring as keyring
 
 
 DEFAULT_PROGRAM_INITIALS = 'PPGP'
@@ -73,7 +74,17 @@ def home():
 
 @app.route('/<string:program_initials>')
 def program(program_initials=None):
-    """Render a post graduation program page."""
+    """
+    Render a post graduation program page.
+
+    Try to find which program has been requested.
+
+    If it's here: signed in Minerva, show its main page,
+    otherwise the user is redirected to that programs external web site.
+
+    If couldn't find which program has been requested, show a 404 page error.
+    """
+
     program_initials = program_initials.upper()
 
     if program_initials is None or not program_initials in PROGRAMS:
@@ -81,10 +92,18 @@ def program(program_initials=None):
     elif program_initials in PROGRAMS and not PROGRAMS[program_initials]['signedIn']:
         return redirect(PROGRAMS[program_initials]['oldURL'])
 
+
+    google_maps_api_dict = keyring.get(keyring.GOOGLE_MAPS)
+    google_maps_api_key = 'none'
+    if google_maps_api_dict is not None:
+        google_maps_api_key = google_maps_api_dict['key']
+
+
     return render_template(
         'index.html',
         program=PROGRAMS[program_initials],
-        programs_list=PROGRAMS
+        programs_list=PROGRAMS,
+        google_maps_api_key=google_maps_api_key
     )
 
 
