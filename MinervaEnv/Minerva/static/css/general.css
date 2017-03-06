@@ -13,6 +13,16 @@ body {
     padding-bottom: 20px;
 }
 
+section span{
+    font-weight: bold;
+}
+
+section header h2{
+    padding-left: 5px;
+    background-color: #3A539B;
+    color: #FFF;
+}
+
 
 /* NAVBAR
 -------------------------------------------------- */
