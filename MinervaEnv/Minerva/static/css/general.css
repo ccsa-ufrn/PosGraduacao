@@ -28,13 +28,58 @@ section header h2{
 -------------------------------------------------- */
 
 .navbar-default{
-    background-color: #D91E18;
+    background-color: #c4170c;
 }
 
 .navbar .container .navbar-nav > li > a,
-.navbar .container .navbar-header a{
+.navbar .container .navbar-header .navbar-brand{
     color: #FFF;
     font-weight: bold;
+}
+
+.navbar .container .navbar-nav .dropdown-header,
+.navbar .container .navbar-nav .dropdown .dropdown-menu li a{
+    color: #FFF; /* Should only be shown for desktop screens */
+}
+
+.navbar .container .navbar-nav .dropdown-header{
+    font-weight: bold;
+}
+
+.navbar .container .navbar-header .navbar-brand{
+    font-size: 2.5em;
+    margin-bottom: 5px;
+    margin-top: 5px; /* Vertical alignment that should appear only for desktop screens */
+}
+
+.navbar .container .dropdown-header{
+    color: #FFF;
+}
+
+@media (min-width: 768px) {
+    /* If in a desktop */
+
+    .navbar .container .navbar-nav .dropdown-header,
+    .navbar .container .navbar-nav .dropdown .dropdown-menu li a{
+        color: #000; /* Fix that coloring */
+    }
+
+    .navbar .container .navbar-header .navbar-brand{
+        margin-top: 0px; /* Fix that vertical alignment */
+    }
+
+}
+
+.navbar .navbar-toggle{
+    border-color: transparent;
+    background: none !important;
+}
+
+.navbar .navbar-toggle .icon-bar{
+    background-color: #FFF;
+    padding: 2px;
+    margin: 4px;
+    border-radius: 10px;
 }
 
 /* GOOGLE MAPS API
@@ -49,7 +94,7 @@ section header h2{
 -------------------------------------------------- */
 
 footer{
-    background-color: #96281B;
+    background-color: #c51a01;
     /* Set padding to keep content footer from hitting the edges */
     padding-left: 15px;
     padding-right: 15px;
