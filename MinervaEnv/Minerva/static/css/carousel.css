@@ -28,7 +28,7 @@
     background-color: #22313F;
 }
 
-.carousel .item {
+.carousel-inner > .item {
     /* Declare heights because of positioning of img element */
     height: 500px;
     background-color: #777;
