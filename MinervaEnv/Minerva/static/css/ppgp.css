@@ -6,6 +6,7 @@ section header h2{
     color: #FFF;
 }
 
-.schedule-table .schedule-container .schedule-container-info > h4{
+h4,
+section span{
     color: #063E5F;
 }
