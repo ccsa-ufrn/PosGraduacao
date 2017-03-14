@@ -1,0 +1,33 @@
+/* DATE
+-------------------------------------------------- */
+
+.schedule-table .schedule-container .schedule-container-date > ul{
+    list-style-type: none;
+    padding: 15px;
+    text-align: center;
+}
+
+.schedule-table .schedule-container .schedule-container-date{
+    margin-top: 0;
+}
+
+.schedule-table .schedule-container .schedule-container-date .schedule-date-day{
+    font-size: 45px;
+}
+
+.schedule-table .schedule-container .schedule-container-date .schedule-date-month{
+    font-size: 25px;
+    color: #777;
+}
+
+.schedule-table .schedule-container .schedule-container-date .schedule-date-year{
+    font-size: 20px;
+    color: #777;
+}
+
+/* INFO
+-------------------------------------------------- */
+
+.schedule-table .schedule-container .schedule-container-info > h4{
+    margin-bottom: 1px;
+}
