@@ -1,0 +1,11 @@
+/* (re)color some stuff due to academic field */
+
+section header h2{
+    padding-left: 5px;
+    background-color: #063E5F;
+    color: #FFF;
+}
+
+.schedule-table .schedule-container .schedule-container-info > h4{
+    color: #063E5F;
+}
