@@ -2,7 +2,7 @@
 
 section header h2{
     padding-left: 5px;
-    background-color: #063E5F;
+    background-color: #99b333;
     color: #FFF;
 }
 
@@ -10,3 +10,13 @@ h4,
 section span{
     color: #063E5F;
 }
+/*
+.carousel-caption .carousel-caption-content{
+    background-color: rgba(254, 214, 146, 0.7);
+}
+*/
+/*
+body{
+    background-color: #fed591;
+}
+*/
