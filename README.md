@@ -22,9 +22,9 @@ $ python3 -m virtualenv ./
 $ source ./bin/activate
 ```
 
-(Quick tip: if you're using a Windows, I think you should to use something like ```YOUR_LOCAL_PYTHON3_BIN_PATH/virtualenv.py ./``` and ```./Scripts/activate```)
+(Quick tip: if you're using a Windows, instead of ```./bin/activate``` then look for ```./Scripts/activate.bat``` that doesn't even need 'python' to run since .bat is a regular Win script)
 
-You will notice a (Minerva) prefixing your prompt string if it worked.
+You will notice a ```(Minerva)``` prefixing your prompt string if it worked.
 Now install all required libs:
 
 ```
