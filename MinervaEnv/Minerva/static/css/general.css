@@ -1,4 +1,4 @@
-﻿/* GLOBAL
+/* GLOBAL
 -------------------------------------------------- */
 
 body {
@@ -26,7 +26,7 @@ section header h2{
 -------------------------------------------------- */
 
 .navbar-default{
-    background-color: #c4170c;
+    background-color: #F05648;
 }
 
 .navbar .container .navbar-nav > li > a,
@@ -92,7 +92,7 @@ section header h2{
 -------------------------------------------------- */
 
 footer{
-    background-color: #c51a01;
+    background-color: #D2382A;
     /* Set padding to keep content footer from hitting the edges */
     padding-left: 15px;
     padding-right: 15px;
