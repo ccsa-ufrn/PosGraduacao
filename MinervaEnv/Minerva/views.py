@@ -6,6 +6,7 @@ from flask import render_template, redirect
 from Minerva import app
 
 import Minerva.util.keyring as keyring
+import Minerva.util.apisistemas_oauth2client as api_sistemas
 
 
 DEFAULT_PROGRAM_INITIALS = 'PPGP'
@@ -98,10 +99,15 @@ def program(program_initials=None):
     if google_maps_api_dict is not None:
         google_maps_api_key = google_maps_api_dict['key']
 
-
+    if api_sistemas.gen_acess_token():
+        print("foi")
+    else:
+        print("não foi")
+    print(api_sistemas.access_token)
     return render_template(
         'index.html',
         program=PROGRAMS[program_initials],
+        token_test_type=api_sistemas.access_token,
         programs_list=PROGRAMS,
         google_maps_api_key=google_maps_api_key
     )
