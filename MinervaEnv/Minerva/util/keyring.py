@@ -12,9 +12,10 @@ import logging
 # json file where the api keys should be organized
 ENV_FILE_PATH = 'Minerva/env/api_keys.json'
 
-# json will be converted to dict, and as py dicts (like json, btw) need
-# identification keys for each element, the available ones will be listed here,
+# the json content will be converted to py dict, and json content has identification 
+# keys for each element, the available ones will be listed here as constants:
 GOOGLE_MAPS = 'google_maps_js_api'
+SINFO_API = 'sinfo_api_sistemas'
 
 
 
@@ -44,14 +45,14 @@ def get(id_key):
         logging.error('IO Error when trying to read ' + ENV_FILE_PATH)
         return None
 
-    # decoding content into a py dict
+    # decoding full content into a py dict
     try:
         full_json = json.loads(keys_file_content)
     except json.decoder.JSONDecodeError:
         logging.error('Failed to decode json from ' + ENV_FILE_PATH)
         return None
 
-    # finding the wanted api object
+    # retrieving only the wanted api object
     try:
         return full_json[id_key]
     except KeyError:
