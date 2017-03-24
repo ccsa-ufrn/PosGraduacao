@@ -5,12 +5,15 @@ This is just a model for the real json stored at '../env' directory.
 keep only the neat json.
 - Caution: do not include the real directory in version control,
 so keep 'env' gitignore.
-- Despite this security measure, the real keys should only work 
-work for a certain IP.
+- Despite this silly security measure, the real keys should only work 
+work for certain IP conditions.
 */
-
 {
     "google_maps_js_api": {
         "key": "secret"
+    },
+    "sinfo_api_sistemas":{
+        "client-id": "secret",
+        "client-secret": "secret"
     }
 }
