@@ -93,21 +93,17 @@ def program(program_initials=None):
     elif program_initials in PROGRAMS and not PROGRAMS[program_initials]['signedIn']:
         return redirect(PROGRAMS[program_initials]['oldURL'])
 
-
+    # query google maps api
     google_maps_api_dict = keyring.get(keyring.GOOGLE_MAPS)
-    google_maps_api_key = 'none'
-    if google_maps_api_dict is not None:
-        google_maps_api_key = google_maps_api_dict['key']
+    google_maps_api_key = google_maps_api_dict['key'] if google_maps_api_dict is not None else 'none'
 
-    if api_sistemas.gen_acess_token():
-        print("foi")
-    else:
-        print("não foi")
-    print(api_sistemas.access_token)
+    # query sinfo api
+    token = api_sistemas.gen_acess_token()
+    
     return render_template(
         'index.html',
         program=PROGRAMS[program_initials],
-        token_test_type=api_sistemas.access_token,
+        test=token,
         programs_list=PROGRAMS,
         google_maps_api_key=google_maps_api_key
     )

@@ -44,12 +44,9 @@ SIGAA_PROGRAM_CODES = {
     'PPGP': '1672'
 }
 
-# local variables
-access_token = ""
 
 
-
-def hasClientCredentials():
+def has_client_credentials():
     """
     Return True if credentials retrieving went ok, 
     and False if they're None or raised an Excepton.
@@ -60,13 +57,14 @@ def hasClientCredentials():
 
 def gen_acess_token():
     """
-    Retrieving access_token and refresh_token from Token API.
-    Return True if the data string (the token) could be successfuly retrieved
-    and has been stored in the local variable, 
-    and False if it could not be done.
+    Retrieve access_token as a json and convert it to dict in a global variable.
+    Return the data string (only the token itself) if it could be retrieved (successfully or not), 
+    and False if it could not be done due to lack of credentials.
+    TODO: better exception handling for situations where server could not respond
+    or the application access has been somehow denied.
     """
     
-    if not hasClientCredentials():
+    if not has_client_credentials():
         return False
     
     access_token_request = {
@@ -77,10 +75,7 @@ def gen_acess_token():
     #content_length=len(urlencode(access_token_req))
     #access_token_request['content-length'] = str(content_length)
 
-    #full_return = requests.post(TOKEN_ENDPOINT, data=access_token_request)
-    full_return = requests.post(TOKEN_ENDPOINT+'?client_id='+CLIENT_ID+'&client_secret'+CLIENT_SECRET+'&grant_type=client_credentials')
-    #json_data = json.loads(full_return.text)
-    
-    access_token = type(full_return)
-    return True
+    returned_data = requests.post(TOKEN_ENDPOINT, data=access_token_request)
+    dict_data = json.loads(returned_data.text)
+    return dict_data['access_token']
 
