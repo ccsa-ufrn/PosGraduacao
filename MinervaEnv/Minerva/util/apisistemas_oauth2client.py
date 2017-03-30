@@ -19,6 +19,7 @@ import logging
 from . import keyring
 
 
+
 # try to get security keys to access APISistemas
 sinfo_api_dict = keyring.get(keyring.SINFO_API)
 
@@ -46,7 +47,7 @@ SIGAA_PROGRAM_CODES = {
 
 
 
-def has_client_credentials():
+def has_app_credentials():
     """
     Return True if credentials retrieving went ok, 
     and False if they're None or raised an Excepton.
@@ -55,7 +56,7 @@ def has_client_credentials():
 
 
 
-def gen_acess_token():
+def retrieve_token():
     """
     Retrieve access_token as a json and convert it to dict in a global variable.
     Return the data string (only the token itself) if it could be retrieved (successfully or not), 
@@ -64,7 +65,7 @@ def gen_acess_token():
     or the application access has been somehow denied.
     """
     
-    if not has_client_credentials():
+    if not has_app_credentials():
         return False
     
     access_token_request = {
