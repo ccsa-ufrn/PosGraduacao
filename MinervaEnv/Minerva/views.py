@@ -86,6 +86,7 @@ def program(program_initials=None):
     If couldn't find which program has been requested, show a 404 page error.
     """
 
+    # find program's data to render the right page
     program_initials = program_initials.upper()
 
     if program_initials is None or not program_initials in PROGRAMS:
@@ -96,17 +97,26 @@ def program(program_initials=None):
     # query google maps api
     google_maps_api_dict = keyring.get(keyring.GOOGLE_MAPS)
     google_maps_api_key = google_maps_api_dict['key'] if google_maps_api_dict is not None else 'none'
-
-    # query sinfo api
-    token = api_sistemas.gen_acess_token()
     
+    # ready... fire!
     return render_template(
         'index.html',
         program=PROGRAMS[program_initials],
-        test=token,
         programs_list=PROGRAMS,
         google_maps_api_key=google_maps_api_key
     )
+
+
+
+@app.route('/login')
+def login():
+    return redirect(api_sistemas.user_authorization_url())
+
+
+
+@app.route('/dashboard')
+def dashboard(code=None):
+    return program('PPGP')
 
 
 

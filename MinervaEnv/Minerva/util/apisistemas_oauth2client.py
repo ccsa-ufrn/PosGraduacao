@@ -10,7 +10,7 @@ Thanks to who did this OAuth Client original code:
 I did a lot of modifications, but I had no idea from where to begin, and the codes above helped me so much.
 """
 
-import requests
+import requests # To read: http://docs.python-requests.org/en/master/user/quickstart/
 import json
 
 #from urllib3 import urlencode
@@ -59,24 +59,42 @@ def has_app_credentials():
 def retrieve_token():
     """
     Retrieve access_token as a json and convert it to dict in a global variable.
+    
     Return the data string (only the token itself) if it could be retrieved (successfully or not), 
-    and False if it could not be done due to lack of credentials.
+    and None if it could not be done due to lack of credentials.
     TODO: better exception handling for situations where server could not respond
     or the application access has been somehow denied.
     """
     
     if not has_app_credentials():
-        return False
+        return None
     
-    access_token_request = {
+    query_params = {
         'client_id'     : CLIENT_ID,
         'client_secret' : CLIENT_SECRET,
         'grant_type'    : 'client_credentials',
     }
-    #content_length=len(urlencode(access_token_req))
-    #access_token_request['content-length'] = str(content_length)
 
-    returned_data = requests.post(TOKEN_ENDPOINT, data=access_token_request)
+    returned_data = requests.post(TOKEN_ENDPOINT, data=query_params)
     dict_data = json.loads(returned_data.text)
-    return dict_data['access_token']
+    return dict_data['access_token'] # what is the return type if json cannot be loaded?
+
+
+
+def user_authorization_url():
+    """
+    Assemble (and return) URL for this application redirect (GET) to the authentication server.
+    
+    Return the URL string if it could be assembled, 
+    and None if it could not be done due to lack of credentials.
+    """
+    
+    if not has_app_credentials():
+        return None
+    
+    query_params_str  = '?client_id='+CLIENT_ID
+    query_params_str += '&response_type=code'
+    query_params_str += '&redirect_uri=http://localhost:4444/dashboard' # sinfo's servers cant find 'localhost'
+
+    return AUTHORIZATION_ENDPOINT + query_params_str
 
