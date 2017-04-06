@@ -2,8 +2,10 @@
 
 section header h2{
     padding-left: 5px;
-    background-color: #99b333;
-    color: #FFF;
+    color: #000;
+    border-bottom: 2px solid #99b333;
+    /*background-color: #99b333;
+    color: #FFF;*/
 }
 
 h4,
