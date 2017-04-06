@@ -40,7 +40,7 @@ URL_SERVICES = {
     'docente'       : API_URL_ROOT + 'docente-services/services/',
 }
 
-# post graduation numerical codes from SIGAA(.ufrn.br) database
+# post-graduation numerical codes from SIGAA(.ufrn.br) database
 SIGAA_PROGRAM_CODES = {
     'PPGP': '1672'
 }
@@ -84,6 +84,7 @@ def retrieve_token():
 def user_authorization_url():
     """
     Assemble (and return) URL for this application redirect (GET) to the authentication server.
+    WARNING: If you're running in local host, Sinfo's servers won't be able to find "localhost".
     
     Return the URL string if it could be assembled, 
     and None if it could not be done due to lack of credentials.
@@ -94,7 +95,7 @@ def user_authorization_url():
     
     query_params_str  = '?client_id='+CLIENT_ID
     query_params_str += '&response_type=code'
-    query_params_str += '&redirect_uri=http://localhost:4444/dashboard' # sinfo's servers cant find 'localhost'
+    query_params_str += '&redirect_uri=http://localhost:4444/dashboard'
 
     return AUTHORIZATION_ENDPOINT + query_params_str
 

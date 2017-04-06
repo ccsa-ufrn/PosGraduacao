@@ -7,6 +7,7 @@ from Minerva import app
 
 if __name__ == '__main__':
     HOST = environ.get('SERVER_HOST', 'localhost')
+    #HOST = '0.0.0.0' # makes it visible for local network, use ipconfig (cmd win) to see public IP (isn't 0.0.0.0)
     try:
         PORT = int(environ.get('SERVER_PORT', '4444'))
     except ValueError:
