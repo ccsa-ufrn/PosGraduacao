@@ -38,27 +38,34 @@
                 
                 <ul class="nav navbar-nav">
                     <li><a href="/{% if program %}{{ program.initials }}{% endif %}"> Início </a></li>
+                        
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Estrutura <span class="caret"></a>
+                        Acadêmico <span class="caret"></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('page_not_found') }}">Linhas de pesquisa</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Ensino</li>
                             <li><a href="{{ url_for('page_not_found') }}">Disciplinas</a></li>
-                            <li><a href="{{ url_for('page_not_found') }}">Infraestrutura</a></li>
-                            <li><a href="{{ url_for('page_not_found') }}">Integração</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Equipe <span class="caret"></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('page_not_found') }}">Projetos de pesquisa</a></li>
-                            <li><a href="{{ url_for('page_not_found') }}">Administradores</a></li>
                             <li><a href="{{ url_for('page_not_found') }}">Docentes</a></li>
-                            <li><a href="{{ url_for('page_not_found') }}">Estudantes</a></li>
+                            <li><a href="{{ url_for('page_not_found') }}">Discentes</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Pesquisa</li>
+                            <li><a href="{{ url_for('page_not_found') }}">Projetos</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Extensão</li>
+                            <li><a href="{{ url_for('page_not_found') }}">Eventos</a></li>
                             <li><a href="{{ url_for('page_not_found') }}">Egressos</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ url_for('page_not_found') }}"> Calendário </a></li>
-                    <li><a href="{{ url_for('page_not_found') }}"> Documentos </a></li>
+                        
+                    <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Coordenação <span class="caret"></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('page_not_found') }}">Equipe</a></li>
+                            <li><a href="{{ url_for('page_not_found') }}">Documentos</a></li>
+                            <li><a href="{{ url_for('page_not_found') }}">Convênios</a></li>
+                        </ul>
+                    </li>
+                        
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
