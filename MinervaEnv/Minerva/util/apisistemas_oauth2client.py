@@ -1,13 +1,8 @@
 """
-A simple OAuth 2 Client.
+A simple OAuth 2 Client for API Sistemas.
 
 For more details about what was needed to build this script, check out APISistemas doc:
 https://api.ufrn.br/
-
-Thanks to who did this OAuth Client original code:
-@ymotongpoo (who did it in Python, basead in a Java code): https://gist.github.com/ymotongpoo/1907281
-@shin1ogawa (who did it in Java): https://gist.github.com/shin1ogawa/1899391
-I did a lot of modifications, but I had no idea from where to begin, and the codes above helped me so much.
 """
 
 import requests # To read: http://docs.python-requests.org/en/master/user/quickstart/
@@ -40,11 +35,6 @@ URL_SERVICES = {
     'docente'       : API_URL_ROOT + 'docente-services/services/',
 }
 
-# post-graduation numerical codes from SIGAA(.ufrn.br) database
-SIGAA_PROGRAM_CODES = {
-    'PPGP': '1672'
-}
-
 
 
 def has_app_credentials():
@@ -56,6 +46,22 @@ def has_app_credentials():
 
 
 
+def get_public_data(resource_url):
+    """
+    Use a token to access public data from API.
+    TEST: get_public_data('http://apitestes.info.ufrn.br/stricto-sensu-services/services/consulta/discente/1672')
+    
+    Returns the expected json (check API Sistemas web site and its Swagger) as a Python Dictionary.
+    """
+    headers = {
+        'Authorization' : 'Bearer ' + retrieve_token(),
+    }
+    
+    returned_data = requests.get(resource_url, headers=headers)
+    dict_data = json.loads(returned_data.text)
+    return dict_data
+
+
 def retrieve_token():
     """
     Retrieve access_token as a json and convert it to dict in a global variable.
@@ -64,6 +70,7 @@ def retrieve_token():
     and None if it could not be done due to lack of credentials.
     TODO: better exception handling for situations where server could not respond
     or the application access has been somehow denied.
+    TODO: better management for the retrieved token, what's the returned 'expires_in' about?
     """
     
     if not has_app_credentials():
