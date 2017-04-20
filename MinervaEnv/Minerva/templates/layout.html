@@ -37,44 +37,84 @@
             <div class="navbar-collapse collapse">
                 
                 <ul class="nav navbar-nav">
-                    <li><a href="/{% if program %}{{ program.initials }}{% endif %}"> Início </a></li>
+                    <li><a href="/{% if program %}{{ program.initials }}{% endif %}"> 
+                        <span class="glyphicon glyphicon-home"></span> Início </a></li>
                         
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Acadêmico <span class="caret"></a>
+                        <span class="glyphicon glyphicon-education"></span> Acadêmico <span class="caret"></a>
                         <ul class="dropdown-menu">
+                            
                             <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Ensino</li>
-                            <li><a href="{{ url_for('page_not_found') }}">Disciplinas</a></li>
-                            <li><a href="{{ url_for('page_not_found') }}">Docentes</a></li>
-                            <li><a href="{{ url_for('page_not_found') }}">Discentes</a></li>
+                            
+                            <li><a href="{{ url_for('page_not_found') }}">
+                                <span class="glyphicon glyphicon-blackboard"></span> Disciplinas</a>
+                            </li>
+                            
+                            <li><a href="{{ url_for('page_not_found') }}">
+                                <span class="glyphicon glyphicon-list-alt"></span> Discentes</a>
+                            </li>
+                            
+                            <li><a href="{{ url_for('page_not_found') }}">
+                                <span class="glyphicon glyphicon-apple"></span> Docentes</a>
+                            </li>
+                            
                             <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Pesquisa</li>
-                            <li><a href="{{ url_for('page_not_found') }}">Projetos</a></li>
+                            
+                            <li><a href="{{ url_for('page_not_found') }}">
+                                <span class="glyphicon glyphicon-search"></span> Projetos</a>
+                            </li>
+                            
                             <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Extensão</li>
-                            <li><a href="{{ url_for('page_not_found') }}">Eventos</a></li>
-                            <li><a href="{{ url_for('page_not_found') }}">Egressos</a></li>
+                            
+                            <li><a href="{{ url_for('page_not_found') }}">
+                                <span class="glyphicon glyphicon-globe"></span> Eventos</a>
+                            </li>
+                            
+                            <li><a href="{{ url_for('page_not_found') }}">
+                                <span class="glyphicon glyphicon-briefcase"></span> Egressos</a>
+                            </li>
                         </ul>
                     </li>
                         
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Coordenação <span class="caret"></a>
+                        <span class="glyphicon glyphicon-leaf"></span> Coordenação <span class="caret"></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('page_not_found') }}">Equipe</a></li>
-                            <li><a href="{{ url_for('page_not_found') }}">Documentos</a></li>
-                            <li><a href="{{ url_for('page_not_found') }}">Convênios</a></li>
+                            <li><a href="{{ url_for('page_not_found') }}">
+                                <span class="glyphicon glyphicon-knight"></span> Equipe</a>
+                            </li>
+                            
+                            <li><a href="{{ url_for('page_not_found') }}">
+                                <span class="glyphicon glyphicon-file"></span> Documentos</a>
+                            </li>
+                            
+                            <li><a href="{{ url_for('page_not_found') }}">
+                                <span class="glyphicon glyphicon-gift"></span> Convênios</a>
+                            </li>
+                            
+                            
+                            <li><a href="{{ url_for('page_not_found') }}">
+                                <span class="glyphicon glyphicon-calendar"></span> Calendário</a>
+                            </li>
                         </ul>
                     </li>
                         
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ url_for('page_not_found') }}"> Portal do CCSA </a></li>
+                    <li><a href="{{ url_for('page_not_found') }}">
+                        <span class="glyphicon glyphicon-arrow-left"></span> Portal do CCSA </a></li>
+                    
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Mais Pós-Graduações <span class="caret"></a>
+                        <span class="glyphicon glyphicon-random"></span> Mais Pós-Graduações <span class="caret"></a>
                         <ul class="dropdown-menu">
+                            
                             <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Disponíveis na Minerva</li>
+                            <li class="dropdown-header">Disponíveis na Minerva 
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                            </li>
                             
                             {% for key, program_item in programs_list.items() %}
                             {% if program_item['signedIn'] %}
@@ -83,7 +123,9 @@
                             {% endfor %}
 
                             <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Páginas externas (SIGAA)</li> 
+                            <li class="dropdown-header">Páginas externas (SIGAA)
+                                <span class="glyphicon glyphicon-link"></span>
+                            </li> 
 
                             {% for key, program_item in programs_list.items() %}
                             {% if not program_item['signedIn'] %}
@@ -92,7 +134,7 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li><a href="{{ url_for('login') }}"> Acesso Privado </a></li>
+                    <li><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Entrar </a></li>
                 </ul>
 
             </div>
