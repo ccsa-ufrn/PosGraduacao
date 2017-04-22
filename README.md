@@ -10,18 +10,19 @@ Licensed by GPL 3.
 
 ## Setting up development environment
 
-Make sure to use Python 3.5 and has its pip with virtualenv installed. Caution: at most Linux distributions, the 
-command python stands for python2 binary by default, and the same happens with pip. If're a Linux user, type
-```python --version``` and ```pip --version``` to check the if Python is 3.5 and its Pip is a 3.5 library.
-If you're a Windows or Mac user, then Google it (sorry about that). I'll give you a second tip: if
-there's already a Python installed by default in your system, do not try to change its standard version, it will
-probably confuse your system -- eg., my Ubuntu has Python 2 by default (```python --version``` outputs 2.7), so 
-I installed Python 3 here for development purposes, but I would never try to change my default ```python``` to
-3.5 version, because my system needs its standard Python interpreter typed just like that, so I have installed my
-Python 3 as ```python3```. Once I activate my Virtual Environment (see the workflow below), I can check
-both my ```pip```and ```python``` versions, and they're now isolated from my operational system and are currently
-standing for 3.5 (run the commands again and read the output to be sure). A third tip: having virtualenv
-installed by pip from Python2 library doesn't mean you have virtualenv installed by pip3 from Python3 too.
+Make sure to use Python 3.5 and has its pip with virtualenv installed. Caution: at most Linux distributions,
+the command ```python``` stands for python2 binary by default, and the same happens with ```pip```. 
+If you're a Linux user, type ```python --version``` and ```pip --version``` to check if Python is
+ 3.5 and its Pip is a 3.5 library. If you're a Windows or Mac user, then Google it (sorry about that).
+ I'll give you a second tip: if there's already a Python installed by default in your system, do not
+ try to change its standard version, it will probably confuse your system -- eg., my Ubuntu has Python
+ 2 by default (```python --version``` outputs 2.7), so I installed Python 3 here for development purposes,
+ but I would never try to change my default ```python``` to 3.5 version, because my system needs its
+ standard Python interpreter typed just like that, so I have installed my Python 3 as ```python3```.
+ Once I activate my Virtual Environment (see the workflow below), I can check both my ```pip```and
+ ```python``` versions, and they're now isolated from my operational system and are currently standing
+ for 3.5 (run the commands again and read the output to be sure). A third tip: having virtualenv
+ installed by pip from Python2 library doesn't mean you have virtualenv installed by pip3 from Python3 too.
 
 Start by cloning this repository in a local folder and change directory to it.
 
