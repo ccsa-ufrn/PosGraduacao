@@ -4,9 +4,10 @@ This is just a model for the real json stored at '../env' directory.
 - Do not write any comments (like this one) in '../env/api_keys.json', so
 keep only the neat json.
 - Caution: do not include the real directory in version control,
-so keep 'env' gitignore.
+so keep 'env' gitignored.
 - Despite this silly security measure, the real keys should only work 
 work for certain IP conditions.
+- This is temporary.
 */
 {
     "google_maps_js_api": {
