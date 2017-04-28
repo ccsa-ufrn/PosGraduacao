@@ -19,12 +19,19 @@ DB = __DB_CLIENT[__DB_NAME]
 class RepositoryBase(object):
     """
     Describes methods for each model do its own implementation.
-    The method names are based and on MongoDB functions.
+    And each model should stand for a MongoDB collection.
+    So method names are based and on MongoDB functions.
     """
 
-    def __init__(self):
+    def __init__(self, document_id=None):
         """
-        This constructor must be implemented in RepositoryBase subclasses only.
+        (This constructor must be implemented in RepositoryBase subclasses only.)
+        Create an instance for this model, that stands for a certain object from
+        the module collection.
+
+        Calls a find_by_id, if an id param was been given, to fill this instance attributes
+        with data from finded document, otherwise it's just an empty instance for, maybe, you
+        to use some of finding methods.
         """
         raise NotImplementedError("Tried to create an instance of an abstract class.")
 
