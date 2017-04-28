@@ -19,6 +19,7 @@ DB = __DB_CLIENT[__DB_NAME]
 class RepositoryBase(object):
     """
     Describes methods for each model do its own implementation.
+    The method names are based and on MongoDB functions.
     """
 
     def __init__(self):
@@ -29,7 +30,7 @@ class RepositoryBase(object):
 
 
 
-    def get_all(self):
+    def find_all(self):
         """
         Gets all the documents from the collection.
         """
@@ -37,7 +38,7 @@ class RepositoryBase(object):
 
 
 
-    def get_by_id(self):
+    def find_by_id(self, document_id):
         """
         Gets the document with the id field provided.
         """
@@ -45,32 +46,37 @@ class RepositoryBase(object):
 
 
 
-    def filter(self):
+    def find_by_filter(self, conditions):
         """
-        Filter the documents with provided conditions.
-        """
-        raise NotImplementedError("Tried to call an abstract function without implement.")
-
-
-
-    def save(self):
-        """
-        Insert a document to the table.
+        Filter the documents with provided conditions as a dictionary representing the
+        filter json and returns an array of instances for this model.
         """
         raise NotImplementedError("Tried to call an abstract function without implement.")
 
 
 
-    def update_by_id(self):
+    def insert(self):
         """
-        Update an existing document.
+        Insert this document into the collection and returns its new id if it worked,
+        otherwise False.
         """
         raise NotImplementedError("Tried to call an abstract function without implement.")
 
 
 
-    def delete_by_id(self):
+    def update(self):
         """
-        Logical delete a document by its id.
+        Update this document by its id in the collection and returns True if it worked,
+        otherwise False.
+        """
+        raise NotImplementedError("Tried to call an abstract function without implement.")
+
+
+
+    def delete(self):
+        """
+        Logical delete this document from the collection by its id, and returns True if
+        it could be done, False otherwise. So, the document still recorded at persistence,
+        but can no longer be retrieved using regular CRUD methods.
         """
         raise NotImplementedError("Tried to call an abstract function without implement.")
