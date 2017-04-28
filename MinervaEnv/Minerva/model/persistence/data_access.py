@@ -22,7 +22,6 @@ class DAO(object):
 
 
 
-
     def __init__(self, collection: str):
         """
         Initialize a data access object for a given collection from
