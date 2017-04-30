@@ -1,5 +1,5 @@
 """
-Routes and views for the flask application.
+Routes and views (actually, they're controllers!) for this flask application.
 """
 
 from flask import render_template, redirect
@@ -7,60 +7,11 @@ from Minerva import app
 
 import Minerva.util.keyring as keyring
 import Minerva.util.apisistemas_oauth2client as api_sistemas
+import Minerva.persistence.factory as factory
 
 
-DEFAULT_PROGRAM_INITIALS = 'PPGP'
 
-PROGRAMS = {
-    'PPGP': {
-        'name': 'Gestão Pública',
-        'initials': 'PPGP',
-        'signedIn': True,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=5679'
-    },
-    'PPGA': {
-        'name': 'Administração',
-        'initials': 'PPGA',
-        'signedIn': False,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=74'
-    },
-    'PPGCC': {
-        'name': 'Ciências Contábeis',
-        'initials': 'PPGCC',
-        'signedIn': False,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=9066'
-    },
-    'PPGD': {
-        'name': 'Direito',
-        'initials': 'PPGD',
-        'signedIn': False,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=404'
-    },
-    'PPGECO': {
-        'name': 'Economia',
-        'initials': 'PPGECO',
-        'signedIn': False,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=434'
-    },
-    'PPGPGIC': {
-        'name': 'Gestão da Informação e do Conhecimento',
-        'initials': 'PPGIC',
-        'signedIn': False,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=9196'
-    },
-    'PPGSS': {
-        'name': 'Serviço Social',
-        'initials': 'PPGSS',
-        'signedIn': False,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=376'
-    },
-    'PPGTUR': {
-        'name': 'Turismo',
-        'initials': 'PPGTUR',
-        'signedIn': False,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=4295'
-    }
-}
+DEFAULT_POST_GRADUATION_INITIALS = 'PPGP'
 
 
 
@@ -69,12 +20,12 @@ PROGRAMS = {
 @app.route('/inicio')
 def home():
     """Render the default post graduation program page."""
-    return program(DEFAULT_PROGRAM_INITIALS)
+    return program(DEFAULT_POST_GRADUATION_INITIALS)
 
 
 
-@app.route('/<string:program_initials>')
-def program(program_initials=None):
+@app.route('/<string:initials>')
+def program(initials=DEFAULT_POST_GRADUATION_INITIALS):
     """
     Render a post graduation program page.
 
@@ -86,23 +37,33 @@ def program(program_initials=None):
     If couldn't find which program has been requested, show a 404 page error.
     """
 
-    # find program's data to render the right page
-    program_initials = program_initials.upper()
+    # search some documents for post graduation data
+    post_graduation_dao = factory.post_graduation_dao()
+    initials = initials.upper()
+    post_graduation = post_graduation_dao.find_one({'initials': initials})
+    post_graduations_registered = post_graduation_dao.find({'isSignedIn': True})
+    post_graduations_unregistered = post_graduation_dao.find({'isSignedIn': False})
 
-    if program_initials is None or not program_initials in PROGRAMS:
+    # renders an own page or redirect to another (external/404)?
+    if post_graduation is None:
         return page_not_found()
-    elif program_initials in PROGRAMS and not PROGRAMS[program_initials]['signedIn']:
-        return redirect(PROGRAMS[program_initials]['oldURL'])
+
+    if not post_graduation['isSignedIn']:
+        return redirect(post_graduation['oldUrl'])
 
     # query google maps api
     google_maps_api_dict = keyring.get(keyring.GOOGLE_MAPS)
-    google_maps_api_key = google_maps_api_dict['key'] if google_maps_api_dict is not None else 'none'
-    
+
+    google_maps_api_key = 'none'
+    if google_maps_api_dict is not None:
+        google_maps_api_key = google_maps_api_dict['key']
+
     # ready... fire!
     return render_template(
         'index.html',
-        program=PROGRAMS[program_initials],
-        programs_list=PROGRAMS,
+        post_graduation=post_graduation,
+        post_graduations_registered=post_graduations_registered,
+        post_graduations_unregistered=post_graduations_unregistered,
         google_maps_api_key=google_maps_api_key
     )
 

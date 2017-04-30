@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minerva{% if program %}{{ ': ' ~ program.initials }}{% endif %} (UFRN)</title>
+    <title>Minerva{% if post_graduation %}{{ ': ' ~ post_graduation.initials }}{% endif %} (UFRN)</title>
 
     <meta name="description" content="Plataforma acadêmica dos programas de pós-graduação CCSA da UFRN."/>
     <meta name="author" content="Mazuh"/>
@@ -27,8 +27,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                {% if program %}
-                <a href="/{{ program.initials }}" class="navbar-brand">{{ program.initials }}</a>
+                {% if post_graduation %}
+                <a href="/{{ post_graduation.initials }}" class="navbar-brand">{{ post_graduation.initials }}</a>
                 {% else %}
                 <a href="/" class="navbar-brand">Minerva</a>
                 {% endif %}
@@ -37,7 +37,7 @@
             <div class="navbar-collapse collapse">
                 
                 <ul class="nav navbar-nav">
-                    <li><a href="/{% if program %}{{ program.initials }}{% endif %}"> 
+                    <li><a href="/{% if post_graduation %}{{ post_graduation.initials }}{% endif %}"> 
                         <span class="glyphicon glyphicon-home"></span> Início </a></li>
                         
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -94,7 +94,6 @@
                                 <span class="glyphicon glyphicon-gift"></span> Convênios</a>
                             </li>
                             
-                            
                             <li><a href="{{ url_for('page_not_found') }}">
                                 <span class="glyphicon glyphicon-calendar"></span> Calendário</a>
                             </li>
@@ -116,10 +115,8 @@
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                             </li>
                             
-                            {% for key, program_item in programs_list.items() %}
-                            {% if program_item['signedIn'] %}
-                            <li><a href="/{{ program_item['initials'] }}">{{ program_item['name'] }}</a></li>
-                            {% endif %}
+                            {% for registered in post_graduations_registered %}
+                            <li><a href="/{{ registered.initials }}">{{ registered.name }}</a></li>
                             {% endfor %}
 
                             <li role="separator" class="divider"></li>
@@ -127,10 +124,8 @@
                                 <span class="glyphicon glyphicon-link"></span>
                             </li> 
 
-                            {% for key, program_item in programs_list.items() %}
-                            {% if not program_item['signedIn'] %}
-                            <li><a href="/{{ program_item['initials'] }}" target="_blank">{{ program_item['name'] }}</a></li>
-                            {% endif %}
+                            {% for unregistered in post_graduations_unregistered %}
+                            <li><a href="/{{ unregistered.initials }}" target="_blank">{{ unregistered.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>

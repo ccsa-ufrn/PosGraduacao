@@ -3,7 +3,7 @@ All data must be only manipulated through this middleware,
 and not directly using Pymongo.
 """
 
-from mongo import DB
+from .mongo import DB
 
 
 class DAO(object):

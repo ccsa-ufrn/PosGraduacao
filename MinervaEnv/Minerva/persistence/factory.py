@@ -5,12 +5,12 @@ of directly call their own constructor.
 A factory of Data Access Objects.
 """
 
-from dao import DAO
+from .dao import DAO
 
 # constants for collection names in mongodb
 
 COLLECTION_OF_USERS = 'users'
-COLLECTION_OF_POST_GRADUATIONS = 'postgraduations'
+COLLECTION_OF_POST_GRADUATIONS = 'post_graduations'
 
 # factory methods
 
@@ -18,6 +18,6 @@ COLLECTION_OF_POST_GRADUATIONS = 'postgraduations'
 #    """ Get a user DAO instance. (TODO: implement some kind of singleton) """
 #    return DAO(COLLECTION_OF_USERS)
 
-def get_post_graduation_program_dao():
+def post_graduation_dao():
     """ Get a user DAO instance. (TODO: implement some kind of singleton) """
     return DAO(COLLECTION_OF_POST_GRADUATIONS)
