@@ -24,14 +24,16 @@ Once I activate my Virtual Environment (see the workflow below), I can check bot
 for 3.5 (run the commands again and read the output to be sure). A third tip: having virtualenv
 installed by pip from Python2 library doesn't mean you have virtualenv installed by pip3 from Python3 too.
 
-You also need to make sure that MongoDB is installed as well. Just saying, when I run ```mongo --version```
-it prints "MongoDB shell version 2.6.11". It's the default Mongo from Debian repository in this moment.
+You also need to make sure that an updated MongoDB is installed as well. The default Mongo from Debian
+repository couldn't make it, so I installed following this tutorial:
+<https://www.digitalocean.com/community/tutorials/como-instalar-o-mongodb-no-ubuntu-16-04-pt>. But just saying,
+when I run ```mongo --version``` after starting mongo service, it outputs 3.2.12.
 
-Start by cloning this repository in a local folder and change directory to it.
+Now start by cloning this repository in a local folder and change directory to it.
 
 ```sh
 $ git clone https://github.com/Mazuh/Minerva.git
-$ cd Minerva
+$ cd Minerva/
 ```
 
 Now, let's set up our temporary security file. Open ```./MinervaEnv/Minerva/fake/api_keys.json``` using your 
@@ -51,7 +53,7 @@ $ nano ./MinervaEnv/Minerva/env/api_keys.json
 Use these command lines to create and activate the virtual environment:
 
 ```sh
-$ cd ./MinervaEnv
+$ cd ./MinervaEnv/
 $ python3 -m virtualenv ./
 $ source ./bin/activate
 ```
@@ -66,11 +68,23 @@ $ pip install -r ./requirements.txt
 After that, let's start a mongo service. Here, in my poor Ubuntu, I run:
 
 ```sh
-$ service mongodb start
-$ service mongodb status
+$ sudo systemctl start mongod
+$ sudo systemctl status mongod
 ```
 
 And then I see, while running status operation, an output "Active: active (running)".
+
+Assuming that there's no Minerva database installed, it's necessary to run a initial script
+(only once, and never again). Consists of redirecting the content from ```i.js``` to ```mongo``` input.
+There's a simple script for doing this (in case of something goes wrong, open the shell script and read 
+it to learn what needs to be done, after check if there's an updated mongo service running):
+
+```sh
+$ cd ../dev_db/
+$ chmod +x ./setup.sh
+$ ./setup.sh --install
+$ cd ../MinervaEnv
+```
 
 If packages installation went successfully and our configuration files are ok, you can
 now start running the local server:
