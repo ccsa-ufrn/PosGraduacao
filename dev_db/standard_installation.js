@@ -432,3 +432,19 @@ db.boardOfProfessors.insertMany([
         ]
     }
 ]);
+
+print("Inserindo trabalhos de conclusão...");
+
+db.finalReports.insertMany([
+    {
+        'ownerProgram': PPGP_ID,
+        'scheduledReports': [
+            {
+                'time': new Date(2017, 04, 03, 09, 00, 00, 00),
+                'title': 'Programa Reitoria Itinerante do IFPB: uma análise sob o enfoque da gestão participativa',
+                'author': 'Adino Saraiva Bandeira',
+                'location': 'Sala D4 do Setor V'
+            }
+        ]
+    }
+]);
