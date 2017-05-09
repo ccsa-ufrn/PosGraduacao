@@ -244,3 +244,191 @@ db.weeklySchedules.insertMany([
         ]
     }
 ]);
+
+print("Inserindo informações sobre as integrações...");
+
+db.integrationsInfo.insertMany([
+    {
+        'ownerProgram': PPGP_ID,
+        'institutionsWithCovenant': [
+            {
+                'name': 'Ministério da Transparência, Fiscalização e Controladoria Geral da União – Unidade Regional do Rio Grande do Norte',
+                'initials': 'CGURN'
+            },
+            {
+                'name': 'Universidade Federal do Rio Grande do Norte',
+                'initials': 'UFRN'
+            },
+            {
+                'name': 'Instituto Federal de Educação, Ciência e Tecnologia de Sergipe',
+                'initials': 'IFS'
+            },
+            {
+                'name': 'Assembleia Legislativa do Estado Rio Grande do Norte',
+                'initials': 'ALRN'
+            }
+        ],
+        'participationInEvents': [
+            {
+                'title': 'Laboratoire de Recherche en Management – LAREQUOI',
+                'description': 'A professora Dinah dos Santos Tinoco participou de intercâmbio no LAREQUOI da Université de Versailles St. Quentin em Yvelines, França, no período de abril a junho de 2013. No período, além de ter participado de reuniões com professores do Laboratório, foi membro da comissão de avaliação de três bancas de defesa de Doutorado, tendo previamente elaborado Relatórios Técnicos de avaliação das teses.',
+                'year': 2013,
+                'international': 'Yvelines, França'
+            },
+            {
+                'title': 'Center for Latin American Studies da Faculty of Economics and Public Administration da University of Economics',
+                'description': 'O professor Hironobu Sano participou, em abril de 2013, de missão para o Center for Latin American Studies da Faculty of Economics and Public Administration da University of Economics, a principal instituição de ensino superior da República Tcheca.',
+                'year': 2013,
+                'international': 'Praga, República Tcheca'
+            },
+            {
+                'title': 'Grupo de Investigación en Gobierno, Administración y Políticas Públicas (GIGAPP)',
+                'description': 'O professor Thiago Dias participou como congressista do GIGAPP, realizado de 27 de setembro a 02 de outubro de 2014 em Madrid, Espanha, organizado pelo Instituto Nacional de Administración Pública, onde apresentou o artigo Gestão Social e Desenvolvimento Territorial: uma olhar a partir processo de governança dos colegiados territoriais brasileiro no Grupo de Trabalho Planejamento, Gestão Pública e Participação Social.',
+                'year': 2014,
+                'international': 'Madrid, Espanha'
+            }
+        ]
+    }
+]);
+
+print("Inserindo coordenação...");
+
+db.staffs.insertMany([
+    {
+        'ownerProgram': PPGP_ID,
+        'coordination': [
+            {
+                'name': 'Thiago Ferreira Dias',
+                'rank': 'Coordenador',
+                'abstract': 'Possui Doutorado em Administração pela Universidade Federal do Rio Grande do Norte (2011), Mestrado em Administração e Desenvolvimento Rural pela Universidade Federal Rural de Pernambuco (2007) e graduação em Administração pela Universidade Federal de Pernambuco (2005). De 2010 a 2013 foi professor da Universidade Federal Rural do Semi-Árido (UFERSA). De 2012 a 2013 foi coordenador da Incubadora de Iniciativas Sociais e Solidárias do Oeste Potiguar (INCUBAOESTE). Desde janeiro de 2014 é professor adjunto da Universidade Federal do Rio Grande do Norte.',
+                'photo': 'http://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4731730Y4'
+            },
+            {
+                'name': 'Antônio Alves Filho',
+                'rank': 'Vice-Coordenador',
+                'abstract': 'Possui graduação em Psicologia pela Universidade Federal do Rio Grande do Norte (1993) e mestrado em Administração (1999) e doutorado em Psicologia (2012) também pela UFRN. De 2009 a 2013 foi professor adjunto da Universidade Federal de Alagoas (UFAL), no curso de Psicologia. A partir de dezembro de 2013, passou a ser professor adjunto do Departamento de Ciências Administrativas da Universidade Federal do Rio Grande do Norte. Na Psicologia atua na área da Psicologia do Trabalho e das Organizações, com ênfase em Fatores Humanos no Trabalho. Na Administração atua na área de Gestão de Pessoas. Desde 2014 é docente permanente do Programa de Pós-Graduação em Gestão Pública, UFRN.',
+                'photo': 'http://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4701984E0'
+            }
+        ],
+        'secretariat': [
+            {
+                'name': 'Penélope Medeiros Filgueira Burlamaqui',
+                'function': {
+                    'rank': 'Secretária',
+                    'description': 'Chefia a secretaria, responsável por organizar e movimentar a burocrática do setor.'
+                },
+                'photo': null
+            },
+            {
+                'name': 'Marcell Guilherme Costa da Silva',
+                'function': {
+                    'rank': 'Bolsista',
+                    'description': 'Desenvolve o sistema web, automatiza atividades da secretaria e provê um mínimo suporte técnico aos computadores.'
+                },
+                'photo': null
+            },
+            {
+                'name': 'Davila Regina Silva Rodrigues',
+                'function': {
+                    'rank': 'Bolsista',
+                    'description': 'Provê um suporte maior à administração do setor, juntamente com a secretária.'
+                },
+                'photo': null
+            }
+        ]
+    }
+]);
+
+print("Inserindo quadro de professores...");
+
+db.boardOfProfessors.insertMany([
+    {
+        'ownerProgram': PPGP_ID,
+        'professors': [
+            {
+                'name': 'Aline Virginia Medeiros Nelson',
+                'rank': 'Professor',
+                'lattes': 'http://lattes.cnpq.br/0268682852336814',
+                'email': 'minerva.teste@ufrn.edu.br'
+            },
+            {
+                'name': 'Antonio Alves Filho',
+                'rank': 'Professor',
+                'lattes': 'http://lattes.cnpq.br/4852627579601532',
+                'email': 'minerva.teste@ufrn.edu.br'
+            },
+            {
+                'name': 'Dinah dos Santos Tinoco',
+                'rank': 'Professor',
+                'lattes': 'http://lattes.cnpq.br/8281386555414820',
+                'email': 'minerva.teste@ufrn.edu.br'
+            },
+            {
+                'name': 'Djalma Freire Borges',
+                'rank': 'Professor',
+                'lattes': null,
+                'email': 'minerva.teste@ufrn.edu.br'
+            },
+            {
+                'name': 'Fabio Resende de Araujo',
+                'rank': 'Professor',
+                'lattes': 'http://lattes.cnpq.br/2159396359014027',
+                'email': 'minerva.teste@ufrn.edu.br'
+            },
+            {
+                'name': 'Hironobu Sano',
+                'rank': 'Professor',
+                'lattes': 'http://buscatextual.cnpq.br/buscatextual/visualizacv.jsp?id=K4707946H6',
+                'email': 'minerva.teste@ufrn.edu.br'
+            },
+            {
+                'name': 'Ítalo Fittipaldi',
+                'rank': 'Colaborador',
+                'lattes': null,
+                'email': 'minerva.teste@ufrn.edu.br'
+            },
+            {
+                'name': 'Jomaria Mata de Lima Alloufa',
+                'rank': 'Professor',
+                'lattes': 'http://lattes.cnpq.br/9209334172096854',
+                'email': 'minerva.teste@ufrn.edu.br'
+            },
+            {
+                'name': 'Kaio Cesar Fernandes',
+                'rank': 'Colaborador',
+                'lattes': null,
+                'email': 'minerva.teste@ufrn.edu.br'
+            },
+            {
+                'name': 'Maria Arlete Duarte de Araujo',
+                'rank': 'Professor',
+                'lattes': 'http://lattes.cnpq.br/8538092783362714',
+                'email': 'minerva.teste@ufrn.edu.br'
+            },
+            {
+                'name': 'Maria Teresa Pires Costa',
+                'rank': 'Professor',
+                'lattes': 'http://lattes.cnpq.br/2406703224108111',
+                'email': 'minerva.teste@ufrn.edu.br'
+            },
+            {
+                'name': 'Pamela de Medeiros Brandao',
+                'rank': 'Professor',
+                'lattes': 'http://lattes.cnpq.br/9451364933481439',
+                'email': 'minerva.teste@ufrn.edu.br'
+            },
+            {
+                'name': 'Richard Medeiros de Araújo',
+                'rank': 'Colaborador',
+                'lattes': null,
+                'email': 'minerva.teste@ufrn.edu.br'
+            },
+            {
+                'name': 'Thiago Ferreira Dias',
+                'rank': 'Professor',
+                'lattes': 'http://lattes.cnpq.br/9579256535097635',
+                'email': 'minerva.teste@ufrn.edu.br'
+            }
+        ]
+    }
+]);
