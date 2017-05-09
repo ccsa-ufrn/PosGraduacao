@@ -76,13 +76,13 @@ And then I see, while running status operation, an output "Active: active (runni
 
 Assuming that there's no Minerva database installed, it's necessary to run a initial script
 (only once, and never again). Consists of redirecting the content from ```i.js``` to ```mongo``` input.
-There's a simple script for doing this (in case of something goes wrong, open the shell script and read 
-it to learn what needs to be done, after check if there's an updated mongo service running):
+There's a simple command for doing this (in case of something goes wrong, read the mongo output,
+check if there's really an updated mongo service running and open the .json to check what went wrong...
+and submit and issue here on GitHub, please):
 
 ```sh
 $ cd ../dev_db/
-$ chmod +x ./setup.sh
-$ ./setup.sh --install
+$ mongo < ./standard_installation.js
 $ cd ../MinervaEnv
 ```
 
