@@ -11,6 +11,7 @@ from .dao import DAO
 
 COLLECTION_OF_USERS = 'users'
 COLLECTION_OF_POST_GRADUATIONS = 'postGraduations'
+COLLECTION_OF_FINAL_REPORTS = 'finalReports'
 
 # factory methods
 
@@ -18,6 +19,12 @@ COLLECTION_OF_POST_GRADUATIONS = 'postGraduations'
 #    """ Get a user DAO instance. (TODO: implement some kind of singleton) """
 #    return DAO(COLLECTION_OF_USERS)
 
-def post_graduation_dao():
-    """ Get a user DAO instance. (TODO: implement some kind of singleton) """
+def post_graduations_dao():
+    """ Gets an instance of a data access object for a certain collection
+    (TODO: implement some kind of singleton) """
     return DAO(COLLECTION_OF_POST_GRADUATIONS)
+
+def final_reports_dao():
+    """ Gets an instance of a data access object for a certain collection
+    (TODO: implement some kind of singleton) """
+    return DAO(COLLECTION_OF_FINAL_REPORTS)

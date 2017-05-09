@@ -38,11 +38,11 @@ def program(initials=DEFAULT_POST_GRADUATION_INITIALS):
     """
 
     # search some documents for post graduation data
-    post_graduation_dao = factory.post_graduation_dao()
+    post_graduations_dao = factory.post_graduations_dao()
     initials = initials.upper()
-    post_graduation = post_graduation_dao.find_one({'initials': initials})
-    post_graduations_registered = post_graduation_dao.find({'isSignedIn': True})
-    post_graduations_unregistered = post_graduation_dao.find({'isSignedIn': False})
+    post_graduation = post_graduations_dao.find_one({'initials': initials})
+    post_graduations_registered = post_graduations_dao.find({'isSignedIn': True})
+    post_graduations_unregistered = post_graduations_dao.find({'isSignedIn': False})
 
     # renders an own page or redirect to another (external/404)?
     if post_graduation is None:
@@ -58,13 +58,19 @@ def program(initials=DEFAULT_POST_GRADUATION_INITIALS):
     if google_maps_api_dict is not None:
         google_maps_api_key = google_maps_api_dict['key']
 
+    # search for final reports schedule
+    final_reports = factory.final_reports_dao().find_one({
+        'ownerProgram': post_graduation['_id']
+    })['scheduledReports']
+
     # ready... fire!
     return render_template(
         'index.html',
         post_graduation=post_graduation,
         post_graduations_registered=post_graduations_registered,
         post_graduations_unregistered=post_graduations_unregistered,
-        google_maps_api_key=google_maps_api_key
+        google_maps_api_key=google_maps_api_key,
+        final_reports=final_reports
     )
 
 
