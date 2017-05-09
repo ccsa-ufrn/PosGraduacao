@@ -10,7 +10,7 @@ from .dao import DAO
 # constants for collection names in mongodb
 
 COLLECTION_OF_USERS = 'users'
-COLLECTION_OF_POST_GRADUATIONS = 'post_graduations'
+COLLECTION_OF_POST_GRADUATIONS = 'postGraduations'
 
 # factory methods
 
