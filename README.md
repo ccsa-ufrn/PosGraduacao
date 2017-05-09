@@ -75,16 +75,16 @@ $ sudo systemctl status mongod
 And then I see, while running status operation, an output "Active: active (running)".
 
 Assuming that there's no Minerva database installed, it's necessary to run a initial script
-(only once, and never again). Consists of redirecting the content from ```i.js``` to ```mongo``` input.
-There's a simple command for doing this (in case of something goes wrong, read the mongo output,
-check if there's really an updated mongo service running and open the .json to check what went wrong...
-and submit and issue here on GitHub, please):
+(only once, and never again). Consists of redirecting the content from a json to ```mongo``` bin input:
 
 ```sh
 $ cd ../dev_db/
 $ mongo < ./standard_installation.js
 $ cd ../MinervaEnv
 ```
+
+Please, check if mongo output looking for errors before proceding. Make sure to have an updated
+Mongo service running.
 
 If packages installation went successfully and our configuration files are ok, you can
 now start running the local server:
