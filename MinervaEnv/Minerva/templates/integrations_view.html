@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/css/ppgp.css" />
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>&raquo Eventos e Convênios</h2>
+    </header>
+
+    <p>
+        O Programa faz convênio com algumas instituições para lhes garantir abertura de vagas e oportunidades.
+    </p>
+
+    <div class="panel panel-default">
+        <table class="table">
+            <thead>
+                <th>Sigla</th>
+                <th>Instituição</th>
+            </thead>
+            {% for institution in integrations_infos.institutionsWithCovenant %}
+            <tr>
+                <td>{{ institution.initials }}</td>
+                <td>{{ institution.name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br/>
+
+    <p>
+        Ao longo do desenvolvimento das atividades dos discentes e docentes, vários intercâmbios pontuais ocorreram.
+    </p>
+
+    {% for event in integrations_infos.participationsInEvents %}
+    <h3>{{ event.title }}<br/>
+        <small>({% if event.international %}{{ event.international }} | {% endif %}{{ event.year|int }})</small>
+    </h3>
+    
+    <p>{{ event.description }}</p>
+    {% endfor %}
+
+</section>
+
+{% endblock %}

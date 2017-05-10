@@ -9,12 +9,13 @@ from .dao import DAO
 
 # constants for collection names in mongodb
 
-COLLECTION_OF_USERS = 'users'
+COLLECTION_OF_USERS = 'users' # TODO need more auth algorithms and plugins
 COLLECTION_OF_POST_GRADUATIONS = 'postGraduations'
 COLLECTION_OF_FINAL_REPORTS = 'finalReports'
 COLLECTION_OF_WEEKLY_SCHEDULES = 'weeklySchedules'
 COLLECTION_OF_GRADES_OF_SUBJECTS = 'gradesOfSubjects'
 COLLECTION_OF_BOARDS_OF_PROFESSORS = 'boardsOfProfessors'
+COLLECTION_OF_INTEGRATIONS_INFOS = 'integrationsInfos'
 
 # factory methods
 
@@ -46,3 +47,8 @@ def boards_of_professors_dao():
     """ Gets an instance of a data access object for a certain collection
     (TODO: implement some kind of singleton) """
     return DAO(COLLECTION_OF_BOARDS_OF_PROFESSORS)
+
+def integrations_infos_dao():
+    """ Gets an instance of a data access object for a certain collection
+    (TODO: implement some kind of singleton) """
+    return DAO(COLLECTION_OF_INTEGRATIONS_INFOS)

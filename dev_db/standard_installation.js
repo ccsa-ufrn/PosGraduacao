@@ -247,7 +247,7 @@ db.weeklySchedules.insertMany([
 
 print("Inserindo informações sobre as integrações...");
 
-db.integrationsInfo.insertMany([
+db.integrationsInfos.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'institutionsWithCovenant': [
@@ -268,9 +268,9 @@ db.integrationsInfo.insertMany([
                 'initials': 'ALRN'
             }
         ],
-        'participationInEvents': [
+        'participationsInEvents': [
             {
-                'title': 'Laboratoire de Recherche en Management – LAREQUOI',
+                'title': 'Laboratoire de Recherche en Management (LAREQUOI)',
                 'description': 'A professora Dinah dos Santos Tinoco participou de intercâmbio no LAREQUOI da Université de Versailles St. Quentin em Yvelines, França, no período de abril a junho de 2013. No período, além de ter participado de reuniões com professores do Laboratório, foi membro da comissão de avaliação de três bancas de defesa de Doutorado, tendo previamente elaborado Relatórios Técnicos de avaliação das teses.',
                 'year': 2013,
                 'international': 'Yvelines, França'
