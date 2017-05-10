@@ -30,12 +30,7 @@ def home(initials=DEFAULT_POST_GRADUATION_INITIALS):
     If couldn't find which program has been requested, show a 404 page error.
     """
 
-    # search some documents for post graduation data
-    post_graduations_dao = factory.post_graduations_dao()
-    initials = initials.upper()
-    post_graduation = post_graduations_dao.find_one({'initials': initials})
-    post_graduations_registered = post_graduations_dao.find({'isSignedIn': True})
-    post_graduations_unregistered = post_graduations_dao.find({'isSignedIn': False})
+    post_graduation = find_post_graduation(initials)
 
     # renders an own page or redirect to another (external/404)?
     if post_graduation is None:
@@ -64,9 +59,7 @@ def home(initials=DEFAULT_POST_GRADUATION_INITIALS):
     # ready... fire!
     return render_template(
         'index.html',
-        post_graduation=post_graduation,
-        post_graduations_registered=post_graduations_registered,
-        post_graduations_unregistered=post_graduations_unregistered,
+        std=get_std_for_template(post_graduation),
         google_maps_api_key=google_maps_api_key,
         final_reports=final_reports,
         weekly_schedules=weekly_schedules
@@ -78,7 +71,7 @@ def home(initials=DEFAULT_POST_GRADUATION_INITIALS):
 def view_subjects(initials):
     """Render a view for subjects."""
 
-    post_graduation = get_post_graduation(initials)
+    post_graduation = find_post_graduation(initials)
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -86,12 +79,45 @@ def view_subjects(initials):
     )
 
 
-def get_post_graduation(initials):
-    """Search for post graduation"""
+# AUX
+def find_post_graduation(initials):
+    """Search for post graduation from database using the given
+    initials as a parameter. It's case insensitive.
+    It wrappes _dao.find_one(conditions)"""
     return factory.post_graduations_dao().find_one({
         'initials': initials.upper(),
-        'isSignedIn': True
+        #'isSignedIn': True
     })
+
+
+
+# AUX
+def get_std_for_template(post_graduation):
+    """
+    Return default template stuff for jinja to render.
+
+    Freely put None if theres no post_graduation dict.
+    But if there's one, must be the found by DAOs
+    and requested by user.
+
+    Must be called like this in every template:
+        return render_template('MYTEMPLATE.html', std=get_std_for_template(None), ...)
+    That said, there will always be a std dict in jinja environments.
+
+    Jinja will have following template vars, if you called it right:
+        std.post_graduation (dict for current given post graduation)
+        std.post_graduations_registered (dict for the post graduations available at minerva)
+        std.post_graduations_unregistered (dict for post graduations unavailable at minerva)
+    They can be None if nothing has found from database or provided by function args.
+    """
+    post_graduations_dao = factory.post_graduations_dao()
+    post_graduations_registered = post_graduations_dao.find({'isSignedIn': True})
+    post_graduations_unregistered = post_graduations_dao.find({'isSignedIn': False})
+    return {
+        'post_graduation': post_graduation,
+        'post_graduations_registered': post_graduations_registered,
+        'post_graduations_unregistered': post_graduations_unregistered,
+    }
 
 
 
@@ -101,4 +127,4 @@ def page_not_found(error=None):
     """Render page not found error."""
 
     print(str(error))
-    return render_template('404.html'), 404
+    return render_template('404.html', std=get_std_for_template(None)), 404

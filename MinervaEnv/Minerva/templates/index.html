@@ -26,7 +26,7 @@
             <div class="container">
                 <div class="carousel-caption">
                     <div class="carousel-caption-content">
-                        <h1>Programa de Pós-Graduação em<br/><strong>{{ post_graduation.name }}</strong>.</h1>
+                        <h1>Programa de Pós-Graduação em<br/><strong>{{ std.post_graduation.name }}</strong>.</h1>
                         <p>
                             Stricto sensu: o Mestrado Profissional em Gestão Pública prepara dirigentes para atuar em instituições governamentais.
                         </p>
@@ -82,10 +82,10 @@
         </header>
         <img src="/static/assets/logo_ppgp.png" alt="Gestão Pública" class="program-logo center-block" width="200">
         <p>
-            <span>Sala:</span> {{ post_graduation.attendance.building }}, {{ post_graduation.attendance.floor }}, {{ post_graduation.attendance.room }}.<br/>
-            <span>Horários: </span> {{ post_graduation.attendance.opening }}<br/>
-            <span>E-mail:</span> <a href="mailto:{{ post_graduation.email }}">{{ post_graduation.email }}</a><br/>
-            {% for phone in post_graduation.phones %}
+            <span>Sala:</span> {{ std.post_graduation.attendance.building }}, {{ std.post_graduation.attendance.floor }}, {{ std.post_graduation.attendance.room }}.<br/>
+            <span>Horários: </span> {{ std.post_graduation.attendance.opening }}<br/>
+            <span>E-mail:</span> <a href="mailto:{{ std.post_graduation.email }}">{{ std.post_graduation.email }}</a><br/>
+            {% for phone in std.post_graduation.phones %}
             <span>Telefone {{ phone.type }}:</span> {{ phone.number }}<br/>
             {% endfor %}
         </p>

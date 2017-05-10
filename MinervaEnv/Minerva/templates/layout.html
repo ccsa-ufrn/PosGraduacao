@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minerva{% if post_graduation %}{{ ': ' ~ post_graduation.initials }}{% endif %} (UFRN)</title>
+    <title>Minerva{% if std.post_graduation %}{{ ': ' ~ std.post_graduation.initials }}{% endif %} (UFRN)</title>
 
     <meta name="description" content="Plataforma acadêmica dos programas de pós-graduação CCSA da UFRN."/>
     <meta name="author" content="Mazuh"/>
@@ -27,8 +27,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                {% if post_graduation %}
-                <a href="/{{ post_graduation.initials }}" class="navbar-brand">{{ post_graduation.initials }}</a>
+                {% if std.post_graduation %}
+                <a href="/{{ std.post_graduation.initials }}" class="navbar-brand">{{ std.post_graduation.initials }}</a>
                 {% else %}
                 <a href="/" class="navbar-brand">Minerva</a>
                 {% endif %}
@@ -37,7 +37,7 @@
             <div class="navbar-collapse collapse">
                 
                 <ul class="nav navbar-nav">
-                    <li><a href="/{% if post_graduation %}{{ post_graduation.initials }}{% endif %}"> 
+                    <li><a href="/{% if std.post_graduation %}{{ std.post_graduation.initials }}{% endif %}"> 
                         <span class="glyphicon glyphicon-home"></span> Início </a></li>
                         
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -111,7 +111,7 @@
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                             </li>
                             
-                            {% for registered in post_graduations_registered %}
+                            {% for registered in std.post_graduations_registered %}
                             <li><a href="/{{ registered.initials }}">{{ registered.name }}</a></li>
                             {% endfor %}
 
@@ -120,7 +120,7 @@
                                 <span class="glyphicon glyphicon-link"></span>
                             </li> 
 
-                            {% for unregistered in post_graduations_unregistered %}
+                            {% for unregistered in std.post_graduations_unregistered %}
                             <li><a href="/{{ unregistered.initials }}" target="_blank">{{ unregistered.name }}</a></li>
                             {% endfor %}
                         </ul>
