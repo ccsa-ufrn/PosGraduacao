@@ -74,6 +74,24 @@ def home(initials=DEFAULT_POST_GRADUATION_INITIALS):
 
 
 
+@app.route('/<string:initials>/disciplinas/')
+def view_subjects(initials):
+    """Render a view for subjects."""
+
+    post_graduation = get_post_graduation(initials)
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'subjects_view.html'
+    )
+
+
+def get_post_graduation(initials):
+    """Search for post graduation"""
+    return factory.post_graduations_dao().find_one({
+        'initials': initials.upper(),
+        'isSignedIn': True
+    })
 
 
 
