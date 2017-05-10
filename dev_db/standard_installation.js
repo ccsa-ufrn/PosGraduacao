@@ -341,7 +341,7 @@ db.staffs.insertMany([
 
 print("Inserindo quadro de professores...");
 
-db.boardOfProfessors.insertMany([
+db.boardsOfProfessors.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'professors': [

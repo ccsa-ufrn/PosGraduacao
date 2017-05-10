@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/css/ppgp.css" />
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>&raquo Docentes</h2>
+    </header>
+
+    <div class="panel panel-default">
+        <table class="table">
+            <thead>
+                <th>Nome</th>
+                <th>Vínculo</th>
+                <th>E-mail</th>
+                <th>Currículo Lattes</th>
+            </thead>
+            {% for professor in board_of_professors.professors %}
+            <tr>
+                <td>{{ professor.name }}</td>
+                <td>{{ professor.rank }}(a)</td>
+                <td>{{ professor.email }}</td>
+                <td>
+                    {% if professor.lattes %}
+                    <a href="{{ professor.lattes }}" target="_blank">
+                        <img src="/static/assets/lattes.gif">
+                        {{ professor.lattes }}
+                    </a>
+                    {% else %}
+                    <small>(Não informado)</small>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br/>
+
+</section>
+
+{% endblock %}

@@ -85,6 +85,26 @@ def view_subjects(initials):
     )
 
 
+
+@app.route('/<string:initials>/docentes/')
+def view_professors(initials):
+    """Render a view for professors list."""
+
+    post_graduation = find_post_graduation(initials)
+
+    board_of_professors = factory.boards_of_professors_dao().find_one({
+        'ownerProgram': post_graduation['_id']
+    })
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'professors_view.html',
+        std=get_std_for_template(post_graduation),
+        board_of_professors=board_of_professors
+    )
+
+
+
 # AUX
 def find_post_graduation(initials):
     """Search for post graduation from database using the given
