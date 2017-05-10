@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/css/ppgp.css" />
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>&raquo Equipe</h2>
+    </header>
+
+    {% for coordinator in board_of_staffs.coordination %}
+    <div class="row">
+        <div class="col-md-3">
+            <img src="{{ coordinator.photo }}" class="img-circle pull-right" height="190" width="180">
+        </div>
+        <div class="col-md-9">
+            <h3>{{ coordinator.name }}<br/>
+                <small>{{ coordinator.rank }}</small>
+            </h3>
+            <p>{{ coordinator.abstract }}</p>
+        </div>
+    </div>
+    <br/>
+    {% endfor %}
+
+    <h3>Secretaria</h3>
+
+    <p>
+        Normalmente, antes de ir direto à coordenação, a secretaria do Programa será capaz
+        de resolver antecipadamente algumas questões. O setor funciona no horário regular de
+        <a href="{{ url_for('home', initials=std.post_graduation.initials) }}">atendimento</a>,
+        logo estando melhor disponível auxiliar para professores e discentes.
+        Abaixo, os membros que a compõem.
+    </p>
+
+    <div class="panel panel-default">
+        <table class="table">
+            <thead>
+                <th>Nome</th>
+                <th>Posição</th>
+                <th>Descrição das atividades</th>
+            </thead>
+            {% for worker in board_of_staffs.secretariat %}
+            <tr>
+                <td>{{ worker.name }}</td>
+                <td>{{ worker.function.rank }}</td>
+                <td>{{ worker.function.description }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</section>
+
+{% endblock %}

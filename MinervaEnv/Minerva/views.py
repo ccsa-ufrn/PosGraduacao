@@ -124,6 +124,25 @@ def view_integrations(initials):
 
 
 
+@app.route('/<string:initials>/equipe/')
+def view_staffs(initials):
+    """Render a view for integrations lists."""
+
+    post_graduation = find_post_graduation(initials)
+
+    board_of_staffs = factory.boards_of_staffs_dao().find_one({
+        'ownerProgram': post_graduation['_id']
+    })
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'staffs_view.html',
+        std=get_std_for_template(post_graduation),
+        board_of_staffs=board_of_staffs
+    )
+
+
+
 # AUX
 def find_post_graduation(initials):
     """Search for post graduation from database using the given

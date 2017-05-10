@@ -293,7 +293,7 @@ db.integrationsInfos.insertMany([
 
 print("Inserindo coordenação...");
 
-db.staffs.insertMany([
+db.boardsOfStaffs.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'coordination': [
@@ -315,7 +315,7 @@ db.staffs.insertMany([
                 'name': 'Penélope Medeiros Filgueira Burlamaqui',
                 'function': {
                     'rank': 'Secretária',
-                    'description': 'Chefia a secretaria, responsável por organizar e movimentar a burocrática do setor.'
+                    'description': 'Chefia a secretaria, responsável por organizar e movimentar a burocracia do setor.'
                 },
                 'photo': null
             },
