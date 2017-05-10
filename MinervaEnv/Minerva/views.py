@@ -63,6 +63,11 @@ def program(initials=DEFAULT_POST_GRADUATION_INITIALS):
         'ownerProgram': post_graduation['_id']
     })['scheduledReports']
 
+    # search for weekly schedules
+    weekly_schedules = factory.weekly_schedules_dao().find({
+        'ownerProgram': post_graduation['_id']
+    })
+
     # ready... fire!
     return render_template(
         'index.html',
@@ -70,7 +75,8 @@ def program(initials=DEFAULT_POST_GRADUATION_INITIALS):
         post_graduations_registered=post_graduations_registered,
         post_graduations_unregistered=post_graduations_unregistered,
         google_maps_api_key=google_maps_api_key,
-        final_reports=final_reports
+        final_reports=final_reports,
+        weekly_schedules=weekly_schedules
     )
 
 

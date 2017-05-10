@@ -214,7 +214,7 @@ print("Inserindo agendas semanais...");
 db.weeklySchedules.insertMany([
     {
         'ownerProgram': PPGP_ID,
-        'name': '2017.1',
+        'title': '2017.1',
         'week': [
             {
                 'day': 'Segunda',

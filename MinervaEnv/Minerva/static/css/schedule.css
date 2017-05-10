@@ -31,3 +31,9 @@
 .schedule-table .schedule-container .schedule-container-info > h4{
     margin-bottom: 1px;
 }
+
+/* */
+
+.schedule-table ul{
+    padding-left: 10px;
+}

@@ -133,14 +133,18 @@
     </section>
     
     <section class="col-md-4">
-        <header>
+        <section>
+            <header>
             <h2><span class="glyphicon glyphicon-bullhorn"></span> Seleções</h2>
-        </header>
+            </header>
+            <h4>Ops...</h4>
+            <p>Não há nenhuma seleção ocorrendo no momento.</p>
+        </section>
+        <!--
         <h4>Mestrado (15 vagas):
             <br/>
             <small>(10/03/2017 à 05/06/2017)</small>
         </h4>
-        <!-- como participa, etapa atual, do que precisa -->
         <ul>
             <li><span>Status:</span> <span style="color: green">Aguardando submissões</span></li>
             <li><span>Quadro de vagas por instituição:</span> 
@@ -165,6 +169,46 @@
             </li>
         </ul>
         <p><a class="btn btn-default center-block" href="{{ url_for('page_not_found') }}">Baixar edital &raquo;</a></p>
+        -->
+        <section>
+            <header>
+                <h2><span class="glyphicon glyphicon-hourglass"></span> Horários</h2>
+            </header>
+            {% for weekly_schedule in weekly_schedules %}
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4>{{ weekly_schedule.title }}</h4>
+                </div>
+                <table class="table schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Dia</th>
+                            <th>Lista de aulas</th>
+                        </tr>
+                    </thead>
+                    {% for day in weekly_schedule.week %}
+                    <tr>
+                        <td>
+                            {{ day.day }}
+                        </td>
+                        <td>
+                            <ul>
+                                {% for class in day.classes %}
+                                <li>
+                                    <span{% if class.isMandatory %} style="font-weight: bold" {% endif %}>
+                                        {{ class.subject }}
+                                    </span>
+                                    às {{ class.hour }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endfor %}
+        </section>
     </section>
 
 </div>
