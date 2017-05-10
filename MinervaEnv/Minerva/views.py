@@ -6,28 +6,21 @@ from flask import render_template, redirect
 from Minerva import app
 
 import Minerva.util.keyring as keyring
-import Minerva.util.apisistemas_oauth2client as api_sistemas
+#import Minerva.util.apisistemas_oauth2client as api_sistemas
 import Minerva.persistence.factory as factory
 
 
 
 DEFAULT_POST_GRADUATION_INITIALS = 'PPGP'
+DEFAULT_ACTION = 'view'
 
 
 
 @app.route('/')
-@app.route('/home')
-@app.route('/inicio')
-def home():
-    """Render the default post graduation program page."""
-    return program(DEFAULT_POST_GRADUATION_INITIALS)
-
-
-
-@app.route('/<string:initials>')
-def program(initials=DEFAULT_POST_GRADUATION_INITIALS):
+@app.route('/<string:initials>/')
+def home(initials=DEFAULT_POST_GRADUATION_INITIALS):
     """
-    Render a post graduation program page.
+    Render a post-graduation program page.
 
     Try to find which program has been requested.
 
@@ -49,7 +42,7 @@ def program(initials=DEFAULT_POST_GRADUATION_INITIALS):
         return page_not_found()
 
     if not post_graduation['isSignedIn']:
-        return redirect(post_graduation['oldUrl'])
+        return redirect(post_graduation['oldURL'])
 
     # query google maps api
     google_maps_api_dict = keyring.get(keyring.GOOGLE_MAPS)
@@ -81,15 +74,6 @@ def program(initials=DEFAULT_POST_GRADUATION_INITIALS):
 
 
 
-@app.route('/login')
-def login():
-    return redirect(api_sistemas.user_authorization_url())
-
-
-
-@app.route('/dashboard')
-def dashboard(code=None):
-    return program('PPGP')
 
 
 
@@ -98,5 +82,5 @@ def dashboard(code=None):
 def page_not_found(error=None):
     """Render page not found error."""
 
-    print(str(error)) # TODO: this exception swallowing should be avoided!
+    print(str(error))
     return render_template('404.html'), 404
