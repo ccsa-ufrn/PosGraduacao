@@ -88,7 +88,7 @@ print("Inserindo grades de disciplinas...");
 db.gradesOfSubjects.insertMany([
     {
         'ownerProgram': PPGP_ID,
-        'name': 'Obrigatórias',
+        'title': 'Obrigatórias',
         'minCredits': 10,
         'minSubjectsQtt': 5,
         'subjects': [
@@ -121,7 +121,7 @@ db.gradesOfSubjects.insertMany([
     },
     {
         'ownerProgram': PPGP_ID,
-        'name': 'Eletivas',
+        'title': 'Eletivas',
         'minCredits': 14,
         'minSubjectsQtt': 7,
         'subjects': [

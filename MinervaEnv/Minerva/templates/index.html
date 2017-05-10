@@ -104,32 +104,31 @@
         <header>
             <h2><span class="glyphicon glyphicon-pushpin"></span> Apresentações</h2>
         </header>
-            <p>Apresentações públicas dos discentes diante de suas bancas examinadoras.</p>
-            <table class="schedule-table">
-                {% for report in final_reports %}
-                <tr class="schedule-container">
-                    <td class="schedule-container-date">
-                        <ul>
-                            <li class="schedule-date-day">{{ report.time.strftime("%d") }}</li>
-                            <li class="schedule-date-month">{{ report.time.strftime("%b").upper() }}</li>
-                            <li class="schedule-date-year">{{ report.time.strftime("%Y") }}</li>
-                        </ul>
-                    </td>
-                    <td class="schedule-container-info">
-                        <h4>{{ report.title }}
-                            <br/>
-                            <small>{{ report.author }}</small>
-                        </h4>
-                        <p>
-                            Local: {{ report.location }}<br/>
-                            Horário: {{ report.time.strftime("%H:%M") }}<br/>
-                        </p>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-            <!--<p><a class="btn btn-default center-block" href="{{ url_for('page_not_found') }}">Ver cronograma inteiro &raquo;</a></p>-->
-        </header>
+        <p>Apresentações públicas dos discentes diante de suas bancas examinadoras.</p>
+        <table class="schedule-table">
+            {% for report in final_reports %}
+            <tr class="schedule-container">
+                <td class="schedule-container-date">
+                    <ul>
+                        <li class="schedule-date-day">{{ report.time.strftime("%d") }}</li>
+                        <li class="schedule-date-month">{{ report.time.strftime("%b").upper() }}</li>
+                        <li class="schedule-date-year">{{ report.time.strftime("%Y") }}</li>
+                    </ul>
+                </td>
+                <td class="schedule-container-info">
+                    <h4>{{ report.title }}
+                        <br/>
+                        <small>{{ report.author }}</small>
+                    </h4>
+                    <p>
+                        Local: {{ report.location }}<br/>
+                        Horário: {{ report.time.strftime("%H:%M") }}<br/>
+                    </p>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <!--<p><a class="btn btn-default center-block" href="{{ url_for('page_not_found') }}">Ver cronograma inteiro &raquo;</a></p>-->
     </section>
     
     <section class="col-md-4">

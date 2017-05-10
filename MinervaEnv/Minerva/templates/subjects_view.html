@@ -1,10 +1,49 @@
 {% extends "layout.html" %}
 
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/css/ppgp.css" />
+{% endblock %}
+
 {% block content %}
 
-<h2>Disciplinas.</h2>
-<p>
-    Bem-vindo.
-</p>
+<div class="page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>&raquo Disciplinas</h2>
+    </header>
+    
+    {% for grade in grades_of_subjects %}
+    <div class="panel panel-default">
+        <div class="panel-heading text-center">
+            <h4>{{ grade.title }}</h4>
+        </div>
+
+        <div class="panel-body text-center">
+            <p>Nesta grade é necessário cumprir <strong>{{ grade.minCredits|int }} crédito(s)</strong>
+                e <strong>{{ grade.minSubjectsQtt|int }} disciplina(s)</strong>.</p>
+        </div>
+        
+        <table class="table">
+            <thead>
+                <th>Disciplina</th>
+                <th>Carga</th>
+                <th>Créditos</th>
+            </thead>
+            {% for subject in grade.subjects %}
+            <tr>
+                <td>{{ subject.name }}</td>
+                <td>{{ subject.workloadInHours|int }}h</td>
+                <td>{{ subject.credits|int }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br/>
+    {% endfor %}
+
+</section>
 
 {% endblock %}

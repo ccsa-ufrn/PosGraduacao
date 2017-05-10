@@ -73,9 +73,15 @@ def view_subjects(initials):
 
     post_graduation = find_post_graduation(initials)
 
+    grades_of_subjects = factory.grades_of_subjects_dao().find({
+        'ownerProgram': post_graduation['_id']
+    })
+
     # renders an own page or redirect to another (external/404)?
     return render_template(
-        'subjects_view.html'
+        'subjects_view.html',
+        std=get_std_for_template(post_graduation),
+        grades_of_subjects=grades_of_subjects
     )
 
 

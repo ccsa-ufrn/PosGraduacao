@@ -6,6 +6,12 @@ section header h2{
 }
 
 h4,
-section span{
+section span,
+.page-header h2{
     color: #063E5F;
+}
+
+.page-header h1,
+.page-header h2{
+    margin-bottom: 5px;
 }
