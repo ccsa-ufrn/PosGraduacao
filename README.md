@@ -5,7 +5,7 @@
 Utility system for the workers and students of the postgraduate programs at Applied Social 
 Sciences Center (CCSA) in Universidade Federal do Rio Grande do Norte (UFRN).
 
-Licensed by GPL 3.
+Licensed: GPL 3.
 
 ## Setting up development environment
 ### ... for Linux (Debian based) users.
@@ -90,11 +90,22 @@ If packages installation went successfully and our configuration files are ok, y
 now start running the local server:
 
 ```sh
-$ python runserver.py
+$ python app.py
 ```
 
 Assuming that you did everything right, your terminal will output the URL for you to access using a web browser.
-It should be http://localhost:4444/ but always read the output ("0.0.0.0" means it's opened for public access
-and you need to know your IP address for using it instead of "localhost").
+It should be http://localhost:4444/ but always read the output ("0.0.0.0:80" means you have super user
+permission and your server it's opened for public access, so you need to know your IP address instead of "localhost" or "0.0.0.0").
 
 You should see the application running locally now. Any doubts, just open an issue here on GitHub!
+
+### ... for Docker on Linux.
+
+(Don't read it yet. It will be available soon.)
+
+Having an updated ```docker-engine``` and ```docker-compose``` (my ```docker``` stands for 17.5.0 version,
+and ```docker-compose``` for 1.5.2), just change directory to ```MinervaEnv``` and run:
+
+```sh
+$ sudo docker-compose up
+```

@@ -1,0 +1,11 @@
+web:
+    build: .
+    command: python -u app.py
+    ports:
+        - "80:80"
+    volumes:
+        - .:/minerva
+    links:
+        - db
+db:
+    image: mongo:3.2
