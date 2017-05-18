@@ -5,11 +5,10 @@
 Utility system for the workers and students of the postgraduate programs at Applied Social 
 Sciences Center (CCSA) in Universidade Federal do Rio Grande do Norte (UFRN).
 
-Licensed: GPL 3.
+License: [GPL 3](./LICENSE).
 
-## Setting up development environment
-### (using Linux Ubuntu 17.04)
-#### First of all: configuring development files
+## Setting up development environment (using Linux Ubuntu 17.04)
+### First of all: configuring development files
 
 Start by cloning this repository in a local folder and change directory to it.
 
@@ -32,7 +31,7 @@ That's it.
 
 Now choose between two installation recipes: using VirtualEnv or Docker.
 
-#### ... VirtualEnv way.
+### ... VirtualEnv way.
 
 Having already installed:
   - Python 3.5 interpreter, ```python3``` (was already installed by default)
@@ -90,11 +89,20 @@ permission and your server it's opened for public access, so you need to know yo
 
 You should see the application running locally now. Any doubts, just open an issue here on GitHub!
 
-#### ... Docker way.
+### ... Docker way.
 
 Having already installed:
   - ```docker``` from 'docker-engine' package (I had to follow [this @caleblloyd's workaround](https://github.com/moby/moby/issues/32423))
   - ```docker-compose``` from its homonym PyPI module (usual ```sudo pip3 install``` command globally)
 
-Just git clone this repository. change directory to it:
+Just git clone this repository. change directory to it. Make sure to have Docker deamon running (```systemctl status docker``` should show its current status, maybe needing a ```sudo``` prefixing it)
+
+Again change directory, now to MinervaEnv folder. Then, use ```docker-compose``` there:
+
+```sh
+cd MinervaEnv/
+sudo docker-compose up # it may take a while, go get a coffe or something
+```
+
+Before running, just feed Mongo image with some standard data:
 (soon)
