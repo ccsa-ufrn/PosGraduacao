@@ -101,8 +101,18 @@ Again change directory, now to MinervaEnv folder. Then, use ```docker-compose```
 
 ```sh
 cd MinervaEnv/
-sudo docker-compose up # it may take a while, go get a coffe or something
+sudo docker-compose up -d # it may take a while, go get a coffe or something
+# (the '-d' will make it run in background)
 ```
 
-Before running, just feed Mongo image with some standard data:
-(soon)
+If everything went ok, both Flask and Mongo will be running in your machine, the server should be available
+for your whole local network. Use ```ifconfing``` to find your IP and type it on browser.
+
+But before accessing it in your browser, just feed Mongo image with some standard data
+(assuming you're still in MinervaEnv directory):
+```sh
+# This command will send installation.js content to a mongo service running in minervaenv_db_1 container
+sudo docker exec -i minervaenv_db_1 mongo < ../dev_db/standard_installation.js 
+```
+
+This should do the trick. Use your browser now.
