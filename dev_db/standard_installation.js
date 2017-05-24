@@ -17,7 +17,7 @@ db.postGraduations.insertMany([
         'phones': [
             {
                 'type': 'Fixo',
-                'number': '+55 84 3342-2288 (Ramal 182)'
+                'number': '+55 84 3342-2288 (Ramal 189)'
             },
             {
                 'type': 'Claro',
@@ -214,25 +214,20 @@ print("Inserindo agendas semanais...");
 db.weeklySchedules.insertMany([
     {
         'ownerProgram': PPGP_ID,
-        'title': '2017.1',
+        'title': 'Turma 2017',
         'week': [
             {
-                'day': 'Segunda',
+                'day': 'Quinta-feira',
                 'classes': [
                     {
-                        'subject': 'Teoria Geral da Administração Pública',
-                        'hour': '14:00',
-                        'isMandatory': true
+                        'subject': 'Gestão de Pessoas no Setor Público',
+                        'hour': '09:00',
+                        'isMandatory': false
                     },
-                    {
-                        'subject': 'Instituições Políticas Brasileiras',
-                        'hour': '16:00',
-                        'isMandatory': true
-                    }
                 ]
             },
             {
-                'day': 'Quinta',
+                'day': 'Sexta-feira',
                 'classes': [
                     {
                         'subject': 'Teoria Geral da Administração Pública',
