@@ -220,17 +220,78 @@ db.weeklySchedules.insertMany([
                 'day': 'Quinta-feira',
                 'classes': [
                     {
+                        'subject': 'Responsabilização, Transparência e Controle Social',
+                        'hour': '08:00',
+                        'isMandatory': false
+                    },
+                    {
                         'subject': 'Gestão de Pessoas no Setor Público',
                         'hour': '09:00',
                         'isMandatory': false
                     },
+                    {
+                        'subject': 'Tópicos Especiais em Gestão Pública III - Análise de Redes Sociais',
+                        'hour': '14:00',
+                        'isMandatory': false
+                    },
+                    {
+                        'subject': 'Teoria Geral da Administração Pública',
+                        'hour': '19:00',
+                        'isMandatory': true
+                    }
                 ]
             },
             {
                 'day': 'Sexta-feira',
                 'classes': [
                     {
-                        'subject': 'Teoria Geral da Administração Pública',
+                        'subject': 'Inovação na Gestão Pública',
+                        'hour': '08:30',
+                        'isMandatory': false
+                    },
+                    {
+                        'subject': 'Instituições Políticas Brasileiras',
+                        'hour': '14:00',
+                        'isMandatory': true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        'ownerProgram': PPGP_ID,
+        'title': 'Turma 2016',
+        'week': [
+            {
+                'day': 'Quinta-feira',
+                'classes': [
+                    {
+                        'subject': 'Gestão de Pessoas no Setor Público',
+                        'hour': '09:00',
+                        'isMandatory': false
+                    },
+                    {
+                        'subject': 'Responsabilização, Transparência e Controle Social',
+                        'hour': '14:00',
+                        'isMandatory': false
+                    },
+                    {
+                        'subject': 'Tópicos Especiais em Gestão Pública III - Análise de Redes Sociais',
+                        'hour': '14:00',
+                        'isMandatory': false
+                    }
+                ]
+            },
+            {
+                'day': 'Sexta-feira',
+                'classes': [
+                    {
+                        'subject': 'Inovação na Gestão Pública',
+                        'hour': '08:30',
+                        'isMandatory': false
+                    },
+                    {
+                        'subject': 'Seminário de Dissertação/Projeto de Intervenção',
                         'hour': '14:00',
                         'isMandatory': true
                     }
