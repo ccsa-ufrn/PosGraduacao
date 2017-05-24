@@ -405,85 +405,79 @@ db.boardsOfProfessors.insertMany([
                 'name': 'Aline Virginia Medeiros Nelson',
                 'rank': 'Professor',
                 'lattes': 'http://lattes.cnpq.br/0268682852336814',
-                'email': 'minerva.teste@ufrn.edu.br'
+                'email': 'aline_nelson@hotmail.com'
             },
             {
-                'name': 'Antonio Alves Filho',
+                'name': 'Antônio Alves Filho',
                 'rank': 'Professor',
                 'lattes': 'http://lattes.cnpq.br/4852627579601532',
-                'email': 'minerva.teste@ufrn.edu.br'
+                'email': 'antonioalvesfil@gmail.com'
             },
             {
                 'name': 'Dinah dos Santos Tinoco',
                 'rank': 'Professor',
                 'lattes': 'http://lattes.cnpq.br/8281386555414820',
-                'email': 'minerva.teste@ufrn.edu.br'
+                'email': 'dinahtinoco@uol.com.br'
             },
             {
                 'name': 'Djalma Freire Borges',
                 'rank': 'Professor',
                 'lattes': null,
-                'email': 'minerva.teste@ufrn.edu.br'
-            },
-            {
-                'name': 'Fabio Resende de Araujo',
-                'rank': 'Professor',
-                'lattes': 'http://lattes.cnpq.br/2159396359014027',
-                'email': 'minerva.teste@ufrn.edu.br'
+                'email': 'djalma.freire.borges@gmail.com'
             },
             {
                 'name': 'Hironobu Sano',
                 'rank': 'Professor',
                 'lattes': 'http://buscatextual.cnpq.br/buscatextual/visualizacv.jsp?id=K4707946H6',
-                'email': 'minerva.teste@ufrn.edu.br'
+                'email': 'hiro.sano@gmail.com'
             },
             {
                 'name': 'Ítalo Fittipaldi',
                 'rank': 'Colaborador',
                 'lattes': null,
-                'email': 'minerva.teste@ufrn.edu.br'
+                'email': 'italofittipaldi@gmail.com'
             },
             {
-                'name': 'Jomaria Mata de Lima Alloufa',
+                'name': 'Jomária Mata de Lima Alloufa',
                 'rank': 'Professor',
                 'lattes': 'http://lattes.cnpq.br/9209334172096854',
-                'email': 'minerva.teste@ufrn.edu.br'
+                'email': 'jalloufa@yahoo.com.br'
             },
             {
-                'name': 'Kaio Cesar Fernandes',
+                'name': 'Káio César Fernandes',
                 'rank': 'Colaborador',
                 'lattes': null,
-                'email': 'minerva.teste@ufrn.edu.br'
+                'email': 'kaio@ufersa.edu.br'
             },
             {
                 'name': 'Maria Arlete Duarte de Araujo',
                 'rank': 'Professor',
                 'lattes': 'http://lattes.cnpq.br/8538092783362714',
-                'email': 'minerva.teste@ufrn.edu.br'
+                'email': 'mariaarlete1956@gmail.com'
             },
             {
                 'name': 'Maria Teresa Pires Costa',
                 'rank': 'Professor',
                 'lattes': 'http://lattes.cnpq.br/2406703224108111',
-                'email': 'minerva.teste@ufrn.edu.br'
+                'email': 'teresapires.psi@gmail.com'
             },
             {
                 'name': 'Pamela de Medeiros Brandao',
                 'rank': 'Professor',
                 'lattes': 'http://lattes.cnpq.br/9451364933481439',
-                'email': 'minerva.teste@ufrn.edu.br'
+                'email': 'pamela_brandao@yahoo.com.br'
             },
             {
                 'name': 'Richard Medeiros de Araújo',
                 'rank': 'Colaborador',
                 'lattes': null,
-                'email': 'minerva.teste@ufrn.edu.br'
+                'email': 'richardmaraujo@uol.com.br'
             },
             {
                 'name': 'Thiago Ferreira Dias',
                 'rank': 'Professor',
                 'lattes': 'http://lattes.cnpq.br/9579256535097635',
-                'email': 'minerva.teste@ufrn.edu.br'
+                'email': 'tfdpe@yahoo.com.br'
             }
         ]
     }
