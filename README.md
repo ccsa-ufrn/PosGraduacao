@@ -19,8 +19,8 @@ A suggestion that may work (note that I use ```nano``` editor, but it's a person
 
 ```sh
 cd MinervaEnv/Minerva/
-mkdir .env/ # create directory
-touch .env/api_keys.json # create an empty file
+mkdir ./env/ # create directory
+touch ./env/api_keys.json # create an empty file
 cat ./fake/api_keys.json > ./env/api_keys.json # copying a model 
 nano ./env/api_keys.json # open text editor for this file
 # at editing its content, remove ALL COMMENT LINES
