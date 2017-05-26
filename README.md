@@ -1,4 +1,4 @@
-# Minerva
+# Projeto Minerva: Plataforma de Pós-Graduação
 
 ## About
 
