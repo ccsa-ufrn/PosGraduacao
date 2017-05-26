@@ -217,7 +217,7 @@ db.weeklySchedules.insertMany([
         'title': 'Turma 2017',
         'week': [
             {
-                'day': 'Quinta-feira',
+                'day': 'Quinta',
                 'classes': [
                     {
                         'subject': 'Responsabilização, Transparência e Controle Social',
@@ -242,7 +242,7 @@ db.weeklySchedules.insertMany([
                 ]
             },
             {
-                'day': 'Sexta-feira',
+                'day': 'Sexta',
                 'classes': [
                     {
                         'subject': 'Inovação na Gestão Pública',
@@ -263,7 +263,7 @@ db.weeklySchedules.insertMany([
         'title': 'Turma 2016',
         'week': [
             {
-                'day': 'Quinta-feira',
+                'day': 'Quinta',
                 'classes': [
                     {
                         'subject': 'Gestão de Pessoas no Setor Público',
@@ -283,7 +283,7 @@ db.weeklySchedules.insertMany([
                 ]
             },
             {
-                'day': 'Sexta-feira',
+                'day': 'Sexta',
                 'classes': [
                     {
                         'subject': 'Inovação na Gestão Pública',
