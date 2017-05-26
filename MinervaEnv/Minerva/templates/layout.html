@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minerva{% if std.post_graduation %}{{ ': ' ~ std.post_graduation.initials }}{% endif %} (UFRN)</title>
+    <title>{% if std.post_graduation %}{{ std.post_graduation.name }}{% endif %} (CCSA/UFRN)</title>
 
     <meta name="description" content="Plataforma acadêmica dos programas de pós-graduação CCSA da UFRN."/>
     <meta name="author" content="Mazuh"/>
@@ -30,7 +30,7 @@
                 {% if std.post_graduation %}
                 <a href="/{{ std.post_graduation.initials }}" class="navbar-brand">{{ std.post_graduation.initials }}</a>
                 {% else %}
-                <a href="/" class="navbar-brand">Minerva</a>
+                <a href="/" class="navbar-brand">Pós-Graduações</a>
                 {% endif %}
             </div>
 
@@ -107,7 +107,7 @@
                         <ul class="dropdown-menu">
                             
                             <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Disponíveis na Minerva 
+                            <li class="dropdown-header">Disponíveis na Plataforma 
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                             </li>
                             
@@ -146,7 +146,7 @@
         <div class="container">
             <p class="pull-right">v0.0.2 (Pré-Lançamento)</p>
             <p>&copy; 2017 - Projeto Minerva (Centro de Ciências Sociais Aplicadas, Universidade Federal do Rio Grande do Norte)</p>
-            <p><a href="https://github.com/Mazuh/Minerva" target="_blank">Código livre</a>, licenciado em GPL3.</p>
+            <p><a href="https://github.com/ccsa-ufrn/PosGraduacao" target="_blank">Código livre</a>, licenciado em GPL3.</p>
         </div>
     </footer>
 
