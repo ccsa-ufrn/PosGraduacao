@@ -88,7 +88,7 @@ It should be http://localhost:4444/ but always read the output ("0.0.0.0:80" mea
 permission and your server it's opened for public access, so you need to know your IP address instead of "localhost" or "0.0.0.0").
 
 > If you had throuble with exception raised within another exception handler, it's probably 
-> related with #8 issue.
+> related with [issue #8](https://github.com/Mazuh/PosGraduacao/issues/8).
 
 You should see the application running now. Any doubts, just open an issue here on GitHub!
 
