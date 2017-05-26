@@ -87,7 +87,10 @@ Assuming that you did everything right, your terminal will output the URL for yo
 It should be http://localhost:4444/ but always read the output ("0.0.0.0:80" means you have super user
 permission and your server it's opened for public access, so you need to know your IP address instead of "localhost" or "0.0.0.0").
 
-You should see the application running locally now. Any doubts, just open an issue here on GitHub!
+> If you had throuble with exception raised within another exception handler, it's probably 
+> related with #8 issue.
+
+You should see the application running now. Any doubts, just open an issue here on GitHub!
 
 ### ... Docker way.
 
@@ -106,7 +109,7 @@ sudo docker-compose up -d # it may take a while, go get a coffe or something
 ```
 
 If everything went ok, both Flask and Mongo will be running in your machine, the server should be available
-for your whole local network. Use ```ifconfing``` to find your IP and type it on browser.
+for your own machine only. Use ```ifconfing``` to find your docker IP and type it on a web browser.
 
 But before accessing it in your browser, just feed Mongo image with some standard data
 (assuming you're still in MinervaEnv directory):

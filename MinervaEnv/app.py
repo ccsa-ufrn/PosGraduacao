@@ -1,12 +1,12 @@
 """
 This script runs the Minerva application using a development server.
 """
-import locale
+#import locale
 
 from Minerva import app
 
 if __name__ == '__main__':
-    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+#    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
     #app.jinja_env.cache = {}
     #app.jinja_env.auto_reload = True
