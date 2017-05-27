@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/css/ppgp.css" />
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>&raquo Discentes</h2>
+    </header>
+
+    <div class="panel panel-default">
+        <table class="table">
+            <thead>
+                <th>Nome</th>
+                <th>Turma</th>
+                <th>Nível</th>
+                <th>Orientador</th>
+            </thead>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>{{ student.class }}</td>
+                <td>{{ student.level }}</td>
+                <td>{{ student.orientation }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br/>
+
+</section>
+
+{% endblock %}

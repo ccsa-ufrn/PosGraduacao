@@ -5,7 +5,8 @@ of directly call their own constructor.
 A factory of Data Access Objects.
 """
 
-from .dao import DAO
+import Minerva.util.api_sistemas as api_sistemas
+from .dao import GenericMongoDAO, StudentSigaaDAO
 
 # constants for collection names in mongodb
 
@@ -27,22 +28,22 @@ COLLECTION_OF_BOARDS_OF_STAFFS = 'boardsOfStaffs'
 def post_graduations_dao():
     """ Gets an instance of a data access object for a certain collection
     (TODO: implement some kind of singleton) """
-    return DAO(COLLECTION_OF_POST_GRADUATIONS)
+    return GenericMongoDAO(COLLECTION_OF_POST_GRADUATIONS)
 
 def final_reports_dao():
     """ Gets an instance of a data access object for a certain collection
     (TODO: implement some kind of singleton) """
-    return DAO(COLLECTION_OF_FINAL_REPORTS)
+    return GenericMongoDAO(COLLECTION_OF_FINAL_REPORTS)
 
 def weekly_schedules_dao():
     """ Gets an instance of a data access object for a certain collection
     (TODO: implement some kind of singleton) """
-    return DAO(COLLECTION_OF_WEEKLY_SCHEDULES)
+    return GenericMongoDAO(COLLECTION_OF_WEEKLY_SCHEDULES)
 
 def grades_of_subjects_dao():
     """ Gets an instance of a data access object for a certain collection
     (TODO: implement some kind of singleton) """
-    return DAO(COLLECTION_OF_GRADES_OF_SUBJECTS)
+    return GenericMongoDAO(COLLECTION_OF_GRADES_OF_SUBJECTS)
 
 def boards_of_professors_dao():
     """ Gets an instance of a data access object for a certain collection
@@ -52,9 +53,14 @@ def boards_of_professors_dao():
 def integrations_infos_dao():
     """ Gets an instance of a data access object for a certain collection
     (TODO: implement some kind of singleton) """
-    return DAO(COLLECTION_OF_INTEGRATIONS_INFOS)
+    return GenericMongoDAO(COLLECTION_OF_INTEGRATIONS_INFOS)
 
 def boards_of_staffs_dao():
     """ Gets an instance of a data access object for a certain collection
     (TODO: implement some kind of singleton) """
-    return DAO(COLLECTION_OF_BOARDS_OF_STAFFS)
+    return GenericMongoDAO(COLLECTION_OF_BOARDS_OF_STAFFS)
+
+def students_dao():
+    """ Gets an instance of a data access object for a certain collection
+    (TODO: implement some kind of singleton) """
+    return StudentSigaaDAO(1672)

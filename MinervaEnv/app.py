@@ -16,7 +16,7 @@ if __name__ == '__main__':
     PORT = 80
 
     try:
-        app.run(HOST, PORT)
+        app.run(HOST, PORT, debug=True)
     except PermissionError:
         app.run('DEVELOPMENT MODE: running at localhost only!!!')
         app.run('localhost', 4444, debug=True)

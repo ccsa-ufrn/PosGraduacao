@@ -1,5 +1,8 @@
 """
-A simple OAuth 2 Client for API Sistemas.
+A simple OAuth 2 Client for API Sistemas, a read-only API
+for SIGAA (the university database).
+
+Do not use this module directly, use factory instead.
 
 For more details about what was needed to build this script, check out APISistemas doc:
 https://api.ufrn.br/
@@ -31,7 +34,7 @@ TOKEN_ENDPOINT         = API_URL_ROOT + 'authz-server/oauth/token' # token
 URL_SERVICES = {
     'ensino'        : API_URL_ROOT + 'ensino-services/services/',
     'usuario'       : API_URL_ROOT + 'usuario-services/services/', # deprecated
-    'stricto-sensu' : API_URL_ROOT + 'stricto-sensu-services/services/',
+    'stricto_sensu' : API_URL_ROOT + 'stricto-sensu-services/services/',
     'docente'       : API_URL_ROOT + 'docente-services/services/',
 }
 

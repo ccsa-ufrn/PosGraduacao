@@ -6,7 +6,6 @@ from flask import render_template, redirect
 from Minerva import app
 
 import Minerva.util.keyring as keyring
-#import Minerva.util.apisistemas_oauth2client as api_sistemas
 import Minerva.persistence.factory as factory
 
 
@@ -139,6 +138,31 @@ def view_staffs(initials):
         'staffs_view.html',
         std=get_std_for_template(post_graduation),
         board_of_staffs=board_of_staffs
+    )
+
+
+
+@app.route('/<string:initials>/discentes/')
+def view_students(initials):
+    """Render a view for integrations lists."""
+
+    post_graduation = find_post_graduation(initials)
+
+    students_from_sigaa = factory.students_dao().find_all()
+    students = []
+    for student_from_sigaa in students_from_sigaa:
+        students.append({
+            'name': student_from_sigaa['nome'].title(),
+            'class': student_from_sigaa['matricula'][0:4],
+            'level': student_from_sigaa['descricaoNivel'].capitalize(),
+            'orientation': student_from_sigaa['orientacoesAcademica'][0]['nome'].title()
+        })
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'students_view.html',
+        std=get_std_for_template(post_graduation),
+        students=students
     )
 
 
