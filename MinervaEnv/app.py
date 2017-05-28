@@ -5,6 +5,11 @@ This script runs the Minerva application using a development server.
 
 from Minerva import app
 
+PUBLIC_HOST = '0.0.0.0'
+PUBLIC_PORT = 80
+DEV_HOST = 'localhost'
+DEV_PORT = 4444
+
 if __name__ == '__main__':
 #    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
@@ -12,11 +17,8 @@ if __name__ == '__main__':
     #app.jinja_env.auto_reload = True
     #app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-    HOST = '0.0.0.0'
-    PORT = 80
-
     try:
-        app.run(HOST, PORT, debug=True)
+        app.run(PUBLIC_HOST, PUBLIC_PORT)
     except PermissionError:
-        app.run('DEVELOPMENT MODE: running at localhost only!!!')
-        app.run('localhost', 4444, debug=True)
+        print('DEVELOPMENT MODE: running at localhost only!!!')
+        app.run(DEV_HOST, DEV_PORT, debug=True)
