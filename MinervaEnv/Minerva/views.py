@@ -2,6 +2,7 @@
 Routes and views (actually, they're controllers!) for this flask application.
 """
 
+from pymongo.errors import ServerSelectionTimeoutError
 from flask import render_template, redirect
 from Minerva import app
 
@@ -180,7 +181,7 @@ def find_post_graduation(initials):
 
 
 # AUX
-def get_std_for_template(post_graduation):
+def get_std_for_template(post_graduation, giveMeEmpty=False):
     """
     Return default template stuff for jinja to render.
 
@@ -197,15 +198,27 @@ def get_std_for_template(post_graduation):
         std.post_graduations_registered (dict for the post graduations available at minerva)
         std.post_graduations_unregistered (dict for post graduations unavailable at minerva)
     They can be None if nothing has found from database or provided by function args.
+
+    Jinja will have the following template vars, if you called it with giveMeEmpty=True:
+        std.post_graduation == None
+        std.post_graduations_registered == []
+        std.post_graduations_unregistered == []
     """
-    post_graduations_dao = factory.post_graduations_dao()
-    post_graduations_registered = post_graduations_dao.find({'isSignedIn': True})
-    post_graduations_unregistered = post_graduations_dao.find({'isSignedIn': False})
-    return {
-        'post_graduation': post_graduation,
-        'post_graduations_registered': post_graduations_registered,
-        'post_graduations_unregistered': post_graduations_unregistered,
-    }
+    if giveMeEmpty:
+        return {
+            'post_graduation': None,
+            'post_graduations_registered': [],
+            'post_graduations_unregistered': [],
+        }
+    else:
+        post_graduations_dao = factory.post_graduations_dao()
+        post_graduations_registered = post_graduations_dao.find({'isSignedIn': True})
+        post_graduations_unregistered = post_graduations_dao.find({'isSignedIn': False})
+        return {
+            'post_graduation': post_graduation,
+            'post_graduations_registered': post_graduations_registered,
+            'post_graduations_unregistered': post_graduations_unregistered,
+        }
 
 
 
@@ -220,7 +233,7 @@ def page_not_found(error=None):
 
 
 @app.errorhandler(SigaaError)
-def exception_handler(error):
+def sigaa_exception_handler(error):
     """Render page for APISistemas errors. """
     print("ERROR for API Sistemas (" + repr(error) + "): " + str(error))
 
@@ -232,3 +245,11 @@ def exception_handler(error):
 
     if type(error) == NoAppCredentialsForSigaaError:
         return render_template('500.html', std=get_std_for_template(None)), 500
+
+
+@app.errorhandler(ServerSelectionTimeoutError)
+def pymongo_exception_handler(error):
+    """Render page for PyMongo errors."""
+    print("ERROR for PyMongo: MongoDB took too long to answer, is its service available, running and can be reached?")
+    # never renders it... =[ why?
+    return render_template('500.html', std=get_std_for_template(None), giveMeEmpty=True), 500
