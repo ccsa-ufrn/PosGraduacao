@@ -217,6 +217,8 @@ def page_not_found(error=None):
     print(str(error))
     return render_template('404.html', std=get_std_for_template(None)), 404
 
+
+
 @app.errorhandler(SigaaError)
 def exception_handler(error):
     """Render page for APISistemas errors. """

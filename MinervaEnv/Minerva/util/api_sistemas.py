@@ -78,12 +78,14 @@ def retrieve_token():
         'grant_type'    : 'client_credentials',
     }
 
-    returned_data = requests.post(TOKEN_ENDPOINT, data=query_params)
-    dict_data = json.loads(returned_data.text)
     try:
+        returned_data = requests.post(TOKEN_ENDPOINT, data=query_params)
+        dict_data = json.loads(returned_data.text)
         return dict_data['access_token'] # what is the return type if json cannot be loaded?
     except KeyError:
         raise FailedToGetTokenForSigaaError()
+    except:
+        raise UnreachableSigaaError(TOKEN_ENDPOINT)
 
 
 
@@ -135,4 +137,4 @@ class FailedToGetTokenForSigaaError(SigaaError, ConnectionError):
     """Token couldn't be retrieved, so the app failed while trying to authenticate."""
 
     def __str__(self):
-        return repr("Credentials are wrong, or APISistemas is unavailable.")
+        return repr("Credentials are wrong.")
