@@ -7,7 +7,7 @@ from Minerva import app
 
 import Minerva.util.keyring as keyring
 import Minerva.persistence.factory as factory
-
+from Minerva.util.api_sistemas import SigaaError, FailedToGetTokenForSigaaError, UnreachableSigaaError, NoAppCredentialsForSigaaError
 
 
 DEFAULT_POST_GRADUATION_INITIALS = 'PPGP'
@@ -216,3 +216,17 @@ def page_not_found(error=None):
 
     print(str(error))
     return render_template('404.html', std=get_std_for_template(None)), 404
+
+@app.errorhandler(SigaaError)
+def exception_handler(error):
+    """Render page for APISistemas errors. """
+    print("ERROR for API Sistemas (" + repr(error) + "): " + str(error))
+
+    if type(error) == UnreachableSigaaError:
+        return render_template('503.html', std=get_std_for_template(None)), 503
+    
+    if type(error) == FailedToGetTokenForSigaaError:
+        return render_template('501.html', std=get_std_for_template(None)), 501
+
+    if type(error) == NoAppCredentialsForSigaaError:
+        return render_template('500.html', std=get_std_for_template(None)), 500
