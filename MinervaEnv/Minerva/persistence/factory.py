@@ -48,7 +48,7 @@ def grades_of_subjects_dao():
 def boards_of_professors_dao():
     """ Gets an instance of a data access object for a certain collection
     (TODO: implement some kind of singleton) """
-    return DAO(COLLECTION_OF_BOARDS_OF_PROFESSORS)
+    return GenericMongoDAO(COLLECTION_OF_BOARDS_OF_PROFESSORS)
 
 def integrations_infos_dao():
     """ Gets an instance of a data access object for a certain collection
