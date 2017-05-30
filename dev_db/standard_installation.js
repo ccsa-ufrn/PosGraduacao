@@ -308,8 +308,8 @@ db.integrationsInfos.insertMany([
         'ownerProgram': PPGP_ID,
         'institutionsWithCovenant': [
             {
-                'name': 'Ministério da Transparência, Fiscalização e Controladoria Geral da União – Unidade Regional do Rio Grande do Norte',
-                'initials': 'CGURN'
+                'name': 'Instituto Nacional de Colonização e Reforma Agrária SR-19',
+                'initials': 'INCRARN'
             },
             {
                 'name': 'Universidade Federal do Rio Grande do Norte',
@@ -318,6 +318,10 @@ db.integrationsInfos.insertMany([
             {
                 'name': 'Instituto Federal de Educação, Ciência e Tecnologia de Sergipe',
                 'initials': 'IFS'
+            },
+            {
+                'name': 'Instituto Federal da Paraíba',
+                'initials': 'IFPB'
             },
             {
                 'name': 'Assembleia Legislativa do Estado Rio Grande do Norte',
