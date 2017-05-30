@@ -27,7 +27,14 @@
             <tr>
                 <td>{{ professor.name }}</td>
                 <td>{{ professor.rank }}(a)</td>
-                <td>{{ professor.email }}</td>
+                
+                <td>
+                    <a href="mailto:{{ professor.email }}">
+                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                        {{ professor.email }}
+                    </a>
+                </td>
+                
                 <td>
                     {% if professor.lattes %}
                     <a href="{{ professor.lattes }}" target="_blank">
@@ -38,6 +45,7 @@
                     <small>(Não informado)</small>
                     {% endif %}
                 </td>
+
             </tr>
             {% endfor %}
         </table>
