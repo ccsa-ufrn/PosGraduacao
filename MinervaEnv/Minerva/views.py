@@ -126,7 +126,7 @@ def view_integrations(initials):
 
 @app.route('/<string:initials>/equipe/')
 def view_staffs(initials):
-    """Render a view for integrations lists."""
+    """Render a view for staff list."""
 
     post_graduation = find_post_graduation(initials)
 
@@ -145,7 +145,7 @@ def view_staffs(initials):
 
 @app.route('/<string:initials>/discentes/')
 def view_students(initials):
-    """Render a view for integrations lists."""
+    """Render a view for students list."""
 
     post_graduation = find_post_graduation(initials)
 
@@ -164,6 +164,25 @@ def view_students(initials):
         'students_view.html',
         std=get_std_for_template(post_graduation),
         students=students
+    )
+
+
+
+@app.route('/<string:initials>/documentos/')
+def view_documents(initials):
+    """Render a view for documents list."""
+
+    post_graduation = find_post_graduation(initials)
+
+    documents = factory.official_documents_dao().find({
+        'ownerProgram': post_graduation['_id']
+    })
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'documents_view.html',
+        std=get_std_for_template(post_graduation),
+        documents=documents
     )
 
 

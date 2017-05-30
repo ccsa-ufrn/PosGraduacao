@@ -18,6 +18,7 @@ COLLECTION_OF_GRADES_OF_SUBJECTS = 'gradesOfSubjects'
 COLLECTION_OF_BOARDS_OF_PROFESSORS = 'boardsOfProfessors'
 COLLECTION_OF_INTEGRATIONS_INFOS = 'integrationsInfos'
 COLLECTION_OF_BOARDS_OF_STAFFS = 'boardsOfStaffs'
+COLLECTION_OF_OFFICIAL_DOCUMENTS = 'officialDocuments'
 
 # factory methods
 
@@ -59,6 +60,11 @@ def boards_of_staffs_dao():
     """ Gets an instance of a data access object for a certain collection
     (TODO: implement some kind of singleton) """
     return GenericMongoDAO(COLLECTION_OF_BOARDS_OF_STAFFS)
+
+def official_documents_dao():
+    """ Gets an instance of a data access object for a certain collection
+    (TODO: implement some kind of singleton) """
+    return GenericMongoDAO(COLLECTION_OF_OFFICIAL_DOCUMENTS)
 
 def students_dao():
     """ Gets an instance of a data access object for a certain collection
