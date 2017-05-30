@@ -60,17 +60,10 @@
                             </li>
                             
                             <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Pesquisa</li>
+                            <li class="dropdown-header">Pesquisa e extensão</li>
                             
-                            <li><a href="{{ url_for('page_not_found') }}">
-                                <span class="glyphicon glyphicon-search"></span> Projetos (em breve)</a>
-                            </li>
-                            
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Extensão</li>
-                            
-                            <li><a href="{{ url_for('view_integrations', initials=std.post_graduation.initials) }}">
-                                <span class="glyphicon glyphicon-globe"></span> Eventos e Convênios</a>
+                            <li><a href="{{ url_for('view_projects', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-search"></span> Projetos</a>
                             </li>
                             
                             <li><a href="{{ url_for('page_not_found') }}">
@@ -88,6 +81,10 @@
                             
                             <li><a href="{{ url_for('view_documents', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-file"></span> Documentos</a>
+                            </li>
+                            
+                            <li><a href="{{ url_for('view_integrations', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-globe"></span> Eventos e Convênios</a>
                             </li>
                             
                             <li><a href="{{ url_for('page_not_found') }}">

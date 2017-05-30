@@ -128,9 +128,40 @@ class GenericMongoDAO(AbstractDAO):
 
 class StudentSigaaDAO(AbstractDAO):
 
-    def __init__(self, cod_unidade: int):
+    def __init__(self, program_sigaa_code: int):
         self.ENDPOINT = api_sistemas.API_URL_ROOT
-        self.ENDPOINT += 'stricto-sensu-services/services/consulta/discente/' + str(cod_unidade)
+        self.ENDPOINT += 'stricto-sensu-services/services/consulta/discente/'
+        self.ENDPOINT += str(program_sigaa_code)
+
+    def find_all(self):
+        return api_sistemas.get_public_data(self.ENDPOINT)
+
+    def find_one(self, conditions: dict):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def find(self, conditions: dict):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def insert_one(self, document: dict):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def insert_many(self, document: list):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def update(self, document: dict):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def delete(self, document: dict):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+
+
+class ProjectSigaaDAO(AbstractDAO):
+
+    def __init__(self, program_sigaa_code: int):
+        self.ENDPOINT = api_sistemas.API_URL_ROOT
+        self.ENDPOINT += 'stricto-sensu-services/services/consulta/projeto/' 
+        self.ENDPOINT += str(program_sigaa_code)
 
     def find_all(self):
         return api_sistemas.get_public_data(self.ENDPOINT)

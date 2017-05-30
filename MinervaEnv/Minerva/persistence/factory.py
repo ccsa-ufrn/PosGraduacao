@@ -6,7 +6,7 @@ A factory of Data Access Objects.
 """
 
 import Minerva.util.api_sistemas as api_sistemas
-from .dao import GenericMongoDAO, StudentSigaaDAO
+from .dao import GenericMongoDAO, StudentSigaaDAO, ProjectSigaaDAO
 
 # constants for collection names in mongodb
 
@@ -70,3 +70,8 @@ def students_dao():
     """ Gets an instance of a data access object for a certain collection
     (TODO: implement some kind of singleton) """
     return StudentSigaaDAO(1672)
+
+def projects_dao():
+    """ Gets an instance of a data access object for a certain collection
+    (TODO: implement some kind of singleton) """
+    return ProjectSigaaDAO(1672)
