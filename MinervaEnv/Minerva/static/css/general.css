@@ -16,9 +16,9 @@ body {
 .darker-container{
     background-color: rgb(236,236,236);
     padding: 30px;
-    box-shadow: 2px 1px 1px 1px black;
-    margin-bottom: 20px;
-    margin-top: 30px;
+    box-shadow: 2px 1px 1px 1px #000;
+    margin-top: 5px;
+    margin-bottom: 15px;
 }
 
 /* for reading pages outside home */
