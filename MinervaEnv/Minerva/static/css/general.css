@@ -13,6 +13,14 @@ body {
     padding-bottom: 20px;
 }
 
+.darker-container{
+    background-color: rgb(236,236,236);
+    padding: 30px;
+    box-shadow: 2px 1px 1px 1px black;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
 /* for reading pages outside home */
 
 section header h2{
