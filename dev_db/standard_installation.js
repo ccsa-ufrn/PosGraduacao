@@ -309,23 +309,28 @@ db.integrationsInfos.insertMany([
         'institutionsWithCovenant': [
             {
                 'name': 'Instituto Nacional de Colonização e Reforma Agrária SR-19',
-                'initials': 'INCRARN'
+                'initials': 'INCRARN',
+                'logoFile': 'logo-incrarn.jpg'
             },
             {
                 'name': 'Universidade Federal do Rio Grande do Norte',
-                'initials': 'UFRN'
+                'initials': 'UFRN',
+                'logoFile': 'logo-ufrn.jpg'
             },
             {
                 'name': 'Instituto Federal de Educação, Ciência e Tecnologia de Sergipe',
-                'initials': 'IFS'
+                'initials': 'IFS',
+                'logoFile': 'logo-ifs.jpg'
             },
             {
                 'name': 'Instituto Federal da Paraíba',
-                'initials': 'IFPB'
+                'initials': 'IFPB',
+                'logoFile': 'logo-ifpb.jpg'
             },
             {
                 'name': 'Assembleia Legislativa do Estado Rio Grande do Norte',
-                'initials': 'ALRN'
+                'initials': 'ALRN',
+                'logoFile': 'logo-alrn.jpg'
             }
         ],
         'participationsInEvents': [

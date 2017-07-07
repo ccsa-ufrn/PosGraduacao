@@ -2,6 +2,9 @@
 
 {% block styles %}
 
+<link rel="stylesheet" type="text/css" href="/static/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="/static/slick/slick-theme.css"/>
+
 <link rel="stylesheet" type="text/css" href="/static/css/carousel.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/schedule.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/ppgp.css" />
@@ -215,13 +218,29 @@
 
 </div>
 
+<div class="row">
+    <h3>
+        Instituições em convênio:
+    </h3>
+    <p>
+        <a href="{{ url_for('view_integrations', initials=std.post_graduation.initials) }}">Ler mais</a>
+    </p>
+    <div class="autoplay">
+        {% for institution in institutionsWithCovenant %}
+        <div><img src="/static/assets/{{ institution.logoFile }}" alt="{{ institution.name }}"/></div>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}
 
 {% block scripts %}
 
+<!-- Google maps for building location -->
+
 <script>
     function initMap() {
-        var location = { lat: -5.8379134, lng: -35.1983559 }; /* Default location for CCSA administrative building */
+        var location = { lat: -5.8379134, lng: -35.1983559 }; // CCSA administrative building
 
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 17,
@@ -236,5 +255,20 @@
 </script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap"></script>
+
+<!-- Stick carousel for convenants -->
+
+<script>
+    $(document).ready(function(){
+        $('.autoplay').slick({
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+        });
+    });
+</script>
+
+<script type="text/javascript" src="/static/slick/slick.min.js"></script>
 
 {% endblock %}

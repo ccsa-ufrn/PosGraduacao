@@ -56,13 +56,19 @@ def home(initials=DEFAULT_POST_GRADUATION_INITIALS):
         'ownerProgram': post_graduation['_id']
     })
 
+    # search for covenants
+    integrations_infos = factory.integrations_infos_dao().find_one({
+        'ownerProgram': post_graduation['_id']
+    })
+
     # ready... fire!
     return render_template(
         'index.html',
         std=get_std_for_template(post_graduation),
         google_maps_api_key=google_maps_api_key,
         final_reports=final_reports,
-        weekly_schedules=weekly_schedules
+        weekly_schedules=weekly_schedules,
+        institutionsWithCovenant=integrations_infos['institutionsWithCovenant']
     )
 
 
