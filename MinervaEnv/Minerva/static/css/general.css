@@ -116,12 +116,14 @@ footer{
     padding-bottom: 20px;
 }
 
-footer p{
+footer p,
+footer li,
+footer li a{
     color: #fff;
 }
 
-footer p a,
-footer p a:hover
-footer p a:visited{
+footer a,
+footer a:hover,
+footer a:visited{
     color: #bdc3c7;
 }
