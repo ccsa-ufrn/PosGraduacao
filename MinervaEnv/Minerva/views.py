@@ -186,32 +186,35 @@ def view_projects(initials):
         if not project_from_sigaa['situacaoProjeto'] == 'FINALIZADO':
             members = None
             members = []
+            blocked = False
             for member in project_from_sigaa['membrosProjeto']:
+                if member['nome'].title() == 'Luciano Menezes Bezerra Sampaio':
+                    blocked = True
                 members.append({
                     'name': member['nome'].title(),
                     'general_role': member['caterogia'].capitalize(),
                     'project_role': member['funcao'].capitalize()
                 })
+            if not blocked:
+                title, _, subtitle = project_from_sigaa['titulo'].rpartition(':')
+                if not title:
+                    title = subtitle
+                    subtitle = None
+                else:
+                    subtitle = subtitle.strip()
+                    subtitle = subtitle[0].upper() + subtitle[1:]
 
-            title, _, subtitle = project_from_sigaa['titulo'].rpartition(':')
-            if not title:
-                title = subtitle
-                subtitle = None
-            else:
-                subtitle = subtitle.strip()
-                subtitle = subtitle[0].upper() + subtitle[1:]
-
-            projects.append({
-                'title': title,
-                'subtitle': subtitle,
-                'year': project_from_sigaa['codAno'],
-                'dt_init': project_from_sigaa['dataInicio'],
-                'dt_end': project_from_sigaa['dataFim'],
-                'situation': project_from_sigaa['situacaoProjeto'].capitalize(),
-                'description': project_from_sigaa['descricao'],
-                'email': project_from_sigaa['email'],
-                'members': list(members)
-            })
+                    projects.append({
+                        'title': title,
+                        'subtitle': subtitle,
+                        'year': project_from_sigaa['codAno'],
+                        'dt_init': project_from_sigaa['dataInicio'],
+                        'dt_end': project_from_sigaa['dataFim'],
+                        'situation': project_from_sigaa['situacaoProjeto'].capitalize(),
+                        'description': project_from_sigaa['descricao'],
+                        'email': project_from_sigaa['email'],
+                        'members': list(members)
+                    })
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
