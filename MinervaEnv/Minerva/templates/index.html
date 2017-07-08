@@ -33,7 +33,7 @@
                         <p>
                             Stricto sensu: o Mestrado Profissional em Gestão Pública prepara dirigentes para atuar em instituições governamentais.
                         </p>
-                        <p><a class="btn btn-lg btn-primary" href="{{ url_for('view_subjects', initials=std.post_graduation.initials) }}" role="button">Conheça a grade curricular</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="#program-about" role="button">Ver mais</a></p>
                     </div>
                 </div>
             </div>
@@ -254,7 +254,7 @@
 
 </div>
 
-<div class="row darker-container">
+<div class="row darker-container" id="program-about">
     <section>
         <header>
             <h2><span class="glyphicon glyphicon-home"></span> Sobre o Programa</h2>
@@ -317,5 +317,16 @@
 </script>
 
 <script type="text/javascript" src="/static/slick/slick.js"></script>
+
+<!-- Smoth scrolling for inner links -->
+
+<script>
+    $('a[href*=\\#]').on('click', function(event){     
+        event.preventDefault();
+        $('html,body').animate({
+            scrollTop:$(this.hash).offset().top
+        }, 500);
+    });
+</script>
 
 {% endblock %}
