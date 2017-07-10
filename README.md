@@ -118,4 +118,4 @@ But before accessing it in your browser, just feed Mongo image with some standar
 sudo docker exec -i minervaenv_db_1 mongo < ../dev_db/standard_installation.js 
 ```
 
-This should do the trick. Use your browser now.
+This should do the trick. Use your browser now. It there's no port, don't assume it's 80, in this case Docker will redirect from 3001. Read the docker-compose.yml for more technical info.
