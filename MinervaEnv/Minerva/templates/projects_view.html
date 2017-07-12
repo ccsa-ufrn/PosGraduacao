@@ -22,6 +22,13 @@
     {% endif %}
         
     <ul>
+        <li><strong>Coordenação:</strong>
+            <ul>
+                {% for coordinator in project.coordinators_names %}
+                <li>{{ coordinator }}</li>
+                {% endfor %}
+            </ul>
+        </li>
         <li><strong>E-mail:</strong> {{ project.email }}</li>    
         <li><strong>Descrição:</strong> {{ project.description }}</li>
         <li><strong>Dados:</strong>

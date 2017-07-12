@@ -195,24 +195,38 @@ def view_projects(initials):
 
     projects_from_sigaa = factory.projects_dao().find_all()
     projects = []
+    
     for project_from_sigaa in projects_from_sigaa:
+        
         if not project_from_sigaa['situacaoProjeto'] == 'FINALIZADO':
             members = None
             members = []
+            coordinators_names = []
             blocked = False
+
             for member in project_from_sigaa['membrosProjeto']:
+                # a certain professor is blocked... oh, my! :o
                 if member['nome'].title() == 'Luciano Menezes Bezerra Sampaio':
                     blocked = True
-                members.append({
-                    'name': member['nome'].title(),
-                    'general_role': member['caterogia'].capitalize(),
-                    'project_role': member['funcao'].capitalize()
-                })
+                
+                # convert from 'sigaa member' to a 'minerva member'
+                if 'COORDENADOR' in member['funcao'].upper():
+                    coordinators_names.append(member['nome'].title())
+                else:
+                    members.append({
+                        'name': member['nome'].title(),
+                        'general_role': member['caterogia'].capitalize(),
+                        'project_role': member['funcao'].capitalize()
+                    })
+            
+            # after transfusing all members, are we really going finish the assembling? 
             if not blocked:
                 title, _, subtitle = project_from_sigaa['titulo'].rpartition(':')
+
                 if not title:
                     title = subtitle
                     subtitle = None
+
                 else:
                     subtitle = subtitle.strip()
                     subtitle = subtitle[0].upper() + subtitle[1:]
@@ -226,7 +240,8 @@ def view_projects(initials):
                         'situation': project_from_sigaa['situacaoProjeto'].capitalize(),
                         'description': project_from_sigaa['descricao'],
                         'email': project_from_sigaa['email'],
-                        'members': list(members)
+                        'members': list(members),
+                        'coordinators_names': list(coordinators_names)
                     })
 
     # renders an own page or redirect to another (external/404)?
