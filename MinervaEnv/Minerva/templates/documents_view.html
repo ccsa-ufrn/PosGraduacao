@@ -26,7 +26,7 @@
             <tr>
                 <td>{{ document.cod }}</td>
                 <td>{{ document.title }}</td>
-                <td><a href="/static/upload_files/{{ std.post_graduation.initials }}/{{ document.file }}" target="_blank"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></td>
+                <td><a href="{{ url_for('download_documents', initials=std.post_graduation.initials, filename=document.file) }}" target="_blank"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></td>
             </tr>
             {% endfor %}
         </table>

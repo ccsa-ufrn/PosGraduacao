@@ -569,7 +569,7 @@ db.officialDocuments.insertMany([
         'ownerProgram': PPGP_ID,
         'title': 'Procedimentos de Defesa',
         'cod': '04-2014',
-        'file': 'regimento_PROCEDIMENTOS-DE-DEFESA.docx',
+        'file': 'resolucao_PROCEDIMENTOS-DE-DEFESA.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
         'insertedBy': 'Marcell Guilherme Costa da Silva'
     },
@@ -577,7 +577,7 @@ db.officialDocuments.insertMany([
         'ownerProgram': PPGP_ID,
         'title': 'Exame de Qualificação',
         'cod': '05-2014',
-        'file': 'regimento_EXAME-DE-QUALIFICACAO.docx',
+        'file': 'resolucao_EXAME-DE-QUALIFICACAO.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
         'insertedBy': 'Marcell Guilherme Costa da Silva'
     },
@@ -585,7 +585,7 @@ db.officialDocuments.insertMany([
         'ownerProgram': PPGP_ID,
         'title': 'Credenciamento Docente',
         'cod': '06-2014',
-        'file': 'regimento_CREDENCIAMENTO-DOCENTE.docx',
+        'file': 'resolucao_CREDENCIAMENTO-DOCENTE.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
         'insertedBy': 'Marcell Guilherme Costa da Silva'
     },
@@ -593,7 +593,7 @@ db.officialDocuments.insertMany([
         'ownerProgram': PPGP_ID,
         'title': 'Resolução de Calendário',
         'cod': '07-2014',
-        'file': 'regimento_RESOLUCAO-CALENDARIO.docx',
+        'file': 'resolucao_RESOLUCAO-CALENDARIO.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
         'insertedBy': 'Marcell Guilherme Costa da Silva'
     },
@@ -601,7 +601,7 @@ db.officialDocuments.insertMany([
         'ownerProgram': PPGP_ID,
         'title': 'Áreas de Concentração e Linhas de Pesquisa',
         'cod': '08-2014',
-        'file': 'regimento_LINHAS-PESQUISA.docx',
+        'file': 'resolucao_LINHAS-PESQUISA.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
         'insertedBy': 'Marcell Guilherme Costa da Silva'
     },
@@ -609,7 +609,7 @@ db.officialDocuments.insertMany([
         'ownerProgram': PPGP_ID,
         'title': 'Projeto de Intervenção',
         'cod': '09-2014',
-        'file': 'regimento_PROJETO-INTERVENCAO.docx',
+        'file': 'resolucao_PROJETO-INTERVENCAO.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
         'insertedBy': 'Marcell Guilherme Costa da Silva'
     },
@@ -617,7 +617,7 @@ db.officialDocuments.insertMany([
         'ownerProgram': PPGP_ID,
         'title': 'Aluno Especial',
         'cod': '10-2014',
-        'file': 'regimento_ALUNO-ESPECIAL.docx',
+        'file': 'resolucao_ALUNO-ESPECIAL.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
         'insertedBy': 'Marcell Guilherme Costa da Silva'
     }

@@ -72,6 +72,15 @@ def home(initials=DEFAULT_POST_GRADUATION_INITIALS):
 
 
 
+@app.route('/<string:initials>/documents/<string:filename>/')
+def download_documents(initials, filename):
+    """
+    Open a file from static folder.
+    """
+    return app.send_static_file('upload_files/' + initials.lower() + '/' + filename)
+
+
+
 @app.route('/<string:initials>/disciplinas/')
 def view_subjects(initials):
     """Render a view for subjects."""
