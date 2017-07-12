@@ -10,6 +10,7 @@ import Minerva.util.keyring as keyring
 import Minerva.persistence.factory as factory
 from Minerva.util.api_sistemas import SigaaError, FailedToGetTokenForSigaaError, UnreachableSigaaError, NoAppCredentialsForSigaaError
 
+#import Minerva.util.scraping as scraping
 
 DEFAULT_POST_GRADUATION_INITIALS = 'PPGP'
 DEFAULT_ACTION = 'view'
@@ -257,7 +258,7 @@ def find_post_graduation(initials):
 
 
 # AUX
-def get_std_for_template(post_graduation, giveMeEmpty=False):
+def get_std_for_template(post_graduation, give_me_empty=False):
     """
     Return default template stuff for jinja to render.
 
@@ -275,12 +276,12 @@ def get_std_for_template(post_graduation, giveMeEmpty=False):
         std.post_graduations_unregistered (dict for post graduations unavailable at minerva)
     They can be None if nothing has found from database or provided by function args.
 
-    Jinja will have the following template vars, if you called it with giveMeEmpty=True:
+    Jinja will have the following template vars, if you called it with give_me_empty=True:
         std.post_graduation == None
         std.post_graduations_registered == []
         std.post_graduations_unregistered == []
     """
-    if giveMeEmpty:
+    if give_me_empty:
         return {
             'post_graduation': None,
             'post_graduations_registered': [],
@@ -328,4 +329,4 @@ def pymongo_exception_handler(error):
     """Render page for PyMongo errors."""
     print("ERROR for PyMongo: MongoDB took too long to answer, is its service available, running and can be reached?")
     # never renders it... =[ why?
-    return render_template('500.html', std=get_std_for_template(None), giveMeEmpty=True), 500
+    return render_template('500.html', std=get_std_for_template(None), give_me_empty=True), 500

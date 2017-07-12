@@ -8,8 +8,9 @@ For more details about what was needed to build this script, check out APISistem
 https://api.ufrn.br/
 """
 
-import requests # To read: http://docs.python-requests.org/en/master/user/quickstart/
 import json
+
+import requests # To read: http://docs.python-requests.org/en/master/user/quickstart/
 
 #from urllib3 import urlencode
 

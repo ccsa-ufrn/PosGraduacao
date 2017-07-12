@@ -16,6 +16,7 @@
     </header>
     
     {% for grade in grades_of_subjects %}
+    {% set grade_index = loop.index %}
     <div class="panel panel-default">
         <div class="panel-heading text-center">
             <h4>{{ grade.title }}</h4>
@@ -33,8 +34,19 @@
                 <th>Créditos</th>
             </thead>
             {% for subject in grade.subjects %}
+            {% set subject_index  = loop.index %}
+            {% set description_id = 'subject_description-'   ~ grade_index ~ '-' ~ subject_index %}
+            {% set icon_id        = 'subject_collapse_icon-' ~ grade_index ~ '-' ~ subject_index %}
             <tr>
-                <td>{{ subject.name }}</td>
+                <td>
+                    <a href="#" onclick="toggleDescriptionVisibility('{{ description_id }}', '{{ icon_id }}'); return false;">
+                        <span id="{{ icon_id }}" class="glyphicon glyphicon-collapse-up"></span>
+                        {{ subject.name }}
+                    </a>
+                    <p id="{{ description_id }}" class="hidden">
+                        {{ subject.description }}
+                    </p>
+                </td>
                 <td>{{ subject.workloadInHours|int }}h</td>
                 <td>{{ subject.credits|int }}</td>
             </tr>
@@ -46,4 +58,15 @@
 
 </section>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // now you see... now you don't see...
+    function toggleDescriptionVisibility(subject_description_id, collapse_icon_id){
+        $("#"+subject_description_id).toggleClass('hidden');
+        $("#"+collapse_icon_id).toggleClass('glyphicon glyphicon-collapse-up');
+        $("#"+collapse_icon_id).toggleClass('glyphicon glyphicon-collapse-down');
+    }
+</script>
 {% endblock %}

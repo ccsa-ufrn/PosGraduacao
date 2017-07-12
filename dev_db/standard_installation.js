@@ -94,26 +94,31 @@ db.gradesOfSubjects.insertMany([
         'subjects': [
             {
                 'name': 'Teoria Geral da Administração Pública',
+                'description': 'Compreensão dos campos da política, das políticas públicas e da administração pública; O Contexto decisório da Administração Pública; O Contexto organizacional da Administração Pública; O Contexto normativo da Administração Pública; Teoria das Organizações e Administração Pública; Novos paradigmas da gestão pública.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Instituições Políticas Brasileiras',
+                'description': 'A evolução das instituições democráticas no Brasil  as relações entre o Estado e a sociedade civil; A Evolução da relação entre os Poderes Executivo e Legislativo no âmbito dos partidos e do sistema partidário. As Medidas Provisórias e a Delegação na Democracia Brasileira. As Gramáticas Políticas e o Processo de Nation Buildin.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
-                'name': 'Ciclo das Políticas Públicas',
+                'name': 'Ciclo de Políticas Públicas',
+                'description': 'Introdução à política pública: origens e conceitos. Modelos e processos de análise. Análise cíclica de políticas públicas, fundamentos e bases teórico-metodológicas, com destaque para as suas fases: problema, construção da agenda, formulação, implementação e avaliação de políticas públicas. Principais contribuições e críticas ao modelo cíclico. Análise sequencial de políticas públicas brasileiras.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Metodologia da Pesquisa',
+                'description': 'Natureza do conhecimento; O que é conhecer e seus problemas; O conhecimento, seus níveis e características; O Processo de construção da ciência; Objetivo e papéis da ciência, teoria e fato; Relacionamento entre ciência, teoria, fato, pesquisa e método; O método científico (os métodos e técnicas de pesquisa); A pesquisa e tipos de pesquisa; Passos formais de Estudos Científicos; Etapas para elaboração de pesquisa bibliográfica; Etapas para elaboração de projeto de pesquisa de campo; Relatórios científicos; Conceito; Tipos: trabalho de síntese, resenha, trabalho de divulgação, informes científicos; Relatórios e monografias  ensaios, dissertação e tese; Estrutura (introdução, desenvolvimento e conclusão); Redação de trabalhos científicos.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Seminário de Dissertação/Projeto de Intervenção',
+                'description': 'O projeto de pesquisa; Os elementos constitutivos do Projeto de Pesquisa  Introdução, objeto, problema, objetivos, procedimentos metodológicos, referências bibliográficas; Projeto de dissertação; Projeto de Intervenção  etapas e elementos; Oficinas de apresentação do Projeto de dissertação ou do Projeto de Intervenção.',
                 'workloadInHours': 30,
                 'credits': 2
             }
@@ -127,81 +132,97 @@ db.gradesOfSubjects.insertMany([
         'subjects': [
             {
                 'name': 'Orçamento e Finanças Públicas',
+                'description': 'O Papel do Estado em Economia Capitalista. Orçamento Público. Orçamento na Constituição Federal. Gasto Público. Receita Pública. Déficit Público. Dívida Pública. Medição do Resultado do Setor Público. Federalismo Fiscal. Previdência Social.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Inovação na Gestão Pública',
+                'description': 'Inovação, Inovação no setor público; Difusão da Inovação; Barreiras à Inovação no Setor Público; Governança Eletrônica; Novos Mecanismos de Participação e Controle Social; Empreendedorismo no Setor Público.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Instituições e Regulação',
+                'description': 'A Globalização a Crise do Capitalismo e a Redefinição do padrão de intervenção do Estado no mundo; Os anos 90 e as reformas de mercado na América Latina; A Reforma patrimonial e as privatizações no Brasil; As Agências Reguladoras; Os diversos setores de regulação e suas agências federais e estaduais: energia, telefonia, recursos hídricos, saúde e os contratos de gestão hospitalares.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Contratualização e Gestão por Resultados',
+                'description': 'A Nova Gestão Pública. Gestão para resultados no setor público: estrutura, requisitos e implementação. Contratualização de resultados no setor público. Contratos de gestão. Cultura de resultados. Avaliação da gestão pública. Indicadores e avaliação de desempenho. Responsabilização por controle de resultados. Limites do gerencialismo.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Responsabilização, Transparência e Controle Social',
+                'description': 'Administração pública voltada para o cidadão; Responsabilização na administração pública; Responsabilização por competição administrada; Responsabilização pelo controle social; Responsabilização pelo controle de resultados; Transparência na gestão pública; Transparência e interface com o cidadão; Mecanismos de Participação cidadã; Cidadania e políticas públicas; Formas de controle; Controle social e burocracia; Limites e possibilidades do controle social.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Estado e Políticas Públicas Comparadas',
+                'description': 'Teorias e modelos analíticos de políticas públicas; Coordenação, autonomia e controle de políticas públicas nos diferentes níveis de governo; Características das diversas políticas públicas sociais e econômicas; Implementação em diferentes contextos institucionais, sociais e econômicos; O papel da sociedade civil; análise comparada internacional de diferentes trajetórias de policies.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Federalismo e Políticas Públicas',
+                'description': 'Federalismo, políticas públicas e problemas de coordenação vertical e horizontal. Intersetorialidade na formulação e implementação de políticas públicas. Mecanismos institucionais de gestão. Estudos de casos setoriais.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Avaliação de Políticas Públicas',
+                'description': 'Principais aportes teóricos e metodológicos da avaliação de políticas públicas: modelos, conceitos, processos, atores e categorias analíticas referentes ao monitoramento das políticas públicas e, principalmente, avaliação de balanço e conclusiva de políticas públicas. Tipos de avaliação: tradicional e pluralista: fundamentos, diferenças e especificidades de cada abordagem; Path Dependance e suas aplicações a situações concretas; tendências contemporâneas de avaliação baseadas em participação e negociação entre instituições e atores envolvidos.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Políticas Sociais no Brasil',
+                'description': 'Marcos Constitucionais; O conceito de cidadania social na CF/88; o papel dos municípios na CF/88; definição de competências nas décadas de 1990 e 2000: normatização federal e execução municipal; as política de saúde e educação e sua coordenação federativa; A municipalização da educação fundamental; o SUS e a atenção básica à saúde pelos municípios; política de assistência social.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Atores, Processos e Instrumentos na Ação Pública',
+                'description': 'Conceitos, metodologias e categorias analíticas referentes à análise da ação pública que contempla atores, representações, instituições, processos e resultados dessa ação (LASCOUMES e LE GALÈS). Mudanças nas relações Estado x Sociedade e processos de negociação e de coordenação inovadores. O Estado e demais atores que integram a ação pública. Aportes teóricos para a compreensão da ação pública como a análise de redes, a análise cognitiva e a sociologia da ação coletiva.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Planejamento na Gestão Pública',
+                'description': ' Natureza e Evolução do Planejamento na Gestão Pública; Abordagens conceituais sobre Planejamento na Gestão Pública; Origem, Trajetória, Crise e Ressurgimento do Planejamento na Gestão Pública Brasileira; Metodologias de Planejamento; Usos da informação para o monitoramento e avaliação de planos.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Gestão de Pessoas no Setor Público',
+                'description': 'As pessoas e os sistemas de gestão nas organizações; Características da gestão de pessoas no Setor Público; Gestão de competências e gestão de conhecimento; Formas contratuais e regimes de trabalho; Carreiras: estruturação dos cargos e funções no Setor Público; Treinamento, desenvolvimento e educação nas organizações públicas; Avaliação de Desempenho Individual; Remuneração e gestão por competências; Motivação, clima e qualidade de vida no trabalho; Metodologia para avaliação da gestão dos recursos humanos no setor público; Tendências e desafios à gestão de pessoas no Setor Público.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Tópicos Especiais em Gestão Pública I',
+                'description': 'O tema abordado é variável.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Tópicos Especiais em Gestão Pública II',
+                'description': 'O tema abordado é variável.',
                 'workloadInHours': 15,
                 'credits': 1
             },
             {
                 'name': 'Tópicos Especiais em Gestão Pública III',
+                'description': 'O tema abordado é variável.',
                 'workloadInHours': 30,
                 'credits': 2
             },
             {
                 'name': 'Tópicos Especiais em Gestão Pública IV',
+                'description': 'O tema abordado é variável.',
                 'workloadInHours': 15,
                 'credits': 1
             }
