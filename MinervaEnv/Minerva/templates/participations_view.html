@@ -12,28 +12,8 @@
 
 <section>
     <header class="page-header">
-        <h2>&raquo Integrações: Eventos e Convênios</h2>
+        <h2>&raquo Participações em Eventos</h2>
     </header>
-
-    <p>
-        O Programa faz convênio com algumas instituições para lhes garantir abertura de vagas e oportunidades.
-    </p>
-
-    <div class="panel panel-default">
-        <table class="table">
-            <thead>
-                <th>Sigla</th>
-                <th>Instituição</th>
-            </thead>
-            {% for institution in integrations_infos.institutionsWithCovenant %}
-            <tr>
-                <td>{{ institution.initials }}</td>
-                <td>{{ institution.name }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-    <br/>
 
     <p>
         Ao longo do desenvolvimento das atividades dos discentes e docentes, vários intercâmbios pontuais ocorreram.

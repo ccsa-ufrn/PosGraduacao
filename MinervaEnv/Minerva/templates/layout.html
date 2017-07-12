@@ -65,8 +65,12 @@
                             <li><a href="{{ url_for('view_projects', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-search"></span> Projetos</a>
                             </li>
+
+                            <li><a href="{{ url_for('view_participations', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-globe"></span> Participações em Eventos</a>
+                            </li>
                             
-                            <li><a href="{{ url_for('page_not_found') }}">
+                            <li><a href="#">
                                 <span class="glyphicon glyphicon-briefcase"></span> Egressos (em breve)</a>
                             </li>
                         </ul>
@@ -78,19 +82,19 @@
                             <li><a href="{{ url_for('view_staffs', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-knight"></span> Equipe</a>
                             </li>
-                            
-                            <li><a href="{{ url_for('view_documents', initials=std.post_graduation.initials) }}">
-                                <span class="glyphicon glyphicon-file"></span> Documentos</a>
-                            </li>
-                            
-                            <li><a href="{{ url_for('view_integrations', initials=std.post_graduation.initials) }}">
-                                <span class="glyphicon glyphicon-globe"></span> Integrações: Eventos e Convênios</a>
+
+                            <li><a href="{{ url_for('view_covenants', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-globe"></span> Convênios</a>
                             </li>
                             
                             <li><a href="{{ url_for('page_not_found') }}">
                                 <span class="glyphicon glyphicon-calendar"></span> Calendário (em breve)</a>
                             </li>
                         </ul>
+                    </li>
+
+                    <li><a href="{{ url_for('view_documents', initials=std.post_graduation.initials) }}">
+                        <span class="glyphicon glyphicon-file"></span> Documentos</a>
                     </li>
                         
                 </ul>

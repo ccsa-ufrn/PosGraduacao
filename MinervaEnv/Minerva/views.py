@@ -124,8 +124,8 @@ def view_professors(initials):
 
 
 
-@app.route('/<string:initials>/eventoseconvenios/')
-def view_integrations(initials):
+@app.route('/<string:initials>/participacoes/')
+def view_participations(initials):
     """Render a view for integrations lists."""
 
     post_graduation = find_post_graduation(initials)
@@ -136,7 +136,26 @@ def view_integrations(initials):
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
-        'integrations_view.html',
+        'participations_view.html',
+        std=get_std_for_template(post_graduation),
+        integrations_infos=integrations_infos
+    )
+
+
+
+@app.route('/<string:initials>/convenios/')
+def view_covenants(initials):
+    """Render a view for integrations lists."""
+
+    post_graduation = find_post_graduation(initials)
+
+    integrations_infos = factory.integrations_infos_dao().find_one({
+        'ownerProgram': post_graduation['_id']
+    })
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'covenants_view.html',
         std=get_std_for_template(post_graduation),
         integrations_infos=integrations_infos
     )

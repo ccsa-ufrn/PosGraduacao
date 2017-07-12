@@ -47,7 +47,7 @@
                     <div class="carousel-caption-content">
                         <h1>Como ingressar?</h1>
                         <p>O edital de inscrição abre normalmente após outubro, com vagas exclusivas para instituições com convênio com o Programa.</p>
-                        <p><a class="btn btn-lg btn-primary" href="{{ url_for('view_integrations', initials=std.post_graduation.initials) }}" role="button">Ver convênios</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="{{ url_for('view_covenants', initials=std.post_graduation.initials) }}" role="button">Ver convênios</a></p>
                     </div>
                 </div>
             </div>
@@ -271,7 +271,7 @@
     <div class="container">
         <h3>Instituições em convênio</h3>
         <p>
-            <a href="{{ url_for('view_integrations', initials=std.post_graduation.initials) }}">Ler mais</a>
+            <a href="{{ url_for('view_covenants', initials=std.post_graduation.initials) }}">Ler mais</a>
         </p>
         <div class="autoplay">
             {% for institution in institutionsWithCovenant %}
