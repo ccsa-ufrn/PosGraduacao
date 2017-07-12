@@ -56,7 +56,15 @@
 -------------------------------------------------- */
 
 .autoplay > div img {
-    max-width: 200px;
     height: auto;
-    max-height: 150px;
+    margin: auto;
+    max-height: 75px;
+    max-width: 125px;
+}
+
+@media (min-width: 768px) {
+    .autoplay > div img {
+        max-height: 150px;
+        max-width: 200px;
+    }
 }

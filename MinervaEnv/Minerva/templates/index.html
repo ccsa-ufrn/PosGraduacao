@@ -268,14 +268,16 @@
 </div>
 
 <div class="row">
-    <h3>Instituições em convênio</h3>
-    <p>
-        <a href="{{ url_for('view_integrations', initials=std.post_graduation.initials) }}">Ler mais</a>
-    </p>
-    <div class="autoplay">
-        {% for institution in institutionsWithCovenant %}
-        <div><img src="/static/assets/{{ institution.logoFile }}" alt="{{ institution.name }}"/></div>
-        {% endfor %}
+    <div class="container">
+        <h3>Instituições em convênio</h3>
+        <p>
+            <a href="{{ url_for('view_integrations', initials=std.post_graduation.initials) }}">Ler mais</a>
+        </p>
+        <div class="autoplay">
+            {% for institution in institutionsWithCovenant %}
+            <div><img src="/static/assets/{{ institution.logoFile }}" alt="{{ institution.name }}"/></div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 
@@ -308,7 +310,7 @@
 <script>
     $(document).ready(function(){
         $('.autoplay').slick({
-            slidesToShow: 5,
+            slidesToShow: 3,
             slidesToScroll: 1,
             autoplay: true,
             autoplaySpeed: 2000,
@@ -318,7 +320,7 @@
 
 <script type="text/javascript" src="/static/slick/slick.js"></script>
 
-<!-- Smoth scrolling for inner links -->
+<!-- Smooth scrolling for inner links -->
 
 <script>
     $('a[href*=\\#]').on('click', function(event){     
