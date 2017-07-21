@@ -250,7 +250,7 @@ def view_projects(initials):
                 # a certain professor is blocked... oh, my! :o
                 if member['nome'].title() == 'Luciano Menezes Bezerra Sampaio':
                     blocked = True
-                
+
                 # convert from 'sigaa member' to a 'minerva member'
                 if 'COORDENADOR' in member['funcao'].upper():
                     coordinators_names.append(member['nome'].title())
@@ -260,7 +260,11 @@ def view_projects(initials):
                         'general_role': member['caterogia'].capitalize(),
                         'project_role': member['funcao'].capitalize()
                     })
-            
+
+                # avoid a certain professor when he's alone coordinating the project
+                if len(coordinators_names) == 1 and coordinators_names[0] == 'Washington Jose De Sousa':
+                    blocked = True
+
             # after transfusing all members, are we really going finish the assembling? 
             if not blocked:
                 title, _, subtitle = project_from_sigaa['titulo'].rpartition(':')
