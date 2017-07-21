@@ -6,10 +6,10 @@ from pymongo.errors import ServerSelectionTimeoutError
 from flask import render_template, redirect
 from Minerva import app
 
+import Minerva.scrapping.final_reports as final_reports
 import Minerva.util.keyring as keyring
 import Minerva.persistence.factory as factory
 from Minerva.util.api_sistemas import SigaaError, FailedToGetTokenForSigaaError, UnreachableSigaaError, NoAppCredentialsForSigaaError
-
 
 DEFAULT_POST_GRADUATION_INITIALS = 'PPGP'
 DEFAULT_ACTION = 'view'
@@ -296,6 +296,23 @@ def view_documents(initials):
         'documents_view.html',
         std=get_std_for_template(post_graduation),
         documents=documents
+    )
+
+
+
+@app.route('/<string:initials>/conclusoes/')
+def view_final_reports(initials):
+    """Render a view for documents list."""
+
+    post_graduation = find_post_graduation(initials)
+
+    final_reports_by_year = final_reports.ppgp_find_all()
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'final_reports_view.html',
+        std=get_std_for_template(post_graduation),
+        final_reports_by_year=final_reports_by_year
     )
 
 

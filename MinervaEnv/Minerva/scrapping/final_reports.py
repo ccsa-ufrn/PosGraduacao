@@ -34,17 +34,9 @@ def ppgp_find_all():
                 final_reports_by_year[scrapped_year].append({
                     'author': author.text.strip(),
                     'title': title.text.strip(),
-                    'counselor': counselor.text.strip() if counselor else None,
-                    'date': date.text.strip(),
+                    'counselor': counselor.text.split(':')[1].strip() if counselor else None,
+                    'date': date.text.split(':')[1].strip(),
                     'abstract': abstract.text.strip()
                 })
 
     return final_reports_by_year
-
-
-
-l = ppgp_find_all()
-for y in l:
-    print(y + ':')
-    for i in l[y]:
-        print('\t' + i['author'])
