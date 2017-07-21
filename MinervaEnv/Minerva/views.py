@@ -133,7 +133,7 @@ def view_professors(initials):
 
 
 
-@app.route('/<string:initials>/participacoes/')
+@app.route('/<string:initials>/intercambios/')
 def view_participations(initials):
     """Render a view for integrations lists."""
 
