@@ -91,8 +91,8 @@
                                 <span class="glyphicon glyphicon-globe"></span> Convênios</a>
                             </li>
                             
-                            <li><a href="#">
-                                <span class="glyphicon glyphicon-calendar"></span> Calendário (em breve)</a>
+                            <li><a href="{{ url_for('view_calendar', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-calendar"></span> Calendário</a>
                             </li>
                         </ul>
                     </li>
@@ -100,7 +100,7 @@
                     <li><a href="{{ url_for('view_documents', initials=std.post_graduation.initials) }}">
                         <span class="glyphicon glyphicon-file"></span> Documentos</a>
                     </li>
-                        
+
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">

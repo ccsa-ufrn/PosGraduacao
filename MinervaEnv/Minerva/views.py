@@ -171,6 +171,20 @@ def view_covenants(initials):
 
 
 
+@app.route('/<string:initials>/calendario/')
+def view_calendar(initials):
+    """Render a view for calendar."""
+
+    post_graduation = find_post_graduation(initials)
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'calendar.html',
+        std=get_std_for_template(post_graduation)
+    )
+
+
+
 @app.route('/<string:initials>/equipe/')
 def view_staffs(initials):
     """Render a view for staff list."""
@@ -302,7 +316,7 @@ def view_documents(initials):
 
 @app.route('/<string:initials>/conclusoes/')
 def view_final_reports(initials):
-    """Render a view for documents list."""
+    """Render a view for conclusion works list."""
 
     post_graduation = find_post_graduation(initials)
 
