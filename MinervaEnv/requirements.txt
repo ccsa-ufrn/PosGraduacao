@@ -1,4 +1,6 @@
 appdirs==1.4.3
+beautifulsoup4==4.6.0
+bs4==0.0.1
 click==6.7
 Flask==0.12
 httplib2==0.10.3
