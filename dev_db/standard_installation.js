@@ -520,9 +520,9 @@ db.finalReports.insertMany([
         'ownerProgram': PPGP_ID,
         'scheduledReports': [
             {
-                'time': new Date(2017, 04, 03, 09, 00, 00, 00),
-                'title': 'Programa Reitoria Itinerante do IFPB: uma análise sob o enfoque da gestão participativa',
-                'author': 'Adino Saraiva Bandeira',
+                'time': new Date(2017, 06, 25, 14, 00, 00, 00),
+                'title': 'Direcionamento Estratégico Da Assembleia Legislativa Do Rio Grande Do Norte',
+                'author': 'Carlos Eduardo Artioli Russo',
                 'location': 'Sala D4 do Setor V'
             }
         ]
