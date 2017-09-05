@@ -150,16 +150,16 @@ class StudentSigaaDAO(AbstractDAO):
         return api_sistemas.get_public_data(self.ENDPOINT)
 
     def insert_one(self, document: dict):
-        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+        raise NotImplementedError("Data from SIGAA are read-only.")
 
     def insert_many(self, document: list):
-        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+        raise NotImplementedError("Data from SIGAA are read-only.")
 
     def update(self, document: dict):
-        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+        raise NotImplementedError("Data from SIGAA are read-only.")
 
     def delete(self, document: dict):
-        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+        raise NotImplementedError("Data from SIGAA are read-only.")
 
 
 
@@ -180,13 +180,13 @@ class ProjectSigaaDAO(AbstractDAO):
         return api_sistemas.get_public_data(self.ENDPOINT)
 
     def insert_one(self, document: dict):
-        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+        raise NotImplementedError("Data from SIGAA are read-only.")
 
     def insert_many(self, document: list):
-        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+        raise NotImplementedError("Data from SIGAA are read-only.")
 
     def update(self, document: dict):
-        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+        raise NotImplementedError("Data from SIGAA are read-only.")
 
     def delete(self, document: dict):
-        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+        raise NotImplementedError("Data from SIGAA are read-only.")
