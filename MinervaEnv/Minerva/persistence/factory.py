@@ -5,7 +5,7 @@ of directly call their own constructor.
 A factory of Data Access Objects.
 """
 
-import Minerva.util.api_sistemas as api_sistemas
+from . import api_sistemas
 from .dao import GenericMongoDAO, StudentSigaaDAO, ProjectSigaaDAO
 
 # constants for collection names in mongodb

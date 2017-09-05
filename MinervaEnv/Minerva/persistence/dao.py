@@ -5,7 +5,7 @@ and not directly using Pymongo.
 
 
 from .mongo import DB
-import Minerva.util.api_sistemas as api_sistemas
+from . import api_sistemas
 
 
 class AbstractDAO(object):
