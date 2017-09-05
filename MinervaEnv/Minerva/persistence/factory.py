@@ -10,68 +10,74 @@ from .dao import GenericMongoDAO, StudentSigaaDAO, ProjectSigaaDAO
 
 # constants for collection names in mongodb
 
-COLLECTION_OF_USERS = 'users' # TODO need more auth algorithms and plugins
-COLLECTION_OF_POST_GRADUATIONS = 'postGraduations'
-COLLECTION_OF_FINAL_REPORTS = 'finalReports'
-COLLECTION_OF_WEEKLY_SCHEDULES = 'weeklySchedules'
-COLLECTION_OF_GRADES_OF_SUBJECTS = 'gradesOfSubjects'
-COLLECTION_OF_BOARDS_OF_PROFESSORS = 'boardsOfProfessors'
-COLLECTION_OF_INTEGRATIONS_INFOS = 'integrationsInfos'
-COLLECTION_OF_BOARDS_OF_STAFFS = 'boardsOfStaffs'
-COLLECTION_OF_OFFICIAL_DOCUMENTS = 'officialDocuments'
+_COLLECTION_OF_POST_GRADUATIONS = 'postGraduations'
+_COLLECTION_OF_FINAL_REPORTS = 'finalReports'
+_COLLECTION_OF_WEEKLY_SCHEDULES = 'weeklySchedules'
+_COLLECTION_OF_GRADES_OF_SUBJECTS = 'gradesOfSubjects'
+_COLLECTION_OF_BOARDS_OF_PROFESSORS = 'boardsOfProfessors'
+_COLLECTION_OF_INTEGRATIONS_INFOS = 'integrationsInfos'
+_COLLECTION_OF_BOARDS_OF_STAFFS = 'boardsOfStaffs'
+_COLLECTION_OF_OFFICIAL_DOCUMENTS = 'officialDocuments'
 
 # factory methods
 
-#def get_user_dao():
-#    """ Get a user DAO instance. (TODO: implement some kind of singleton) """
-#    return DAO(COLLECTION_OF_USERS)
+class PosGraduationFactory(object):
+    """
+    Provide factory methods for data access objects to postgraduation programs.
+    """
 
-def post_graduations_dao():
-    """ Gets an instance of a data access object for a certain collection
-    (TODO: implement some kind of singleton) """
-    return GenericMongoDAO(COLLECTION_OF_POST_GRADUATIONS)
+    def __init__(self, initials='noInitialsProvided'):
+        """
+        If a parameter is given (program's initials), all data access objects
+        created will be implictly searching for the found program.
+        """
+        self.post_graduation = self.post_graduations_dao().find_one({
+            'initials': initials.upper()
+        })
+        if self.post_graduation is not None:
+            self.mongo_id = self.post_graduation['_id']
+            self.sigaa_code = self.post_graduation['sigaaCode']
+        else:
+            self.mongo_id = None
+            self.sigaa_code = None
 
-def final_reports_dao():
-    """ Gets an instance of a data access object for a certain collection
-    (TODO: implement some kind of singleton) """
-    return GenericMongoDAO(COLLECTION_OF_FINAL_REPORTS)
 
-def weekly_schedules_dao():
-    """ Gets an instance of a data access object for a certain collection
-    (TODO: implement some kind of singleton) """
-    return GenericMongoDAO(COLLECTION_OF_WEEKLY_SCHEDULES)
+    def post_graduations_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return GenericMongoDAO(_COLLECTION_OF_POST_GRADUATIONS)
 
-def grades_of_subjects_dao():
-    """ Gets an instance of a data access object for a certain collection
-    (TODO: implement some kind of singleton) """
-    return GenericMongoDAO(COLLECTION_OF_GRADES_OF_SUBJECTS)
+    def final_reports_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return GenericMongoDAO(_COLLECTION_OF_FINAL_REPORTS, self.mongo_id)
 
-def boards_of_professors_dao():
-    """ Gets an instance of a data access object for a certain collection
-    (TODO: implement some kind of singleton) """
-    return GenericMongoDAO(COLLECTION_OF_BOARDS_OF_PROFESSORS)
+    def weekly_schedules_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return GenericMongoDAO(_COLLECTION_OF_WEEKLY_SCHEDULES, self.mongo_id)
 
-def integrations_infos_dao():
-    """ Gets an instance of a data access object for a certain collection
-    (TODO: implement some kind of singleton) """
-    return GenericMongoDAO(COLLECTION_OF_INTEGRATIONS_INFOS)
+    def grades_of_subjects_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return GenericMongoDAO(_COLLECTION_OF_GRADES_OF_SUBJECTS, self.mongo_id)
 
-def boards_of_staffs_dao():
-    """ Gets an instance of a data access object for a certain collection
-    (TODO: implement some kind of singleton) """
-    return GenericMongoDAO(COLLECTION_OF_BOARDS_OF_STAFFS)
+    def boards_of_professors_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return GenericMongoDAO(_COLLECTION_OF_BOARDS_OF_PROFESSORS, self.mongo_id)
 
-def official_documents_dao():
-    """ Gets an instance of a data access object for a certain collection
-    (TODO: implement some kind of singleton) """
-    return GenericMongoDAO(COLLECTION_OF_OFFICIAL_DOCUMENTS)
+    def integrations_infos_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return GenericMongoDAO(_COLLECTION_OF_INTEGRATIONS_INFOS, self.mongo_id)
 
-def students_dao():
-    """ Gets an instance of a data access object for a certain collection
-    (TODO: implement some kind of singleton) """
-    return StudentSigaaDAO(1672)
+    def boards_of_staffs_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return GenericMongoDAO(_COLLECTION_OF_BOARDS_OF_STAFFS, self.mongo_id)
 
-def projects_dao():
-    """ Gets an instance of a data access object for a certain collection
-    (TODO: implement some kind of singleton) """
-    return ProjectSigaaDAO(1672)
+    def official_documents_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return GenericMongoDAO(_COLLECTION_OF_OFFICIAL_DOCUMENTS, self.mongo_id)
+
+    def students_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return StudentSigaaDAO(int(self.sigaa_code))
+
+    def projects_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return ProjectSigaaDAO(int(self.sigaa_code))

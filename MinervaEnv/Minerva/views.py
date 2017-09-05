@@ -1,5 +1,5 @@
 """
-Routes and views (actually, they're controllers!) for this flask application.
+Routes and views (actually, they're "controllers"!) for this flask application.
 """
 
 from pymongo.errors import ServerSelectionTimeoutError
@@ -8,11 +8,11 @@ from Minerva import app
 
 import Minerva.scrapping.final_reports as final_reports
 import Minerva.persistence.keyring as keyring
-import Minerva.persistence.factory as factory
+from Minerva.persistence.factory import PosGraduationFactory
 from Minerva.persistence.api_sistemas import SigaaError, FailedToGetTokenForSigaaError, UnreachableSigaaError, NoAppCredentialsForSigaaError
 
+
 DEFAULT_POST_GRADUATION_INITIALS = 'PPGP'
-DEFAULT_ACTION = 'view'
 
 
 @app.route('/')
@@ -29,7 +29,8 @@ def home(initials=DEFAULT_POST_GRADUATION_INITIALS):
     If couldn't find which program has been requested, show a 404 page error.
     """
 
-    post_graduation = find_post_graduation(initials)
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
 
     # renders an own page or redirect to another (external/404)?
     if post_graduation is None:
@@ -46,19 +47,13 @@ def home(initials=DEFAULT_POST_GRADUATION_INITIALS):
         google_maps_api_key = google_maps_api_dict['key']
 
     # search for final reports schedule
-    final_reports = factory.final_reports_dao().find_one({
-        'ownerProgram': post_graduation['_id']
-    })['scheduledReports']
+    final_reports = pfactory.final_reports_dao().find_one()['scheduledReports']
 
     # search for weekly schedules
-    weekly_schedules = factory.weekly_schedules_dao().find({
-        'ownerProgram': post_graduation['_id']
-    })
+    weekly_schedules = pfactory.weekly_schedules_dao().find()
 
     # search for covenants
-    integrations_infos = factory.integrations_infos_dao().find_one({
-        'ownerProgram': post_graduation['_id']
-    })
+    integrations_infos = pfactory.integrations_infos_dao().find_one()
 
     # ready... fire!
     return render_template(
@@ -85,11 +80,10 @@ def download_documents(initials, filename):
 def view_subjects(initials):
     """Render a view for subjects."""
 
-    post_graduation = find_post_graduation(initials)
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
 
-    grades_of_subjects = factory.grades_of_subjects_dao().find({
-        'ownerProgram': post_graduation['_id']
-    })
+    grades_of_subjects = pfactory.grades_of_subjects_dao().find()
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -104,11 +98,10 @@ def view_subjects(initials):
 def view_professors(initials):
     """Render a view for professors list."""
 
-    post_graduation = find_post_graduation(initials)
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
 
-    board_of_professors = factory.boards_of_professors_dao().find_one({
-        'ownerProgram': post_graduation['_id']
-    })
+    board_of_professors = pfactory.boards_of_professors_dao().find_one()
 
     # manually fill missing lattes
     for professor in board_of_professors['professors']:
@@ -137,11 +130,10 @@ def view_professors(initials):
 def view_participations(initials):
     """Render a view for integrations lists."""
 
-    post_graduation = find_post_graduation(initials)
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
 
-    integrations_infos = factory.integrations_infos_dao().find_one({
-        'ownerProgram': post_graduation['_id']
-    })
+    integrations_infos = pfactory.integrations_infos_dao().find_one()
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -156,11 +148,10 @@ def view_participations(initials):
 def view_covenants(initials):
     """Render a view for integrations lists."""
 
-    post_graduation = find_post_graduation(initials)
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
 
-    integrations_infos = factory.integrations_infos_dao().find_one({
-        'ownerProgram': post_graduation['_id']
-    })
+    integrations_infos = pfactory.integrations_infos_dao().find_one()
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -175,7 +166,8 @@ def view_covenants(initials):
 def view_calendar(initials):
     """Render a view for calendar."""
 
-    post_graduation = find_post_graduation(initials)
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -189,11 +181,10 @@ def view_calendar(initials):
 def view_staffs(initials):
     """Render a view for staff list."""
 
-    post_graduation = find_post_graduation(initials)
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
 
-    board_of_staffs = factory.boards_of_staffs_dao().find_one({
-        'ownerProgram': post_graduation['_id']
-    })
+    board_of_staffs = pfactory.boards_of_staffs_dao().find_one()
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -208,9 +199,10 @@ def view_staffs(initials):
 def view_students(initials):
     """Render a view for students list."""
 
-    post_graduation = find_post_graduation(initials)
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
 
-    students_from_sigaa = factory.students_dao().find_all()
+    students_from_sigaa = pfactory.students_dao().find()
     students = []
     for student_from_sigaa in students_from_sigaa:
         students.append({
@@ -233,9 +225,10 @@ def view_students(initials):
 def view_projects(initials):
     """Render a view for projects list."""
 
-    post_graduation = find_post_graduation(initials)
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
 
-    projects_from_sigaa = factory.projects_dao().find_all()
+    projects_from_sigaa = pfactory.projects_dao().find()
     projects = []
     
     for project_from_sigaa in projects_from_sigaa:
@@ -303,11 +296,10 @@ def view_projects(initials):
 def view_documents(initials):
     """Render a view for documents list."""
 
-    post_graduation = find_post_graduation(initials)
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
 
-    documents = factory.official_documents_dao().find({
-        'ownerProgram': post_graduation['_id']
-    })
+    documents = pfactory.official_documents_dao().find()
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -322,7 +314,8 @@ def view_documents(initials):
 def view_final_reports(initials):
     """Render a view for conclusion works list."""
 
-    post_graduation = find_post_graduation(initials)
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
 
     final_reports_by_year = final_reports.ppgp_find_all()
 
@@ -333,17 +326,6 @@ def view_final_reports(initials):
         final_reports_by_year=final_reports_by_year
     )
 
-
-
-# AUX
-def find_post_graduation(initials):
-    """Search for post graduation from database using the given
-    initials as a parameter. It's case insensitive.
-    It wrappes _dao.find_one(conditions)"""
-    return factory.post_graduations_dao().find_one({
-        'initials': initials.upper(),
-        #'isSignedIn': True
-    })
 
 
 
@@ -378,9 +360,9 @@ def get_std_for_template(post_graduation, give_me_empty=False):
             'post_graduations_unregistered': [],
         }
     else:
-        post_graduations_dao = factory.post_graduations_dao()
-        post_graduations_registered = post_graduations_dao.find({'isSignedIn': True})
-        post_graduations_unregistered = post_graduations_dao.find({'isSignedIn': False})
+        pfactory = PosGraduationFactory()
+        post_graduations_registered = pfactory.post_graduations_dao().find({'isSignedIn': True})
+        post_graduations_unregistered = pfactory.post_graduations_dao().find({'isSignedIn': False})
         return {
             'post_graduation': post_graduation,
             'post_graduations_registered': post_graduations_registered,

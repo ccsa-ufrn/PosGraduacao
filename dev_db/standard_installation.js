@@ -24,48 +24,56 @@ db.postGraduations.insertMany([
                 'number': '+55 84 9 9474-6765'
             }
         ],
+        'sigaaCode': '1672',
         'isSignedIn': true,
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=5679'
     },
     {
         'name': 'Administração',
         'initials': 'PPGA',
+        'sigaaCode': undefined,
         'isSignedIn': false,
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=74'
     },
     {
         'name': 'Ciências Contábeis',
         'initials': 'PPGCC',
+        'sigaaCode': undefined,
         'isSignedIn': false,
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=9066'
     },
     {
         'name': 'Direito',
         'initials': 'PPGD',
+        'sigaaCode': undefined,
         'isSignedIn': false,
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=404'
     },
     {
         'name': 'Economia',
         'initials': 'PPGECO',
+        'sigaaCode': undefined,
         'isSignedIn': false,
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=434'
     },
     {
         'name': 'Gestão da Informação e do Conhecimento',
         'initials': 'PPGIC',
+        'sigaaCode': undefined,
         'isSignedIn': false,
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=9196'
     },
     {
         'name': 'Serviço Social',
         'initials': 'PPGSS',
+        'sigaaCode': undefined,
         'isSignedIn': false,
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=376'
     },
     {
         'name': 'Turismo',
         'initials': 'PPGTUR',
+        'sigaaCode': undefined,
         'isSignedIn': false,
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=4295'
     }

@@ -1,6 +1,6 @@
 """
 All data must be only manipulated through this middleware,
-and not directly using Pymongo.
+and not directly using Pymongo nor other API wrapper.
 """
 
 
@@ -38,7 +38,7 @@ class AbstractDAO(object):
 
 class GenericMongoDAO(AbstractDAO):
     """
-    Implements a generic middleware for accessing DB.
+    Implements a generic middleware for accessing MongoDB.
 
     Note that this instance itself don't represent anything at domain,
     it's just useful for accessing dictionaries that stands for documents
@@ -46,18 +46,19 @@ class GenericMongoDAO(AbstractDAO):
     """
 
 
-    def __init__(self, collection: str):
+    def __init__(self, collection: str, owner_post_graduation_id: str = None):
         """
         Don't use this constructor directly as you're probably doing now.
-        Use a factory instead!
+        Use its factory instead!
 
         Create an instance for starting using data access methods.
 
-        All data access will assume as context the given collection.
-
-        TODO: check if the collection exists and raise a custom exception if it doesn't
+        All data access will assume as context the given collection and will
+        add a 'ownerProgram' search parameter to all data operations if it was
+        provided. Collection name must never be None.
         """
-        self.COLLECTION = collection
+        self.collection = collection
+        self.owner_post_graduation_id = owner_post_graduation_id
 
 
 
@@ -66,27 +67,31 @@ class GenericMongoDAO(AbstractDAO):
         Gets a list of all the documents from the collection.
         TODO: retrieve only logical alive documents (maybe a 'alive_only=True' param?)
         """
-        return DB[self.COLLECTION].find_all()
+        return DB[self.collection].find_all()
 
 
 
-    def find_one(self, conditions: dict):
+    def find_one(self, conditions: dict = {}):
         """
         Gets a single found document with the given conditions, returns it as dict.
         TODO: retrieve only logical alive documents (maybe a 'alive_only=True' param?)
         """
-        return DB[self.COLLECTION].find_one(conditions)
+        if self.owner_post_graduation_id is not None:
+            conditions['ownerProgram'] = self.owner_post_graduation_id
+        return DB[self.collection].find_one(conditions)
 
 
 
-    def find(self, conditions: dict):
+    def find(self, conditions: dict = {}):
         """
         Filters documents from database collection. The given dictionary param
         represents the filter json. Returns a list of dicts, where each of them
         is a found document.
         TODO: retrieve only logical alive documents (maybe a 'alive_only=True' param?)
         """
-        return DB[self.COLLECTION].find(conditions)
+        if self.owner_post_graduation_id is not None:
+            conditions['ownerProgram'] = self.owner_post_graduation_id
+        return DB[self.collection].find(conditions)
 
 
 
@@ -95,7 +100,9 @@ class GenericMongoDAO(AbstractDAO):
         Insert a document as dict into the collection and returns its new id if it worked.
         TODO: insert an alive document
         """
-        return DB[self.COLLECTION].insert_one(document).inserted_id
+        if self.owner_post_graduation_id is not None:
+            conditions['ownerProgram'] = self.owner_post_graduation_id
+        return DB[self.collection].insert_one(document).inserted_id
 
 
 
@@ -134,13 +141,13 @@ class StudentSigaaDAO(AbstractDAO):
         self.ENDPOINT += str(program_sigaa_code)
 
     def find_all(self):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def find_one(self, conditions):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def find(self, conditions: dict = {}):
         return api_sistemas.get_public_data(self.ENDPOINT)
-
-    def find_one(self, conditions: dict):
-        raise NotImplementedError("Not implemented method inherited from an abstract class.")
-
-    def find(self, conditions: dict):
-        raise NotImplementedError("Not implemented method inherited from an abstract class.")
 
     def insert_one(self, document: dict):
         raise NotImplementedError("Not implemented method inherited from an abstract class.")
@@ -164,13 +171,13 @@ class ProjectSigaaDAO(AbstractDAO):
         self.ENDPOINT += str(program_sigaa_code)
 
     def find_all(self):
-        return api_sistemas.get_public_data(self.ENDPOINT)
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
 
     def find_one(self, conditions: dict):
         raise NotImplementedError("Not implemented method inherited from an abstract class.")
 
-    def find(self, conditions: dict):
-        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+    def find(self, conditions: dict = {}):
+        return api_sistemas.get_public_data(self.ENDPOINT)
 
     def insert_one(self, document: dict):
         raise NotImplementedError("Not implemented method inherited from an abstract class.")
