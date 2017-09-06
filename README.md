@@ -13,19 +13,15 @@ This will show up how to start the project using Linux Ubuntu 17.04 with virtual
 
 > Read [wiki](https://github.com/ccsa-ufrn/PosGraduacao/wiki/) for information about dockerized setup.
 
-### Machine environment
-
 Having already installed:
   - Python 3.5 interpreter, ```python3``` (was already installed by default)
   - PyPI 9 client, ```pip3``` from 'python3-pip' package (usual ```sudo apt install``` command)
   - VirtualEnv module, ```python3 -m virtualenv``` command (usual ```sudo pip3 install``` script)
   - MongoDB 3.2 and its shell ```mongo``` from an updated source (following [this Digital Ocean tutorial](https://www.digitalocean.com/community/tutorials/como-instalar-o-mongodb-no-ubuntu-16-04-pt))
 
-### Configuring development files
+Now start by cloning this repository in a local folder and **c**hange **d**irectory to it.
 
-Start by cloning this repository in a local folder and **c**hange **d**irectory to it.
-
-#### Virtualenv
+### Virtualenv
 
 Use these command lines to create and activate the virtual environment:
 
@@ -42,7 +38,7 @@ Now install all required libs:
 pip install -r ./requirements.txt
 ```
 
-#### API Keys
+### API Keys
 
 Open ```Minerva/MinervaEnv/Minerva/fake/api_keys.json``` using your 
 favorite text/code editor, copy its content without comments (by the way, read them) 
@@ -58,7 +54,7 @@ nano ./Minerva/env/api_keys.json # open text editor for this file
 # also, if you know valid authorization data for putting here... then do it!
 ```
 
-#### Database server
+### Database server
 
 Let's start a mongo service. Here I run:
 
@@ -79,7 +75,7 @@ mongo < ../dev_db/standard_installation.js
 Please, check if mongo output looking for errors before proceding, everything should have been
 well acknowledged. Make sure to have an updated Mongo service running too.
 
-#### Web server
+### Web server
 
 If packages installation went successfully and our configuration files are ok, you can
 now start running the local server:
