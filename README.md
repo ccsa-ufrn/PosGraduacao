@@ -7,31 +7,13 @@ Sciences Center (CCSA) in Universidade Federal do Rio Grande do Norte (UFRN).
 
 License: [GPL 3](./LICENSE).
 
-## Setting up development environment (using Linux Ubuntu 17.04)
-### First of all: configuring development files
+## Setting up development environment
 
-Start by cloning this repository in a local folder and change directory to it.
+This will show up how to start the project using Linux Ubuntu 17.04 with virtualenv.
 
-Settig up our silly security file. Open ```Minerva/MinervaEnv/Minerva/fake/api_keys.json``` using your 
-favorite text/code editor, copy its content without comments (by the way, read them) 
-and paste at ```./MinervaEnv/Minerva/env/api_keys.json```.
-A suggestion that may work (note that I use ```nano``` editor, but it's a personal option):
+> Read [wiki](https://github.com/ccsa-ufrn/PosGraduacao/wiki/) for information about dockerized setup.
 
-```sh
-cd MinervaEnv/Minerva/
-mkdir ./env/ # create directory
-touch ./env/api_keys.json # create an empty file
-cat ./fake/api_keys.json > ./env/api_keys.json # copying a model 
-nano ./env/api_keys.json # open text editor for this file
-# at editing its content, remove ALL COMMENT LINES
-# also, if you know valid authorization datas for putting here... then do it!
-```
-
-That's it.
-
-Now choose between two installation recipes: using VirtualEnv or Docker.
-
-### ... VirtualEnv way.
+### Machine environment
 
 Having already installed:
   - Python 3.5 interpreter, ```python3``` (was already installed by default)
@@ -39,10 +21,16 @@ Having already installed:
   - VirtualEnv module, ```python3 -m virtualenv``` command (usual ```sudo pip3 install``` script)
   - MongoDB 3.2 and its shell ```mongo``` from an updated source (following [this Digital Ocean tutorial](https://www.digitalocean.com/community/tutorials/como-instalar-o-mongodb-no-ubuntu-16-04-pt))
 
+### Configuring development files
+
+Start by cloning this repository in a local folder and **c**hange **d**irectory to it.
+
+#### Virtualenv
+
 Use these command lines to create and activate the virtual environment:
 
 ```sh
-cd ./MinervaEnv/
+cd ./MinervaEnv/ # from now on, all command lines will assume you're here
 python3 -m virtualenv ./
 source ./bin/activate
 ```
@@ -51,71 +39,58 @@ You will notice a ```(Minerva)``` prefixing your prompt string if it worked.
 Now install all required libs:
 
 ```sh
-$ pip install -r ./requirements.txt
+pip install -r ./requirements.txt
 ```
 
-After that, let's start a mongo service. Here, in my poor Ubuntu, I run:
+#### API Keys
+
+Open ```Minerva/MinervaEnv/Minerva/fake/api_keys.json``` using your 
+favorite text/code editor, copy its content without comments (by the way, read them) 
+and paste at ```./MinervaEnv/Minerva/env/api_keys.json```.
+A suggestion that may work (note that I use ```nano``` editor, but it's a personal option):
+
+```sh
+mkdir ./Minerva/env/ # create directory
+touch ./Minerva/env/api_keys.json # create an empty file
+cat ./Minerva/env/api_keys.json < ./Minerva/fake/api_keys.json  # copying a model 
+nano ./Minerva/env/api_keys.json # open text editor for this file
+# at editing its content, remove ALL COMMENT LINES
+# also, if you know valid authorization data for putting here... then do it!
+```
+
+#### Database server
+
+Let's start a mongo service. Here I run:
 
 ```sh
 sudo systemctl start mongod
 sudo systemctl status mongod
 ```
 
-And then I see, while running status operation, an output "Active: active (running)".
+We should see, after the last command line, an output "Active: active (running)".
 
 Assuming that there's no Minerva database installed, it's necessary to run a initial script for inputting
-some initial data.
-Consists of redirecting the content from a json to ```mongo``` shell input:
+some initial data. It consists of redirecting some scripts to ```mongo```:
 
 ```sh
-cd ../dev_db/
-mongo < ./standard_installation.js
-cd ../MinervaEnv
+mongo < ../dev_db/standard_installation.js
 ```
 
-Please, check if mongo output looking for errors before proceding. Make sure to have an updated
-Mongo service running.
+Please, check if mongo output looking for errors before proceding, everything should have been
+well acknowledged. Make sure to have an updated Mongo service running too.
+
+#### Web server
 
 If packages installation went successfully and our configuration files are ok, you can
 now start running the local server:
 
 ```sh
-python app.py
+python ./app.py
 ```
 
-Assuming that you did everything right, your terminal will output the URL for you to access using a web browser.
+Assuming that you did everything right, your terminal will output the URL for you to
+access using a web browser.
 It should be http://localhost:4444/ but always read the output ("0.0.0.0:80" means you have super user
 permission and your server it's opened for public access, so you need to know your IP address instead of "localhost" or "0.0.0.0").
 
-> If you had throuble with exception raised within another exception handler, it's probably 
-> related with [issue #8](https://github.com/Mazuh/PosGraduacao/issues/8).
-
 You should see the application running now. Any doubts, just open an issue here on GitHub!
-
-### ... Docker way.
-
-Having already installed:
-  - ```docker``` from 'docker-engine' package (I had to follow [this @caleblloyd's workaround](https://github.com/moby/moby/issues/32423))
-  - ```docker-compose``` from its homonym PyPI module (usual ```sudo pip3 install``` command globally)
-
-Just git clone this repository. change directory to it. Make sure to have Docker deamon running (```systemctl status docker``` should show its current status, maybe needing a ```sudo``` prefixing it)
-
-Again change directory, now to MinervaEnv folder. Then, use ```docker-compose``` there:
-
-```sh
-cd MinervaEnv/
-sudo docker-compose up -d # it may take a while, go get a coffe or something
-# (the '-d' will make it run in background)
-```
-
-If everything went ok, both Flask and Mongo will be running in your machine, the server should be available
-for your own machine only. Use ```ifconfing``` to find your docker IP and type it on a web browser.
-
-But before accessing it in your browser, just feed Mongo image with some standard data
-(assuming you're still in MinervaEnv directory):
-```sh
-# This command will send installation.js content to a mongo service running in minervaenv_db_1 container
-sudo docker exec -i minervaenv_db_1 mongo < ../dev_db/standard_installation.js 
-```
-
-This should do the trick. Use your browser now. It there's no port, don't assume it's 80, in this case Docker will redirect from 3001. Read the docker-compose.yml for more technical info.
