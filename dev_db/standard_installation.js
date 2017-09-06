@@ -7,23 +7,6 @@ db.postGraduations.insertMany([
     {
         'name': 'Gestão Pública',
         'initials': 'PPGP',
-        'attendance': {
-            'building': 'Administração do CCSA',
-            'floor': 'Térreo',
-            'room': 'A10',
-            'opening': 'Segunda à Sexta-Feira (08:00 às 11:30 e 13:30 às 17:00)'
-        },
-        'email': 'ppgp.ufrn@gmail.com',
-        'phones': [
-            {
-                'type': 'Fixo',
-                'number': '+55 84 3342-2288 (Ramal 189)'
-            },
-            {
-                'type': 'Claro',
-                'number': '+55 84 9 9474-6765'
-            }
-        ],
         'sigaaCode': '1672',
         'isSignedIn': true,
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=5679'
@@ -80,6 +63,31 @@ db.postGraduations.insertMany([
 ]);
 
 PPGP_ID = db.postGraduations.findOne({'initials': 'PPGP'})._id;
+
+print("Inserindo atendimento...");
+
+db.attendances.insertMany([
+    {
+        'ownerProgram': PPGP_ID,
+        'location': {
+            'building': 'Administração do CCSA',
+            'floor': 'Térreo',
+            'room': 'A10',
+            'opening': 'Segunda à Sexta-Feira (08:00 às 11:30 e 13:30 às 17:00)'
+        },
+        'email': 'ppgp.ufrn@gmail.com',
+        'phones': [
+            {
+                'type': 'Fixo',
+                'number': '+55 84 3342-2288 (Ramal 189)'
+            },
+            {
+                'type': 'Claro',
+                'number': '+55 84 9 9474-6765'
+            }
+        ]
+    }
+]);
 
 print("Inserindo linhas de pesquisa...");
 

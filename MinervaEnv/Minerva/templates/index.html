@@ -88,10 +88,10 @@
         </header>
         <img src="/static/assets/logo_ppgp.png" alt="Gestão Pública" class="program-logo center-block" width="200">
         <p>
-            <span>Sala:</span> {{ std.post_graduation.attendance.building }}, {{ std.post_graduation.attendance.floor }}, {{ std.post_graduation.attendance.room }}.<br/>
-            <span>Horários: </span> {{ std.post_graduation.attendance.opening }}<br/>
-            <span>E-mail:</span> <a href="mailto:{{ std.post_graduation.email }}">{{ std.post_graduation.email }}</a><br/>
-            {% for phone in std.post_graduation.phones %}
+            <span>Sala:</span> {{ attendance.location.building }}, {{ attendance.location.floor }}, {{ attendance.location.room }}.<br/>
+            <span>Horários: </span> {{ attendance.location.opening }}<br/>
+            <span>E-mail:</span> <a href="mailto:{{ std.post_graduation.email }}">{{ attendance.email }}</a><br/>
+            {% for phone in attendance.phones %}
             <span>Telefone {{ phone.type }}:</span> {{ phone.number }}<br/>
             {% endfor %}
         </p>

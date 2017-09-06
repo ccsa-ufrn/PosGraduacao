@@ -46,14 +46,11 @@ def home(initials=DEFAULT_POST_GRADUATION_INITIALS):
     if google_maps_api_dict is not None:
         google_maps_api_key = google_maps_api_dict['key']
 
-    # search for final reports schedule
+    # search for home data
     final_reports = pfactory.final_reports_dao().find_one()['scheduledReports']
-
-    # search for weekly schedules
     weekly_schedules = pfactory.weekly_schedules_dao().find()
-
-    # search for covenants
     integrations_infos = pfactory.integrations_infos_dao().find_one()
+    attendance = pfactory.attendances_dao().find_one()
 
     # ready... fire!
     return render_template(
@@ -62,6 +59,7 @@ def home(initials=DEFAULT_POST_GRADUATION_INITIALS):
         google_maps_api_key=google_maps_api_key,
         final_reports=final_reports,
         weekly_schedules=weekly_schedules,
+        attendance=attendance,
         institutionsWithCovenant=integrations_infos['institutionsWithCovenant']
     )
 
