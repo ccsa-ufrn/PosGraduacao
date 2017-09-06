@@ -16,6 +16,18 @@ DEFAULT_POST_GRADUATION_INITIALS = 'PPGP'
 
 
 @app.route('/')
+def root():
+    """
+    Render a root page.
+    """
+    return render_template(
+        'index.html',
+        std=get_std_for_template(None),
+    )
+
+
+
+
 @app.route('/<string:initials>/')
 def home(initials=DEFAULT_POST_GRADUATION_INITIALS):
     """
@@ -54,7 +66,7 @@ def home(initials=DEFAULT_POST_GRADUATION_INITIALS):
 
     # ready... fire!
     return render_template(
-        'index.html',
+        'home.html',
         std=get_std_for_template(post_graduation),
         google_maps_api_key=google_maps_api_key,
         final_reports=final_reports,
