@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" type="text/css" href="/static/css/carousel.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/schedule.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/ppgp.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/{{ std.post_graduation.initials }}.css" />
 
 {% endblock %}
 
@@ -86,7 +86,7 @@
         <header>
             <h2><span class="glyphicon glyphicon-map-marker"></span> Atendimento</h2>
         </header>
-        <img src="/static/assets/logo_ppgp.png" alt="Gestão Pública" class="program-logo center-block" width="200">
+        <img src="/static/assets/logo_{{ std.post_graduation }}.png" alt="Gestão Pública" class="program-logo center-block" width="200">
         <p>
             <span>Sala:</span> {{ attendance.location.building }}, {{ attendance.location.floor }}, {{ attendance.location.room }}.<br/>
             <span>Horários: </span> {{ attendance.location.opening }}<br/>
@@ -323,7 +323,7 @@
 <!-- Smooth scrolling for inner links -->
 
 <script>
-    $('a[href*=\\#]').on('click', function(event){     
+    $('a[href*=\\#]').on('click', function(event){
         event.preventDefault();
         $('html,body').animate({
             scrollTop:$(this.hash).offset().top
