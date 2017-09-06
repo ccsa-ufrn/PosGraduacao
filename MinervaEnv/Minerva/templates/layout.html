@@ -37,9 +37,10 @@
             <div class="navbar-collapse collapse">
                 
                 <ul class="nav navbar-nav">
+                    {% if std.post_graduation %}
                     <li><a href="/{% if std.post_graduation %}{{ std.post_graduation.initials }}{% endif %}"> 
                         <span class="glyphicon glyphicon-home"></span> Início </a></li>
-                        
+                    
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-education"></span> Acadêmico <span class="caret"></a>
                         <ul class="dropdown-menu">
@@ -102,7 +103,7 @@
                     </li>
 
                 </ul>
-
+                {% endif %}
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="https://ccsa.ufrn.br/portal/">
                         <span class="glyphicon glyphicon-arrow-left"></span> Portal do CCSA </a></li>
