@@ -147,7 +147,18 @@ class StudentSigaaDAO(AbstractDAO):
         raise NotImplementedError("Not implemented method inherited from an abstract class.")
 
     def find(self, conditions: dict = {}):
-        return api_sistemas.get_public_data(self.ENDPOINT)
+        return self._parse(api_sistemas.get_public_data(self.ENDPOINT))
+
+    def _parse(self, students_from_sigaa):
+        students = []
+        for student_from_sigaa in students_from_sigaa:
+            students.append({
+                'name': student_from_sigaa['nome'].title(),
+                'class': student_from_sigaa['matricula'][0:4],
+                'level': student_from_sigaa['descricaoNivel'].capitalize(),
+                'orientation': student_from_sigaa['orientacoesAcademica'][0]['nome'].title()
+            })
+        return students
 
     def insert_one(self, document: dict):
         raise NotImplementedError("Data from SIGAA are read-only.")
@@ -177,7 +188,63 @@ class ProjectSigaaDAO(AbstractDAO):
         raise NotImplementedError("Not implemented method inherited from an abstract class.")
 
     def find(self, conditions: dict = {}):
-        return api_sistemas.get_public_data(self.ENDPOINT)
+        return self._parse(api_sistemas.get_public_data(self.ENDPOINT))
+
+    def _parse(self, projects_from_sigaa):
+        projects = []
+
+        for project_from_sigaa in projects_from_sigaa:
+            
+            if not project_from_sigaa['situacaoProjeto'] == 'FINALIZADO':
+                members = None
+                members = []
+                coordinators_names = []
+                blocked = False
+
+                for member in project_from_sigaa['membrosProjeto']:
+                    # a certain professor is blocked... oh, my! :o
+                    if member['nome'].title() == 'Luciano Menezes Bezerra Sampaio':
+                        blocked = True
+
+                    # convert from 'sigaa member' to a 'minerva member'
+                    if 'COORDENADOR' in member['funcao'].upper():
+                        coordinators_names.append(member['nome'].title())
+                    else:
+                        members.append({
+                            'name': member['nome'].title(),
+                            'general_role': member['caterogia'].capitalize(),
+                            'project_role': member['funcao'].capitalize()
+                        })
+
+                    # avoid a certain professor when he's alone coordinating the project
+                    if len(coordinators_names) == 1 and coordinators_names[0] == 'Washington Jose De Sousa':
+                        blocked = True
+
+                # after transfusing all members, are we really going finish the assembling? 
+                if not blocked:
+                    title, _, subtitle = project_from_sigaa['titulo'].rpartition(':')
+
+                    if not title:
+                        title = subtitle
+                        subtitle = None
+
+                    else:
+                        subtitle = subtitle.strip()
+                        subtitle = subtitle[0].upper() + subtitle[1:]
+
+                        projects.append({
+                            'title': title,
+                            'subtitle': subtitle,
+                            'year': project_from_sigaa['codAno'],
+                            'dt_init': project_from_sigaa['dataInicio'],
+                            'dt_end': project_from_sigaa['dataFim'],
+                            'situation': project_from_sigaa['situacaoProjeto'].capitalize(),
+                            'description': project_from_sigaa['descricao'],
+                            'email': project_from_sigaa['email'],
+                            'members': list(members),
+                            'coordinators_names': list(coordinators_names)
+                        })
+        return projects
 
     def insert_one(self, document: dict):
         raise NotImplementedError("Data from SIGAA are read-only.")
