@@ -2,7 +2,7 @@
 Routes and views for public pages about Post Graduation Programs.
 """
 
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, current_app
 from pymongo.errors import ServerSelectionTimeoutError
 
 from models.scraping import final_reports
@@ -82,7 +82,7 @@ def download_documents(initials, filename):
     """
     Open a file from static folder.
     """
-    return app.send_static_file('/upload_files/' + initials.lower() + '/' + filename)
+    return current_app.send_static_file('upload_files/' + initials.lower() + '/' + filename)
 
 
 
