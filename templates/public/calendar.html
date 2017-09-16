@@ -1,0 +1,36 @@
+{% extends "public/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ std.post_graduation.initials.lower() }}.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>&raquo Calendário <small>2017.2</small></h2>
+    </header>
+
+<ul>
+    <li>
+        <strong>17/07/2017 até 21/07/2017: </strong>
+        Matrícula para o período 2017.2.
+    </li>
+
+    <li>
+        <strong>10/08/2017: </strong>
+        Início do período letivo 2017.2.
+    </li>
+
+    <li>
+        <strong>08/12/2017: </strong>
+        Término do período letivo 2017.2. 
+    </li>
+</ul>
+</section>
+
+{% endblock %}

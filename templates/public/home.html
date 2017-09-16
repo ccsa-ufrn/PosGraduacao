@@ -1,0 +1,334 @@
+{% extends "public/layout.html" %}
+
+{% block styles %}
+
+<link rel="stylesheet" type="text/css" href="/static/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="/static/slick/slick-theme.css"/>
+
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/carousel.css"/>
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/schedule.css"/>
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ std.post_graduation.initials.lower() }}.css"/>
+
+{% endblock %}
+
+{% block precontent %}
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <!--<li data-target="#myCarousel" data-slide-to="2"></li>-->
+    </ol>
+
+    <div class="carousel-inner" role="listbox">
+        
+        <div class="item active">
+            <img class="first-slide" src="/static/assets/office_lady_using_laptop_holding_smartphone_and_coffe.jpg" 
+            alt="Primeiro quadro: mulher no escritório usando laptop e segurando um smartphone e um café na mão.">
+            <div class="container">
+                <div class="carousel-caption">
+                    <div class="carousel-caption-content">
+                        <h1>Programa de Pós-Graduação em<br/><strong>{{ std.post_graduation.name }}</strong>.</h1>
+                        <p>
+                            Stricto sensu: o Mestrado Profissional em Gestão Pública prepara dirigentes para atuar em instituições governamentais.
+                        </p>
+                        <p><a class="btn btn-lg btn-primary" href="#program-about" role="button">Ver mais</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item">
+            <img class="second-slide" src="/static/assets/man_tie.jpg"
+            alt="Segundo quadro: homem de terno ajustando a gravata.">
+            <div class="container">
+                <div class="carousel-caption">
+                    <div class="carousel-caption-content">
+                        <h1>Como ingressar?</h1>
+                        <p>O edital de inscrição abre normalmente após outubro, com vagas exclusivas para instituições com convênio com o Programa.</p>
+                        <p><a class="btn btn-lg btn-primary" href="{{ url_for('public.view_covenants', initials=std.post_graduation.initials) }}" role="button">Ver convênios</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+<!--
+        <div class="item">
+            <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>One more for good measure.</h1>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+-->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Anterior</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Próximo</span>
+    </a>
+</div><!-- /.carousel -->
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+    <section class="col-md-4">
+        <header>
+            <h2><span class="glyphicon glyphicon-map-marker"></span> Atendimento</h2>
+        </header>
+        <img src="/static/assets/logo_{{ std.post_graduation.initials.lower() }}.png" alt="Gestão Pública" class="program-logo center-block" width="200">
+        <p>
+            <span>Sala:</span> {{ attendance.location.building }}, {{ attendance.location.floor }}, {{ attendance.location.room }}.<br/>
+            <span>Horários: </span> {{ attendance.location.opening }}<br/>
+            <span>E-mail:</span> <a href="mailto:{{ std.post_graduation.email }}">{{ attendance.email }}</a><br/>
+            {% for phone in attendance.phones %}
+            <span>Telefone {{ phone.type }}:</span> {{ phone.number }}<br/>
+            {% endfor %}
+        </p>
+        <div id="map"><!-- Google Maps API. --></div>
+        <p>
+            <address>
+                <span>Endereço 1:</span>
+                Brasil, Natal (RN), CEP 59078-970, Lagoa Nova, Av. Sen. Salgado Filho, 3000.<br/>
+                <span>Endereço 2:</span>
+                Campus Universitário Central, Prédio Administrativo do CCSA.<br/>
+            </address>
+        </p>
+    </section>
+    
+    <div class="col-md-4">
+        
+        <section>
+            <header>
+                <h2><span class="glyphicon glyphicon-pushpin"></span> Eventos</h2>
+            </header>
+            <p>Eventos anunciados pelo Programa.</p>
+            {% if events %}
+            <table class="schedule-table">
+                {% for event in events %}
+                <tr class="schedule-container">
+                    <td class="schedule-container-date">
+                        <ul>
+                            <li class="schedule-date-day">{{ event.time.strftime("%d") }}</li>
+                            <li class="schedule-date-month">{{ event.time.strftime("%b").upper() }}</li>
+                            <li class="schedule-date-year">{{ event.time.strftime("%Y") }}</li>
+                        </ul>
+                    </td>
+                    <td class="schedule-container-info">
+                        <h4>{{ event.title }}</h4>
+                        <p>
+                            Local: {{ event.location }}<br/>
+                            Horário: {{ event.time.strftime("%H:%M") }}<br/>
+                        </p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p><small>(Sem eventos agendados no momento.)</small></p>
+            {% endif %}
+        </section>
+
+        <section>
+            <header>
+                <h2><span class="glyphicon glyphicon-pushpin"></span> Apresentações</h2>
+            </header>
+            <p>Apresentações públicas dos discentes diante de suas bancas examinadoras.</p>
+            {% if final_reports %}
+            <table class="schedule-table">
+                {% for report in final_reports %}
+                <tr class="schedule-container">
+                    <td class="schedule-container-date">
+                        <ul>
+                            <li class="schedule-date-day">{{ report.time.strftime("%d") }}</li>
+                            <li class="schedule-date-month">{{ report.time.strftime("%b").upper() }}</li>
+                            <li class="schedule-date-year">{{ report.time.strftime("%Y") }}</li>
+                        </ul>
+                    </td>
+                    <td class="schedule-container-info">
+                        <h4>{{ report.title }}
+                            <br/>
+                            <small>{{ report.author }}</small>
+                        </h4>
+                        <p>
+                            Local: {{ report.location }}<br/>
+                            Horário: {{ report.time.strftime("%H:%M") }}<br/>
+                        </p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p><small>(Não há nenhuma apresentação do Programa agendada.)</small></p>
+            {% endif %}
+        </section>
+    </div>
+    
+    <div class="col-md-4">
+        <section>
+            <header>
+            <h2><span class="glyphicon glyphicon-bullhorn"></span> Seleções</h2>
+            </header>
+            <p><small>(Não há seleções ocorrendo agora.)</small></p>
+        </section>
+        <!--
+        <h4>Mestrado (15 vagas):
+            <br/>
+            <small>(10/03/2017 à 05/06/2017)</small>
+        </h4>
+        <ul>
+            <li><span>Status:</span> <span style="color: green">Aguardando submissões</span></li>
+            <li><span>Quadro de vagas por instituição:</span> 
+                <ul>
+                    <li>"Público geral" (0 vagas)</li>
+                    <li>UFRN (5 vagas)</li>
+                    <li>IFPA (5 vagas)</li>
+                    <li>IFRN (5 vagas)</li>
+                </ul>
+            </li>
+            <li><span>Documentos necessários:</span> 
+                <ul>
+                    <li>Comprovante do resultado do teste da ANPAD realizados a partir de fevereiro de 2015</li>
+                    <li>Cópia do Anteprojeto de Proposta de Intervenção ou do Anteprojeto de Dissertação de Mestrado</li>
+                    <li>Carta de anuência emitida pela instituição conveniada autorizando o candidato a participação no processo seletivo</li>
+                </ul>
+            </li>
+            <li><span>Como participar:</span>
+                Realizar sua inscrição online através do site do SIGAA (http://www.sigaa.ufrn.br), na
+                opção Processos Seletivos - STRICTO SENSU, clicar no link Mestrado Profissional em
+                Gestão Pública. No processo de inscrição o candidato deverá anexar os documentos.
+            </li>
+        </ul>
+        <p><a class="btn btn-default center-block" href="{{ url_for('public.page_not_found') }}">Baixar edital &raquo;</a></p>
+        -->
+        <section>
+            <header>
+                <h2><span class="glyphicon glyphicon-hourglass"></span> Horários</h2>
+            </header>
+            {% for weekly_schedule in weekly_schedules %}
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4>{{ weekly_schedule.title }}</h4>
+                </div>
+                <table class="table schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Dia</th>
+                            <th>Lista de aulas</th>
+                        </tr>
+                    </thead>
+                    {% for day in weekly_schedule.week %}
+                    <tr>
+                        <td>
+                            {{ day.day }}
+                        </td>
+                        <td>
+                            <ul>
+                                {% for class in day.classes %}
+                                <li>
+                                    <span{% if class.isMandatory %} style="font-weight: bold" {% endif %}>
+                                        {{ class.subject }}
+                                    </span>
+                                    às {{ class.hour }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+
+</div>
+
+<div class="row darker-container" id="program-about">
+    <section>
+        <header>
+            <h2><span class="glyphicon glyphicon-home"></span> Sobre o Programa</h2>
+        </header>
+        <p>O Programa de Pós-Graduação em Gestão Pública (PPGP) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplicadas (CCSA) e foi criado em 2010.</p>
+        <p>Atualmente oferece o curso de Mestrado Profissional em Gestão Pública, em nível de pós-graduação stricto sensu, com o intuito de preparar dirigentes de instituições públicas. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colaboradores.</p>
+        <p>O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações.</p>
+        <br/>
+        <p>Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.</p>
+    </section>
+</div>
+
+<div class="row">
+    <div class="container">
+        <h3>Instituições em convênio</h3>
+        <p>
+            <a href="{{ url_for('public.view_covenants', initials=std.post_graduation.initials) }}">Ler mais</a>
+        </p>
+        <div class="autoplay">
+            {% for institution in institutionsWithCovenant %}
+            <div><img src="/static/assets/{{ institution.logoFile }}" alt="{{ institution.name }}"/></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<!-- Google maps for building location -->
+
+<script>
+    function initMap() {
+        var location = { lat: -5.8379134, lng: -35.1983559 }; // CCSA administrative building
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 17,
+            center: location
+        });
+
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+    }
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap"></script>
+
+<!-- Stick carousel for convenants -->
+
+<script>
+    $(document).ready(function(){
+        $('.autoplay').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+        });
+    });
+</script>
+
+<script type="text/javascript" src="/static/slick/slick.js"></script>
+
+<!-- Smooth scrolling for inner links -->
+
+<script>
+    $('a[href*=\\#]').on('click', function(event){
+        event.preventDefault();
+        $('html,body').animate({
+            scrollTop:$(this.hash).offset().top
+        }, 500);
+    });
+</script>
+
+{% endblock %}

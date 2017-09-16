@@ -1,0 +1,54 @@
+{% extends "public/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ std.post_graduation.initials.lower() }}.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>&raquo Projetos <small>em execução</small></h2>
+    </header>
+
+    {% for project in projects %}
+    <h3>{{ project.title }}</h3>
+    {% if project.subtitle %}
+    <h4>{{ project.subtitle }}</h4>
+    {% endif %}
+        
+    <ul>
+        <li><strong>Coordenação:</strong>
+            <ul>
+                {% for coordinator in project.coordinators_names %}
+                <li>{{ coordinator }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li><strong>E-mail:</strong> {{ project.email }}</li>
+        <li><strong>Dados:</strong>
+            <ul>
+                <li>Situação: {{ project.situation }}</li>
+                <li>Início: {{ project.dt_init }}</li>
+                <li>Fim: {{ project.dt_end }}</li>
+            </ul>        
+        </li>   
+        <li><strong>Membros:</strong>
+            <ul>
+                {% for member in project.members %}
+                <li>{{ member.name }}, <small>{{ member.project_role }}</small></li>
+                {% endfor %}
+            </ul>
+        </li>
+
+    </ul>
+    <br/>
+    {% endfor %}
+
+</section>
+
+{% endblock %}

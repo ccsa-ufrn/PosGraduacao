@@ -1,0 +1,32 @@
+{% extends "public/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ std.post_graduation.initials.lower() }}.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>&raquo Intercâmbios</h2>
+    </header>
+
+    <p>
+        Ao longo do desenvolvimento das atividades dos discentes e docentes, vários intercâmbios pontuais ocorreram.
+    </p>
+
+    {% for event in integrations_infos.participationsInEvents %}
+    <h3>{{ event.title }}<br/>
+        <small>({% if event.international %}{{ event.international }} | {% endif %}{{ event.year|int }})</small>
+    </h3>
+    
+    <p>{{ event.description }}</p>
+    {% endfor %}
+
+</section>
+
+{% endblock %}

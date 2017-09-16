@@ -1,0 +1,38 @@
+{% extends "public/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ std.post_graduation.initials.lower() }}.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+{% for year in final_reports_by_year %}
+<section>
+    <header class="page-header">
+        <h2>&raquo Trabalhos de Conclusão <small> {{ year }}</small></h2>
+        <p><small>
+            (Dica: para consultar um dos documentos oficiais abaixo, faça uma busca diretamente no <a target="_blank" href="https://repositorio.ufrn.br/jspui/simple-search">Repositório Institucional</a>.)
+        </small></p>
+    </header>
+
+    {% for report in final_reports_by_year[year] %}
+
+    <h3>{{ report.title }}</h3>
+    <h4><strong>Autor:</strong> {{ report.author.title() }}</h4>
+    {% if report.counselor %}
+    <h4><strong>Orientador:</strong> {{ report.counselor.title() }}</h4>
+    {% endif %}
+    <h5><strong>Data:</strong> {{ report.date }}</h5>
+    <p><strong>Resumo:</strong> {{ report.abstract }}</p>
+    <br/>
+    
+    {% endfor %}
+
+</section>
+{% endfor %}
+
+{% endblock %}
