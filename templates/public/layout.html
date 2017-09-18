@@ -68,7 +68,7 @@
                             </li>
 
                             <li><a href="{{ url_for('public.view_participations', initials=std.post_graduation.initials) }}">
-                                <span class="glyphicon glyphicon-globe"></span> Intercâmbios</a>
+                                <span class="glyphicon glyphicon-plane"></span> Intercâmbios</a>
                             </li>
 
                             <li><a href="{{ url_for('public.view_final_reports', initials=std.post_graduation.initials) }}">
@@ -105,11 +105,11 @@
                 </ul>
                 {% endif %}
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="https://ccsa.ufrn.br/portal/">
-                        <span class="glyphicon glyphicon-arrow-left"></span> Portal do CCSA </a></li>
+                    <li><a href="{{ url_for('admin.index') }}">
+                        <span class="glyphicon glyphicon-user"></span> Login </a></li>
                     
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-random"></span> Mais Pós-Graduações <span class="caret"></a>
+                        <span class="glyphicon glyphicon-random"></span> Pós-Graduações <span class="caret"></a>
                         <ul class="dropdown-menu">
                             
                             <li role="separator" class="divider"></li>

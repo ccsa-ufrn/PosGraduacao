@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pós-Graduação (CCSA/UFRN)</title>
+
+    <meta name="description" content="Plataforma acadêmica dos programas de pós-graduação do CCSA da UFRN."/>
+    <meta name="author" content="Mazuh"/>
+
+    <link rel="icon" href="https://www.ccsa.ufrn.br/portal/wp-content/uploads/2014/08/favicon.fw_.png"/>
+
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap3/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/general_admin.css"/>
+    {% block styles %}{% endblock %}
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/admin/" class="navbar-brand">Pós-Graduação <small>Painel de Controle</small></a>
+            </div>
+
+            <div class="navbar-collapse collapse">                
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"> Ver página </a></li>
+                    <li><a href="#"> Configurações </a></li>
+                    <li><a href="#"> Sair </a></li>
+                </ul>
+            </div>
+            
+        </div>
+    </nav>
+
+    {% block precontent %}{% endblock %}
+
+    <div class="container-fluid">
+        <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar">
+                    <h6><strong>INFORMAÇÕES</strong></h6>
+                    <ul class="nav nav-sidebar">
+                        <li class="active"><a href="#">Início<span class="sr-only">(atual)</span></a></li>
+                    </ul>
+                    <h6><strong>EDITAR PÁGINAS</strong></h6>
+                    <ul class="nav nav-sidebar">
+                        <li><a href="">Disciplinas</a></li>
+                        <li><a href="">Discentes</a></li>
+                        <li><a href="">Docentes</a></li>
+                        <li><a href="">Projetos</a></li>
+                        <li><a href="">Intercâmbios</a></li>
+                        <li><a href="">Defesas e dissertações</a></li>
+                        <li><a href="">Equipe</a></li>
+                        <li><a href="">Convênios</a></li>
+                        <li><a href="">Calendário</a></li>
+                    </ul>
+                    <h6><strong>BUROCRACIA</strong></h6>
+                    <ul class="nav nav-sidebar">
+                        <li><a href="">Documentos</a></li>
+                    </ul>
+                </div>
+                {% block content %}{% endblock %}
+        </div>
+        <hr/>
+    </div>
+
+    <footer>
+        <div class="container">
+            <a href="http://www.sistemas.ufrn.br/acessoainformacao/" target="_blank">
+                <img class="pull-right" src="/static/assets/icon-acessoainformacao.png"/>
+            </a>
+            <p><span class="glyphicon glyphicon-link"></span> <strong>Links rápidos:</strong></p>
+            <ul id="institutional-quick-links">
+                <li><a target="_blank" href="http://ufrn.br/">UFRN: Universidade Federal do Rio Grande do Norte</a></li>
+                <li><a target="_blank" href="https://sigaa.ufrn.br/sigaa/public/home.jsf">SIGAA: Sistema Integrado de Gestão de Atividades Acadêmicas</a></li>
+                <li><a target="_blank" href="https://ccsa.ufrn.br/portal/">CCSA: Centro de Ciências Sociais Aplicadas</a></li>
+                <li><a target="_blank" href="http://www.capes.gov.br/">CAPES: Coordenação de Aperfeiçoamento de Pessoal de Nível Superior</a></li>
+                <li><a target="_blank" href="http://cnpq.br/">CNPq: Conselho Nacional de Desenvolvimento Científico e Tecnológico</a></li>
+                <li><a target="_blank" href="https://repositorio.ufrn.br/jspui/">RI: Repositório Institucional</a></li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <p class="pull-right">v1.0.0 (Minerva)</p>
+            <p><strong>&copy; 2017 - Projeto Plataforma de Pós-Graduação (Centro de Ciências Sociais Aplicadas, Universidade Federal do Rio Grande do Norte)</strong></p>
+            <p><a href="https://github.com/ccsa-ufrn/PosGraduacao" target="_blank">Código livre</a>, licenciado em GPL3.</p>
+        </div>
+    </footer>
+
+    <script src="/static/jquery3/jquery-3.1.1.min.js"></script>
+    <script src="/static/bootstrap3/js/bootstrap.js"></script>
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

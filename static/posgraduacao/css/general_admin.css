@@ -3,7 +3,7 @@
 
 body {
     /* Set padding to protect main menu top place */
-    padding-top: 50px;
+    padding-top: 55px;
 }
 
 .body-content {
@@ -38,46 +38,41 @@ section header h2{
 }
 
 
-/* NAVBAR
+/* MAIN NAVBAR
 -------------------------------------------------- */
 
 .navbar-default{
-    background-color: #F05648;
+    background-color: #c0392b;
+    padding-bottom: 10px; /* Mobile only */
 }
 
-.navbar .container .navbar-nav > li > a,
-.navbar .container .navbar-header .navbar-brand{
+.navbar .container-fluid .navbar-nav > li > a,
+.navbar .container-fluid .navbar-header .navbar-brand{
     color: #FFF;
 }
 
-.navbar .container .navbar-nav .dropdown-header,
-.navbar .container .navbar-nav .dropdown .dropdown-menu li a{
-    color: #FFF; /* Should only be shown for desktop screens */
-}
-
-.navbar .container .navbar-nav .dropdown-header{
-    font-weight: bold;
-}
-
-.navbar .container .navbar-header .navbar-brand{
+.navbar .container-fluid .navbar-header .navbar-brand{
     font-size: 2.5em;
     margin-bottom: 5px;
     margin-top: 5px; /* Vertical alignment that should appear only for desktop screens */
 }
 
-.navbar .container .dropdown-header{
+.navbar .container-fluid .navbar-header .navbar-brand small{
+    font-size: 0.4em;
+}
+
+.navbar .container-fluid .dropdown-header{
     color: #FFF;
 }
 
 @media (min-width: 768px) {
     /* If in a desktop */
 
-    .navbar .container .navbar-nav .dropdown-header,
-    .navbar .container .navbar-nav .dropdown .dropdown-menu li a{
-        color: #000; /* Fix that coloring */
+    .navbar-default{
+        padding-bottom: 0px;
     }
 
-    .navbar .container .navbar-header .navbar-brand{
+    .navbar .container-fluid .navbar-header .navbar-brand{
         margin-top: 0px; /* Fix that vertical alignment */
     }
 
@@ -95,19 +90,34 @@ section header h2{
     border-radius: 10px;
 }
 
-/* GOOGLE MAPS API
+/* SIDEBAR NAV
 -------------------------------------------------- */
 
-#map {
-    height: 400px;
-    width: 100%;
+.nav-sidebar {
+    margin-top: 5px;
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+
+.nav-sidebar > li > a {
+    padding-right: 20px;
+    padding-left: 20px;
+    color: #34495e;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+    color: #fff;
+    background-color: #16a085;
 }
 
 /* FOOTER
 -------------------------------------------------- */
 
 footer{
-    background-color: #D2382A;
+    background-color: #B71C1C;
     /* Set padding to keep content footer from hitting the edges */
     padding-left: 15px;
     padding-right: 15px;

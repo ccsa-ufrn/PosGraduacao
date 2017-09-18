@@ -12,8 +12,7 @@ from models.factory import PosGraduationFactory
 from models.clients.api_sistemas import SigaaError, FailedToGetTokenForSigaaError, UnreachableSigaaError, NoAppCredentialsForSigaaError
 
 
-app = Blueprint('public', __name__, static_folder='static')
-
+app = Blueprint('public', __name__, static_folder='static', url_prefix='')
 
 @app.route('/')
 def root():
