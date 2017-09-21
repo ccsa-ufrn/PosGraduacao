@@ -113,6 +113,20 @@ section header h2{
     background-color: #16a085;
 }
 
+/* CONTENT
+-------------------------------------------------- */
+
+.content {
+    margin-left: 10px;
+}
+
+@media (min-width: 768px) {
+    /* If in a desktop */
+    .content {
+        margin-left: 200px;
+    }
+}
+
 /* FOOTER
 -------------------------------------------------- */
 

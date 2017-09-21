@@ -1,0 +1,29 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+<header>
+    <h2>Login</h2>
+</header>
+
+<form method="POST" action="/admin/login/">
+    {{ form.csrf_token }}
+    
+    {{ form.username.label }}<br/>
+    {{ form.username }}
+
+    <br/>
+
+    {{ form.password.label }}<br/>
+    {{ form.password }}
+
+    <br/>
+    
+    <input type="submit" value="Entrar">
+</form>
+
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+
+{% endblock %}

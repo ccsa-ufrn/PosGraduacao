@@ -2,6 +2,7 @@
 Routes and views for system administration pages.
 """
 
+import flask_login
 from flask import Blueprint, render_template
 # from pymongo.errors import ServerSelectionTimeoutError
 
@@ -9,6 +10,7 @@ from flask import Blueprint, render_template
 # from models.clients.util import keyring
 
 # from models.factory import PosGraduationFactory
+from views.forms.auth import LoginForm
 from models.clients.api_sistemas import SigaaError, \
     FailedToGetTokenForSigaaError, UnreachableSigaaError, \
     NoAppCredentialsForSigaaError
@@ -23,19 +25,27 @@ APP = Blueprint('admin',
 @APP.route('/')
 def index():
     """
-    Render a root page for public access.
+    If user is already authenticated, render its
+    dashboard, otherwise ask for his password.
     """
     return login()
 
 
-@APP.route('/login/')
+@APP.route('/login/', methods=['GET', 'POST'])
 def login():
     """
     Render a root page for public access.
     """
-    return render_template(
-        'admin/layout.html',
-    )
+
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        flask_login.login_user(user)
+    else:
+        return render_template(
+            'admin/login.html',
+            form=form,
+        )
 
 
 @APP.route('/404/')
