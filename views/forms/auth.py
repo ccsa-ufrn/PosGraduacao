@@ -11,5 +11,9 @@ class LoginForm(FlaskForm):
     """
     Sign in form.
     """
-    username = StringField('Usuário', validators=[DataRequired()])
-    password = PasswordField('Senha', validators=[DataRequired()])
+    username = StringField('Usuário', validators=[
+        DataRequired('Digite o seu usuário.')
+    ])
+    password = PasswordField('Senha', validators=[
+        DataRequired('Digite sua senha.')
+    ])

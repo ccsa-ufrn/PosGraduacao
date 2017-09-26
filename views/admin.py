@@ -40,7 +40,8 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        flask_login.login_user(user)
+        print('foi!')
+        # flask_login.login_user(user)
     else:
         return render_template(
             'admin/login.html',
