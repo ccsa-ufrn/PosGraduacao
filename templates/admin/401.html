@@ -1,0 +1,15 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+<h2>401: Não autorizado.</h2>
+<p>
+    É necessário estar autenticado no sistema para acessar esta página.
+</p>
+
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>
+    ou abrir a opção de <strong>Mais Pós-Graduações</strong> no menu principal acima.
+</p>
+
+{% endblock %}

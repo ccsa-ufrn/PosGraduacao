@@ -2,7 +2,8 @@
 Routes and views for system administration pages.
 """
 
-import flask_login
+from flask_login import LoginManager, \
+    login_user, login_required, logout_user
 from flask import Blueprint, render_template
 # from pymongo.errors import ServerSelectionTimeoutError
 
@@ -34,19 +35,45 @@ def index():
 @APP.route('/login/', methods=['GET', 'POST'])
 def login():
     """
-    Render a root page for public access.
+    Render an user authorization form.
     """
 
     form = LoginForm()
 
     if form.validate_on_submit():
-        print('foi!')
-        # flask_login.login_user(user)
+        pass
+        # TODO login user from db (see: https://medium.com/@perwagnernielsen/getting-started-with-flask-login-can-be-a-bit-daunting-in-this-tutorial-i-will-use-d68791e9b5b5)
+        # login_user(user.findone)
+        # if found, go index, else invalidate form
     else:
         return render_template(
             'admin/login.html',
             form=form,
         )
+
+
+@APP.route('/logout/')
+def logout():
+    """
+    Render a logged out page.
+    """
+
+    form = LoginForm()
+
+    logout_user()
+
+    return render_template(
+        'admin/login.html',
+        form=form,
+        goodbye=True
+    )
+
+
+@APP.route('/401')
+@login_required
+def unauthorized():
+    """Render page to be showed up for not logged in users."""
+    return render_template('admin/401.html')
 
 
 @APP.route('/404/')

@@ -15,6 +15,7 @@ APP.register_blueprint(public_app)
 APP.register_blueprint(admin_app)
 
 APP.config['SECRET_KEY'] = 'english,motherfucker!doyouspeak?'
+
 CSRF = CSRFProtect()
 CSRF.init_app(APP)
 

@@ -1,16 +1,1 @@
-{% extends "admin/layout.html" %}
 
-{% block content %}
-
-<header>
-    <h2>Painel de Controle</h2>
-</header>
-
-<p>
-    Bem-vindo.
-    {% if current_user.is_authenticated %}
-    Tudo bem, <strong>{{ current_user.name }}</strong>?
-    {% endif %}
-</p>
-
-{% endblock %}
