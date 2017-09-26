@@ -6,27 +6,16 @@
     <h2>Login</h2>
 </header>
 
-{% if form.errors %}
-<h4>Corrija os seguintes campos: </h4>
-<ul>
-    {% for field, errors in form.errors.items() %}
-    {% for error in errors %}
-    <li>{{error}}</li>
-    {% endfor %}
-    {% endfor %}
-</ul>
-{% endif %}
-
 <form method="POST" action="/admin/login/">
     {{ form.csrf_token }}
     
     {{ form.username.label }}<br/>
-    {{ form.username }}
+    {{ form.username(required='true') }}
 
     <br/>
 
     {{ form.password.label }}<br/>
-    {{ form.password }}
+    {{ form.password(required='true') }}
 
     <br/>
     

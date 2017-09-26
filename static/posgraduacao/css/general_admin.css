@@ -127,6 +127,15 @@ section header h2{
     }
 }
 
+.form-errors{
+    margin-top: 10px;
+    color: #d35400;
+}
+
+.form-errors > p{
+    font-weight: bold;
+}
+
 /* FOOTER
 -------------------------------------------------- */
 
