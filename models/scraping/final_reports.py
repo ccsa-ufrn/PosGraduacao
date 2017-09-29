@@ -7,7 +7,8 @@ import requests
 from bs4 import BeautifulSoup
 
 def ppgp_find_all():
-    with open('Minerva/scrapping/final_reports_5678.html') as final_reports_html_file:
+
+    with open('models/scraping/final_reports_5678.html') as final_reports_html_file:
         reports_response_html = final_reports_html_file.read()
 
     reports_soup = BeautifulSoup(reports_response_html, 'html.parser')

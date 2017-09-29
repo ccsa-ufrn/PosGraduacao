@@ -5,9 +5,9 @@ tcl
 .vscode/
 
 #######################################################
-# Minerva
+# PosGraduacao
 
-*settings/api_keys.json
+*settings/files/api_keys.json
 
 ########################################################
 # flask

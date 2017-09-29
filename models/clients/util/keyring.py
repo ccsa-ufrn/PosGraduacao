@@ -10,7 +10,7 @@ import logging
 
 
 # json file where the api keys should be organized
-ENV_FILE_PATH = 'settings/api_keys.json'
+ENV_FILE_PATH = 'settings/files/api_keys.json'
 
 # the json content will be converted to py dict, and json content has identification 
 # keys for each element, the available ones will be listed here as constants:

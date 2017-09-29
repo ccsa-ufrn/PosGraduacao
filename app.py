@@ -4,23 +4,11 @@ This script runs the application using a development server.
 # import locale
 
 from flask import Flask
-from flask_login import LoginManager
-from flask_wtf.csrf import CSRFProtect
 
-from views.public import app as public_app
-from views.admin import APP as admin_app
+from settings.extensions import configure_flask
 
 APP = Flask(__name__)
-APP.register_blueprint(public_app)
-APP.register_blueprint(admin_app)
-
-APP.config['SECRET_KEY'] = 'english,motherfucker!doyouspeak?'
-
-CSRF = CSRFProtect()
-CSRF.init_app(APP)
-
-LOGIN_MANAGER = LoginManager()
-LOGIN_MANAGER.init_app(APP)
+configure_flask(APP)
 
 PUBLIC_HOST = '0.0.0.0'
 PUBLIC_PORT = 80
