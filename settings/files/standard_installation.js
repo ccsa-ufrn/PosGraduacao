@@ -1,5 +1,5 @@
 
-use minerva;
+use posgrad;
 
 print("Inserindo pós graduações...");
 

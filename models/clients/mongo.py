@@ -12,7 +12,7 @@ except KeyError:
     __DB_HOST = 'localhost'
 
 __DB_PORT = 27017
-__DB_NAME = 'minerva'
+__DB_NAME = 'posgrad'
 
 if __DB_HOST is None:
     __DB_HOST = 'localhost'
