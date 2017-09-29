@@ -3,6 +3,8 @@ Has some functionalities about user authentication and
 session management.
 """
 
+from models.factory import PosGraduationFactory
+
 
 class User(object):
     """
@@ -12,10 +14,10 @@ class User(object):
     """
 
     def __init__(self):
-        self._id = None
-        self._is_authenticated = None
-        self._is_active = None
-        self._is_anonymous = None
+        self._id = 'meuid'
+        self._is_authenticated = True
+        self._is_active = True
+        self._is_anonymous = False
 
     @property
     def is_authenticated(self):
@@ -55,3 +57,15 @@ class User(object):
         you will need to convert it to unicode.
         """
         return self._id
+
+    @staticmethod
+    def get(pg_initials, nick):
+        """Return an user dict from database. If failed, None."""
+        try:
+            program = PosGraduationFactory(pg_initials).post_graduation
+            for user in program['users']:
+                if nick == user['nick']:
+                    return user
+            return None
+        except (TypeError, AttributeError):
+            return None

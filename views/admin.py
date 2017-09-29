@@ -5,12 +5,12 @@ Routes and views for system administration pages.
 from flask_login import LoginManager, \
     login_user, login_required, logout_user
 from flask import Blueprint, render_template
-# from pymongo.errors import ServerSelectionTimeoutError
 
-# from models.scraping import final_reports
-# from models.clients.util import keyring
+from models.factory import PosGraduationFactory
+from models.users import User
 
-# from models.factory import PosGraduationFactory
+from settings.extensions import ExtensionsManager
+
 from views.forms.auth import LoginForm
 from models.clients.api_sistemas import SigaaError, \
     FailedToGetTokenForSigaaError, UnreachableSigaaError, \
@@ -41,10 +41,11 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        pass
-        # TODO login user from db (see: https://medium.com/@perwagnernielsen/getting-started-with-flask-login-can-be-a-bit-daunting-in-this-tutorial-i-will-use-d68791e9b5b5)
-        # login_user(user.findone)
-        # if found, go index, else invalidate form
+        login_user(User())
+        return render_template(
+            'admin/login.html',
+            form=form,
+        )
     else:
         return render_template(
             'admin/login.html',
@@ -53,6 +54,7 @@ def login():
 
 
 @APP.route('/logout/')
+@login_required
 def logout():
     """
     Render a logged out page.
@@ -69,8 +71,17 @@ def logout():
     )
 
 
-@APP.route('/401')
-@login_required
+@ExtensionsManager.login_manager.user_loader
+def user_loader(post_graduation_initials, nick='mazuh'):
+    """Load an user from database."""
+    print('LOADER')
+    print(post_graduation_initials)
+    print(nick)
+    return User.get(post_graduation_initials, nick)
+
+
+@APP.route('/401/')
+@ExtensionsManager.login_manager.unauthorized_handler
 def unauthorized():
     """Render page to be showed up for not logged in users."""
     return render_template('admin/401.html')

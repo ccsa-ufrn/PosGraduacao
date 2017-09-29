@@ -5,10 +5,15 @@ This script runs the application using a development server.
 
 from flask import Flask
 
+from views.public import app as public_app
+from views.admin import APP as admin_app
 from settings.extensions import ExtensionsManager
 
 APP = Flask(__name__)
 ExtensionsManager.auto_configure(APP)
+
+APP.register_blueprint(public_app)
+APP.register_blueprint(admin_app)
 
 PUBLIC_HOST = '0.0.0.0'
 PUBLIC_PORT = 80

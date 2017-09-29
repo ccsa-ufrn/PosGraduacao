@@ -9,6 +9,15 @@ db.postGraduations.insertMany([
         'initials': 'PPGP',
         'sigaaCode': '1672',
         'isSignedIn': true,
+        'users': [
+            {
+                'nick': 'mazuh',
+                'password': '$2b$14$poaO46ZWpL1NfVdJyS5mNeeMklsiEOxMFvm4aWx0ca1aRNVTBUR4u',
+                'fullName': 'Marcell Guilherme Costa da Silva',
+                'role': 'Bolsista',
+                'email': 'mazuh@ufrn.edu.br'
+            }
+        ],
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=5679'
     },
     {
