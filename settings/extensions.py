@@ -7,16 +7,18 @@ from views.public import app as public_app
 from views.admin import APP as admin_app
 
 
-def configure_flask(app):
-    """Initialize extensions needed for this Flask app."""
-
-    app.config['SECRET_KEY'] = 'english,motherfucker!doyouspeak?'
-
-    app.register_blueprint(public_app)
-    app.register_blueprint(admin_app)
-
+class ExtensionsManager:
+    """An app's Flask extensions manager."""
     csrf = CSRFProtect()
-    csrf.init_app(app)
-
     login_manager = LoginManager()
-    login_manager.init_app(app)
+
+    @staticmethod
+    def auto_configure(app):
+        """Initialize extensions needed for this Flask app."""
+        app.config['SECRET_KEY'] = 'english,motherfucker!doyouspeak?'
+
+        app.register_blueprint(public_app)
+        app.register_blueprint(admin_app)
+
+        ExtensionsManager.csrf.init_app(app)
+        ExtensionsManager.login_manager.init_app(app)

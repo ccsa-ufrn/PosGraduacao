@@ -5,10 +5,10 @@ This script runs the application using a development server.
 
 from flask import Flask
 
-from settings.extensions import configure_flask
+from settings.extensions import ExtensionsManager
 
 APP = Flask(__name__)
-configure_flask(APP)
+ExtensionsManager.auto_configure(APP)
 
 PUBLIC_HOST = '0.0.0.0'
 PUBLIC_PORT = 80
@@ -16,7 +16,6 @@ DEV_HOST = 'localhost'
 DEV_PORT = 4444
 
 if __name__ == '__main__':
-    # locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
     try:
         APP.run(PUBLIC_HOST, PUBLIC_PORT)
