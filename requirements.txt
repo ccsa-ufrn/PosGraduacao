@@ -5,6 +5,7 @@ bs4==0.0.1
 click==6.7
 Flask==0.12
 Flask-Login==0.4.0
+Flask-WTF==0.14.2
 httplib2==0.10.3
 isort==4.2.15
 itsdangerous==0.24
@@ -24,3 +25,4 @@ rsa==3.4.2
 six==1.10.0
 Werkzeug==0.12.1
 wrapt==1.10.11
+WTForms==2.1
