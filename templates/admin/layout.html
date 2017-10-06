@@ -83,8 +83,8 @@
                         {% endif %}
                     </div>
 
-                    {% if current_user.is_authenticated %}
-                    <p>Olá, {{ current_user['fullNAme'] }}!</p>
+                    {% if current_user and current_user.is_authenticated %}
+                    <p>Olá, {{ current_user.nick }}!</p>
                     {% else %}
                     <p>Sem usuário logado.</p>
                     {% endif %}

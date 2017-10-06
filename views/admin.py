@@ -2,6 +2,8 @@
 Routes and views for system administration pages.
 """
 
+import re
+
 from flask_login import LoginManager, \
     login_user, login_required, logout_user
 from flask import Blueprint, render_template
@@ -41,10 +43,21 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        login_user(User())
+        incorrect_attempt = None
+        user_attempting = User.get(form.nick.data, 'PPGP')
+        print('USUARIO CRIADOOOOOOO')
+        print(user_attempting)
+
+        if (user_attempting is not None) and (user_attempting.authenticate(form.password.data)):
+            login_user(user_attempting)
+            incorrect_attempt = False
+        else:
+            incorrect_attempt = True
+
         return render_template(
             'admin/login.html',
             form=form,
+            incorrect_attempt=incorrect_attempt
         )
     else:
         return render_template(
@@ -72,12 +85,14 @@ def logout():
 
 
 @ExtensionsManager.login_manager.user_loader
-def user_loader(post_graduation_initials, nick='mazuh'):
-    """Load an user from database."""
-    print('LOADER')
-    print(post_graduation_initials)
-    print(nick)
-    return User.get(post_graduation_initials, nick)
+def user_loader(user_id):
+    """Load an user from database,
+    using an user_id string formatted like 'user_nick@program_initials'."""
+    match = re.match('(?P<nick>.*)@(?P<pg>.*)', user_id)
+    if match is not None:
+        return User.get(match.group('nick'), match.group('pg'))
+    else:
+        return None
 
 
 @APP.route('/401/')

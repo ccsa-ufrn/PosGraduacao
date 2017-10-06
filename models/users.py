@@ -4,7 +4,7 @@ session management.
 """
 
 from models.factory import PosGraduationFactory
-
+from bcrypt import checkpw, hashpw, gensalt
 
 class User(object):
     """
@@ -14,10 +14,51 @@ class User(object):
     """
 
     def __init__(self):
-        self._id = 'meuid'
-        self._is_authenticated = True
-        self._is_active = True
-        self._is_anonymous = False
+        self._id = None
+        self._post_graduation_program_initials = None
+        self._nick = None
+        self._password = None
+        self._full_name = None
+        self._role = None
+        self._email = None
+        self.__is_authenticated = None
+        self.__is_active = None
+        self.__is_anonymous = None
+
+    def authenticate(self, raw_password_try):
+        """Try to log in using an raw password (not hashed yet), and return True
+        if this user instance is now authenticated, otherwise False."""
+        if User._check_password(self._password, raw_password_try):
+            self.__is_authenticated = True
+        else:
+            self.__is_authenticated = False
+
+        return self.__is_authenticated
+
+    @staticmethod
+    def _hash_password(raw_password):
+        """Encode and convert a raw password into a hash. Return a string result."""
+        return hashpw(raw_password.encode('utf-8'), gensalt())
+
+    @staticmethod
+    def _check_password(real_hashed_password, raw_password_try):
+        """Hash the raw_try_pass and check if they match. Return a boolean result."""
+        return checkpw(real_hashed_password, raw_password_try.encode('utf-8'))
+
+    @property
+    def id(self):
+        """An unique representation of a certain user."""
+        return '{}@{}'.format(self._nick, self._post_graduation_program_initials)
+
+    @property
+    def nick(self):
+        """An user nickname."""
+        return self._nick
+
+    @property
+    def password(self):
+        """An user password, already hashed."""
+        return self._password
 
     @property
     def is_authenticated(self):
@@ -27,7 +68,7 @@ class User(object):
         (Only authenticated users will fulfill the criteria of
         login_required.)
         """
-        return self._is_authenticated
+        return self.__is_authenticated
 
     @property
     def is_active(self):
@@ -38,7 +79,7 @@ class User(object):
         your application has for rejecting an account. Inactive
         accounts may not log in (without being forced of course).
         """
-        return self._is_active
+        return self.__is_active
 
     @property
     def is_anonymous(self):
@@ -46,7 +87,7 @@ class User(object):
         This property should return True if this is an anonymous user.
         (Actual users should return False instead.)
         """
-        return self._is_anonymous
+        return self.__is_anonymous
 
     def get_id(self):
         """
@@ -56,16 +97,27 @@ class User(object):
         unicode - if the ID is natively an int or some other type,
         you will need to convert it to unicode.
         """
-        return self._id
+        return self.id
 
     @staticmethod
-    def get(pg_initials, nick):
-        """Return an user dict from database. If failed, None."""
+    def get(nick, pg_initials):
+        """Return an User from database. If failed, None."""
         try:
             program = PosGraduationFactory(pg_initials).post_graduation
             for user in program['users']:
-                if nick == user['nick']:
-                    return user
+                if nick.lower() == user['nick'].lower():
+                    found_user = User()
+                    found_user._nick = user['nick']
+                    found_user._post_graduation_program_initials = pg_initials.lower()
+#                    found_user._password = bytes(user['password'].encode('utf-8'))
+                    found_user._password = User._hash_password('mazuh')
+                    found_user._full_name = user['fullName']
+                    found_user._role = user['role']
+                    found_user._email = user['email']
+                    found_user.__is_authenticated = False
+                    found_user.__is_active = True
+                    found_user.__is_anonymous = False
+                    return found_user
             return None
         except (TypeError, AttributeError):
             return None

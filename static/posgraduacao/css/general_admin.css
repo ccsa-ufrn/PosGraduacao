@@ -136,6 +136,10 @@ section header h2{
     font-weight: bold;
 }
 
+.error-text{
+    color: #d35400;
+}
+
 /* FOOTER
 -------------------------------------------------- */
 

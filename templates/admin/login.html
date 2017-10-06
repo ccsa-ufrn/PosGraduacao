@@ -9,8 +9,8 @@
 <form method="POST" action="/admin/login/">
     {{ form.csrf_token }}
     
-    {{ form.username.label }}<br/>
-    {{ form.username(required='true') }}
+    {{ form.nick.label }}<br/>
+    {{ form.nick(required='true') }}
 
     <br/>
 
@@ -19,6 +19,10 @@
 
     <br/>
     
+    {% if incorrect_attempt %}
+    <p class="error-text">Erro no usuário ou senha.</p>
+    {% endif %}
+
     <input type="submit" value="Entrar">
 </form>
 
