@@ -36,14 +36,14 @@ class User(object):
         return self.__is_authenticated
 
     @staticmethod
-    def _hash_password(raw_password):
-        """Encode and convert a raw password into a hash. Return a string result."""
-        return hashpw(raw_password.encode('utf-8'), gensalt())
-
-    @staticmethod
     def _check_password(real_hashed_password, raw_password_try):
         """Hash the raw_try_pass and check if they match. Return a boolean result."""
-        return checkpw(real_hashed_password, raw_password_try.encode('utf-8'))
+        return checkpw(raw_password_try.encode('utf-8'), real_hashed_password)
+
+    @staticmethod
+    def __hash_password(raw_password):
+        """Encode and convert a raw password into a hash. Return a string result."""
+        return hashpw(raw_password.encode('utf-8'), gensalt(14))
 
     @property
     def id(self):
@@ -109,8 +109,7 @@ class User(object):
                     found_user = User()
                     found_user._nick = user['nick']
                     found_user._post_graduation_program_initials = pg_initials.lower()
-#                    found_user._password = bytes(user['password'].encode('utf-8'))
-                    found_user._password = User._hash_password('mazuh')
+                    found_user._password = user['password'].encode('utf-8')
                     found_user._full_name = user['fullName']
                     found_user._role = user['role']
                     found_user._email = user['email']

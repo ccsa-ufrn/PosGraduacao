@@ -45,8 +45,6 @@ def login():
     if form.validate_on_submit():
         incorrect_attempt = None
         user_attempting = User.get(form.nick.data, 'PPGP')
-        print('USUARIO CRIADOOOOOOO')
-        print(user_attempting)
 
         if (user_attempting is not None) and (user_attempting.authenticate(form.password.data)):
             login_user(user_attempting)
