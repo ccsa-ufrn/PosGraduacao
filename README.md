@@ -1,11 +1,9 @@
 # Plataforma de Pós-Graduação
 
-## ```PosGrad``` 1: Minerva
+## Version 1: Minerva
 
-Utility system for the workers and students of the postgraduate
-programs at Applied Social 
-Sciences Center (CCSA) in Universidade Federal do
-Rio Grande do Norte (UFRN).
+Utility system for the workers and students of postgraduate
+programs from University Applied Social Sciences Center ([CCSA](https://ccsa.ufrn.br/)/[UFRN](http://ufrn.br/)).
 
 This first goal is to start assembling data and providing basic information management.
 
@@ -94,7 +92,8 @@ access using a web browser.
 It should be http://localhost:4444/ but always read the output ("0.0.0.0:80" means you have super user
 permission and your server is opened for public access, so you need to know your IP address instead of "localhost" or "0.0.0.0").
 
-You should see the application running now.
+You should see the application running now. To sign in, there's a test username and password ```mazuh``` (for both fields).
+
 Any doubts, just open an issue here on GitHub!
 
 ## License
