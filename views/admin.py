@@ -88,7 +88,11 @@ def user_loader(user_id):
     using an user_id string formatted like 'user_nick@program_initials'."""
     match = re.match('(?P<nick>.*)@(?P<pg>.*)', user_id)
     if match is not None:
-        return User.get(match.group('nick'), match.group('pg'))
+        return User.get(
+            match.group('nick'),
+            match.group('pg'),
+            authenticated=True
+        )
     else:
         return None
 

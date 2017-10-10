@@ -100,7 +100,7 @@ class User(object):
         return self.id
 
     @staticmethod
-    def get(nick, pg_initials):
+    def get(nick, pg_initials, authenticated=False):
         """Return an User from database. If failed, None."""
         try:
             program = PosGraduationFactory(pg_initials).post_graduation
@@ -113,7 +113,7 @@ class User(object):
                     found_user._full_name = user['fullName']
                     found_user._role = user['role']
                     found_user._email = user['email']
-                    found_user.__is_authenticated = False
+                    found_user.__is_authenticated = authenticated
                     found_user.__is_active = True
                     found_user.__is_anonymous = False
                     return found_user
