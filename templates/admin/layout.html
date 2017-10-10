@@ -45,53 +45,50 @@
 
     <div class="container-fluid">
         <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <h6><strong>INFORMAÇÕES</strong></h6>
-                    <ul class="nav nav-sidebar">
-                        <li class="active"><a href="#">Início<span class="sr-only">(atual)</span></a></li>
-                    </ul>
-                    <h6><strong>EDITAR PÁGINAS</strong></h6>
-                    <ul class="nav nav-sidebar">
-                        <li><a href="">Disciplinas</a></li>
-                        <li><a href="">Discentes</a></li>
-                        <li><a href="">Docentes</a></li>
-                        <li><a href="">Projetos</a></li>
-                        <li><a href="">Intercâmbios</a></li>
-                        <li><a href="">Defesas e dissertações</a></li>
-                        <li><a href="">Equipe</a></li>
-                        <li><a href="">Convênios</a></li>
-                        <li><a href="">Calendário</a></li>
-                    </ul>
-                    <h6><strong>BUROCRACIA</strong></h6>
-                    <ul class="nav nav-sidebar">
-                        <li><a href="">Documentos</a></li>
-                    </ul>
-                </div>
+    
+            {% if current_user and current_user.is_authenticated %}
+            <div class="col-sm-3 col-md-2 sidebar">
+                <h6><strong>INFORMAÇÕES</strong></h6>
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="#">{{ current_user.pg_initials }}<span class="sr-only">(atual)</span></a></li>
+                </ul>
+                <h6><strong>EDITAR PÁGINAS</strong></h6>
+                <ul class="nav nav-sidebar">
+                    <li><a href="">Disciplinas</a></li>
+                    <li><a href="">Discentes</a></li>
+                    <li><a href="">Docentes</a></li>
+                    <li><a href="">Projetos</a></li>
+                    <li><a href="">Intercâmbios</a></li>
+                    <li><a href="">Defesas e dissertações</a></li>
+                    <li><a href="">Equipe</a></li>
+                    <li><a href="">Convênios</a></li>
+                    <li><a href="">Calendário</a></li>
+                </ul>
+                <h6><strong>BUROCRACIA</strong></h6>
+                <ul class="nav nav-sidebar">
+                    <li><a href="">Documentos</a></li>
+                </ul>
+            </div>
+            {% endif %}
 
-                <div class="content">
+            <div class="content">
 
-                    <div class="form-errors">
-                        {% if form.errors %}
-                        <p>Erros no preenchimento do formulário:</p>
-                        <ul>
-                            {% for field, errors in form.errors.items() %}
-                            {% for error in errors %}
-                            <li>{{ error }}</li>
-                            {% endfor %}
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-
-                    {% if current_user and current_user.is_authenticated %}
-                    <p>Olá, {{ current_user.nick }}!</p>
-                    {% else %}
-                    <p>Sem usuário logado.</p>
+                <div class="form-errors">
+                    {% if form and form.errors %}
+                    <p>Erros no preenchimento do formulário:</p>
+                    <ul>
+                        {% for field, errors in form.errors.items() %}
+                        {% for error in errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                        {% endfor %}
+                    </ul>
                     {% endif %}
-
-                    {% block content %}{% endblock %}
-
                 </div>
+
+                {% block content %}{% endblock %}
+
+            </div>
         </div>
         <hr/>
     </div>

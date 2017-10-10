@@ -6,16 +6,16 @@ session management.
 from models.factory import PosGraduationFactory
 from bcrypt import checkpw, hashpw, gensalt
 
+
 class User(object):
     """
-    Implements some properties and methods according to Flask-Login
-    extension:
-    <https://flask-login.readthedocs.io/en/latest/#your-user-class)
+    Implements some properties and methods (a few of them according
+    to Flask-Login extension).
     """
 
     def __init__(self):
         self._id = None
-        self._post_graduation_program_initials = None
+        self._pg_initials = None
         self._nick = None
         self._password = None
         self._full_name = None
@@ -48,7 +48,7 @@ class User(object):
     @property
     def id(self):
         """An unique representation of a certain user."""
-        return '{}@{}'.format(self._nick, self._post_graduation_program_initials)
+        return '{}@{}'.format(self._nick, self._pg_initials)
 
     @property
     def nick(self):
@@ -59,6 +59,26 @@ class User(object):
     def password(self):
         """An user password, already hashed."""
         return self._password
+
+    @property
+    def full_name(self):
+        """User's full real name."""
+        return self._full_name
+
+    @property
+    def role(self):
+        """Its employement position."""
+        return self._role
+
+    @property
+    def email(self):
+        """Valid contact e-mail."""
+        return self._email
+
+    @property
+    def pg_initials(self):
+        """Post graduation program which the user manages."""
+        return self._pg_initials.upper()
 
     @property
     def is_authenticated(self):
@@ -108,7 +128,7 @@ class User(object):
                 if nick.lower() == user['nick'].lower():
                     found_user = User()
                     found_user._nick = user['nick']
-                    found_user._post_graduation_program_initials = pg_initials.lower()
+                    found_user._pg_initials = pg_initials.lower()
                     found_user._password = user['password'].encode('utf-8')
                     found_user._full_name = user['fullName']
                     found_user._role = user['role']
