@@ -5,7 +5,7 @@ Routes and views for system administration pages.
 import re
 
 from flask_login import LoginManager, \
-    login_user, login_required, logout_user
+    login_user, login_required, logout_user, current_user
 from flask import Blueprint, render_template
 
 from models.factory import PosGraduationFactory
@@ -31,7 +31,18 @@ def index():
     If user is already authenticated, render its
     dashboard, otherwise ask for his password.
     """
-    return login()
+    if current_user and current_user.is_authenticated:
+
+        pfactory = PosGraduationFactory(current_user.pg_initials)
+        post_graduation = pfactory.post_graduation
+
+        return render_template(
+            'admin/index.html',
+            post_graduation=post_graduation
+        )
+
+    else:
+        return login()
 
 
 @APP.route('/login/', methods=['GET', 'POST'])
@@ -43,24 +54,22 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        incorrect_attempt = None
         user_attempting = User.get(form.nick.data, 'PPGP')
 
         if (user_attempting is not None) and (user_attempting.authenticate(form.password.data)):
             login_user(user_attempting)
-            incorrect_attempt = False
+            return index()
         else:
-            incorrect_attempt = True
-
-        return render_template(
-            'admin/login.html',
-            form=form,
-            incorrect_attempt=incorrect_attempt
-        )
+            return render_template(
+                'admin/login.html',
+                form=form,
+                incorrect_attempt=True
+            )
     else:
         return render_template(
             'admin/login.html',
             form=form,
+            incorrect_attempt=False
         )
 
 
@@ -71,14 +80,10 @@ def logout():
     Render a logged out page.
     """
 
-    form = LoginForm()
-
     logout_user()
 
     return render_template(
-        'admin/login.html',
-        form=form,
-        goodbye=True
+        'admin/logout.html'
     )
 
 
@@ -88,7 +93,11 @@ def user_loader(user_id):
     using an user_id string formatted like 'user_nick@program_initials'."""
     match = re.match('(?P<nick>.*)@(?P<pg>.*)', user_id)
     if match is not None:
-        return User.get(match.group('nick'), match.group('pg'))
+        return User.get(
+            match.group('nick'),
+            match.group('pg'),
+            authenticated=True
+        )
     else:
         return None
 

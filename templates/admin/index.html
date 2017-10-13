@@ -3,14 +3,13 @@
 {% block content %}
 
 <header>
-    <h2>Painel de Controle</h2>
+    <h2>{{ post_graduation.name }}<br/>
+        <small>@{{ current_user.nick }}</small></h2>
 </header>
 
 <p>
-    Bem-vindo.
-    {% if current_user.is_authenticated %}
-    Tudo bem, <strong>{{ current_user.name }}</strong>?
-    {% endif %}
+    Bem-vindo, <br/>
+    <strong>{{ current_user.full_name }}</strong>!
 </p>
 
 {% endblock %}
