@@ -1,0 +1,43 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+<header>
+    <h2>Cadastrar trabalho</h2>
+</header>
+
+<form method="POST" action="/admin/new_report/">
+    {{ form.csrf_token }}
+
+    {{ form.date.label }}<br/>
+    {{ form.date(required='true') }}
+    
+    <br/>
+
+    {{ form.time.label }}<br/>
+    {{ form.time(required='true') }}
+
+    <br/>
+
+    {{ form.title.label }}<br/>
+    {{ form.title(required='true') }}
+    
+    <br/>
+
+    {{ form.author.label }}<br/>
+    {{ form.author(required='true') }}
+
+    <br/>
+    
+    {{ form.location.label }}<br/>
+    {{ form.location(required='true') }}
+
+    <br/>
+    <input type="submit" value="Cadastrar">
+</form>
+
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+
+{% endblock %}

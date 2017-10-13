@@ -14,6 +14,7 @@ from models.users import User
 from settings.extensions import ExtensionsManager
 
 from views.forms.auth import LoginForm
+from views.forms.scheduled_report import ScheduledReportForm
 from models.clients.api_sistemas import SigaaError, \
     FailedToGetTokenForSigaaError, UnreachableSigaaError, \
     NoAppCredentialsForSigaaError
@@ -85,6 +86,24 @@ def logout():
     return render_template(
         'admin/logout.html'
     )
+
+
+@APP.route('/new_report/', methods=['GET', 'POST'])
+@login_required
+def create_report():
+    """
+    Render a report form.
+    """
+
+    form = ScheduledReportForm()
+
+    if form.validate_on_submit():
+        return index()
+    else:
+        return render_template(
+            'admin/create_report.html',
+            form=form
+        )
 
 
 @ExtensionsManager.login_manager.user_loader
