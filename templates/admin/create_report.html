@@ -1,0 +1,47 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+<header>
+    <h2>Cadastrar trabalho</h2>
+</header>
+
+{% if success_msg %}
+    <div class="form-success">
+        <p>{{ success_msg }}</p>
+    </div>
+{% endif %}
+
+<form method="POST" action="/admin/new_report/">
+    {{ form.csrf_token }}
+    
+    <br/>
+
+    {{ form.time.label }}<br/>
+    {{ form.time(required='true') }}
+
+    <br/>
+
+    {{ form.title.label }}<br/>
+    {{ form.title(required='true') }}
+    
+    <br/>
+
+    {{ form.author.label }}<br/>
+    {{ form.author(required='true') }}
+
+    <br/>
+    
+    {{ form.location.label }}<br/>
+    {{ form.location(required='true') }}
+
+    <br/>
+    
+    {{ form.create }}
+</form>
+
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+
+{% endblock %}

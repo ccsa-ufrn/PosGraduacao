@@ -127,6 +127,16 @@ section header h2{
     }
 }
 
+.form-success{
+    margin-top: 10px;
+    color: #16a085;
+}
+
+.form-success > p{
+    color: #16a085;
+    font-weight: bold;
+}
+    
 .form-errors{
     margin-top: 10px;
     color: #d35400;
