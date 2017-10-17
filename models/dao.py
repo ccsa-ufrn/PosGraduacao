@@ -46,7 +46,6 @@ class GenericMongoDAO(AbstractDAO):
     from a certain database collection.
     """
 
-
     def __init__(self, collection: str, owner_post_graduation_id: str = None):
         """
         Don't use this constructor directly as you're probably doing now.
@@ -54,14 +53,13 @@ class GenericMongoDAO(AbstractDAO):
 
         Create an instance for starting using data access methods.
 
-        All data access will assume as context the given collection and will
-        add a 'ownerProgram' search parameter to all data operations if it was
-        provided. Collection name must never be None.
+        All data access will assume as context the given collection.
+        Also, will add a 'ownerProgram' search parameter as
+        owner_post_graduation_id to all data filterings. Collection
+        name must never be None.
         """
         self.collection = collection
         self.owner_post_graduation_id = owner_post_graduation_id
-
-
 
     def find_all(self):
         """
@@ -70,31 +68,29 @@ class GenericMongoDAO(AbstractDAO):
         """
         return DB[self.collection].find_all()
 
-
-
-    def find_one(self, conditions: dict = {}):
+    def find_one(self, conditions: dict = None):
         """
         Gets a single found document with the given conditions, returns it as dict.
         TODO: retrieve only logical alive documents (maybe a 'alive_only=True' param?)
         """
+        if conditions is None:
+            conditions = {}
         if self.owner_post_graduation_id is not None:
             conditions['ownerProgram'] = self.owner_post_graduation_id
         return DB[self.collection].find_one(conditions)
 
-
-
-    def find(self, conditions: dict = {}):
+    def find(self, conditions: dict = None):
         """
         Filters documents from database collection. The given dictionary param
         represents the filter json. Returns a list of dicts, where each of them
         is a found document.
         TODO: retrieve only logical alive documents (maybe a 'alive_only=True' param?)
         """
+        if conditions is None:
+            conditions = {}
         if self.owner_post_graduation_id is not None:
             conditions['ownerProgram'] = self.owner_post_graduation_id
         return DB[self.collection].find(conditions)
-
-
 
     def insert_one(self, document: dict):
         """
@@ -105,8 +101,6 @@ class GenericMongoDAO(AbstractDAO):
             conditions['ownerProgram'] = self.owner_post_graduation_id
         return DB[self.collection].insert_one(document).inserted_id
 
-
-
     def insert_many(self, document: list):
         """
         TODO: Insert a list of documents into the collection and returns a list of their
@@ -114,15 +108,15 @@ class GenericMongoDAO(AbstractDAO):
         """
         raise NotImplementedError("Tried to call an update function without implementing it.")
 
-
-
-    def update(self, document: dict):
+    def find_one_and_update(self, conditions: dict, update: dict):
         """
-        TODO: implement an update for a single document.
+        Finds a single document and updates it, returning the original.
         """
-        raise NotImplementedError("Tried to call an update function without implementing it.")
-
-
+        if conditions is None:
+            conditions = {}
+        if self.owner_post_graduation_id is not None:
+            conditions['ownerProgram'] = self.owner_post_graduation_id
+        return DB[self.collection].find_one_and_update(conditions, update)
 
     def delete(self, document: dict):
         """

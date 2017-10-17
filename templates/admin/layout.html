@@ -72,9 +72,10 @@
             {% endif %}
 
             <div class="content">
-
+                
+                {% if form and form.errors %}
                 <div class="form-errors">
-                    {% if form and form.errors %}
+                    
                     <p>Erros no preenchimento do formulário:</p>
                     <ul>
                         {% for field, errors in form.errors.items() %}
@@ -83,8 +84,14 @@
                         {% endfor %}
                         {% endfor %}
                     </ul>
-                    {% endif %}
                 </div>
+                {% endif %}
+                                
+                {% if success_msg %}
+                <div class="form-success">
+                    <p>{{ success_msg }}</p>
+                </div>
+                {% endif %}
 
                 {% block content %}{% endblock %}
 
