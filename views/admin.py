@@ -6,7 +6,7 @@ import re
 
 from flask_login import LoginManager, \
     login_user, login_required, logout_user, current_user
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, redirect, url_for
 
 from models.factory import PosGraduationFactory
 from models.users import User
@@ -96,8 +96,23 @@ def create_report():
     """
 
     form = ScheduledReportForm()
+    
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.final_reports_dao()
+    
 
     if form.validate_on_submit():
+        new_report = {
+            'time': form.time.data,
+            'title': form.title.data,
+            'author': form.author.data,
+            'location': form.location.data
+        }
+        
+        dao.find_one_and_update(None, {
+            '$push': {'scheduledReports': new_report}
+        })
+        
         return index()
     else:
         return render_template(

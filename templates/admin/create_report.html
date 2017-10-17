@@ -6,11 +6,14 @@
     <h2>Cadastrar trabalho</h2>
 </header>
 
+{% if success_msg %}
+    <div class="form-success">
+        <p>{{ success_msg }}</p>
+    </div>
+{% endif %}
+
 <form method="POST" action="/admin/new_report/">
     {{ form.csrf_token }}
-
-    {{ form.date.label }}<br/>
-    {{ form.date(required='true') }}
     
     <br/>
 
@@ -33,7 +36,8 @@
     {{ form.location(required='true') }}
 
     <br/>
-    <input type="submit" value="Cadastrar">
+    
+    {{ form.create }}
 </form>
 
 <p>
