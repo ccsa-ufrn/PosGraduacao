@@ -14,7 +14,9 @@ from models.users import User
 from settings.extensions import ExtensionsManager
 
 from views.forms.auth import LoginForm
-from views.forms.content import ParticipationsInEventsForm
+from views.forms.content import ParticipationsInEventsForm, \
+    ScheduledReportForm
+
 from models.clients.api_sistemas import SigaaError, \
     FailedToGetTokenForSigaaError, UnreachableSigaaError, \
     NoAppCredentialsForSigaaError
@@ -101,6 +103,38 @@ def user_loader(user_id):
         )
     else:
         return None
+
+
+@APP.route('/apresentacoes/', methods=['GET', 'POST'])
+@login_required
+def scheduled_reports():
+    """
+    Render a report scheduling form.
+    """
+
+    form = ScheduledReportForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.final_reports_dao()
+
+    if form.validate_on_submit():
+        new_report = {
+            'time': form.time.data,
+            'title': form.title.data,
+            'author': form.author.data,
+            'location': form.location.data
+        }
+
+        dao.find_one_and_update(None, {
+            '$push': {'scheduledReports': new_report}
+        })
+
+        return index()
+    else:
+        return render_template(
+            'admin/scheduled_reports.html',
+            form=form
+        )
 
 
 @APP.route('/intercambios/', methods=['GET', 'POST'])

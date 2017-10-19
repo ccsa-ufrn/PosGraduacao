@@ -4,7 +4,7 @@ Forms about content editing.
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, BooleanField,\
-                    TextAreaField, SubmitField
+                    TextAreaField, DateTimeField, SubmitField
 from wtforms.validators import DataRequired
 
 
@@ -29,3 +29,24 @@ class ParticipationsInEventsForm(FlaskForm):
     ])
 
     create = SubmitField('Adicionar')
+
+
+class ScheduledReportForm(FlaskForm):
+    """
+    Scheduled report form.
+    """
+    time = DateTimeField('Data e hora:', format='%d/%m/%Y %H:%M')
+
+    title = StringField('Título do trabalho:', validators=[
+        DataRequired('Digite o título do trabalho.')
+    ])
+
+    author = StringField('Autoria:', validators=[
+        DataRequired('Digite o nome do(s) autor(es).')
+    ])
+
+    location = StringField('Localização:', validators=[
+        DataRequired('Digite a localização.')
+    ])
+
+    create = SubmitField('Agendar')
