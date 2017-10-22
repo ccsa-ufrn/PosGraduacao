@@ -6,7 +6,7 @@ import re
 
 from flask_login import LoginManager, \
     login_user, login_required, logout_user, current_user
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, request
 
 from models.factory import PosGraduationFactory
 from models.users import User
@@ -14,7 +14,9 @@ from models.users import User
 from settings.extensions import ExtensionsManager
 
 from views.forms.auth import LoginForm
-from views.forms.scheduled_report import ScheduledReportForm
+from views.forms.content import ParticipationsInEventsForm, \
+    ScheduledReportForm
+
 from models.clients.api_sistemas import SigaaError, \
     FailedToGetTokenForSigaaError, UnreachableSigaaError, \
     NoAppCredentialsForSigaaError
@@ -88,39 +90,6 @@ def logout():
     )
 
 
-@APP.route('/new_report/', methods=['GET', 'POST'])
-@login_required
-def create_report():
-    """
-    Render a report form.
-    """
-
-    form = ScheduledReportForm()
-    
-    pfactory = PosGraduationFactory(current_user.pg_initials)
-    dao = pfactory.final_reports_dao()
-    
-
-    if form.validate_on_submit():
-        new_report = {
-            'time': form.time.data,
-            'title': form.title.data,
-            'author': form.author.data,
-            'location': form.location.data
-        }
-        
-        dao.find_one_and_update(None, {
-            '$push': {'scheduledReports': new_report}
-        })
-        
-        return index()
-    else:
-        return render_template(
-            'admin/create_report.html',
-            form=form
-        )
-
-
 @ExtensionsManager.login_manager.user_loader
 def user_loader(user_id):
     """Load an user from database,
@@ -134,6 +103,75 @@ def user_loader(user_id):
         )
     else:
         return None
+
+
+@APP.route('/apresentacoes/', methods=['GET', 'POST'])
+@login_required
+def scheduled_reports():
+    """
+    Render a report scheduling form.
+    """
+
+    form = ScheduledReportForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.final_reports_dao()
+
+    if form.validate_on_submit():
+        new_report = {
+            'time': form.time.data,
+            'title': form.title.data,
+            'author': form.author.data,
+            'location': form.location.data
+        }
+
+        dao.find_one_and_update(None, {
+            '$push': {'scheduledReports': new_report}
+        })
+
+        return index()
+    else:
+        return render_template(
+            'admin/scheduled_reports.html',
+            form=form
+        )
+
+
+@APP.route('/intercambios/', methods=['GET', 'POST'])
+@login_required
+def participations():
+    """Render a view for integrations lists."""
+
+    form = ParticipationsInEventsForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.integrations_infos_dao()
+
+    if form.validate_on_submit() and form.create.data:
+        new_participation = {
+            'title': form.title.data,
+            'description': form.description.data,
+            'year': form.year.data,
+            'international': form.location.data
+        }
+
+        dao.find_one_and_update(None, {
+            '$push': {'participationsInEvents': new_participation}
+        })
+
+        return redirect(
+            url_for(
+                'admin.participations',
+                success_msg='Intercâmbio adicionado adicionado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/participations.html',
+        participations=dao.find_one()['participationsInEvents'],
+        form=form,
+        success_msg=request.args.get('success_msg')
+    )
 
 
 @APP.route('/401/')
