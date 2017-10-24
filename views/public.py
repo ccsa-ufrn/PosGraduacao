@@ -2,10 +2,11 @@
 Routes and views for public pages about Post Graduation Programs.
 """
 
-from flask import Blueprint, render_template, redirect, current_app
+from flask import Blueprint, render_template, redirect,\
+                  current_app, request
 from pymongo.errors import ServerSelectionTimeoutError
 
-from models.scraping import final_reports
+from scraping.institutional_repository import RIScraper
 from models.clients.util import keyring
 
 from models.factory import PosGraduationFactory
@@ -262,19 +263,24 @@ def view_documents(initials):
 def view_final_reports(initials):
     """Render a view for conclusion works list."""
 
-    pfactory = PosGraduationFactory(initials)
-    post_graduation = pfactory.post_graduation
+    try:
+        post_graduation = PosGraduationFactory(initials).post_graduation
 
-    final_reports_by_year = final_reports.ppgp_find_all()
+        page = request.args.get('page')
+        if page is None:
+            page = 1
 
-    # renders an own page or redirect to another (external/404)?
-    return render_template(
-        'public/final_reports.html',
-        std=get_std_for_template(post_graduation),
-        final_reports_by_year=final_reports_by_year
-    )
+        final_reports, max_page = RIScraper.final_reports_list(initials, page)
 
-
+        return render_template(
+            'public/final_reports.html',
+            std=get_std_for_template(post_graduation),
+            final_reports=final_reports,
+            current_page=page,
+            max_page=max_page,
+        )
+    except AttributeError | Exception:
+        return page_not_found()
 
 
 # AUX

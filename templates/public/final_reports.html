@@ -10,29 +10,22 @@
     <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
 </div>
 
-{% for year in final_reports_by_year %}
 <section>
     <header class="page-header">
-        <h2>&raquo Trabalhos de Conclusão <small> {{ year }}</small></h2>
-        <p><small>
-            (Dica: para consultar um dos documentos oficiais abaixo, faça uma busca diretamente no <a target="_blank" href="https://repositorio.ufrn.br/jspui/simple-search">Repositório Institucional</a>.)
-        </small></p>
+        <h2>&raquo Trabalhos de Conclusão <small>Página {{ current_page }} de {{ max_page }}</small></h2>
     </header>
 
-    {% for report in final_reports_by_year[year] %}
+    {% for report in final_reports %}
 
     <h3>{{ report.title }}</h3>
-    <h4><strong>Autor:</strong> {{ report.author.title() }}</h4>
-    {% if report.counselor %}
-    <h4><strong>Orientador:</strong> {{ report.counselor.title() }}</h4>
-    {% endif %}
-    <h5><strong>Data:</strong> {{ report.date }}</h5>
-    <p><strong>Resumo:</strong> {{ report.abstract }}</p>
+    <h4><strong>Autoria:</strong> {{ report.author }}.</h4>
+    <p><strong>Ano:</strong> {{ report.year }}.</p>
+    <p>
+        <a target="_blank" href="{{ report.link }}"><span class="glyphicon glyphicon-link"></span> Ver mais.</a></p>
     <br/>
     
     {% endfor %}
 
 </section>
-{% endfor %}
 
 {% endblock %}
