@@ -269,6 +269,8 @@ def view_final_reports(initials):
         page = request.args.get('page')
         if page is None:
             page = 1
+        else:
+            page = int(page)
 
         final_reports, max_page = RIScraper.final_reports_list(initials, page)
 
@@ -279,7 +281,7 @@ def view_final_reports(initials):
             current_page=page,
             max_page=max_page,
         )
-    except AttributeError | Exception:
+    except Exception:
         return page_not_found()
 
 

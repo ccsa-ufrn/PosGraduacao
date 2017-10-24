@@ -13,15 +13,30 @@
 <section>
     <header class="page-header">
         <h2>&raquo Trabalhos de Conclusão <small>Página {{ current_page }} de {{ max_page }}</small></h2>
+        {% if current_page < max_page %}
+        <a href="{{ url_for('public.view_final_reports', initials=std.post_graduation.initials, page=current_page+1) }}">
+            <button type="button" class="btn btn-default pull-right" aria-label="Próxima página">
+                Próximo
+                <span class="glyphicon glyphicon-step-forward"></span>
+            </button>
+        </a>
+        {% endif %}
+        {% if current_page > 1 %}
+        <a href="{{ url_for('public.view_final_reports', initials=std.post_graduation.initials, page=current_page-1) }}">
+            <button type="button" class="btn btn-default" aria-label="Página anterior">
+                <span class="glyphicon glyphicon-step-backward"></span>
+                Anterior
+            </button>
+        </a>
+        {% endif %}
     </header>
 
     {% for report in final_reports %}
 
-    <h3>{{ report.title }}</h3>
-    <h4><strong>Autoria:</strong> {{ report.author }}.</h4>
-    <p><strong>Ano:</strong> {{ report.year }}.</p>
+    <h4>{{ report.title }}</h4>
+    <h5><strong>Autoria:</strong> {{ report.year }}. {{ report.author }}.</h5>
     <p>
-        <a target="_blank" href="{{ report.link }}"><span class="glyphicon glyphicon-link"></span> Ver mais.</a></p>
+        <a target="_blank" href="{{ report.link }}"><span class="glyphicon glyphicon-link"></span> Ver mais</a></p>
     <br/>
     
     {% endfor %}

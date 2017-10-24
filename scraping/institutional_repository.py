@@ -61,4 +61,4 @@ class RIScraper(object):
 
         max_page = match.group('max_page') if match is not None else -1
 
-        return final_reports, max_page
+        return final_reports, int(max_page)
