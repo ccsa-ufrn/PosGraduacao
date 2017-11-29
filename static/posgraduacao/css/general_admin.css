@@ -38,6 +38,8 @@ section header h2{
 }
 
 
+
+
 /* MAIN NAVBAR
 -------------------------------------------------- */
 
@@ -100,10 +102,41 @@ section header h2{
     margin-left: -20px;
 }
 
-.nav-sidebar > li > a {
+.nav-sidebar > li {
     padding-right: 20px;
     padding-left: 20px;
     color: #34495e;
+    position: relative;
+}
+
+.nav-sidebar li ul {
+    position: absolute;
+    color: #34495e;
+    background-color: #fff; 
+    padding: 5px;
+    border: 1px solid #ccc;
+    top: 0;
+    left: 180px;
+    margin-left: 10px;
+    list-style: none;
+    display: none;
+}
+
+ul li {
+    position: relative;
+}
+
+li a {
+    display: block;
+    color: #34495e;
+    padding-right:20px;
+    padding-left:20px;
+    white-space: nowrap;
+}
+
+li:hover ul {
+    display:block;
+    position: absolute;
 }
 
 .nav-sidebar > .active > a,
@@ -149,6 +182,14 @@ section header h2{
 
 .error-text{
     color: #d35400;
+}
+
+.form {
+    margin-left: 7%;
+}
+
+header {
+    margin-left:7%;
 }
 
 /* FOOTER

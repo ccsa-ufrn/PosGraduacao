@@ -1,0 +1,52 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+<header>
+    <h2>Professores</h2>
+</header>
+
+{% if success_msg %}
+    <div class="form-success">
+        <p>{{ success_msg }}</p>
+    </div>
+{% endif %}
+<div class="form">
+<form method="POST" action="{{ url_for('admin.add_professors') }}">
+    {{ form.csrf_token }}
+    
+    <br/>
+    
+    {{ form.name.label }}<br/>
+    {{ form.name(required='true') }}
+
+    <br/>
+    
+    {{ form.rank.label }}<br/>
+    {{ form.rank(required='true', placeholder='ex: Professor ou Colaborador') }}
+
+    <br/>
+
+    {{ form.lattes.label }}<br/>
+    {{ form.lattes }}
+    <br/>
+
+    {{ form.email.label }}<br/>
+    {{ form.email(required='true') }}    
+
+    <br/>
+
+    <br/>
+    <br/>
+    
+    {{ form.create }}
+    
+</form>
+    <br/>
+</div>
+
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+<header>
+    <h2>Convênios</h2>
+</header>
+
+<form method="POST" action="{{ url_for('admin.covenants') }}" enctype="multipart/form-data">
+    {{ form.csrf_token }}
+    
+    {{ form.name.label }}<br/>
+    {{ form.name(required='true', placeholder='ex: Universidade Federal do Rio de Janeiro') }}
+    
+    <br/>
+
+    {{ form.initials.label }}<br/>
+    {{ form.initials(required='true', placeholder='ex: UFRJ') }}
+
+    <br/>
+
+    {{ form.logo.label }}<br/>
+    {{ form.logo }}
+
+    <br/>
+
+    {{ form.create }}
+</form>
+
+{% endblock %}

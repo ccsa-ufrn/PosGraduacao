@@ -23,8 +23,17 @@ db.postGraduations.insertMany([
     {
         'name': 'Administração',
         'initials': 'PPGA',
-        'sigaaCode': undefined,
-        'isSignedIn': false,
+        'sigaaCode': '1702',
+        'users': [
+            {
+                'nick': 'luccas',
+                'password': '$2b$14$ZyaABz6Ge6.YEY7KrjK/T.fuWx4j/eZc6dOHxNo1wOQATnCnlbkUa',
+                'fullName': 'Luccas Mateus de Medeiros Gomes',
+                'role': 'Técnico em Informatica',
+                'email': 'luccas@ufrn.edu.br'
+            }
+        ],
+        'isSignedIn': true,
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=74'
     },
     {

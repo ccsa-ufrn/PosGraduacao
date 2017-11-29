@@ -78,7 +78,6 @@ class PosGraduationFactory(object):
     def attendances_dao(self):
         """ Gets an instance of a data access object for a certain collection """
         return GenericMongoDAO(_COLLECTION_OF_ATTENDANCES, self.mongo_id)
-
     def students_dao(self):
         """ Gets an instance of a data access object for a certain collection """
         return StudentSigaaDAO(int(self.sigaa_code))

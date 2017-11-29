@@ -1,0 +1,56 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+<header>
+    <h2>Disciplinas</h2>
+</header>
+
+{% if success_msg %}
+    <div class="form-success">
+        <p>{{ success_msg }}</p>
+    </div>
+{% endif %}
+<div class="form">
+<form method="POST" action="{{ url_for('admin.subjects') }}">
+    {{ form.csrf_token }}
+    
+    <br/>
+    
+    {{ form.name.label }}<br/>
+    {{ form.name(required='true') }}
+
+    <br/>
+    
+    {{ form.description.label }}<br/>
+    {{ form.description(required='true', minlength='100', maxlength='1200', placeholder='ex: Compreensão dos campos da política, das políticas públicas e da administração pública; O Contexto decisório da Administração Pública; O Contexto organizacional da Administração Pública; O Contexto normativo da Administração Pública; Teoria das Organizações e Administração Pública; Novos paradigmas da gestão pública.') }}
+
+    <br/>
+
+    {{ form.workloadInHours.label }}<br/>
+    {{ form.workloadInHours(required='true', type='number', step='1', min='1', max='300', placeholder='ex: 30') }}
+
+    <br/>
+
+    {{ form.credits.label }}<br/>
+    {{ form.credits(required='true', type='number', step='1', placeholder='ex:4') }}    
+
+    <br/>
+
+    {{ form.requirement.label }}<br/>
+    {{ form.requirement(required='true') }}
+
+    <br/>
+    <br/>
+    
+    {{ form.create }}
+    
+</form>
+    <br/>
+</div>
+
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+
+{% endblock %}

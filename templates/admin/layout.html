@@ -54,19 +54,69 @@
                 </ul>
                 <h6><strong>EDITAR PÁGINAS</strong></h6>
                 <ul class="nav nav-sidebar">
-                    <li><a href="">Disciplinas</a></li>
-                    <li><a href="">Discentes</a></li>
-                    <li><a href="">Docentes</a></li>
-                    <li><a href="">Projetos</a></li>
-                    <li><a href="">Intercâmbios</a></li>
-                    <li><a href="">Defesas e dissertações</a></li>
-                    <li><a href="">Equipe</a></li>
-                    <li><a href="">Convênios</a></li>
-                    <li><a href="">Calendário</a></li>
+                    <li><a href="">Disciplinas</a>
+                        <ul>
+                        <li><a href="{{ url_for('admin.subjects') }}">Adicionar Disciplinas</a></li>
+                        <li><a href="">Retirar Disciplinas</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Discentes</a>
+                        <ul>
+                        <li><a href="">Adicionar discentes</a></li>
+                        <li><a href="">Retirar discentes</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Docentes</a>
+                        <ul>
+                        <li><a href="{{ url_for('admin.add_professors') }}">Adicionar docentes</a></li>
+                        <li><a href="">Retirar docentes</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Projetos</a>
+                        <ul>
+                        <li><a href="">Adicionar projetos</a></li>
+                        <li><a href="">Retirar projetos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Intercâmbios</a>
+                        <ul>
+                        <li><a href="{{ url_for('admin.participations') }}">Adicionar intercâmbios</a></li>
+                        <li><a href="">Retirar intercâmbios</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Defesas e dissertações</a>
+                        <ul>
+                        <li><a href="{{ url_for('admin.scheduled_reports') }}">Adicionar defesas e dissertações</a></li>
+                        <li><a href="">Retirar defesas e dissertações</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Equipe</a>
+                        <ul>
+                        <li><a href="{{ url_for('admin.add_staff') }}">Adicionar membros da equipe</a></li>
+                        <li><a href="">Retirar membors da equipe</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Convênios</a>
+                        <ul>
+                            <li><a href="{{ url_for('admin.covenants') }}">Adicionar convênios</a></li>
+                            <li><a href="">Retirar convênios</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Calendário</a>
+                        <ul>
+                            <li><a href="">Adicionar evento</a></li>
+                            <li><a href="">Retirar evento</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <h6><strong>BUROCRACIA</strong></h6>
                 <ul class="nav nav-sidebar">
-                    <li><a href="">Documentos</a></li>
+                <li><a href="">Documentos</a>
+                    <ul>
+                    <li><a href="{{ url_for('admin.documents') }}">Adicionar documentos</a></li>
+                    <li><a href="">Retirar documentos</a></li>
+                    </ul>
+                </li>
                 </ul>
             </div>
             {% endif %}
@@ -92,7 +142,7 @@
                     <p>{{ success_msg }}</p>
                 </div>
                 {% endif %}
-
+                
                 {% block content %}{% endblock %}
 
             </div>

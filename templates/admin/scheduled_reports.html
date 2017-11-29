@@ -3,7 +3,7 @@
 {% block content %}
 
 <header>
-    <h2>Agendamento de apresentações</h2>
+    <h2>Teses e dissertações</h2>
 </header>
 
 {% if success_msg %}
@@ -12,7 +12,7 @@
     </div>
 {% endif %}
 
-<form method="POST" action="{{ url_for('admin.scheduled_reports') }}">
+<form method="POST" action="{{ url_for('admin.subjects') }}">
     {{ form.csrf_token }}
     
     <br/>
@@ -27,13 +27,13 @@
 
     <br/>
 
-    {{ form.time.label }}<br/>
-    {{ form.time(required='true', type='datetime-local') }}
-
-    <br/>
-    
     {{ form.location.label }}<br/>
     {{ form.location(required='true') }}
+
+    <br/>
+
+    {{ form.time.label }}<br/>
+    {{ form.time(required='true') }}
 
     <br/>
     

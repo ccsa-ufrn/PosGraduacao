@@ -23,6 +23,10 @@ class AbstractDAO(object):
     def find(self, conditions: dict):
         raise NotImplementedError("Not implemented method inherited from an abstract class.")
 
+    def count(self, conditions: dict):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+
     def insert_one(self, document: dict):
         raise NotImplementedError("Not implemented method inherited from an abstract class.")
 
@@ -90,16 +94,30 @@ class GenericMongoDAO(AbstractDAO):
             conditions = {}
         if self.owner_post_graduation_id is not None:
             conditions['ownerProgram'] = self.owner_post_graduation_id
+	#Ex: return DB['gradesOfSubjects'].find(5a15ca97d818ecf5068593c9) <- Sendo esse número o id do programa de pós-graduação
         return DB[self.collection].find(conditions)
+    
+    def count(self, conditions: dict = None):
+        """
+        Find the number of documents inside collection
+        """
+        if conditions is None:
+            conditions = {}
+        if self.owner_post_graduation_id is not None:
+            conditions['ownerProgram'] = self.owner_post_graduation_id
+        return DB[self.collection].count(conditions)
 
-    def insert_one(self, document: dict):
+
+    def insert_one(self, conditions: dict, document: dict):
         """
         Insert a document as dict into the collection and returns its new id if it worked.
         TODO: insert an alive document
         """
+        if conditions is None:
+            conditions = {}
         if self.owner_post_graduation_id is not None:
             conditions['ownerProgram'] = self.owner_post_graduation_id
-        return DB[self.collection].insert_one(document).inserted_id
+        return DB[self.collection].insert(document)
 
     def insert_many(self, document: list):
         """
@@ -173,6 +191,7 @@ class ProjectSigaaDAO(AbstractDAO):
 
     def __init__(self, program_sigaa_code: int):
         self.ENDPOINT = api_sistemas.API_URL_ROOT
+	#Descobrir qual o "formato" dessa consulta
         self.ENDPOINT += 'stricto-sensu-services/services/consulta/projeto/' 
         self.ENDPOINT += str(program_sigaa_code)
 
@@ -191,13 +210,14 @@ class ProjectSigaaDAO(AbstractDAO):
         for project_from_sigaa in projects_from_sigaa:
             
             if not project_from_sigaa['situacaoProjeto'] == 'FINALIZADO':
-                members = None
+                members = None #?
                 members = []
                 coordinators_names = []
                 blocked = False
 
                 for member in project_from_sigaa['membrosProjeto']:
                     # a certain professor is blocked... oh, my! :o
+		    #wtf teste?
                     if member['nome'].title() == 'Luciano Menezes Bezerra Sampaio':
                         blocked = True
 

@@ -11,6 +11,7 @@ from models.clients.util import keyring
 from models.factory import PosGraduationFactory
 from models.clients.api_sistemas import SigaaError, FailedToGetTokenForSigaaError, UnreachableSigaaError, NoAppCredentialsForSigaaError
 
+import sys
 
 app = Blueprint('public', __name__, static_folder='static', url_prefix='')
 
@@ -88,15 +89,17 @@ def download_documents(initials, filename):
 @app.route('/<string:initials>/disciplinas/')
 def view_subjects(initials):
     """Render a view for subjects."""
-
+    #Instancia objeto em factory.py com as iniciais do programa ex:PGGP
     pfactory = PosGraduationFactory(initials)
+    #Pega o collection da pós-gradução com as iniciais usadas na linha anterior, serve para verificar se a pós-gradução esta entre as do sistema etc
     post_graduation = pfactory.post_graduation
 
+    #Instancia objeto em factory.py com collection com dados das disciplinas da pós graduação
     grades_of_subjects = pfactory.grades_of_subjects_dao().find()
-
     # renders an own page or redirect to another (external/404)?
     return render_template(
         'public/subjects.html',
+	#Método abaixo no mesmo arquivo não sei bem pra que funciona
         std=get_std_for_template(post_graduation),
         grades_of_subjects=grades_of_subjects
     )
@@ -273,8 +276,6 @@ def view_final_reports(initials):
         std=get_std_for_template(post_graduation),
         final_reports_by_year=final_reports_by_year
     )
-
-
 
 
 # AUX
