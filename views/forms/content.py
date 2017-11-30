@@ -96,7 +96,9 @@ class InstitutionsWithCovenantsForm(FlaskForm):
         DataRequired('Digite a sigla da instituição.')
     ])
 
-    logo = FileField()
+    logo = FileField(validators=[
+        DataRequired('Por favor insira um logo em formato .jpeg ou .png')
+    ])
 
     create = SubmitField('Adicionar')
 

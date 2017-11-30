@@ -312,8 +312,6 @@ def covenants():
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.integrations_infos_dao()
 
-    success_msg = 'Convênio adicionado adicionado com sucesso.'
-
     if form.validate_on_submit() and form.create.data:
         if form.logo.data and allowedFile(form.logo.data.filename, allowed_extensions):
             photo = form.logo.data
@@ -327,25 +325,15 @@ def covenants():
                 'initials': form.initials.data.upper(),
                 'logoFile': logoFile
             }
- 
-        else:
-            new_covenant = {
-                'name': form.name.data,
-                'initials': form.initials.data.upper()
-            }
 
         dao.find_one_and_update(None, {
             '$push': {'institutionsWithCovenant': new_covenant}
         })
  
-        if not allowedFile(form.logo.data.filename, allowed_extensions):
-            print('Tipo inválido', file=sys.stderr)
-            success_msg= 'Somente nome e sigla foram inseridos, logo tinha formato inválido'
- 
         return redirect(
             url_for(
                 'admin.covenants',
-                success_msg = success_msg
+                success_msg = 'Convênio adicionado adicionado com sucesso.'
             )
         )
 

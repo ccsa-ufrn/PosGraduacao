@@ -1,5 +1,6 @@
 """Scraping functions lib."""
 import re
+import sys
 
 import requests
 from bs4 import BeautifulSoup
@@ -38,13 +39,12 @@ class RIScraper(object):
 
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
-
-        table = soup.find('table', summary='This table browses all dspace content')
-        rows = table.find_all('tr')
-        del rows[0]
-
-        for row in rows:
-            date, title, author = row.find_all('td')
+        table = soup.select("td[headers]")
+        len_table = len(table)
+        for element in range(1, len_table, 4):
+            date = table[element]
+            title = table[element + 1]
+            author = table[element + 2]
 
             final_reports.append({
                 'author': author.text.strip(),
@@ -62,3 +62,4 @@ class RIScraper(object):
         max_page = match.group('max_page') if match is not None else -1
 
         return final_reports, int(max_page)
+
