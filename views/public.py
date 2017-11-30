@@ -2,16 +2,16 @@
 Routes and views for public pages about Post Graduation Programs.
 """
 
-from flask import Blueprint, render_template, redirect, current_app
+from flask import Blueprint, render_template, redirect,\ 
+current_app, request 
 from pymongo.errors import ServerSelectionTimeoutError
 
-from models.scraping import final_reports
+from scraping.institutional_repository import RIScraper
 from models.clients.util import keyring
 
 from models.factory import PosGraduationFactory
 from models.clients.api_sistemas import SigaaError, FailedToGetTokenForSigaaError, UnreachableSigaaError, NoAppCredentialsForSigaaError
 
-import sys
 
 app = Blueprint('public', __name__, static_folder='static', url_prefix='')
 
@@ -89,17 +89,15 @@ def download_documents(initials, filename):
 @app.route('/<string:initials>/disciplinas/')
 def view_subjects(initials):
     """Render a view for subjects."""
-    #Instancia objeto em factory.py com as iniciais do programa ex:PGGP
+
     pfactory = PosGraduationFactory(initials)
-    #Pega o collection da pós-gradução com as iniciais usadas na linha anterior, serve para verificar se a pós-gradução esta entre as do sistema etc
     post_graduation = pfactory.post_graduation
 
-    #Instancia objeto em factory.py com collection com dados das disciplinas da pós graduação
     grades_of_subjects = pfactory.grades_of_subjects_dao().find()
+
     # renders an own page or redirect to another (external/404)?
     return render_template(
         'public/subjects.html',
-	#Método abaixo no mesmo arquivo não sei bem pra que funciona
         std=get_std_for_template(post_graduation),
         grades_of_subjects=grades_of_subjects
     )
@@ -265,17 +263,26 @@ def view_documents(initials):
 def view_final_reports(initials):
     """Render a view for conclusion works list."""
 
-    pfactory = PosGraduationFactory(initials)
-    post_graduation = pfactory.post_graduation
+    try:
+        post_graduation = PosGraduationFactory(initials).post_graduation
 
-    final_reports_by_year = final_reports.ppgp_find_all()
+        page = request.args.get('page')
+        if page is None:
+            page = 1
+        else:
+            page = int(page)
 
-    # renders an own page or redirect to another (external/404)?
-    return render_template(
-        'public/final_reports.html',
-        std=get_std_for_template(post_graduation),
-        final_reports_by_year=final_reports_by_year
-    )
+        final_reports, max_page = RIScraper.final_reports_list(initials, page)
+
+        return render_template(
+            'public/final_reports.html',
+            std=get_std_for_template(post_graduation),
+            final_reports=final_reports,
+            current_page=page,
+            max_page=max_page,
+        )
+    except Exception:
+        return page_not_found()
 
 
 # AUX
