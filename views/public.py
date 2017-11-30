@@ -2,8 +2,8 @@
 Routes and views for public pages about Post Graduation Programs.
 """
 
-from flask import Blueprint, render_template, redirect,\ 
-current_app, request 
+from flask import Blueprint, render_template, redirect, \
+current_app, request
 from pymongo.errors import ServerSelectionTimeoutError
 
 from scraping.institutional_repository import RIScraper
@@ -344,7 +344,7 @@ def sigaa_exception_handler(error):
 
     if type(error) == UnreachableSigaaError:
         return render_template('public/503.html', std=get_std_for_template(None)), 503
-    
+ 
     if type(error) == FailedToGetTokenForSigaaError:
         return render_template('public/501.html', std=get_std_for_template(None)), 501
 

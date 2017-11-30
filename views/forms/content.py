@@ -45,7 +45,7 @@ class SubjectsForm(FlaskForm):
         DataRequired('Insira um breve resumo sobre a disciplina.')
     ])
 
-    workloadInHours = IntegerField('Carga Horária:', validators=[
+    workload_in_hours = IntegerField('Carga Horária:', validators=[
         DataRequired('Informe a carga horária da disciplina.')
     ])
 

@@ -161,10 +161,10 @@ def subjects():
         new_subject = {
             'name': form.name.data,
             'description': form.description.data,
-            'workloadInHours': form.workloadInHours.data,
+            'workloadInHours': form.workload_in_hours.data,
             'credits': form.credits.data
         }
-    
+
         condition = {'title':form.requirement.data}
 
         dao.find_one_and_update(condition, {
@@ -202,23 +202,23 @@ def add_staff():
                 'rank': form.rank.data,
                 'abstract': form.abstract.data,
             }
-        
+ 
         else:
             new_staff = {
                 'name': form.name.data,
                 'function': {
-                    'rank':form.rank.data,
-                    'description':form.abstract.data
+                    'rank': form.rank.data,
+                    'description': form.abstract.data
                 }
             }
         dao.find_one_and_update(None, {
                 '$push': {form.function.data: new_staff}
             })
         return redirect(
-        url_for(
-            'admin.add_staff',
-            success_msg='Servidor adicionado com sucesso.'
-            )
+            url_for(
+                'admin.add_staff',
+                success_msg='Servidor adicionado com sucesso.'
+                )
         )
 
     return render_template(
@@ -236,7 +236,7 @@ def participations():
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.integrations_infos_dao()
 
-    if form.validate_on_submit() and form.create.data: #O que é esse create.data?
+    if form.validate_on_submit() and form.create.data:
         new_participation = {
             'title': form.title.data,
             'description': form.description.data,
@@ -254,7 +254,7 @@ def participations():
                 success_msg='Intercâmbio adicionado adicionado com sucesso.'
             )
         )
-    
+
     return render_template(
         'admin/participations.html',
         form=form,
@@ -272,11 +272,10 @@ def add_professors():
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.boards_of_professors_dao()
 
-    if form.validate_on_submit() and form.create.data: #O que é esse create.data?
+    if form.validate_on_submit() and form.create.data:
         lattes = form.lattes.data
         if lattes == "":
             lattes = None
-    
         new_professor = {
             'name': form.name.data,
             'rank': form.rank.data,
@@ -294,7 +293,7 @@ def add_professors():
                 success_msg='Professor adicionado adicionado com sucesso.'
             )
         )
-    
+ 
     return render_template(
         'admin/add_professors.html',
         form=form,
@@ -305,7 +304,7 @@ def add_professors():
 @login_required
 def covenants():
     """Render covenant adding form."""
-    
+ 
     allowed_extensions = ['jpg', 'png']
 
     form = InstitutionsWithCovenantsForm()
@@ -313,12 +312,12 @@ def covenants():
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.integrations_infos_dao()
 
-    success_msg='Convênio adicionado adicionado com sucesso.',
+    success_msg = 'Convênio adicionado adicionado com sucesso.'
 
-    if form.validate_on_submit() and form.create.data: #O que é esse create.data?
+    if form.validate_on_submit() and form.create.data:
         if form.logo.data and allowedFile(form.logo.data.filename, allowed_extensions):
             photo = form.logo.data
-            path = os.path.normpath("static/upload_files/" + current_user.pg_initials.lower() + "/covenantLogos")
+            path = os.path.normpath("static/assets")
             filename = secure_filename(photo.filename)
             name, extension = filename.split('.')
             logoFile = 'logo-' + form.initials.data.lower() + '.' + extension
@@ -328,8 +327,8 @@ def covenants():
                 'initials': form.initials.data.upper(),
                 'logoFile': logoFile
             }
-        
-        else:  
+ 
+        else:
             new_covenant = {
                 'name': form.name.data,
                 'initials': form.initials.data.upper()
@@ -338,11 +337,11 @@ def covenants():
         dao.find_one_and_update(None, {
             '$push': {'institutionsWithCovenant': new_covenant}
         })
-        
+ 
         if not allowedFile(form.logo.data.filename, allowed_extensions):
             print('Tipo inválido', file=sys.stderr)
-            success_msg='Somente nome e sigla foram inseridos, logo tinha formato inválido'
-        
+            success_msg= 'Somente nome e sigla foram inseridos, logo tinha formato inválido'
+ 
         return redirect(
             url_for(
                 'admin.covenants',
@@ -363,16 +362,16 @@ def covenants():
 def documents():
     """Render document adding form."""
 
-    allowed_extensions = ['docx','pdf']
-    
+    allowed_extensions = ['docx', 'pdf']
+ 
     form = DocumentForm()
-    
+ 
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.official_documents_dao()
     ownerProgram = pfactory.mongo_id
 
     if form.validate_on_submit() and form.create.data:
-        insertedOn = datetime.datetime.now()  
+        insertedOn = datetime.datetime.now()
         insertedBy = current_user._full_name
         document = form.document.data
         path = os.path.normpath("static/upload_files/" + current_user.pg_initials.lower() + '/documents/' + str(form.year.data))
@@ -395,13 +394,13 @@ def documents():
             dao.insert_one(None, new_document)
 
             return redirect(
-                   url_for(
-                      'admin.documents',
-                      success_msg='Documento adicionado adicionado com sucesso.'
-                  )
-              )
+                url_for(
+                    'admin.documents',
+                    success_msg='Documento adicionado adicionado com sucesso.'
+                )
+            )
         else:
-            
+ 
             return redirect(
                 url_for(
                     'admin.documents',
@@ -422,21 +421,15 @@ def uploadFiles(document, path, filename):
     if a file with the same name already exists, change filename
     to filename_x and also prevent not secure filenames ex: with / * etc
     """
-    name, extension = (secure_filename(filename)).split('.') #Get filename and extension
-    checkpath = os.path.join((os.getcwd()), path, os.path.normpath(name)) #Get path where file is going to be stored
-    if glob.glob(checkpath + '*.' + extension): 
-        """check if files with similar names already exists, 
-        if so put the number of copies of file that exist 
-        next to filename ex: if there are 5 sem_titulo_1_x 
-        the sixth will be name sem_titulo_1_6
-        """
-        x = 0
+    name, extension = (secure_filename(filename)).split('.')
+    checkpath = os.path.join((os.getcwd()), path, os.path.normpath(name))
+    if glob.glob(checkpath + '*.' + extension):
+        numberofcopies = 0
         dirs = glob.glob(checkpath + '*.' + extension)
-        print(dirs, file=sys.stderr)
         for i in dirs:
-            x += 1
-        filename = name + '_' + str(x) + '_.' + extension 
-    filename = secure_filename(filename) #make filename secure
+            numberofcopies += 1
+        filename = name + '_' + str(numberofcopies) + '_.' + extension 
+    filename = secure_filename(filename)
     document.save(os.path.join((os.getcwd()), path, os.path.normpath(filename)))        
     return filename
 
