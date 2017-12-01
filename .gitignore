@@ -7,9 +7,9 @@ tcl
 
 ######################################################
 #Upload Files
-*.pdf
-*.docx
-*.jpeg
+*static/upload_files/*/*/*.pdf
+*static/upload_files/*/*/*.docx
+*static/upload_files/*.jpeg
 
 #######################################################
 # PosGraduacao
