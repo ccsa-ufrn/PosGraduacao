@@ -9,6 +9,12 @@ tcl
 
 *settings/files/api_keys.json
 
+#######################################################
+#Upload files
+*.pdf
+*.jpeg
+*.docx
+
 ########################################################
 # flask
 # from: https://raw.githubusercontent.com/pallets/flask/master/.gitignore
