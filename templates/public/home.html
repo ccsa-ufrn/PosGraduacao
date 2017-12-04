@@ -31,8 +31,7 @@
                     <div class="carousel-caption-content">
                         <h1>Programa de Pós-Graduação em<br/><strong>{{ std.post_graduation.name }}</strong>.</h1>
                         <p>
-                            Stricto sensu: o Mestrado Profissional em Gestão Pública prepara dirigentes para atuar em instituições governamentais.
-                        </p>
+                        Stricto sensu: {{ std.post_graduation.descriptionSmall }}</p>
                         <p><a class="btn btn-lg btn-primary" href="#program-about" role="button">Ver mais</a></p>
                     </div>
                 </div>
@@ -86,7 +85,7 @@
         <header>
             <h2><span class="glyphicon glyphicon-map-marker"></span> Atendimento</h2>
         </header>
-        <img src="/static/assets/logo_{{ std.post_graduation.initials.lower() }}.png" alt="Gestão Pública" class="program-logo center-block" width="200">
+        <img src="/static/assets/logo_{{ std.post_graduation.initials.lower() }}.png" class="program-logo center-block" width="200">
         <p>
             <span>Sala:</span> {{ attendance.location.building }}, {{ attendance.location.floor }}, {{ attendance.location.room }}.<br/>
             <span>Horários: </span> {{ attendance.location.opening }}<br/>
@@ -259,11 +258,7 @@
         <header>
             <h2><span class="glyphicon glyphicon-home"></span> Sobre o Programa</h2>
         </header>
-        <p>O Programa de Pós-Graduação em Gestão Pública (PPGP) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplicadas (CCSA) e foi criado em 2010.</p>
-        <p>Atualmente oferece o curso de Mestrado Profissional em Gestão Pública, em nível de pós-graduação stricto sensu, com o intuito de preparar dirigentes de instituições públicas. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colaboradores.</p>
-        <p>O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações.</p>
-        <br/>
-        <p>Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.</p>
+        {{ std.post_graduation.descriptionBig }}
     </section>
 </div>
 

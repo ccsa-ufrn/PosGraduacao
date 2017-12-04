@@ -2,6 +2,7 @@
 Routes and views for public pages about Post Graduation Programs.
 """
 
+
 from flask import Blueprint, render_template, redirect, \
 current_app, request
 from pymongo.errors import ServerSelectionTimeoutError
@@ -59,10 +60,34 @@ def home(initials):
         google_maps_api_key = google_maps_api_dict['key']
 
     # search for home data
-    final_reports = pfactory.final_reports_dao().find_one()['scheduledReports']
+    final_reports = pfactory.final_reports_dao().find_one()
+    final_reports = final_reports['scheduledReports']
     weekly_schedules = pfactory.weekly_schedules_dao().find()
     integrations_infos = pfactory.integrations_infos_dao().find_one()
+    if integrations_infos is None:
+        integrations_infos = {
+            'name': "",
+            'initials': "",
+            'logoFile': "",
+        }
+        institutionsWithCovenant = integrations_infos
+    else:
+        institutionsWithCovenant=integrations_infos['institutionsWithCovenant']
     attendance = pfactory.attendances_dao().find_one()
+    if attendance is None:
+        attendance = {
+                'location' : {
+                    'building' : '',
+                    'floor' : '',
+                    'room' : '',
+                    'opening' : ''
+                },
+                'email' : '',
+                'phones' : {
+                    'type' : '',
+                    'number' : ''
+                }
+        }
 
     # ready... fire!
     return render_template(
@@ -71,8 +96,8 @@ def home(initials):
         google_maps_api_key=google_maps_api_key,
         final_reports=final_reports,
         weekly_schedules=weekly_schedules,
+        institutionsWithCovenant=institutionsWithCovenant,
         attendance=attendance,
-        institutionsWithCovenant=integrations_infos['institutionsWithCovenant']
     )
 
 
@@ -112,19 +137,21 @@ def view_professors(initials):
     post_graduation = pfactory.post_graduation
 
     board_of_professors = pfactory.boards_of_professors_dao().find_one()
-
-    # manually fill missing lattes
-    for professor in board_of_professors['professors']:
-        if 'Djalma Freire Borges'.upper() in professor['name'].upper():
-            professor['lattes'] = 'http://lattes.cnpq.br/3216184364856265'
-        elif 'Káio César Fernandes'.upper() in professor['name'].upper():
-            professor['lattes'] = 'http://lattes.cnpq.br/9740792920379789'
-        elif 'Richard Medeiros de Araújo'.upper() in professor['name'].upper():
-            professor['lattes'] = 'http://lattes.cnpq.br/6158536331515084'
-        elif 'Ítalo Fittipaldi'.upper() in professor['name'].upper():
-            professor['lattes'] = 'http://lattes.cnpq.br/7626654802346326'
-        elif 'Hironobu Sano'.upper() in professor['name'].upper():
-            professor['lattes'] = 'http://lattes.cnpq.br/6037766951080411'
+    if board_of_professors is None:
+        board_of_professors = []
+    else:
+        # manually fill missing lattes
+        for professor in board_of_professors['professors']:
+            if 'Djalma Freire Borges'.upper() in professor['name'].upper():
+                professor['lattes'] = 'http://lattes.cnpq.br/3216184364856265'
+            elif 'Káio César Fernandes'.upper() in professor['name'].upper():
+                professor['lattes'] = 'http://lattes.cnpq.br/9740792920379789'
+            elif 'Richard Medeiros de Araújo'.upper() in professor['name'].upper():
+                professor['lattes'] = 'http://lattes.cnpq.br/6158536331515084'
+            elif 'Ítalo Fittipaldi'.upper() in professor['name'].upper():
+                professor['lattes'] = 'http://lattes.cnpq.br/7626654802346326'
+            elif 'Hironobu Sano'.upper() in professor['name'].upper():
+                professor['lattes'] = 'http://lattes.cnpq.br/6037766951080411'
 
 
     # renders an own page or redirect to another (external/404)?
@@ -271,8 +298,11 @@ def view_final_reports(initials):
             page = 1
         else:
             page = int(page)
-
-        final_reports, max_page = RIScraper.final_reports_list(initials, page)
+        if initials != 'PPGIC':
+            final_reports, max_page = RIScraper.final_reports_list(initials, page)
+        else:
+            final_reports = [{'author':'','title':'','year':'','link':''}]
+            max_page = 1 
 
         return render_template(
             'public/final_reports.html',
@@ -344,7 +374,7 @@ def sigaa_exception_handler(error):
 
     if type(error) == UnreachableSigaaError:
         return render_template('public/503.html', std=get_std_for_template(None)), 503
- 
+
     if type(error) == FailedToGetTokenForSigaaError:
         return render_template('public/501.html', std=get_std_for_template(None)), 501
 
