@@ -12,11 +12,18 @@ class RIScraper(object):
     @staticmethod
     def _reports_collection_url(pg_initials):
         pg_initials = pg_initials.upper()
-
-        if pg_initials == 'PPGP':
-            return RIScraper.root() + 'jspui/handle/123456789/12031/'
-        else:
-            return None
+        dic_initials = {
+            'PPGP' : 'jspui/handle/123456789/12031/',
+            'PPGA' : 'jspui/handle/123456789/11886/',
+	    'PPGCC' : 'jspui/handle/123456789/23373/',
+	    'PPGD' : 'jspui/handle/123456789/11997/',
+	    'PPGECO' : 'jspui/handle/123456789/11999/',
+	    'PPGIC' : 'jspui/handle/123456789/24097/',
+            'PPGSS' : 'jspui/handle/123456789/12057/',
+            'PPGTUR' : 	'jspui/handle/123456789/12062/'			
+        }
+        print((RIScraper.root() + dic_initials[pg_initials]), file=sys.stderr)
+        return RIScraper.root() + dic_initials[pg_initials]
 
     @staticmethod
     def root():
