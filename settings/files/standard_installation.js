@@ -18,12 +18,14 @@ db.postGraduations.insertMany([
                 'email': 'mazuh@ufrn.edu.br'
             }
         ],
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=5679'
+        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=5679',
+	'descriptionSmall': 'O Mestrado Profissional em Gestão Pública prepara dirigentes para atuar em instituições governamentais.',
+	'descriptionBig' : 'O Programa de Pós-Graduação em Gestão Pública (PPGP) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplicadas (CCSA) e foi criado em 2010. Atualmente oferece o curso de Mestrado Profissional em Gestão Pública, em nível de pós-graduação stricto sensu, com o intuito de preparar dirigentes de instituições públicas. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colaboradores. O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações. Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.'
     },
     {
         'name': 'Administração',
         'initials': 'PPGA',
-        'sigaaCode': '1702',
+        'sigaaCode': '1621',
         'users': [
             {
                 'nick': 'luccas',
@@ -34,53 +36,75 @@ db.postGraduations.insertMany([
             }
         ],
         'isSignedIn': true,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=74'
+        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=74',
+        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=5679',
+	'descriptionSmall': 'Os cursos e mestrado e doutorado em Administração tem o objetido de formar docentes pesquisadores e preparar dirigentes de instituições públicas e privadas.',
+	'descriptionBig' : 'O Programa de Pós-Graduação em Administração (PPGA) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplic adas (CCSA) e foi criado em 1978. Atualmente oferece o curso de Mestrado, Doutorado e algumas especializações Administração, em nível de pós-graduação stricto sensu, com o intuito de formar docentes pesquisadores e preparar dirigentes de instituições públicas e privadas. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colabor adores.O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações. Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.'
     },
     {
         'name': 'Ciências Contábeis',
         'initials': 'PPGCC',
-        'sigaaCode': undefined,
-        'isSignedIn': false,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=9066'
+        'sigaaCode': '1622',
+        'isSignedIn': true,
+        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=9066',
+	'descriptionSmall': 'O Mestrado Profissional em Ciências Contábeis tem como objetivo formar docentes pesquisadores e habilitar, profissionais a atuar de forma destacada nas mais diversas instituições, em áreas que demandem conhecimento de ponta em Ciências Contábeis e afins',
+	'descriptionBig' : 'O Programa de Pós-Graduação em Ciências Contábeis (PPGCC) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplic adas (CCSA). Atualmente oferece o curso de Mestrado, em nível de pós-graduação stricto sensu, com o intuito de formar docentes pesquisadores e habilitar, profissionais a atuar de forma destacada nas mais diversas instituições, em áreas que demandem conhecimento de ponta em Ciências Contábeis e afins. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colabor adores.O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações. Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.'
     },
     {
         'name': 'Direito',
         'initials': 'PPGD',
-        'sigaaCode': undefined,
-        'isSignedIn': false,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=404'
+        'sigaaCode': '1623',
+        'isSignedIn': true,
+        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=404',
+	'descriptionSmall': 'O Mestrado Profissional em Direito tem como objetivo formar docentes pesquisadores e habilitar e especializar profissionais no campo do Direito',
+	'descriptionBig' : 'O Programa de Pós-Graduação em Direito (PPGDIR) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplicadas (CCSA). Atualmente oferece o curso de Mestrado, em nível de pós-graduação stricto sensu, com o objetivo de formar docentes pesquisadores e habilitar e especializar profissionais no campo do Direito, desenvolver atividades específicas na pesquisa e no ensino do Direito, visando à preparação de profissionais para atividades acadêmicas. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colabor adores.O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações. Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.'
     },
     {
         'name': 'Economia',
         'initials': 'PPGECO',
-        'sigaaCode': undefined,
-        'isSignedIn': false,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=434'
+        'sigaaCode': '1624',
+        'isSignedIn': true,
+        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=434',
+	'descriptionSmall': 'O Mestrado Profissional em Economia tem como formar mestres em Economia, concedendo-lhes a devida formação teórica e investigativa',
+	'descriptionBig' : 'O Programa de Pós-Graduação em Administração (PPGA) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplicadas (CCSA), foi criado em 2002. Atualmente oferece o curso de Mestrado, em nível de pós-graduação stricto sensu, com o propósito de formar mestres em Economia, concedendo-lhes a devida formação teórica e investigativa, para que possam atuar com base na competência técnica, no conhecimento crítico e no compromisso ético-político com o desenvolvimento econômico e social. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colabor adores.O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações. Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.'
     },
     {
         'name': 'Gestão da Informação e do Conhecimento',
         'initials': 'PPGIC',
-        'sigaaCode': undefined,
-        'isSignedIn': false,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=9196'
+        'sigaaCode': '1629',
+        'isSignedIn': true,
+        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=9196',
+	'descriptionSmall': 'O Mestrado Profissional em Gestão da Informação e do Conhecimento tem como objetivo capacitar profissionais e pesquisadores para o exercício da prática profissional avançada e transformadora de procedimentos no âmbito da Ciência da Informação',
+	'descriptionBig' : 'O Programa de Pós-Graduação em Gestão da Informação e do Conhecimento (PPGIC) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplicadas (CCSA). Atualmente oferece o curso de Mestrado, em nível de pós-graduação stricto sensu, com o propósito de capacitar profissionais e pesquisadores para o exercício da prática profissional avançada e transformadora de procedimentos no âmbito da Ciência da Informação. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colabor adores.O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações. Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.'
     },
     {
         'name': 'Serviço Social',
         'initials': 'PPGSS',
-        'sigaaCode': undefined,
-        'isSignedIn': false,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=376'
+        'sigaaCode': '1626',
+        'isSignedIn': true,
+        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=376',
+	'descriptionSmall': 'O Mestrado Profissional em Serviço Social tem como objetivo viabilizar a qualificação de profissionais do Serviço Social e áreas afins, a investigação crítica e prepositiva, que os levem a produção de conhecimento sobre o seu exercício profissional pensado no contexto da realidade social, especialmente, no espaço societário de sua inserção',
+	'descriptionBig' : 'O Programa de Pós-Graduação em Serviço Social (PPGSS) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplicadas (CCSA), criado em Agosto de 2000. Atualmente oferece o curso de Mestrado, em nível de pós-graduação stricto sensu, tendo como objetivo viabilizar a qualificação de profissionais do Serviço Social e áreas afins, a investigação crítica e prepositiva, que os levem a produção de conhecimento sobre o seu exercício profissional pensado no contexto da realidade social, especialmente, no espaço societário de sua inserção, sem perder de vista a sua inserção na realidade nacional e internacional, conforme exige o mundo contemporâneo. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colabor adores.O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações. Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.'
     },
     {
         'name': 'Turismo',
         'initials': 'PPGTUR',
-        'sigaaCode': undefined,
-        'isSignedIn': false,
-        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=4295'
+        'sigaaCode': '1654',
+        'isSignedIn': true,
+        'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=4295',
+	'descriptionSmall': 'O Mestrado Profissional em Turismo tem como objetivo  promover e oferecer educação continuada de qualidade em nível de pós-graduação para portadores de diplomas de curso superior em turismo e áreas afin',
+	'descriptionBig' : 'O Programa de Pós-Graduação em Turismo (PPGTUR) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplicadas (CCSA). Atualmente oferece o curso de Mestrado, em nível de pós-graduação stricto sensu, tendo como objetivo Promover e oferecer educação continuada de qualidade em nível de pós-graduação para portadores de diplomas de curso superior em turismo e áreas afins e preparar pesquisadores para o incremento da produção científica em Turismo e áreas afins. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colabor adores.O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações. Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.'
     }
 ]);
 
 PPGP_ID = db.postGraduations.findOne({'initials': 'PPGP'})._id;
+PPGA_ID = db.postGraduations.findOne({'initials': 'PPGA'})._id;
+PPGCC_ID = db.postGraduations.findOne({'initials': 'PPGCC'})._id;
+PPGD_ID = db.postGraduations.findOne({'initials': 'PPGD'})._id;
+PPGECO_ID = db.postGraduations.findOne({'initials': 'PPGECO'})._id;
+PPGIC_ID = db.postGraduations.findOne({'initials': 'PPGIC'})._id;
+PPGSS_ID = db.postGraduations.findOne({'initials': 'PPGSS'})._id;
+PPGTUR_ID = db.postGraduations.findOne({'initials': 'PPGTUR'})._id;
 
 print("Inserindo atendimento...");
 
@@ -560,7 +584,36 @@ db.finalReports.insertMany([
                 'location': 'Sala D4 do Setor V'
             }
         ]
+    },
+    {
+        'ownerProgram': PPGA_ID,
+        'scheduledReports': []
+    },
+    {
+        'ownerProgram': PPGCC_ID,
+        'scheduledReports': []
+    },
+    {
+        'ownerProgram': PPGD_ID,
+        'scheduledReports': []
+    },
+    {
+        'ownerProgram': PPGECO_ID,
+        'scheduledReports': []
+    },
+    {
+        'ownerProgram': PPGIC_ID,
+        'scheduledReports': []
+    },
+    {
+        'ownerProgram': PPGSS_ID,
+        'scheduledReports': []
+    },
+    {
+        'ownerProgram': PPGTUR_ID,
+        'scheduledReports': []
     }
+
 ]);
 
 
