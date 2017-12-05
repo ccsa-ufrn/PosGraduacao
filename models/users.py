@@ -5,6 +5,9 @@ session management.
 
 from models.factory import PosGraduationFactory
 from bcrypt import checkpw, hashpw, gensalt
+import sys
+import requests
+import json
 
 
 class User(object):
@@ -21,19 +24,40 @@ class User(object):
         self._full_name = None
         self._role = None
         self._email = None
+        self._token = None
         self.__is_authenticated = None
         self.__is_active = None
         self.__is_anonymous = None
 
-    def authenticate(self, raw_password_try):
-        """Try to log in using an raw password (not hashed yet), and return True
+    def authenticate(self, username, password):
+        """Try to log in PortalCSSA using nick and password and return
         if this user instance is now authenticated, otherwise False."""
-        if User._check_password(self._password, raw_password_try):
+        id_of_user_in_ccsa = str(User._retrieve_token(username, password))
+        if self._token == id_of_user_in_ccsa:
             self.__is_authenticated = True
         else:
             self.__is_authenticated = False
 
         return self.__is_authenticated
+
+    @staticmethod
+    def _retrieve_token(username, password):
+        url = 'https://ccsa.ufrn.br/portal/?json=user/generate_auth_cookie'
+        body = {
+            'username' : username,
+            'password' : password
+        }
+        try:
+            returned_data = requests.post(url, data=body, verify=False)
+            returned_data = returned_data.text.encode('utf-8')
+            dict_data = json.loads(returned_data.decode('utf-8-sig'))
+            id_of_user_in_ccsa = dict_data['user']['id']
+            return id_of_user_in_ccsa
+        except:
+            return None
+            raise "Couldn't access CCSA"
+
+
 
     @staticmethod
     def _check_password(real_hashed_password, raw_password_try):
@@ -47,8 +71,7 @@ class User(object):
 
     @property
     def id(self):
-        """An unique representation of a certain user."""
-        return '{}@{}'.format(self._nick, self._pg_initials)
+        return self._nick
 
     @property
     def nick(self):
@@ -74,6 +97,11 @@ class User(object):
     def email(self):
         """Valid contact e-mail."""
         return self._email
+
+    @property
+    def token(self):
+        """Unique token."""
+        return self._token
 
     @property
     def pg_initials(self):
@@ -120,19 +148,27 @@ class User(object):
         return self.id
 
     @staticmethod
-    def get(nick, pg_initials, authenticated=False):
+    def get(nick, authenticated=False):
         """Return an User from database. If failed, None."""
         try:
-            program = PosGraduationFactory(pg_initials).post_graduation
-            for user in program['users']:
+            condition = {'users.nick': nick}
+            pfactory = PosGraduationFactory()
+            dao = pfactory.post_graduations_dao()
+            program = list(dao.find(condition))
+            if program:
+                initials = program[0]['initials']
+            else:
+                return None
+            for user in program[0]['users']:
                 if nick.lower() == user['nick'].lower():
                     found_user = User()
                     found_user._nick = user['nick']
-                    found_user._pg_initials = pg_initials.lower()
+                    found_user._pg_initials = initials.lower()
                     found_user._password = user['password'].encode('utf-8')
                     found_user._full_name = user['fullName']
                     found_user._role = user['role']
                     found_user._email = user['email']
+                    found_user._token = user['token']
                     found_user.__is_authenticated = authenticated
                     found_user.__is_active = True
                     found_user.__is_anonymous = False
@@ -140,3 +176,4 @@ class User(object):
             return None
         except (TypeError, AttributeError):
             return None
+

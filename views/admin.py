@@ -27,11 +27,14 @@ from models.clients.api_sistemas import SigaaError, \
     FailedToGetTokenForSigaaError, UnreachableSigaaError, \
     NoAppCredentialsForSigaaError
 
+import json
+import requests
 
 APP = Blueprint('admin',
                 __name__,
                 static_folder='static',
                 url_prefix='/admin')
+
 
 @APP.route('/')
 def index():
@@ -61,9 +64,9 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        user_attempting = User.get(form.nick.data, 'PPGP')
+        user_attempting = User.get(form.nick.data)
 
-        if (user_attempting is not None) and (user_attempting.authenticate(form.password.data)):
+        if (user_attempting is not None) and (user_attempting.authenticate(form.nick.data, form.password.data)):
             login_user(user_attempting)
             return index()
         else:
@@ -71,7 +74,7 @@ def login():
                 'admin/login.html',
                 form=form,
                 incorrect_attempt=True
-            )
+            ) 
     else:
         return render_template(
             'admin/login.html',
@@ -98,15 +101,14 @@ def logout():
 def user_loader(user_id):
     """Load an user from database,
     using an user_id string formatted like 'user_nick@program_initials'."""
-    match = re.match('(?P<nick>.*)@(?P<pg>.*)', user_id)
-    if match is not None:
+    if user_id is not None:
         return User.get(
-            match.group('nick'),
-            match.group('pg'),
+            user_id,
             authenticated=True
         )
     else:
         return None
+
 
 @APP.route('/apresentacoes/', methods=['GET', 'POST'])
 @login_required
@@ -145,6 +147,7 @@ def scheduled_reports():
         success_msg=request.args.get('success_msg')
     )
 
+
 @APP.route('/add_disciplinas/', methods=['GET', 'POST'])
 @login_required
 def subjects():
@@ -165,7 +168,7 @@ def subjects():
             'credits': form.credits.data
         }
 
-        condition = {'title':form.requirement.data}
+        condition = {'title': form.requirement.data}
 
         dao.find_one_and_update(condition, {
             '$push': {'subjects': new_subject}
@@ -182,6 +185,7 @@ def subjects():
         'admin/subjects.html',
         form=form,
     )
+
 
 @APP.route('/add_servidor/', methods=['GET', 'POST'])
 @login_required
@@ -225,6 +229,7 @@ def add_staff():
         'admin/add_staff.html',
         form=form,
     )
+
 
 @APP.route('/intercambios/', methods=['GET', 'POST'])
 @login_required

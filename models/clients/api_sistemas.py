@@ -15,7 +15,6 @@ import requests # To read: http://docs.python-requests.org/en/master/user/quicks
 
 from models.clients.util import keyring
 
-
 # try to get security keys to access APISistemas
 sinfo_api_dict = keyring.get(keyring.SINFO_API)
 
