@@ -11,7 +11,8 @@ db.postGraduations.insertMany([
         'isSignedIn': true,
         'users': [
             {
-                'nick': 'mazuh',
+                'nick': 'admin',
+                'token' : '1',
                 'password': '$2b$14$poaO46ZWpL1NfVdJyS5mNeeMklsiEOxMFvm4aWx0ca1aRNVTBUR4u',
                 'fullName': 'Marcell Guilherme Costa da Silva',
                 'role': 'Bolsista',
