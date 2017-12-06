@@ -147,6 +147,19 @@ def scheduled_reports():
         success_msg=request.args.get('success_msg')
     )
 
+@APP.route('/editar_agendamento/')
+@login_required
+def edit_scheduled_reports():
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.final_reports_dao().find_one()
+
+    return render_template(
+        'admin/edit_scheduled_reports.html',
+        final_reports=dao,
+        post_graduation = current_user.pg_initials
+        )
+
 
 @APP.route('/add_disciplinas/', methods=['GET', 'POST'])
 @login_required

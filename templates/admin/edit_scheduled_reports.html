@@ -1,0 +1,26 @@
+{% extends "admin/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ post_graduation }}.css"/>
+{% endblock %}
+
+{% block content %}
+
+<section>
+    <header class="page-header">
+        <h2>&raquo Trabalhos de Conclusão</h2>
+    </header>
+
+    {% for report in final_reports.scheduledReports %}
+
+    <h4>{{ report.title }}</h4>
+    <h5><strong>Autor:</strong> {{ report.author }}.</h5>
+    <h6><strong>Data:</strong> {{ report.time}}.</h5>
+    <h6><strong>Localização:</strong> {{ report.location }}.</h6>
+    <br/>
+    
+    {% endfor %}
+
+</section>
+
+{% endblock %}
