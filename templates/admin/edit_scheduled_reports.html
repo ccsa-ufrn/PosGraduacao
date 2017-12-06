@@ -13,12 +13,14 @@
 
     {% for report in final_reports.scheduledReports %}
 
-    <h4>{{ report.title }}</h4>
-    <h5><strong>Autor:</strong> {{ report.author }}.</h5>
-    <h6><strong>Data:</strong> {{ report.time}}.</h5>
-    <h6><strong>Localização:</strong> {{ report.location }}.</h6>
-    <br/>
-    
+    <form method="POST" action="{{ url_for('admin.edit_scheduled_reports') }}">
+        {{ form.csrf_token }}
+        <h4>{{ report.title }}</h4>
+        <h5><strong>Autor:</strong> {{ report.author }}.</h5>
+        <h6><strong>Data:</strong> {{ report.time}}.</h5>
+        <h6><strong>Localização:</strong> {{ report.location }}.</h6>
+        <br/>
+        
     {% endfor %}
 
 </section>
