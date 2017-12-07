@@ -20,7 +20,6 @@ class User(object):
         self._id = None
         self._pg_initials = None
         self._nick = None
-        self._password = None
         self._full_name = None
         self._role = None
         self._email = None
@@ -57,18 +56,6 @@ class User(object):
             return None
             raise "Couldn't access CCSA"
 
-
-
-    @staticmethod
-    def _check_password(real_hashed_password, raw_password_try):
-        """Hash the raw_try_pass and check if they match. Return a boolean result."""
-        return checkpw(raw_password_try.encode('utf-8'), real_hashed_password)
-
-    @staticmethod
-    def __hash_password(raw_password):
-        """Encode and convert a raw password into a hash. Return a string result."""
-        return hashpw(raw_password.encode('utf-8'), gensalt(14))
-
     @property
     def id(self):
         return self._nick
@@ -77,11 +64,6 @@ class User(object):
     def nick(self):
         """An user nickname."""
         return self._nick
-
-    @property
-    def password(self):
-        """An user password, already hashed."""
-        return self._password
 
     @property
     def full_name(self):
@@ -164,7 +146,6 @@ class User(object):
                     found_user = User()
                     found_user._nick = user['nick']
                     found_user._pg_initials = initials.lower()
-                    found_user._password = user['password'].encode('utf-8')
                     found_user._full_name = user['fullName']
                     found_user._role = user['role']
                     found_user._email = user['email']
