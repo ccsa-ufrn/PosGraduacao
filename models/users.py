@@ -17,7 +17,6 @@ class User(object):
         self._id = None
         self._pg_initials = None
         self._nick = None
-        self._password = None
         self._full_name = None
         self._role = None
         self._email = None
@@ -52,7 +51,6 @@ class User(object):
             return id_of_user_in_ccsa
         except:
             return None
-            raise "Couldn't access CCSA"
 
 
 
