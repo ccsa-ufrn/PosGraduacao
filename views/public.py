@@ -70,22 +70,22 @@ def home(initials):
             'initials': "",
             'logoFile': "",
         }
-        institutionsWithCovenant = integrations_infos
+        institutions_with_covenant = integrations_infos
     else:
-        institutionsWithCovenant=integrations_infos['institutionsWithCovenant']
+        institutions_with_covenant = integrations_infos['institutionsWithCovenant']
     attendance = pfactory.attendances_dao().find_one()
     if attendance is None:
         attendance = {
-                'location' : {
-                    'building' : '',
-                    'floor' : '',
-                    'room' : '',
-                    'opening' : ''
+            'location' : {
+                'building' : '',
+                'floor' : '',
+                'room' : '',
+                'opening' : ''
                 },
-                'email' : '',
-                'phones' : {
-                    'type' : '',
-                    'number' : ''
+            'email' : '',
+            'phones' : {
+                'type' : '',
+                'number' : ''
                 }
         }
 
@@ -96,7 +96,7 @@ def home(initials):
         google_maps_api_key=google_maps_api_key,
         final_reports=final_reports,
         weekly_schedules=weekly_schedules,
-        institutionsWithCovenant=institutionsWithCovenant,
+        institutions_with_covenant=institutions_with_covenant,
         attendance=attendance,
     )
 
@@ -301,8 +301,8 @@ def view_final_reports(initials):
         if initials != 'PPGIC':
             final_reports, max_page = RIScraper.final_reports_list(initials, page)
         else:
-            final_reports = [{'author':'','title':'','year':'','link':''}]
-            max_page = 1 
+            final_reports = [{'author':'', 'title':'', 'year':'', 'link':''}]
+            max_page = 1
 
         return render_template(
             'public/final_reports.html',

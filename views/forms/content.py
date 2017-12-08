@@ -81,9 +81,6 @@ class StaffForm(FlaskForm):
 
     create = SubmitField('Adicionar')
 
-
-
-
 class InstitutionsWithCovenantsForm(FlaskForm):
     """
     Form for the list of institutions with covenants.
@@ -103,6 +100,7 @@ class InstitutionsWithCovenantsForm(FlaskForm):
     create = SubmitField('Adicionar')
 
 class ScheduledReportForm(FlaskForm):
+
     """
     Scheduled report form.
     """
@@ -119,6 +117,8 @@ class ScheduledReportForm(FlaskForm):
     location = StringField('Localização:', validators=[
         DataRequired('Digite a localização.')
     ])
+    
+    index = IntegerField()
 
     create = SubmitField('Agendar')
 
