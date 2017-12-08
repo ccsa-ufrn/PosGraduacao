@@ -1,11 +1,10 @@
 """
 Routes and views for system administration pages.
 """
-import re
 import os
+import sys
 import datetime
 import glob
-import sys
 
 from flask_login import LoginManager, \
     login_user, login_required, logout_user, current_user
@@ -27,6 +26,7 @@ from models.clients.api_sistemas import SigaaError, \
     FailedToGetTokenForSigaaError, UnreachableSigaaError, \
     NoAppCredentialsForSigaaError
 
+from bson.json_util import dumps
 import json
 import requests
 
@@ -74,7 +74,7 @@ def login():
                 'admin/login.html',
                 form=form,
                 incorrect_attempt=True
-            ) 
+            )
     else:
         return render_template(
             'admin/login.html',
@@ -147,18 +147,82 @@ def scheduled_reports():
         success_msg=request.args.get('success_msg')
     )
 
-@APP.route('/editar_agendamento/')
+@APP.route('/deletar_agendamento/', methods=['GET', 'POST'])
+@login_required
+def delete_scheduled_reports():
+
+    form = ScheduledReportForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.final_reports_dao()
+    json = pfactory.final_reports_dao().find_one()
+    json = dict(json)
+
+    json = dumps(json)
+    index = str(form.index.data)
+
+    if form.validate_on_submit():
+        dao.find_one_and_update(None, {
+            '$set': {'scheduledReports.' + index + '.deleted' : ""}
+        })
+        return redirect(
+            url_for(
+                'admin.delete_scheduled_reports',
+                success_msg='Documento deletado com sucesso',
+            )
+        )
+
+    return render_template(
+        'admin/delete_scheduled_reports.html',
+        final_reports=json,
+        form=form,
+        post_graduation=current_user.pg_initials,
+        success_msg=request.args.get('success_msg')
+    )
+
+@APP.route('/editar_agendamento/', methods=['GET', 'POST'])
 @login_required
 def edit_scheduled_reports():
 
+    form = ScheduledReportForm()
+
     pfactory = PosGraduationFactory(current_user.pg_initials)
-    dao = pfactory.final_reports_dao().find_one()
+    dao = pfactory.final_reports_dao()
+    json = pfactory.final_reports_dao().find_one()
+    json = dict(json)
+    index = 0
+    while index <= len(json['scheduledReports']):
+        if 'deleted' in json['scheduledReports'][index]:
+            del json['scheduledReports'][index]
+        index += 1
+
+    json = dumps(json, ensure_ascii=False)
+    index = str(form.index.data)
+
+    if form.validate_on_submit():
+        new_report = {
+            'time': form.time.data,
+            'title': form.title.data,
+            'author': form.author.data,
+            'location': form.location.data
+        }
+        dao.find_one_and_update(None, {
+            '$set': {'scheduledReports.' + index : new_report}
+        })
+        return redirect(
+            url_for(
+                'admin.edit_scheduled_reports',
+                success_msg='Defesa de tese editada com sucesso.'
+            )
+        )
 
     return render_template(
         'admin/edit_scheduled_reports.html',
-        final_reports=dao,
-        post_graduation = current_user.pg_initials
-        )
+        final_reports=json,
+        form=form,
+        post_graduation=current_user.pg_initials,
+        success_msg=request.args.get('success_msg')
+    )
 
 
 @APP.route('/add_disciplinas/', methods=['GET', 'POST'])
@@ -197,6 +261,7 @@ def subjects():
     return render_template(
         'admin/subjects.html',
         form=form,
+        success_msg=request.args.get('success_msg')
     )
 
 
@@ -219,7 +284,7 @@ def add_staff():
                 'rank': form.rank.data,
                 'abstract': form.abstract.data,
             }
- 
+
         else:
             new_staff = {
                 'name': form.name.data,
@@ -229,7 +294,7 @@ def add_staff():
                 }
             }
         dao.find_one_and_update(None, {
-                '$push': {form.function.data: new_staff}
+            '$push': {form.function.data: new_staff}
             })
         return redirect(
             url_for(
@@ -241,6 +306,7 @@ def add_staff():
     return render_template(
         'admin/add_staff.html',
         form=form,
+        success_msg=request.args.get('success_msg')
     )
 
 
@@ -311,7 +377,7 @@ def add_professors():
                 success_msg='Professor adicionado adicionado com sucesso.'
             )
         )
- 
+
     return render_template(
         'admin/add_professors.html',
         form=form,
@@ -322,7 +388,7 @@ def add_professors():
 @login_required
 def covenants():
     """Render covenant adding form."""
- 
+
     allowed_extensions = ['jpg', 'png']
 
     form = InstitutionsWithCovenantsForm()
@@ -347,7 +413,7 @@ def covenants():
         dao.find_one_and_update(None, {
             '$push': {'institutionsWithCovenant': new_covenant}
         })
- 
+
         return redirect(
             url_for(
                 'admin.covenants',

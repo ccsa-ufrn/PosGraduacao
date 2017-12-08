@@ -86,8 +86,9 @@
                     </li>
                     <li><a href="" >Agendamento de defesas</a>
                         <ul>
-                        <li><a href="" class='btn disabled'>Adicionar agendamento</a></li>
-                        <li><a href="{{ url_for('admin.edit_scheduled_reports') }} "class='btn disabled'>Editar agendamento</a></li>
+                        <li><a href="{{ url_for('admin.scheduled_reports') }}">Adicionar agendamento</a></li>
+                        <li><a href="{{ url_for('admin.edit_scheduled_reports') }} ">Editar agendamento</a></li>
+                        <li><a href="{{ url_for('admin.delete_scheduled_reports') }} ">Deletar agendamento</a></li>
                         </ul>
                     </li>
                     <li><a href="">Equipe</a>

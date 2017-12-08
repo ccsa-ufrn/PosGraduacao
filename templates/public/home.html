@@ -146,6 +146,7 @@
             {% if final_reports %}
             <table class="schedule-table">
                 {% for report in final_reports %}
+                {% if "deleted" not in report %}
                 <tr class="schedule-container">
                     <td class="schedule-container-date">
                         <ul>
@@ -165,6 +166,7 @@
                         </p>
                     </td>
                 </tr>
+                {% endif %}
                 {% endfor %}
             </table>
             {% else %}
@@ -269,7 +271,7 @@
             <a href="{{ url_for('public.view_covenants', initials=std.post_graduation.initials) }}">Ler mais</a>
         </p>
         <div class="autoplay">
-            {% for institution in institutionsWithCovenant %}
+            {% for institution in institutions_with_covenant %}
             <div><img src="/static/assets/{{ institution.logoFile }}" alt="{{ institution.name }}"/></div>
             {% endfor %}
         </div>

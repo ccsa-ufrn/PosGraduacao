@@ -1,6 +1,5 @@
 """Scraping functions lib."""
 import re
-import sys
 
 import requests
 from bs4 import BeautifulSoup
@@ -15,14 +14,13 @@ class RIScraper(object):
         dic_initials = {
             'PPGP' : 'jspui/handle/123456789/12031/',
             'PPGA' : 'jspui/handle/123456789/11886/',
-	    'PPGCC' : 'jspui/handle/123456789/23373/',
-	    'PPGD' : 'jspui/handle/123456789/11997/',
-	    'PPGECO' : 'jspui/handle/123456789/11999/',
-	    'PPGIC' : 'jspui/handle/123456789/24097/',
+            'PPGCC' : 'jspui/handle/123456789/23373/',
+            'PPGD' : 'jspui/handle/123456789/11997/',
+            'PPGECO' : 'jspui/handle/123456789/11999/',
+            'PPGIC' : 'jspui/handle/123456789/24097/',
             'PPGSS' : 'jspui/handle/123456789/12057/',
-            'PPGTUR' : 	'jspui/handle/123456789/12062/'			
+            'PPGTUR' : 	'jspui/handle/123456789/12062/'
         }
-        print((RIScraper.root() + dic_initials[pg_initials]), file=sys.stderr)
         return RIScraper.root() + dic_initials[pg_initials]
 
     @staticmethod

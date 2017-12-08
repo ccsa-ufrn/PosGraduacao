@@ -184,8 +184,21 @@ li:hover ul {
     color: #d35400;
 }
 
-.form {
-    margin-left: 7%;
+#form-edit {
+    display: none;
+}
+
+.edit-span {
+    display:block;
+    overflow: hidden;
+}
+
+.edit-input {
+      border: 0;
+      outline: 0;
+      background: transparent;
+      width: 100%;
+      position: absolute;
 }
 
 header {
