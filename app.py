@@ -16,7 +16,7 @@ APP.register_blueprint(public_app)
 APP.register_blueprint(admin_app)
 
 PUBLIC_HOST = '0.0.0.0'
-PUBLIC_PORT = 80
+PUBLIC_PORT = 3001
 DEV_HOST = 'localhost'
 DEV_PORT = 4444
 
