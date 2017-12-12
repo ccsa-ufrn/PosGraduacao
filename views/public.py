@@ -299,7 +299,7 @@ def view_final_reports(initials):
         else:
             page = int(page)
         if initials != 'PPGIC':
-            final_reports, max_page = RIScraper.final_reports_list(initials, page)
+            final_reports, max_page = RIScraper.final_reports_list(initials, page, 'master')
         else:
             final_reports = [{'author':'', 'title':'', 'year':'', 'link':''}]
             max_page = 1
@@ -313,6 +313,35 @@ def view_final_reports(initials):
         )
     except Exception:
         return page_not_found()
+
+@app.route('/<string:initials>/conclusoes_doutorado/')
+def view_final_reports_phd(initials):
+    """Render a view for phd conclusion works list."""
+
+    try:
+        post_graduation = PosGraduationFactory(initials).post_graduation
+
+        page = request.args.get('page')
+        if page is None:
+            page = 1
+        else:
+            page = int(page)
+        if initials != 'PPGIC':
+            final_reports, max_page = RIScraper.final_reports_list(initials, page, 'phd')
+        else:
+            final_reports = [{'author':'', 'title':'', 'year':'', 'link':''}]
+            max_page = 1
+
+        return render_template(
+            'public/final_reports_phd.html',
+            std=get_std_for_template(post_graduation),
+            final_reports=final_reports,
+            current_page=page,
+            max_page=max_page,
+        )
+    except Exception:
+        return page_not_found()
+
 
 
 # AUX

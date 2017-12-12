@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+=<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
@@ -72,8 +72,13 @@
                             </li>
 
                             <li><a href="{{ url_for('public.view_final_reports', initials=std.post_graduation.initials) }}">
-                                <span class="glyphicon glyphicon-folder-open"></span> Defesas e Dissertações</a>
+                                <span class="glyphicon glyphicon-folder-open"></span> Dissertações </a>
                             </li>
+                            {% if std.post_graduation.initials in 'PPGA' %}
+                            <li><a href="{{ url_for('public.view_final_reports_phd', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-folder-open"></span> Teses</a>
+                            </li>
+                            {% endif %}
                             
                             <li><a href="#">
                                 <span class="glyphicon glyphicon-briefcase"></span> Egressos (em breve)</a>

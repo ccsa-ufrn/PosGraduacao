@@ -9,18 +9,22 @@ class RIScraper(object):
     """Scraping UFRN's Institutional Repository."""
 
     @staticmethod
-    def _reports_collection_url(pg_initials):
+    def _reports_collection_url(pg_initials, modality):
         pg_initials = pg_initials.upper()
-        dic_initials = {
-            'PPGP' : 'jspui/handle/123456789/12031/',
-            'PPGA' : 'jspui/handle/123456789/11886/',
-            'PPGCC' : 'jspui/handle/123456789/23373/',
-            'PPGD' : 'jspui/handle/123456789/11997/',
-            'PPGECO' : 'jspui/handle/123456789/11999/',
-            'PPGIC' : 'jspui/handle/123456789/24097/',
-            'PPGSS' : 'jspui/handle/123456789/12057/',
-            'PPGTUR' : 	'jspui/handle/123456789/12062/'
-        }
+        if modality != 'phd':
+            dic_initials = {
+                'PPGP' : 'jspui/handle/123456789/12031/',
+                'PPGA' : 'jspui/handle/123456789/11886/',
+                'PPGCC' : 'jspui/handle/123456789/23373/',
+                'PPGD' : 'jspui/handle/123456789/11997/',
+                'PPGECO' : 'jspui/handle/123456789/11999/',
+                'PPGIC' : 'jspui/handle/123456789/24097/',
+                'PPGSS' : 'jspui/handle/123456789/12057/',
+                'PPGTUR' : 'jspui/handle/123456789/12062/'
+            }
+        else:
+            dic_initials = { 'PPGA' : 'jspui/handle/123456789/11887/' }
+
         return RIScraper.root() + dic_initials[pg_initials]
 
     @staticmethod
@@ -29,14 +33,14 @@ class RIScraper(object):
         return 'https://repositorio.ufrn.br/'
 
     @staticmethod
-    def final_reports_list(pg_initials, page):
+    def final_reports_list(pg_initials, page, modality):
         """
         Return a list of final reports (dicts).
         Page param should be an integer beginning by 1
         """
         page -= 1
 
-        url = RIScraper._reports_collection_url(pg_initials)
+        url = RIScraper._reports_collection_url(pg_initials, modality)
         url += 'browse?type=dateissued&sort_by=2&order=DESC&rpp={qtt}&etal=-1&null=&offset={first}'
         url = url.format(qtt=10, first=page*10)
 
@@ -46,7 +50,7 @@ class RIScraper(object):
         soup = BeautifulSoup(response.text, 'html.parser')
         table = soup.select("td[headers]")
         len_table = len(table)
-        for element in range(1, len_table, 4):
+        for element in range(0, len_table, 3):
             date = table[element]
             title = table[element + 1]
             author = table[element + 2]
