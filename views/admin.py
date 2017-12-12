@@ -168,7 +168,8 @@ def delete_scheduled_reports():
         return redirect(
             url_for(
                 'admin.delete_scheduled_reports',
-                success_msg='Documento deletado com sucesso',
+                final_reports=json,
+                success_msg='Documento deletado com sucesso'
             )
         )
 
@@ -206,7 +207,8 @@ def edit_scheduled_reports():
         return redirect(
             url_for(
                 'admin.edit_scheduled_reports',
-                success_msg='Defesa de tese editada com sucesso.'
+                success_msg='Defesa de tese editada com sucesso.',
+                final_reports=json
             )
         )
 
@@ -257,6 +259,86 @@ def subjects():
         form=form,
         success_msg=request.args.get('success_msg')
     )
+
+@APP.route('/deletar_disciplinas/', methods=['GET', 'POST'])
+@login_required
+def delete_subjects():
+    """
+    Render a delete subject form.
+    """
+
+    form = SubjectsForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.grades_of_subjects_dao()
+    json = pfactory.grades_of_subjects_dao().find()
+    json = list(json)
+    json = dumps(json)
+    index = str(form.index.data)
+
+    if form.validate_on_submit():
+        dao.find_one_and_update({'title': form.requirement.data}, {
+            '$set': {'subjects.' + index + '.deleted' : ""}
+        })
+
+        return redirect(
+            url_for(
+                'admin.delete_subjects',
+                subjects=json,
+                success_msg='Disciplina deletada com sucesso'
+            )
+        )
+    return render_template(
+        'admin/delete_subjects.html',
+        form=form,
+        subjects=json,
+        success_msg=request.args.get('success_msg')
+    )
+
+@APP.route('/editar_disciplinas/', methods=['GET', 'POST'])
+@login_required
+def edit_subjects():
+    """
+    Render an edit subject form.
+    """
+
+    form = SubjectsForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.grades_of_subjects_dao()
+    json = pfactory.grades_of_subjects_dao().find()
+    json = list(json)
+    json = dumps(json)
+    index = str(form.index.data)
+
+    if form.validate_on_submit():
+        new_subject = {
+            'name': form.name.data,
+            'description': form.description.data,
+            'workloadInHours': form.workload_in_hours.data,
+            'credits': form.credits.data
+        }
+
+        condition = {'title': form.requirement.data}
+
+        dao.find_one_and_update(condition, {
+            '$set': {'subjects.' + index : new_subject}
+        })
+
+        return redirect(
+            url_for(
+                'admin.edit_subjects',
+                subjects=json,
+                success_msg='Disciplina editada com sucesso',
+            )
+        )
+    return render_template(
+        'admin/edit_subjects.html',
+        form=form,
+        subjects=json,
+        success_msg=request.args.get('success_msg')
+    )
+
 
 
 @APP.route('/add_servidor/', methods=['GET', 'POST'])
@@ -336,6 +418,85 @@ def participations():
     return render_template(
         'admin/participations.html',
         form=form,
+        success_msg=request.args.get('success_msg')
+    )
+
+@APP.route('/deletar_intercâmbio/', methods=['GET', 'POST'])
+@login_required
+def delete_participations():
+    """
+    Render a delete participation form.
+    """
+
+    form = ParticipationsInEventsForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.integrations_infos_dao()
+    json = pfactory.integrations_infos_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+    index = str(form.index.data)
+
+
+    if form.validate_on_submit():
+        dao.find_one_and_update(None , {
+            '$set': {'participationsInEvents.' + index + '.deleted' : ""}
+        })
+
+        return redirect(
+            url_for(
+                'admin.delete_participations',
+                participations=json,
+                success_msg='Participação deletada com sucesso'
+            )
+        )
+    return render_template(
+        'admin/delete_participations.html',
+        form=form,
+        participations=json,
+        success_msg=request.args.get('success_msg')
+    )
+
+@APP.route('/editar_intercâmbio/', methods=['GET', 'POST'])
+@login_required
+def edit_participations():
+    """
+    Render a edit participation form.
+    """
+
+    form = ParticipationsInEventsForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.integrations_infos_dao()
+    json = pfactory.integrations_infos_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+    index = str(form.index.data)
+
+    if form.validate_on_submit():
+        year = int(form.year.data)
+        new_participation = {
+            'title': form.title.data,
+            'description': form.description.data,
+            'year': year,
+            'international': form.location.data
+        }
+
+        dao.find_one_and_update(None, {
+            '$set': {'participationsInEvents.' + index : new_participation}
+        })
+
+        return redirect(
+            url_for(
+                'admin.edit_participations',
+                participations=json,
+                success_msg='Participação editada com sucesso'
+            )
+        )
+    return render_template(
+        'admin/edit_participations.html',
+        form=form,
+        participations=json,
         success_msg=request.args.get('success_msg')
     )
 
@@ -429,9 +590,9 @@ def documents():
     """Render document adding form."""
 
     allowed_extensions = ['docx', 'pdf']
- 
+
     form = DocumentForm()
- 
+
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.official_documents_dao()
     ownerProgram = pfactory.mongo_id

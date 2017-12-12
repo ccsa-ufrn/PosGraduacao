@@ -1,0 +1,79 @@
+{% extends "admin/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ post_graduation }}.css"/>
+{% endblock %}
+
+{% block scripts %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("input[name=create]").val("Editar");
+    var participations = {{ participations|tojson|safe }};
+    var participations = JSON.parse(participations);
+    console.log(participations);
+    var listOfParticipations = [];
+    for( i = 0; i < participations.participationsInEvents.length; i++){
+        if (!(participations.participationsInEvents[i].hasOwnProperty('deleted'))){
+            listOfParticipations.push({
+                id: i,
+                text: (participations.participationsInEvents[i].title)
+            })
+        }
+    }
+    
+    $("#list").select2({
+        data: listOfParticipations
+    });
+
+    $("button").click(function(){
+        var indexInParticipations = $("select#list").val();
+        $("#form-edit").css("display", "block");
+        $("input[name=title]").val(participations.participationsInEvents[indexInParticipations].title);
+        $("textarea[name=description]").val(participations.participationsInEvents[indexInParticipations].description);
+        $("input[name=year]").val(participations.participationsInEvents[indexInParticipations].year);
+        $("input[name=location]").val(participations.participationsInEvents[indexInParticipations].international);
+        $("input[name=index]").val(indexInParticipations);
+    });
+
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<section>
+    <header class="page-header">
+        <h2>Intercâmbio</h2>
+    </header>
+    <h4>Selecione o intercâmbio</h4>
+    <select id="list"></select>
+    <button id="edit" type="button">Selecionar</button>
+    <div id="form-div">
+    <form method="POST" id="form-edit" action="{{ url_for('admin.edit_participations') }}">
+        {{ form.csrf_token }}
+        {{ form.index(required='true', style="display:none;", readonly="readonly") }}
+        <br/>
+        {{ form.title.label(class="label-edit") }}
+        <br/>
+        {{ form.title(required='true', class="edit-input") }}
+        <br/>
+        {{ form.description.label(class="label-edit") }}
+        <br/>
+        {{ form.description(required='true', class="edit-input") }}
+        <br/>
+        {{ form.year.label(class="label-edit") }}
+        <br/>
+        {{ form.year(required='true', type='number', step='1', min='1970', max='2050', placeholder='ex: 2017', class="edit-input") }}
+        <br/>
+        {{ form.location.label(class="label-edit") }}
+        <br/>
+        {{ form.location(required='true', class="edit-input") }}
+        <br/>
+
+        {{ form.create }}
+    </form>
+    </div>
+</section>
+
+{% endblock %}

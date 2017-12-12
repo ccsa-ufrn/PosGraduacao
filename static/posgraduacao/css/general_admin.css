@@ -117,9 +117,10 @@ section header h2{
     border: 1px solid #ccc;
     top: 0;
     left: 180px;
-    margin-left: 10px;
+    margin-left: 30px;
     list-style: none;
     display: none;
+    z-index: 30;
 }
 
 ul li {
@@ -129,8 +130,7 @@ ul li {
 li a {
     display: block;
     color: #34495e;
-    padding-right:20px;
-    padding-left:20px;
+    padding: 5px;
     white-space: nowrap;
 }
 
@@ -180,6 +180,12 @@ li:hover ul {
     font-weight: bold;
 }
 
+#form-div {
+    position: absolute;
+    width: 100%;
+    margin-left: 70px;
+}
+
 .error-text{
     color: #d35400;
 }
@@ -188,17 +194,16 @@ li:hover ul {
     display: none;
 }
 
-.edit-span {
-    display:block;
-    overflow: hidden;
-}
-
-.edit-input {
+.delete-input {
       border: 0;
       outline: 0;
       background: transparent;
       width: 100%;
-      position: absolute;
+}
+
+textarea.edit-input,
+textarea.delete-input {
+    width: 50%;
 }
 
 header {

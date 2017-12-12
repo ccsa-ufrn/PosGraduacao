@@ -56,8 +56,9 @@
                 <ul class="nav nav-sidebar">
                     <li><a href="">Disciplinas</a>
                         <ul>
-                        <li><a href=""class='btn disabled'>Adicionar Disciplinas</a></li>
-                        <li><a href=""class='btn disabled'>Retirar Disciplinas</a></li>
+                        <li><a href="{{ url_for('admin.subjects') }}">Adicionar Disciplinas</a></li>
+                        <li><a href="{{ url_for('admin.edit_subjects') }}">Editar Disciplina</a></li>
+                        <li><a href="{{ url_for('admin.delete_subjects') }}">Retirar Disciplinas</a></li>
                         </ul>
                     </li>
                     <li><a href="">Discentes</a>
@@ -80,8 +81,9 @@
                     </li>
                     <li><a href="">Intercâmbios</a>
                         <ul>
-                        <li><a href=""class='btn disabled'>Adicionar intercâmbios</a></li>
-                        <li><a href=""class='btn disabled'>Retirar intercâmbios</a></li>
+                        <li><a href="{{ url_for('admin.participations') }}">Adicionar intercâmbios</a></li>
+                        <li><a href="{{ url_for('admin.delete_participations') }}">Retirar intercâmbios</a></li>
+                        <li><a href="{{ url_for('admin.edit_participations') }}">Editar intercâmbios</a></li>
                         </ul>
                     </li>
                     <li><a href="" >Agendamento de defesas</a>

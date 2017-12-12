@@ -30,6 +30,8 @@ class ParticipationsInEventsForm(FlaskForm):
     location = StringField('Cidade e país:', validators=[
         DataRequired('Falta localizar a cidade e país.')
     ])
+    
+    index = IntegerField()
 
     create = SubmitField('Adicionar')
 
@@ -56,6 +58,8 @@ class SubjectsForm(FlaskForm):
     requirement = SelectField('Tipo de disciplina', choices=[('Obrigatórias','Obrigatórias'), ('Eletivas','Eletivas')], validators = [
         DataRequired('Insira o tipo da disciplina')
     ])
+    
+    index = IntegerField()
 
     create = SubmitField('Adicionar')
 
