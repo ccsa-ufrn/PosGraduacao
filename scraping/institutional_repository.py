@@ -22,7 +22,6 @@ class RIScraper(object):
             'PPGSS' : 'jspui/handle/123456789/12057/',
             'PPGTUR' : 	'jspui/handle/123456789/12062/'			
         }
-        print((RIScraper.root() + dic_initials[pg_initials]), file=sys.stderr)
         return RIScraper.root() + dic_initials[pg_initials]
 
     @staticmethod
@@ -47,8 +46,9 @@ class RIScraper(object):
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         table = soup.select("td[headers]")
+        print(table, file=sys.stderr)
         len_table = len(table)
-        for element in range(1, len_table, 4):
+        for element in range(0, len_table, 3):
             date = table[element]
             title = table[element + 1]
             author = table[element + 2]
