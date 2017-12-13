@@ -180,7 +180,7 @@ li:hover ul {
     font-weight: bold;
 }
 
-#form-div {
+.form-div {
     position: absolute;
     width: 100%;
     margin-left: 70px;
@@ -203,7 +203,9 @@ li:hover ul {
 
 textarea.edit-input,
 textarea.delete-input {
+    overflow-y: scroll;
     width: 50%;
+    resize: none;
 }
 
 header {

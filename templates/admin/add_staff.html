@@ -6,6 +6,26 @@
     <h2>Equipe</h2>
 </header>
 
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $("select[name=function]").val('coordination');
+    $("select[name=function]").change(function(){
+        if($(this).val() == 'secretariat'){
+            $("input[name=abstract]").attr('minLength', 10);
+            $("input[name=photo]").css('visibility','hidden');
+            $("label[for='photo']").css('visibility','hidden');
+        }
+        if($(this).val() == 'coordination'){
+            $("input[name=abstract]").attr('minLength', 50);
+            $("input[name=photo]").css('visibility','visible');
+            $("label[for='photo']").css('visibility','visible');
+        }
+    });
+});
+</script>
+{% endblock %}
+
 {% if success_msg %}
     <div class="form-success">
         <p>{{ success_msg }}</p>
@@ -23,7 +43,7 @@
     <br/>
     
     {{ form.abstract.label }}<br/>
-    {{ form.abstract(required='true', minlength='30', maxlength='1200', placeholder='ex:Possui graduação em Psicologia pela Universidade Federal do Rio Grande do Norte (1993) e mestrado em Administração (1999) e doutorado em Psicologia (2012) também pela UFRN. De 2009 a 2013 foi professor adjunto da Universidade Federal de Alagoas (UFAL), no curso de Psicologia. A partir de dezembro de 2013, passou a ser professor adjunto do Departamento de Ciências Administrativas da Universidade Federal do Rio Grande do Norte. Na Psicologia atua na área da Psicologia do Trabalho e das Organizações, com ênfase em Fatores Humanos no Trabalho. Na Administração atua na área de Gestão de Pessoas. Desde 2014 é docente permanente do Programa de Pós-Graduação em Gestão Pública, UFRN ') }}
+    {{ form.abstract(required='true', minlength='50', maxlength='1200', placeholder='ex:Possui graduação em Psicologia pela Universidade Federal do Rio Grande do Norte (1993) e mestrado em Administração (1999) e doutorado em Psicologia (2012) também pela UFRN. De 2009 a 2013 foi professor adjunto da Universidade Federal de Alagoas (UFAL), no curso de Psicologia. A partir de dezembro de 2013, passou a ser professor adjunto do Departamento de Ciências Administrativas da Universidade Federal do Rio Grande do Norte. Na Psicologia atua na área da Psicologia do Trabalho e das Organizações, com ênfase em Fatores Humanos no Trabalho. Na Administração atua na área de Gestão de Pessoas. Desde 2014 é docente permanente do Programa de Pós-Graduação em Gestão Pública, UFRN ') }}
 
     <br/>
 
@@ -35,6 +55,10 @@
     {{ form.function.label }}<br/>
     {{ form.function(required='true') }}
 
+    <br/>
+    <br/>
+    {{ form.photo.label}}<br/>
+    {{ form.photo }}
     <br/>
     <br/>
     

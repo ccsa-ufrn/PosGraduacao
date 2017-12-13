@@ -354,11 +354,16 @@ def add_staff():
     dao = pfactory.boards_of_staffs_dao()
 
     if form.validate_on_submit():
+        if form.photo.data == '':
+            photo = None
+        else:
+            photo = form.photo.data
         if form.function.data == 'coordination':
             new_staff = {
                 'name': form.name.data,
                 'rank': form.rank.data,
                 'abstract': form.abstract.data,
+                'photo': photo
             }
 
         else:
@@ -367,7 +372,8 @@ def add_staff():
                 'function': {
                     'rank': form.rank.data,
                     'description': form.abstract.data
-                }
+                },
+                'photo': photo
             }
         dao.find_one_and_update(None, {
             '$push': {form.function.data: new_staff}
@@ -384,6 +390,100 @@ def add_staff():
         form=form,
         success_msg=request.args.get('success_msg')
     )
+
+@APP.route('/editar_servidor/', methods=['GET', 'POST'])
+@login_required
+def edit_staff():
+    """
+    Render a subject form.
+    """
+
+    form = StaffForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.boards_of_staffs_dao()
+    json = pfactory.boards_of_staffs_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+    index = '.' + str(form.index.data)
+
+    dao = pfactory.boards_of_staffs_dao()
+
+    if form.validate_on_submit():
+        if form.photo.data == '':
+            photo = None
+        else:
+            photo = form.photo.data
+        if form.function.data == 'coordination':
+            new_staff = {
+                'name': form.name.data,
+                'rank': form.rank.data,
+                'abstract': form.abstract.data,
+                'photo': photo
+            }
+
+        else:
+            new_staff = {
+                'name': form.name.data,
+                'function': {
+                    'rank': form.rank.data,
+                    'description': form.abstract.data
+                },
+                'photo': photo
+            }
+        dao.find_one_and_update(None, {
+            '$set': {form.function.data + index: new_staff}
+            })
+        return redirect(
+            url_for(
+                'admin.edit_staff',
+                success_msg='Servidor editado com sucesso.',
+                staff=json
+                )
+        )
+
+    return render_template(
+        'admin/edit_staff.html',
+        form=form,
+        success_msg=request.args.get('success_msg'),
+        staff=json
+    )
+
+
+@APP.route('/deletar_servidor/', methods=['GET', 'POST'])
+@login_required
+def delete_staff():
+    """
+    Render a delete staff form.
+    """
+
+    form = StaffForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.boards_of_staffs_dao()
+    json = pfactory.boards_of_staffs_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+    index = '.' + str(form.index.data)
+    if form.validate_on_submit():
+        dao.find_one_and_update(None, {
+            '$set': {form.function.data + index + '.deleted' : ''}
+            })
+        return redirect(
+            url_for(
+                'admin.delete_staff',
+                success_msg='Servidor deletado com sucesso.',
+                staff=json
+                )
+        )
+
+    return render_template(
+        'admin/delete_staff.html',
+        form=form,
+        success_msg=request.args.get('success_msg'),
+        staff=json
+    )
+
 
 
 @APP.route('/intercambios/', methods=['GET', 'POST'])
@@ -601,18 +701,13 @@ def documents():
         insertedOn = datetime.datetime.now()
         insertedBy = current_user._full_name
         document = form.document.data
-        path = os.path.normpath("static/upload_files/" + current_user.pg_initials.lower() + '/documents/' + str(form.year.data))
-        x = 0
-        dirs = glob.glob(path + '/*')
-        for i in dirs:
-            x += 1
-        cod = str(x) + '-' + str(form.year.data)
+        path = os.path.normpath("static/upload_files/" + current_user.pg_initials.lower())
         if allowedFile(document.filename, allowed_extensions):
             filename = uploadFiles(document, path, document.filename)
             new_document = {
                 'ownerProgram': ownerProgram,
                 'title': form.title.data,
-                'cod': cod,
+                'cod': form.cod.data,
                 'file': filename,
                 'insertedOn': insertedOn,
                 'insertedBy': insertedBy

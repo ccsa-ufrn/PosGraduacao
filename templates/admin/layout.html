@@ -95,8 +95,9 @@
                     </li>
                     <li><a href="">Equipe</a>
                         <ul>
-                        <li><a href=""class='btn disabled'>Adicionar membros da equipe</a></li>
-                        <li><a href=""class='btn disabled'>Retirar membors da equipe</a></li>
+                        <li><a href="{{ url_for('admin.add_staff') }}">Adicionar membros da equipe</a></li>
+                        <li><a href="{{ url_for('admin.delete_staff') }}">Retirar membrors da equipe</a></li>
+                        <li><a href="{{ url_for('admin.edit_staff') }}">Editar membros da equipe</a></li>
                         </ul>
                     </li>
                     <li><a href="">Convênios</a>
@@ -116,7 +117,7 @@
                 <ul class="nav nav-sidebar">
                 <li><a href="">Documentos</a>
                     <ul>
-                    <li><a href=""class='btn disabled'>Adicionar documentos</a></li>
+                    <li><a href="{{ url_for('admin.documents') }}">Adicionar documentos</a></li>
                     <li><a href=""class='btn disabled'>Retirar documentos</a></li>
                     </ul>
                 </li>

@@ -14,14 +14,16 @@
     
     <br/>
 
-    {{ form.year.label }}<br/>
-    {{ form.year(required='true', type='number', step='1', min='1970', max='2050    ', placeholder='ex: 2017') }}
+    {{ form.cod.label }}<br/>
+    {{ form.cod(required='true', placeholder='ex: 12-2015') }}
 
+    <br/>
+    {{ form.category.label }}<br/>
+    {{ form.category(required='true') }}
     <br/>
 
     {{ form.document.label }}<br/>
     {{ form.document(required='true') }}
-
     <br/>
 
     {{ form.create }}

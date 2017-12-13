@@ -7,7 +7,7 @@ from wtforms import StringField, IntegerField, BooleanField,\
                     TextAreaField, DateTimeField, SubmitField,\
                     SelectField
 from flask_wtf.file import FileField, FileRequired
-from wtforms.fields.html5 import EmailField
+from wtforms.fields.html5 import EmailField, URLField
 from wtforms.validators import DataRequired, Email
 
 
@@ -83,6 +83,10 @@ class StaffForm(FlaskForm):
         DataRequired('Insira o tipo de servidor')
     ])
 
+    photo = URLField('Foto do servidor')
+
+    index = IntegerField()
+
     create = SubmitField('Adicionar')
 
 class InstitutionsWithCovenantsForm(FlaskForm):
@@ -121,7 +125,7 @@ class ScheduledReportForm(FlaskForm):
     location = StringField('Localização:', validators=[
         DataRequired('Digite a localização.')
     ])
-    
+   
     index = IntegerField()
 
     create = SubmitField('Agendar')
@@ -154,8 +158,13 @@ class DocumentForm(FlaskForm):
         DataRequired('Digite o título do documento.')
     ])
     
-    year = IntegerField('Ano:', validators=[
-        DataRequired('Informe qual o ano do evento.')
+    cod = StringField('Código:', validators=[
+        DataRequired('Informe qual o código do documento.')
+    ])
+
+    category = SelectField('Categoria',  choices=[
+        ('regimento','Regimento'),('ata','ATA'),('outros','Outros')], validators=[
+            DataRequired('Especifique o tipo de documento.')
     ])
 
     document = FileField()
