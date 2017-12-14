@@ -1,32 +1,39 @@
 {% extends "admin/layout.html" %}
 
 {% block content %}
-
-<header>
+<div class="container">
+<div class="row">
+<div class="col-xs-6" style="margin-left: -5%">
+<header style="margin-top: 6.5%">
     <h2>Documentos</h2>
 </header>
 
 <form method="POST" action="{{ url_for('admin.documents') }}" enctype="multipart/form-data">
+    <div class="form-group">
     {{ form.csrf_token }}
     
     {{ form.title.label }}<br/>
-    {{ form.title(required='true', placeholder='ex: Regimento Interno') }}
+    {{ form.title(required='true', placeholder='ex: Regimento Interno', class="form-control") }}
     
     <br/>
 
     {{ form.cod.label }}<br/>
-    {{ form.cod(required='true', placeholder='ex: 12-2015') }}
+    {{ form.cod(required='true', placeholder='ex: 12-2015', class="form-control") }}
 
     <br/>
     {{ form.category.label }}<br/>
-    {{ form.category(required='true') }}
+    {{ form.category(required='true', class="form-control") }}
     <br/>
 
     {{ form.document.label }}<br/>
     {{ form.document(required='true') }}
     <br/>
 
-    {{ form.create }}
+    {{ form.create(class="form-control")}}
+    </div>
 </form>
+</div>
+</div>
+</div>
 
 {% endblock %}

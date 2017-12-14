@@ -198,7 +198,7 @@ li:hover ul {
       border: 0;
       outline: 0;
       background: transparent;
-      width: 100%;
+      width: 50%
 }
 
 textarea.edit-input,
@@ -206,10 +206,6 @@ textarea.delete-input {
     overflow-y: scroll;
     width: 50%;
     resize: none;
-}
-
-header {
-    margin-left:7%;
 }
 
 /* FOOTER

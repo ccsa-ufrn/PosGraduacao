@@ -672,7 +672,7 @@ def covenants():
         return redirect(
             url_for(
                 'admin.covenants',
-                success_msg = 'Convênio adicionado adicionado com sucesso.'
+                success_msg='Convênio adicionado adicionado com sucesso.'
             )
         )
 
@@ -722,7 +722,7 @@ def documents():
                 )
             )
         else:
- 
+
             return redirect(
                 url_for(
                     'admin.documents',
@@ -730,7 +730,7 @@ def documents():
                     invalid_type='Tipo de documento inválido'
                 )
             )
- 
+
     return render_template(
         'admin/documents.html',
         documents=dao.find_one(),
@@ -750,9 +750,9 @@ def uploadFiles(document, path, filename):
         dirs = glob.glob(checkpath + '*.' + extension)
         for i in dirs:
             numberofcopies += 1
-        filename = name + '_' + str(numberofcopies) + '_.' + extension 
+        filename = name + '_' + str(numberofcopies) + '_.' + extension
     filename = secure_filename(filename)
-    document.save(os.path.join((os.getcwd()), path, os.path.normpath(filename)))        
+    document.save(os.path.join((os.getcwd()), path, os.path.normpath(filename)))
     return filename
 
 def allowedFile(filename, allowed_extensions):

@@ -118,7 +118,7 @@ def view_subjects(initials):
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
 
-    grades_of_subjects = pfactory.grades_of_subjects_dao().find()
+    grades_of_subjects = pfactory.grades_of_subjects_dao().find({ '$or': [ { 'title': 'Eletivas' }, { 'title':'Obrigatórias' } ] })
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -206,10 +206,13 @@ def view_calendar(initials):
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
 
+    calendar_info = pfactory.calendar_dao().find_one()
+
     # renders an own page or redirect to another (external/404)?
     return render_template(
         'public/calendar.html',
-        std=get_std_for_template(post_graduation)
+        std=get_std_for_template(post_graduation),
+        calendar_info=calendar_info
     )
 
 
@@ -268,23 +271,53 @@ def view_projects(initials):
 
 
 
-@app.route('/<string:initials>/documentos/')
-def view_documents(initials):
+@app.route('/<string:initials>/documentos/regimentos')
+def view_documents_regiments(initials):
     """Render a view for documents list."""
 
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
 
-    documents = pfactory.official_documents_dao().find()
+    documents = pfactory.official_documents_dao().find({'category':'regimento'})
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
-        'public/documents.html',
+        'public/documents_regiments.html',
         std=get_std_for_template(post_graduation),
         documents=documents
     )
 
+@app.route('/<string:initials>/documentos/atas')
+def view_documents_atas(initials):
+    """Render a view for documents list."""
 
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    documents = pfactory.official_documents_dao().find({'category':'ata'})
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/documents_atas.html',
+        std=get_std_for_template(post_graduation),
+        documents=documents
+    )
+
+@app.route('/<string:initials>/documentos/outros')
+def view_documents_others(initials):
+    """Render a view for documents list."""
+
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    documents = pfactory.official_documents_dao().find({'category':'outros'})
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/documents_others.html',
+        std=get_std_for_template(post_graduation),
+        documents=documents
+    )
 
 @app.route('/<string:initials>/conclusoes/')
 def view_final_reports(initials):

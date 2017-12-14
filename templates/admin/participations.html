@@ -1,35 +1,43 @@
 {% extends "admin/layout.html" %}
 
 {% block content %}
-
-<header>
+<div class="container">
+<div class="row">
+<div class="col-xs-6" style="margin-left: -5%">
+<header style="margin-top : 6.5%">
     <h2>Intercâmbios</h2>
 </header>
 
 <form method="POST" action="{{ url_for('admin.participations') }}">
+    <div class="form-group">
     {{ form.csrf_token }}
     
     {{ form.title.label }}<br/>
-    {{ form.title(required='true', placeholder='ex: CCSA de Tatooine') }}
+    {{ form.title(required='true', class="form-control", placeholder='ex: CCSA de Tatooine') }}
     
     <br/>
 
     {{ form.description.label }}<br/>
-    {{ form.description(required='true', minlength='50', maxlength='850', placeholder='ex: A professora Arlete participou como congressista, publicando 2 trabalhos.') }}
+    {{ form.description(required='true', class="form-control", minlength='50', maxlength='850', placeholder='ex: A professora Arlete participou como congressista, publicando 2 trabalhos.') }}
 
     <br/>
 
     {{ form.year.label }}<br/>
-    {{ form.year(required='true', type='number', step='1', min='1970', max='2050', placeholder='ex: 2017') }}
+    {{ form.year(required='true', class="form-control", type='number', step='1', min='1970', max='2050', placeholder='ex: 2017') }}
         
     <br/>
 
     {{ form.location.label }}<br/>
-    {{ form.location(required='true', placeholder='ex: Coruscant, República Galáctica') }}
+    {{ form.location(required='true', class="form-control" , placeholder='ex: Coruscant, República Galáctica') }}
 
     <br/>
+    <br/>
 
-    {{ form.create }}
+    {{ form.create(class="form-control")}}
+    </div>
 </form>
+</div>
+</div>
+</div>
 
 {% endblock %}

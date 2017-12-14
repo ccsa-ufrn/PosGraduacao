@@ -1,8 +1,10 @@
 {% extends "admin/layout.html" %}
 
 {% block content %}
-
-<header>
+<div class="container">
+<div class="row">
+<div class="col-xs-6" style="margin-left: -5%">
+<header style="margin-top: 6.5%">
     <h2>Teses e dissertações</h2>
 </header>
 
@@ -13,32 +15,37 @@
 {% endif %}
 
 <form method="POST" action="{{ url_for('admin.scheduled_reports') }}">
+    <div class="form-group">
     {{ form.csrf_token }}
     
     <br/>
     
     {{ form.title.label }}<br/>
-    {{ form.title(required='true') }}
+    {{ form.title(required='true', class="form-control") }}
 
     <br/>
     
     {{ form.author.label }}<br/>
-    {{ form.author(required='true') }}
+    {{ form.author(required='true', class="form-control") }}
 
     <br/>
 
     {{ form.location.label }}<br/>
-    {{ form.location(required='true') }}
+    {{ form.location(required='true', class="form-control") }}
 
     <br/>
 
     {{ form.time.label }}<br/>
-    {{ form.time(required='true') }}
+    {{ form.time(required='true', class="form-control") }}
 
     <br/>
     
-    {{ form.create }}
+    {{ form.create(class="form-control") }}
+    </div>
 </form>
+</div>
+</div>
+</div>
 
 <p>
     Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
