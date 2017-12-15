@@ -46,6 +46,7 @@ $(document).ready(function() {
             $("textarea[name=abstract]").val(staff.coordination[indexInStaff].abstract);
             $("input[name=rank]").val(staff.coordination[indexInStaff].rank);
             $("input[name=photo]").val(staff.coordination[indexInStaff].photo);
+            $(".col-md-3").css("visibility", "visible");
             $(".img-circle").attr("src", staff.coordination[indexInStaff].photo);
             $("select[name=function]").val(functionStaff);
         } else {
@@ -63,8 +64,7 @@ $(document).ready(function() {
         if($(this).val() == 'secretariat'){
             $("input[name=photo]").css('visibility','hidden');
             $("label[for='photo']").css('visibility','hidden');
-            $(".img-circle").css("display", "none");
-            $(".img-circle").attr("src", "")
+            $(".col-md-3").css("visibility", "hidden");
             $("#list").html("");
             $("#list").select2({
                 data: listOfSecretariat
@@ -73,7 +73,7 @@ $(document).ready(function() {
         if($(this).val() == 'coordination'){
             $("input[name=photo]").css('visibility','visible');
             $("label[for='photo']").css('visibility','visible');
-            $(".img-circle").css("display", "block");
+            $(".col-md-3").css("visibility", "visible");
             $("#list").html("");
             $("#list").select2({
                 data: listOfCoordination
@@ -85,50 +85,50 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
-
-<header>
+<div class="container">
+<div class="row">
+<div class="col-xs-12" style="margin-left: -5%">
+<header class="page-header">
     <h2>Equipe</h2>
 </header>
 <h4>Selecione o servidor</h4>
-    <select id="list"></select>
-    <select id="functionStaff">
-        <option value="coordination" selected="selected">Coordenação</option>
-        <option value="secretariat">Secretária</option>
-    </select>
-    <button id="edit" type="button">Selecionar</button>
-    <div class="form-div">
-    <form method="POST" id='form-edit' action="{{ url_for('admin.edit_staff') }}">
-        {{ form.csrf_token }}
-        {{ form.index(required='true', style="display:none;" ) }}
-        <br/>
-        {{ form.name.label (class="label-edit")}}<br/>
-        {{ form.name(required='true', class="edit-input" ) }}
-        <br/>
-        
-        {{ form.abstract.label (class="label-edit")}}<br/>
-        {{ form.abstract(required='true', minlength='50', maxlength='1200', class="edit-input") }}
-        <br/>
-
-        {{ form.rank.label(class="label-edit") }}<br/>
-        {{ form.rank(required='true', class="edit-input") }}
-
-        <br/>
-
-        {{ form.function.label(style="display: none") }}<br/>
-        {{ form.function(required='true', style="display: none", class="edit-input") }}
-        <br/>
-        {{ form.photo.label(class="label-edit")}}<br/>
-        {{ form.photo(class="edit-input") }}
-        <br/>
-        <br/>
-    
-        {{ form.create }}
-    
-    </form>
-    
+<select id="list"></select>
+<select id="functionStaff" type="select" class="btn btn-default">
+    <option value="coordination" selected="selected">Coordenação</option>
+    <option value="secretariat">Secretária</option>
+</select>
+<button id="edit"type="button" class="btn btn-default">Selecionar</button>
+</div>
+<div class="col-xs-6" style="margin-left: -5%">
+<form method="POST" id='form-edit' action="{{ url_for('admin.edit_staff') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    {{ form.index(required='true', style="display:none;" ) }}
+    <br/>
+    {{ form.name.label }}
+    {{ form.name(required='true', class="form-control" ) }}
+    <br/>
+    {{ form.abstract.label }}
+    {{ form.abstract(required='true', minlength='50', maxlength='1200', class="form-control") }}
+    <br/>
+    {{ form.rank.label }}
+    {{ form.rank(required='true', class="form-control") }}
+    <br/>
+    {{ form.function.label(style="display: none") }}
+    {{ form.function(required='true', style="display: none", class="form-control") }}
+    {{ form.photo.label}}
+    {{ form.photo(class="form-control") }}
+    <br/>
+    {{ form.create(class="form-control")}}
     </div>
-    <div class="col-md-3" style="float: right; margin-right: 20%">
-        <img src="" class="img-circle pull-right" height="190" width="180">
-    </div>
+</form>
+</div>
+<div class="col-md-3" style="margin-top: 3%">
+    <img src="" class="img-circle pull-right" height="280" width="240">
+</div>
+
+</div>
+</div>
+</div>
 
 {% endblock %}

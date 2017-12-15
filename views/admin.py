@@ -2,9 +2,8 @@
 Routes and views for system administration pages.
 """
 import os
-import sys
-import datetime
 import glob
+import sys
 
 from flask_login import LoginManager, \
     login_user, login_required, logout_user, current_user
@@ -20,7 +19,7 @@ from settings.extensions import ExtensionsManager
 from views.forms.auth import LoginForm
 from views.forms.content import ParticipationsInEventsForm, \
     ScheduledReportForm, InstitutionsWithCovenantsForm, \
-    DocumentForm, SubjectsForm, ProfessorForm, StaffForm
+    DocumentForm, SubjectsForm, ProfessorForm, StaffForm, CalendarForm
 
 from models.clients.api_sistemas import SigaaError, \
     FailedToGetTokenForSigaaError, UnreachableSigaaError, \
@@ -29,6 +28,8 @@ from models.clients.api_sistemas import SigaaError, \
 from bson.json_util import dumps
 import json
 import requests
+
+import datetime
 
 APP = Blueprint('admin',
                 __name__,
@@ -109,6 +110,9 @@ def user_loader(user_id):
     else:
         return None
 
+###############################################################################
+#Adicionar deletar e editar defesas de teses e dissertações
+###############################################################################
 
 @APP.route('/apresentacoes/', methods=['GET', 'POST'])
 @login_required
@@ -219,6 +223,10 @@ def edit_scheduled_reports():
         post_graduation=current_user.pg_initials,
         success_msg=request.args.get('success_msg')
     )
+
+###############################################################################
+#Adicionar deletar e editar disciplinas
+###############################################################################
 
 
 @APP.route('/add_disciplinas/', methods=['GET', 'POST'])
@@ -338,6 +346,11 @@ def edit_subjects():
         subjects=json,
         success_msg=request.args.get('success_msg')
     )
+
+
+###############################################################################
+#Adicionar deletar e editar membros da equipe de servidores
+###############################################################################
 
 
 
@@ -484,7 +497,9 @@ def delete_staff():
         staff=json
     )
 
-
+###############################################################################
+#Adicionar deletar e editar intercâmbios
+###############################################################################
 
 @APP.route('/intercambios/', methods=['GET', 'POST'])
 @login_required
@@ -573,7 +588,7 @@ def edit_participations():
     json = dumps(json)
     index = str(form.index.data)
 
-    if form.validate_on_submit():
+    if form.validate_on_submit() and form.create.data:
         year = int(form.year.data)
         new_participation = {
             'title': form.title.data,
@@ -599,6 +614,52 @@ def edit_participations():
         participations=json,
         success_msg=request.args.get('success_msg')
     )
+
+###############################################################################
+#Adicionar deletar e editar eventos(Não finalizado)
+###############################################################################
+
+@APP.route('/add_evento/', methods=['GET', 'POST'])
+@login_required
+def add_events():
+    """Render a view for adding events."""
+
+    form = CalendarForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.calendar_dao()
+
+    if form.validate_on_submit() and form.create.data:
+        initial_date = datetime.datetime.combine(form.initial_date.data, datetime.datetime.min.time())
+        final_date = datetime.datetime.combine(form.final_date.data, datetime.datetime.min.time())
+        new_event = {
+            'title': form.title.data,
+            'initialDate': initial_date,
+            'finalDate': final_date,
+            'hour': form.hour.data,
+            'link': form.link.data
+        }
+
+        dao.find_one_and_update(None, {
+            '$push': {'events': new_event}
+        })
+
+        return redirect(
+            url_for(
+                'admin.add_events',
+                success_msg='Evento adicionado adicionado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/add_events.html',
+        form=form,
+        success_msg=request.args.get('success_msg')
+    )
+
+###############################################################################
+#Adicionar deletar e editar professores(Não finalizado)
+###############################################################################
 
 
 @APP.route('/add_professors/', methods=['GET', 'POST'])
@@ -638,6 +699,11 @@ def add_professors():
         form=form,
         success_msg=request.args.get('success_msg')
     )
+
+
+###############################################################################
+#Adicionar deletar e editar convênios(Não finalizado)
+###############################################################################
 
 @APP.route('/convenios/', methods=['GET', 'POST'])
 @login_required
@@ -683,6 +749,11 @@ def covenants():
         form=form,
         success_msg=request.args.get('success_msg')
     )
+
+
+###############################################################################
+#Adicionar deletar e editar documentos(Não finalizado)
+###############################################################################
 
 @APP.route('/documentos/', methods=['GET', 'POST'])
 @login_required

@@ -286,6 +286,104 @@ db.gradesOfSubjects.insertMany([
                 'credits': 1
             }
         ]
+    },
+    {
+        'ownerProgram': PPGA_ID,
+        'title': 'Obrigatórias',
+        'minCredits': 10,
+        'minSubjectsQtt': 5,
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGA_ID,
+        'title': 'Eletivas',
+        'minCredits': 14,
+        'minSubjectsQtt': 7,
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGCC_ID,
+        'title': 'Obrigatórias',
+        'minCredits': 10,
+        'minSubjectsQtt': 5,
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGCC_ID,
+        'title': 'Eletivas',
+        'minCredits': 14,
+        'minSubjectsQtt': 7,
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGD_ID,
+        'title': 'Obrigatórias',
+        'minCredits': 10,
+        'minSubjectsQtt': 5,
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGD_ID,
+        'title': 'Eletivas',
+        'minCredits': 14,
+        'minSubjectsQtt': 7,
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGECO_ID,
+        'title': 'Obrigatórias',
+        'minCredits': 10,
+        'minSubjectsQtt': 5,
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGECO_ID,
+        'title': 'Eletivas',
+        'minCredits': 14,
+        'minSubjectsQtt': 7,
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGSS_ID,
+        'title': 'Obrigatórias',
+        'minCredits': 10,
+        'minSubjectsQtt': 5,
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGSS_ID,
+        'title': 'Eletivas',
+        'minCredits': 14,
+        'minSubjectsQtt': 7,
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGTUR_ID,
+        'title': 'Obrigatórias',
+        'minCredits': 10,
+        'minSubjectsQtt': 5,
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGTUR_ID,
+        'title': 'Eletivas',
+        'minCredits': 14,
+        'minSubjectsQtt': 7,
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGIC_ID,
+        'title': 'Obrigatórias',
+        'minCredits': 10,
+        'minSubjectsQtt': 5,
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGIC_ID,
+        'title': 'Eletivas',
+        'minCredits': 14,
+        'minSubjectsQtt': 7,
+        'subjects': []
     }
 ]);
 
@@ -709,4 +807,70 @@ db.officialDocuments.insertMany([
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
         'insertedBy': 'Marcell Guilherme Costa da Silva'
     }
+]);
+
+print("Inserindo eventos...");
+
+db.calendar.insertMany([
+    {
+        'ownerProgram': PPGP_ID,
+        'events': [
+          {
+            'title': 'Matrícula para o período 2017.2',
+            'initialDate': '17/07/2017',
+            'finalDate': '21/07/2017',
+            'hour' : null,
+            'link': null
+          },
+          {
+            'title': 'Início do período letivo 2017.2.',
+            'initialDate': '17/07/2017',
+            'finalDate': null,
+            'hour' : null,
+            'link': 'https://duckduckgo.com'
+          },
+          {
+            'title': 'Hackathon UFRN',
+            'initialDate': '17/07/2017',
+            'finalDate': '20/07/2017',
+            'hour' : null,
+            'link': 'duckduckgo.com'
+          },
+          {
+            'title': 'Palestra sobre Direito Processual Civil',
+            'initialDate': '17/07/2017',
+            'finalDate': '17/07/2017',
+            'hour' : '13:00 a 18:00',
+            'link': null
+          }
+        ]
+    },
+    {
+        'ownerProgram': PPGA_ID,
+        'events': []
+    },
+    {
+        'ownerProgram': PPGCC_ID,
+        'events': []
+    },
+    {
+        'ownerProgram': PPGD_ID,
+        'events': []
+    },
+    {
+        'ownerProgram': PPGECO_ID,
+        'events': []
+    },
+    {
+        'ownerProgram': PPGIC_ID,
+        'events': []
+    },
+    {
+        'ownerProgram': PPGSS_ID,
+        'events': []
+    },
+    {
+        'ownerProgram': PPGTUR_ID,
+        'events': []
+    },
 ]);

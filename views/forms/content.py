@@ -3,12 +3,12 @@ Forms about content editing.
 """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, BooleanField,\
+from wtforms import StringField, IntegerField,\
                     TextAreaField, DateTimeField, SubmitField,\
-                    SelectField
+                    SelectField, DateField
 from flask_wtf.file import FileField, FileRequired
 from wtforms.fields.html5 import EmailField, URLField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import DataRequired, Email, URL
 
 
 class ParticipationsInEventsForm(FlaskForm):
@@ -30,7 +30,7 @@ class ParticipationsInEventsForm(FlaskForm):
     location = StringField('Cidade e país:', validators=[
         DataRequired('Falta localizar a cidade e país.')
     ])
-    
+
     index = IntegerField()
 
     create = SubmitField('Adicionar')
@@ -58,7 +58,7 @@ class SubjectsForm(FlaskForm):
     requirement = SelectField('Tipo de disciplina', choices=[('Obrigatórias','Obrigatórias'), ('Eletivas','Eletivas')], validators = [
         DataRequired('Insira o tipo da disciplina')
     ])
-    
+ 
     index = IntegerField()
 
     create = SubmitField('Adicionar')
@@ -125,10 +125,35 @@ class ScheduledReportForm(FlaskForm):
     location = StringField('Localização:', validators=[
         DataRequired('Digite a localização.')
     ])
-   
+
     index = IntegerField()
 
     create = SubmitField('Agendar')
+
+class CalendarForm(FlaskForm):
+
+    """
+    Calendar event form
+    """
+
+    title = StringField('Título do evento:', validators=[
+        DataRequired('Digite o título do evento.')
+    ])
+
+    initial_date = DateField('Data inicial:', format='%d/%m/%Y', validators=[
+        DataRequired('Escolha a data de começo do evento.')
+    ])
+
+
+    final_date = DateField('Data final(Se existir):', format='%d/%m/%Y')
+
+    hour = StringField('Hora de começo e termino do evento(Se existir)')
+
+    link = URLField('Link para mais informações(Se existir)')
+
+    index = IntegerField()
+
+    create = SubmitField('Adicionar')
 
 class ProfessorForm(FlaskForm):
     """
@@ -141,7 +166,7 @@ class ProfessorForm(FlaskForm):
     rank = StringField('Rank do professor(a):', validators=[
         DataRequired('Digite o rank do professor(a).')
     ])
-    
+
     lattes = StringField('Link para Lattes do professor(a):')
 
     email = EmailField('Email do professor(a):', validators=[
@@ -157,7 +182,7 @@ class DocumentForm(FlaskForm):
     title = StringField('Titulo do documento:', validators=[
         DataRequired('Digite o título do documento.')
     ])
-    
+ 
     cod = StringField('Código:', validators=[
         DataRequired('Informe qual o código do documento.')
     ])
@@ -171,4 +196,4 @@ class DocumentForm(FlaskForm):
 
     create = SubmitField('Adicionar')
 
-    
+ 

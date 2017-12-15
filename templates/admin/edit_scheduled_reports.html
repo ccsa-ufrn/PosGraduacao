@@ -46,42 +46,39 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
-{% if success_msg %}
-    <div class="form-sucess">
-        <p>{{ success_msg }}</p>
+<div class="container">
+<div class="row">
+<div class="col-xs-12" style="margin-left: -5%">
+<header class="page-header">
+    <h2>&raquo Trabalhos de Conclusão</h2>
+</header>
+<h4>Selecione o agendamento</h4>
+<select id="list"></select>
+<button id="edit" type="button" class="btn btn-default">Selecionar</button>
+</div>
+<div class="col-xs-10" style="margin-left: -5%">
+<form method="POST" id="form-edit" action="{{ url_for('admin.edit_scheduled_reports') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    {{ form.index(required='true', style="display:none;", readonly="readonly") }}
+    <br/>
+    {{ form.title.label(class="label-edit") }}
+    {{ form.title(required='true', class="form-control") }}
+    <br/>
+    {{ form.author.label(class="label-edit") }}
+    {{ form.author(required='true', class="form-control") }}
+    <br/>
+    {{ form.location.label(class="label-edit") }}
+    {{ form.location(required='true', class="form-control") }}
+    <br/>
+    {{ form.time.label(class="label-edit") }}
+    {{ form.time(required='true', class="form-control") }}
+    <br/>
+    {{ form.create }}
     </div>
-{% endif %}
-<section>
-    <header class="page-header">
-        <h2>&raquo Trabalhos de Conclusão</h2>
-    </header>
-    <h4>Selecione o agendamento</h4>
-    <select id="list"></select>
-    <button id="edit" type="button">Selecionar</button>
-    <div>
-    <form method="POST" id="form-edit" action="{{ url_for('admin.edit_scheduled_reports') }}">
-        {{ form.csrf_token }}
-        {{ form.index(required='true', style="display:none;", readonly="readonly") }}
-        <br/>
-        {{ form.title.label(class="label-edit") }}
-        {{ form.title(required='true', class="edit-input") }}
-        <br/>
-        <br/>
-        {{ form.author.label(class="label-edit") }}
-        {{ form.author(required='true', class="edit-input") }}
-        <br/>
-        <br/>
-        {{ form.location.label(class="label-edit") }}
-        {{ form.location(required='true', class="edit-input") }}
-        <br/>
-        <br/>
-        {{ form.time.label(class="label-edit") }}
-        {{ form.time(required='true', class="edit-input") }}
-        <br/>
-
-        {{ form.create }}
-    </form>
-    </div>
-</section>
-
+</form>
+</div>
+</div>
+</div>
+</div>
 {% endblock %}
