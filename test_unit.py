@@ -3,6 +3,7 @@ import unittest
 
 from app import APP as app_de_teste 
 from pymongo import MongoClient
+from models.clients.mongo import __DB_NAME as db_name
 from datetime import datetime
 
 class BasicTests(unittest.TestCase):
@@ -11,8 +12,6 @@ class BasicTests(unittest.TestCase):
         app_de_teste.config['TESTING'] = True
         app_de_teste.config['WTF_CSRF_ENABLED'] = False
         app_de_teste.config['DEBUG'] = False
-        self.__DB_CLIENT = MongoClient('localhost', 27017)
-        self.DB = self.__DB_CLIENT['posgrad-test']
         self.app = app_de_teste.test_client()
        
     def tearDown(self):
@@ -43,16 +42,6 @@ class BasicTests(unittest.TestCase):
             location=location
         ), follow_redirects=True)
 
-    
-    def test_add_report_ok(self):
-        #When all fields are filled correctly
-        self.login('', '')
-        time = datetime.now()
-        time = time.strftime('%d/%m/%Y %H:%M')
-        response = self.add_report(time, 'Novas diretrizes no combate a corrupção', 'Pedro Lenza', 'Setor V Sala i4')
-        assert b'sucesso' in response.data
-        self.logout()
-
     def test_main_page(self):
         response = self.app.get('/', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
@@ -64,6 +53,15 @@ class BasicTests(unittest.TestCase):
         assert b'Erro' in response.data
         response = self.login('correct_username', 'incorrect_password')
         assert b'Erro' in response.data
+ 
+    def test_add_report_ok(self):
+        #When all fields are filled correctly
+        self.login('', '')
+        time = datetime.now()
+        time = time.strftime('%d/%m/%Y %H:%M')
+        response = self.add_report(time, 'Novas diretrizes no combate a corrupção', 'Pedro Lenza', 'Setor V Sala i4')
+        assert b'sucesso' in response.data
+        self.logout()
 
     def test_add_report_no_data(self):
         #When fields are filled with ""
