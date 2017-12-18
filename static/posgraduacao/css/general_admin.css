@@ -195,10 +195,9 @@ li:hover ul {
 }
 
 .delete-input {
+      box-shadow: none;
       border: 0;
-      outline: 0;
-      background: transparent;
-      width: 50%
+      background-color: transparent;
 }
 
 textarea.edit-input,

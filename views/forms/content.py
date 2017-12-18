@@ -104,8 +104,29 @@ class InstitutionsWithCovenantsForm(FlaskForm):
     logo = FileField(validators=[
         DataRequired('Por favor insira um logo em formato .jpeg ou .png')
     ])
+    
+    index = IntegerField()
 
     create = SubmitField('Adicionar')
+
+class EditInstitutionsWithCovenantsForm(FlaskForm):
+    """
+    Form for editing list of institutions with covenants.
+    """
+
+    name = StringField('Instituição com convênio:', validators=[
+        DataRequired('Digite o nome da instituição.')
+    ])
+
+    initials = StringField('Sigla da Instituição:', validators=[
+        DataRequired('Digite a sigla da instituição.')
+    ])
+
+    logo = FileField()
+    
+    index = IntegerField()
+
+    create = SubmitField('Editar')
 
 class ScheduledReportForm(FlaskForm):
 
@@ -145,7 +166,7 @@ class CalendarForm(FlaskForm):
     ])
 
 
-    final_date = DateField('Data final(Se existir):', format='%d/%m/%Y')
+    final_date = StringField('Data final(Se existir):')
 
     hour = StringField('Hora de começo e termino do evento(Se existir)')
 

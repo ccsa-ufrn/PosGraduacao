@@ -71,47 +71,50 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
-<section>
-    <header class="page-header">
-        <h2>Disciplinas</h2>
-    </header>
-    <h4>Selecione a disciplina</h4>
-    <select id="list"></select>
-    <select id="requirements">
-        <option value="Obrigatórias" selected="selected">Obrigatórias</option>
-        <option value="Eletivas">Eletivas</option>
-    </select>
-    <button id="edit" type="button">Selecionar</button>
-    <div id="form-div">
-    <form method="POST" id="form-edit" action="{{ url_for('admin.delete_subjects') }}">
-        {{ form.csrf_token }}
-        {{ form.index(required='true', style="display:none;", readonly="readonly") }}
-        <br/>
-        {{ form.name.label(class="label-edit") }}
-        <br/>
-        {{ form.name(required='true', class="delete-input", readonly="readonly") }}
-        <br/>
-        {{ form.description.label(class="label-edit") }}
-        <br/>
-        {{ form.description(required='true', class="delete-input", readonly="readonly") }}
-        <br/>
-        {{ form.workload_in_hours.label(class="label-edit") }}
-        <br/>
-        {{ form.workload_in_hours(required='true', class="delete-input", readonly="readonly") }}
-        <br/>
-        {{ form.credits.label(class="label-edit") }}
-        <br/>
-        {{ form.credits(required='true', class="delete-input", readonly="readonly") }}
-        <br/>
-        {{ form.requirement.label(class="label-edit", style="visibility:hidden") }}
-        <br/>
-        {{ form.requirement(required='true', class="delete-input", style="visibility:hidden") }}
-
-        <br/>
-
-        {{ form.create }}
-    </form>
+<div class="container">
+<div class="row">
+<div class="col-xs-12" style="margin-left: -5%">
+<header class="page-header">
+    <h2>Disciplinas</h2>
+</header>
+<h4>Selecione a disciplina</h4>
+<select id="list"></select>
+<select id="requirements" type="select" class="btn btn-default">
+    <option value="Obrigatórias" selected="selected">Obrigatórias</option>
+    <option value="Eletivas">Eletivas</option>
+</select>
+<button id="edit" type="button" class="btn btn-default">Selecionar</button>
+</div>
+<div class="col-xs-8" style="margin-left: -5%">
+<form method="POST" id="form-edit" action="{{ url_for('admin.delete_subjects') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    {{ form.index(required='true', style="display:none;") }}
+    <br/>
+    {{ form.name.label}}
+    <br/>
+    {{ form.name(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.description.label }}
+    <br/>
+    {{ form.description(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.workload_in_hours.label }}
+    <br/>
+    {{ form.workload_in_hours(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.credits.label }}
+    <br/>
+    {{ form.credits(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.requirement.label(style="display:none") }}
+    {{ form.requirement(required='true', style="display:none") }}
+    {{ form.create(class="form-control") }}
     </div>
-</section>
+</form>
+</div>
+</div>
+</div>
+</div>
 
 {% endblock %}

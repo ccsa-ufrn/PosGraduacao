@@ -82,8 +82,8 @@
                     <li><a href="">Intercâmbios</a>
                         <ul>
                         <li><a href="{{ url_for('admin.participations') }}">Adicionar intercâmbios</a></li>
-                        <li><a href="{{ url_for('admin.delete_participations') }}">Retirar intercâmbios</a></li>
                         <li><a href="{{ url_for('admin.edit_participations') }}">Editar intercâmbios</a></li>
+                        <li><a href="{{ url_for('admin.delete_participations') }}">Retirar intercâmbios</a></li>
                         </ul>
                     </li>
                     <li><a href="" >Agendamento de defesas</a>
@@ -96,8 +96,8 @@
                     <li><a href="">Equipe</a>
                         <ul>
                         <li><a href="{{ url_for('admin.add_staff') }}">Adicionar membros da equipe</a></li>
-                        <li><a href="{{ url_for('admin.delete_staff') }}">Retirar membrors da equipe</a></li>
                         <li><a href="{{ url_for('admin.edit_staff') }}">Editar membros da equipe</a></li>
+                        <li><a href="{{ url_for('admin.delete_staff') }}">Retirar membrors da equipe</a></li>
                         </ul>
                     </li>
                     <li><a href="">Convênios</a>
@@ -109,8 +109,8 @@
                     <li><a href="">Calendário</a>
                         <ul>
                             <li><a href="{{ url_for('admin.add_events') }}">Adicionar evento</a></li>
-                            <li><a href=""class='btn disabled'>Retirar evento</a></li>
-                            <li><a href=""class='btn disabled'>Editar evento</a></li>
+                            <li><a href="{{ url_for('admin.edit_events') }}">Editar evento</a></li>
+                            <li><a href="{{ url_for('admin.delete_events') }}">Retirar evento</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -104,10 +104,9 @@ $(document).ready(function() {
     {{ form.credits.label }}
     {{ form.credits(required='true', class="form-control") }}
     <br/>
-    {{ form.requirement.label(class="label-edit", style="visibility:hidden") }}
-    {{ form.requirement(required='true', class="form-control", style="visibility:hidden") }}
-    <br/>
-    {{ form.create }}
+    {{ form.requirement.label(class="label-edit", style="display:none") }}
+    {{ form.requirement(required='true', class="form-control", style="display:none") }}
+    {{ form.create(class="form-control") }}
     </div>
 </form>
 </div>

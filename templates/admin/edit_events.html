@@ -1,0 +1,103 @@
+{% extends "admin/layout.html" %}
+{% block styles %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ post_graduation }}.css"/>
+{% endblock %}
+
+{% block scripts %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript"></script> 
+<script type="text/javascript">
+$(document).ready(function() {
+    $("input[name=create]").val("Editar");
+    var events = {{ events|tojson|safe }};
+    var events = JSON.parse(events);
+    console.log(events);
+    var listOfEvents = [];
+    for( i = 0; i < events.events.length; i++){
+        if(!(events.events[i].hasOwnProperty('deleted'))){
+            listOfEvents.push({
+                id: i,
+                text: (events.events[i].title)
+            })
+        }
+    }
+    $("#list").select2({
+        data: listOfEvents
+    });
+
+    $("button").click(function(){
+        var indexInEvents = $("select#list").val();
+        $("#form-edit").css("display", "block");
+        $("input[name=title]").val(events.events[indexInEvents].title);
+        var initialDate = new Date(events.events[indexInEvents].initialDate.$date);
+        var initialDate = initialDate.toLocaleDateString();
+        if(events.events[indexInEvents].finalDate != ""){
+            var finalDate = new Date(events.events[indexInEvents].finalDate.$date);
+            var finalDate = finalDate.toLocaleDateString();
+        } else {
+           var finalDate = events.events[indexInEvents].finalDate;
+        } 
+        $("input[name=initial_date]").val(initialDate);
+        $("input[name=final_date]").val(finalDate);
+        $("input[name=hour]").val(events.events[indexInEvents].hour);
+        $("input[name=link]").val(events.events[indexInEvents].link);
+        $("input[name=index]").val(indexInEvents);
+    });
+});
+$(function() {
+    $("#datepickerInitial").datepicker({
+        dateFormat: "dd/mm/yy"
+    });
+    $("#datepickerFinal").datepicker({
+        dateFormat: "dd/mm/yy"
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+<div class="col-xs-6" style="margin-left: -5%">
+<header style="margin-top : 6.5%">
+    <h2>Eventos</h2>
+</header>
+<h4>Selecione o evento</h4>
+<select id="list"></select>
+<button id="edit" type="button" class="btn btn-default">Selecionar</button>
+</div>
+<div class="col-xs-10" style="margin-left: -5%">
+<form method="POST" id="form-edit" action="{{ url_for('admin.edit_events') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    {{ form.index(required='true', style="display:none;", readonly="readonly") }}
+    
+    {{ form.title.label }}<br/>
+    {{ form.title(required='true', class="form-control", placeholder='ex: Inicio do ano letivo') }}
+    <br/>
+    {{ form.initial_date.label }}<br/>
+    {{ form.initial_date(required='true', class="form-control", id="datepickerInitial")}}
+    <br/>
+    {{ form.final_date.label }}<br/>
+    {{ form.final_date(class="form-control", id="datepickerFinal")}}
+    <br/>
+    {{ form.hour.label }}<br/>
+    {{ form.hour(class="form-control")}}
+    <br/>
+    {{ form.link.label }}<br/>
+    {{ form.link(class="form-control")}}
+    <p class="form-text text-muted">
+        Por favor insira uma URL válida, não esqueça do https://
+    </p>
+    <br/>
+    {{ form.create(class="form-control")}}
+    </div>
+</form>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}

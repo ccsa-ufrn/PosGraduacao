@@ -46,7 +46,8 @@ $(document).ready(function() {
             $("textarea[name=abstract]").val(staff.coordination[indexInStaff].abstract);
             $("input[name=rank]").val(staff.coordination[indexInStaff].rank);
             $("input[name=photo]").val(staff.coordination[indexInStaff].photo);
-            $(".col-md-3").css("visibility", "visible");
+            $(".col-md-3").css("display", "block");
+            $(".img-circle").css("display", "block");
             $(".img-circle").attr("src", staff.coordination[indexInStaff].photo);
             $("select[name=function]").val(functionStaff);
         } else {
@@ -64,7 +65,8 @@ $(document).ready(function() {
         if($(this).val() == 'secretariat'){
             $("input[name=photo]").css('visibility','hidden');
             $("label[for='photo']").css('visibility','hidden');
-            $(".col-md-3").css("visibility", "hidden");
+            $(".col-md-3").css("display", "none");
+            $(".img-circle").css("display", "none");
             $("#list").html("");
             $("#list").select2({
                 data: listOfSecretariat
@@ -73,7 +75,8 @@ $(document).ready(function() {
         if($(this).val() == 'coordination'){
             $("input[name=photo]").css('visibility','visible');
             $("label[for='photo']").css('visibility','visible');
-            $(".col-md-3").css("visibility", "visible");
+            $(".col-md-3").css("display", "block");
+            $(".img-circle").css("display", "block");
             $("#list").html("");
             $("#list").select2({
                 data: listOfCoordination
@@ -118,13 +121,16 @@ $(document).ready(function() {
     {{ form.function(required='true', style="display: none", class="form-control") }}
     {{ form.photo.label}}
     {{ form.photo(class="form-control") }}
+    <p class="form-text text-muted">
+        Procure a imagem na internet, aperte o botão direito do mouse, selecione 'Copiar endereço de imagem' ou semelhante, e cole o resultado aqui
+    </p>
     <br/>
     {{ form.create(class="form-control")}}
     </div>
 </form>
 </div>
-<div class="col-md-3" style="margin-top: 3%">
-    <img src="" class="img-circle pull-right" height="280" width="240">
+<div class="col-md-3" style="margin-top: 3%; display:block">
+    <img src="" class="img-circle pull-right" height="280" width="240" style="display:none">
 </div>
 
 </div>

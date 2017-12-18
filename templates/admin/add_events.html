@@ -23,7 +23,7 @@ $(function() {
 <div class="row">
 <div class="col-xs-6" style="margin-left: -5%">
 <header style="margin-top : 6.5%">
-    <h2>Intercâmbios</h2>
+    <h2>Eventos</h2>
 </header>
 
 <form method="POST" action="{{ url_for('admin.add_events') }}">
@@ -44,6 +44,9 @@ $(function() {
     <br/>
     {{ form.link.label }}<br/>
     {{ form.link(class="form-control")}}
+    <p class="form-text text-muted">
+        Por favor insira uma URL válida, não esqueça do https://
+    </p>
     <br/>
     {{ form.create(class="form-control")}}
     </div>

@@ -42,38 +42,46 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
-<section>
-    <header class="page-header">
-        <h2>Intercâmbio</h2>
-    </header>
-    <h4>Selecione o intercâmbio</h4>
-    <select id="list"></select>
-    <button id="edit" type="button">Selecionar</button>
-    <div id="form-div">
-    <form method="POST" id="form-edit" action="{{ url_for('admin.delete_participations') }}">
-        {{ form.csrf_token }}
-        {{ form.index(required='true', style="display:none;", readonly="readonly") }}
-        <br/>
-        {{ form.title.label(class="label-edit") }}
-        <br/>
-        {{ form.title(required='true', class="delete-input", readonly="readonly") }}
-        <br/>
-        {{ form.description.label(class="label-edit") }}
-        <br/>
-        {{ form.description(required='true', class="delete-input", readonly="readonly") }}
-        <br/>
-        {{ form.year.label(class="label-edit") }}
-        <br/>
-        {{ form.year(required='true', class="delete-input", readonly="readonly") }}
-        <br/>
-        {{ form.location.label(class="label-edit") }}
-        <br/>
-        {{ form.location(required='true', class="delete-input", readonly="readonly") }}
-        <br/>
-
-        {{ form.create }}
-    </form>
+<div class="container">
+<div class="row">
+<div class="col-xs-12" style="margin-left: -5%">
+<header class="page-header">
+    <h2>Intercâmbio</h2>
+</header>
+<h4>Selecione o intercâmbio</h4>
+<select id="list"></select>
+<button id="edit" type="button" class="btn btn-default">Selecionar</button>
+</div>
+<div class="col-xs-10" style="margin-left: -5%">
+<form method="POST" id="form-edit" action="{{ url_for('admin.delete_participations') }}">
+    <div class="form-group">
+    <fieldset disabled>
+    {{ form.csrf_token }}
+    {{ form.index(required='true', style="display:none;") }}
+    <br/>
+    {{ form.title.label }}
+    <br/>
+    {{ form.title(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.description.label }}
+    <br/>
+    {{ form.description(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.year.label }}
+    <br/>
+    {{ form.year(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.location.label }}
+    <br/>
+    {{ form.location(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    </fieldset>
+    {{ form.create(class="form-control") }}
     </div>
-</section>
+</form>
+</div>
+</div>
+</div>
+</div>
 
 {% endblock %}

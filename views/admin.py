@@ -616,7 +616,7 @@ def edit_participations():
     )
 
 ###############################################################################
-#Adicionar deletar e editar eventos(Não finalizado)
+#Adicionar deletar e editar eventos
 ###############################################################################
 
 @APP.route('/add_evento/', methods=['GET', 'POST'])
@@ -628,10 +628,14 @@ def add_events():
 
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.calendar_dao()
-
+    
     if form.validate_on_submit() and form.create.data:
         initial_date = datetime.datetime.combine(form.initial_date.data, datetime.datetime.min.time())
-        final_date = datetime.datetime.combine(form.final_date.data, datetime.datetime.min.time())
+        if form.final_date.data != "":
+            final_date = datetime.datetime.strptime(form.final_date.data, '%d/%m/%Y')
+            final_date = datetime.datetime.combine(final_date, datetime.datetime.min.time())
+        else:
+            final_date = form.final_date.data
         new_event = {
             'title': form.title.data,
             'initialDate': initial_date,
@@ -656,6 +660,91 @@ def add_events():
         form=form,
         success_msg=request.args.get('success_msg')
     )
+
+@APP.route('/editar_evento/', methods=['GET', 'POST'])
+@login_required
+def edit_events():
+    """Render a view for editing events."""
+
+    form = CalendarForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.calendar_dao()
+    json = pfactory.calendar_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+    index = str(form.index.data)
+
+    if form.validate_on_submit() and form.create.data:
+        initial_date = datetime.datetime.combine(form.initial_date.data, datetime.datetime.min.time())
+        if form.final_date.data != "":
+            final_date = datetime.datetime.strptime(form.final_date.data, '%d/%m/%Y')
+            final_date = datetime.datetime.combine(final_date, datetime.datetime.min.time())
+        else:
+            final_date = form.final_date.data
+        new_event = {
+            'title': form.title.data,
+            'initialDate': initial_date,
+            'finalDate': final_date,
+            'hour': form.hour.data,
+            'link': form.link.data
+        }
+
+        dao.find_one_and_update(None, {
+            '$set': {'events.' + index : new_event}
+        })
+
+        return redirect(
+            url_for(
+                'admin.edit_events',
+                events=json,
+                success_msg='Evento editado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/edit_events.html',
+        events=json,
+        form=form,
+        success_msg=request.args.get('success_msg')
+    )
+
+
+@APP.route('/deletar_evento/', methods=['GET', 'POST'])
+@login_required
+def delete_events():
+    """Render a view for deleting events."""
+
+    form = CalendarForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.calendar_dao()
+    json = pfactory.calendar_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+    index = str(form.index.data)
+
+    if form.validate_on_submit() and form.create.data:
+        dao.find_one_and_update(None, {
+            '$set': {'events.' + index + '.deleted' : ""}
+        })
+
+        return redirect(
+            url_for(
+                'admin.delete_events',
+                events=json,
+                success_msg='Evento deletado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/delete_events.html',
+        events=json,
+        form=form,
+        success_msg=request.args.get('success_msg')
+    )
+
+
 
 ###############################################################################
 #Adicionar deletar e editar professores(Não finalizado)
@@ -716,6 +805,10 @@ def covenants():
 
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.integrations_infos_dao()
+    json = pfactory.calendar_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+    index = str(form.index.data)
 
     if form.validate_on_submit() and form.create.data:
         if form.logo.data and allowedFile(form.logo.data.filename, allowed_extensions):
@@ -749,6 +842,53 @@ def covenants():
         form=form,
         success_msg=request.args.get('success_msg')
     )
+
+@APP.route('/convenios/', methods=['GET', 'POST'])
+@login_required
+def covenants():
+    """Render covenant adding form."""
+
+    allowed_extensions = ['jpg', 'png']
+
+    form = EditInstitutionsWithCovenantsForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.integrations_infos_dao()
+
+    if form.validate_on_submit() and form.create.data:
+        if form.logo.data and allowedFile(form.logo.data.filename, allowed_extensions):
+            photo = form.logo.data
+            path = os.path.normpath("static/assets")
+            filename = secure_filename(photo.filename)
+            name, extension = filename.split('.')
+            logoFile = 'logo-' + form.initials.data.lower() + '.' + extension
+            uploadFiles(photo, path, logoFile)
+            new_covenant = {
+                'name': form.name.data,
+                'initials': form.initials.data.upper(),
+                'logoFile': logoFile
+            }
+
+        dao.find_one_and_update(None, {
+            '$push': {'institutionsWithCovenant': new_covenant}
+        })
+
+        return redirect(
+            url_for(
+                'admin.covenants',
+                success_msg='Convênio adicionado adicionado com sucesso.'
+            )
+        )
+
+
+    return render_template(
+        'admin/covenants.html',
+        participations=dao.find_one()['institutionsWithCovenant'],
+        form=form,
+        success_msg=request.args.get('success_msg')
+    )
+
+
 
 
 ###############################################################################

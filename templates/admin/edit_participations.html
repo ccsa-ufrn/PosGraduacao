@@ -12,7 +12,6 @@ $(document).ready(function() {
     $("input[name=create]").val("Editar");
     var participations = {{ participations|tojson|safe }};
     var participations = JSON.parse(participations);
-    console.log(participations);
     var listOfParticipations = [];
     for( i = 0; i < participations.participationsInEvents.length; i++){
         if (!(participations.participationsInEvents[i].hasOwnProperty('deleted'))){
