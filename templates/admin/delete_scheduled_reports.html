@@ -60,7 +60,6 @@ $(document).ready(function() {
 <div class="col-xs-10" style="margin-left: -5%">
 <form method="POST" id="form-edit" action="{{ url_for('admin.delete_scheduled_reports') }}">
     <div class="form-group">
-    <fieldset disabled>
     {{ form.csrf_token }}
     {{ form.index(required='true', style="display:none;") }}
     <br/>
@@ -76,7 +75,6 @@ $(document).ready(function() {
     {{ form.time.label }}
     {{ form.time(required='true', class="form-control", readonly="readonly") }}
     <br/>
-    </fieldset>
     {{ form.create(class="form-control") }}
     </div>
 </form>

@@ -163,9 +163,9 @@ def delete_scheduled_reports():
     json = dict(json)
 
     json = dumps(json)
-    index = str(form.index.data)
 
-    if form.validate_on_submit():
+    if form.validate_on_submit() and form.create.data:
+        index = str(form.index.data)
         dao.find_one_and_update(None, {
             '$set': {'scheduledReports.' + index + '.deleted' : ""}
         })
@@ -629,7 +629,7 @@ def add_events():
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.calendar_dao()
     
-    if form.validate_on_submit() and form.create.data:
+    if form.validate_on_submit():
         initial_date = datetime.datetime.combine(form.initial_date.data, datetime.datetime.min.time())
         if form.final_date.data != "":
             final_date = datetime.datetime.strptime(form.final_date.data, '%d/%m/%Y')
@@ -722,9 +722,9 @@ def delete_events():
     json = pfactory.calendar_dao().find_one()
     json = dict(json)
     json = dumps(json)
-    index = str(form.index.data)
 
     if form.validate_on_submit() and form.create.data:
+        index = str(form.index.data)
         dao.find_one_and_update(None, {
             '$set': {'events.' + index + '.deleted' : ""}
         })
@@ -843,10 +843,10 @@ def covenants():
         success_msg=request.args.get('success_msg')
     )
 
-@APP.route('/convenios/', methods=['GET', 'POST'])
+@APP.route('/editar_convenios/', methods=['GET', 'POST'])
 @login_required
-def covenants():
-    """Render covenant adding form."""
+def edit_covenants():
+    """Render covenant editing form."""
 
     allowed_extensions = ['jpg', 'png']
 

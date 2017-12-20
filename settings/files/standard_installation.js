@@ -11,12 +11,11 @@ db.postGraduations.insertMany([
         'isSignedIn': true,
         'users': [
             {
-                'nick': 'admin',
-                'token' : '1',
-                'password': '$2b$14$poaO46ZWpL1NfVdJyS5mNeeMklsiEOxMFvm4aWx0ca1aRNVTBUR4u',
-                'fullName': 'Marcell Guilherme Costa da Silva',
-                'role': 'Bolsista',
-                'email': 'mazuh@ufrn.edu.br'
+                'nick': 'ppgp-teste',
+                'token' : '101045',
+                'fullName': 'Usuário de testes para PPGP',
+                'role': 'Usuário teste',
+                'email': 'ppgp-teste@ufrn.edu.br'
             }
         ],
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=5679',
@@ -27,15 +26,6 @@ db.postGraduations.insertMany([
         'name': 'Administração',
         'initials': 'PPGA',
         'sigaaCode': '1621',
-        'users': [
-            {
-                'nick': 'luccas',
-                'password': '$2b$14$ZyaABz6Ge6.YEY7KrjK/T.fuWx4j/eZc6dOHxNo1wOQATnCnlbkUa',
-                'fullName': 'Luccas Mateus de Medeiros Gomes',
-                'role': 'Técnico em Informatica',
-                'email': 'luccas@ufrn.edu.br'
-            }
-        ],
         'isSignedIn': true,
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=74',
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=5679',
@@ -74,6 +64,15 @@ db.postGraduations.insertMany([
         'initials': 'PPGIC',
         'sigaaCode': '1629',
         'isSignedIn': true,
+        'users': [
+            {
+                'nick': 'ppgic-teste',
+                'token' : '101044',
+                'fullName': 'Usuário de testes para PPGIC',
+                'role': 'Usuário teste',
+                'email': 'ppgic-teste@ufrn.edu.br'
+            }
+        ],
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=9196',
 	'descriptionSmall': 'O Mestrado Profissional em Gestão da Informação e do Conhecimento tem como objetivo capacitar profissionais e pesquisadores para o exercício da prática profissional avançada e transformadora de procedimentos no âmbito da Ciência da Informação',
 	'descriptionBig' : 'O Programa de Pós-Graduação em Gestão da Informação e do Conhecimento (PPGIC) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplicadas (CCSA). Atualmente oferece o curso de Mestrado, em nível de pós-graduação stricto sensu, com o propósito de capacitar profissionais e pesquisadores para o exercício da prática profissional avançada e transformadora de procedimentos no âmbito da Ciência da Informação. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colabor adores.O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações. Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.'
@@ -127,6 +126,146 @@ db.attendances.insertMany([
             {
                 'type': 'Claro',
                 'number': '+55 84 9 9474-6765'
+            }
+        ]
+    },
+    {
+        'ownerProgram': PPGA_ID,
+        'location': {
+            'building': '',
+            'floor': '',
+            'room': '',
+            'opening': ''
+        },
+        'email': 'ppga.ufrn@gmail.com',
+        'phones': [
+            {
+                'type': '',
+                'number': ''
+            },
+            {
+                'type': '',
+                'number': ''
+            }
+        ]
+    },
+    {
+        'ownerProgram': PPGCC_ID,
+        'location': {
+            'building': '',
+            'floor': '',
+            'room': '',
+            'opening': ''
+        },
+        'email': 'ppgcc.ufrn@gmail.com',
+        'phones': [
+            {
+                'type': '',
+                'number': ''
+            },
+            {
+                'type': '',
+                'number': ''
+            }
+        ]
+    },
+    {
+        'ownerProgram': PPGD_ID,
+        'location': {
+            'building': '',
+            'floor': '',
+            'room': '',
+            'opening': ''
+        },
+        'email': 'ppgd.ufrn@gmail.com',
+        'phones': [
+            {
+                'type': '',
+                'number': ''
+            },
+            {
+                'type': '',
+                'number': ''
+            }
+        ]
+    },
+    {
+        'ownerProgram': PPGECO_ID,
+        'location': {
+            'building': '',
+            'floor': '',
+            'room': '',
+            'opening': ''
+        },
+        'email': 'ppgeco.ufrn@gmail.com',
+        'phones': [
+            {
+                'type': '',
+                'number': ''
+            },
+            {
+                'type': '',
+                'number': ''
+            }
+        ]
+    },
+    {
+        'ownerProgram': PPGIC_ID,
+        'location': {
+            'building': '',
+            'floor': '',
+            'room': '',
+            'opening': ''
+        },
+        'email': 'ppgic.ufrn@gmail.com',
+        'phones': [
+            {
+                'type': '',
+                'number': ''
+            },
+            {
+                'type': '',
+                'number': ''
+            }
+        ]
+    },
+    {
+        'ownerProgram': PPGSS_ID,
+        'location': {
+            'building': '',
+            'floor': '',
+            'room': '',
+            'opening': ''
+        },
+        'email': 'ppgss.ufrn@gmail.com',
+        'phones': [
+            {
+                'type': '',
+                'number': ''
+            },
+            {
+                'type': '',
+                'number': ''
+            }
+        ]
+    },
+    {
+        'ownerProgram': PPGTUR_ID,
+        'location': {
+            'building': '',
+            'floor': '',
+            'room': '',
+            'opening': ''
+        },
+        'email': 'ppgtur.ufrn@gmail.com',
+        'phones': [
+            {
+                'type': '',
+                'number': ''
+            },
+            {
+                'type': '',
+                'number': ''
             }
         ]
     }
@@ -531,6 +670,41 @@ db.integrationsInfos.insertMany([
                 'international': 'Madrid, Espanha'
             }
         ]
+    },
+    {
+        'ownerProgram': PPGA_ID,
+        'institutionsWithCovenant': [],
+        'participationsInEvents': []
+    },
+    {
+        'ownerProgram': PPGCC_ID,
+        'institutionsWithCovenant': [],
+        'participationsInEvents': []
+    },
+    {
+        'ownerProgram': PPGD_ID,
+        'institutionsWithCovenant': [],
+        'participationsInEvents': []
+    },
+    {
+        'ownerProgram': PPGECO_ID,
+        'institutionsWithCovenant': [],
+        'participationsInEvents': []
+    },
+    {
+        'ownerProgram': PPGIC_ID,
+        'institutionsWithCovenant': [],
+        'participationsInEvents': []
+    },
+    {
+        'ownerProgram': PPGSS_ID,
+        'institutionsWithCovenant': [],
+        'participationsInEvents': []
+    },
+    {
+        'ownerProgram': PPGTUR_ID,
+        'institutionsWithCovenant': [],
+        'participationsInEvents': []
     }
 ]);
 
@@ -579,6 +753,41 @@ db.boardsOfStaffs.insertMany([
                 'photo': null
             }
         ]
+    },
+    {
+        'ownerProgram': PPGA_ID,
+        'coordination': [],
+        'secretariat': []
+    },
+    {
+        'ownerProgram': PPGCC_ID,
+        'coordination': [],
+        'secretariat': []
+    },
+    {
+        'ownerProgram': PPGD_ID,
+        'coordination': [],
+        'secretariat': []
+    },
+    {
+        'ownerProgram': PPGECO_ID,
+        'coordination': [],
+        'secretariat': []
+    },
+    {
+        'ownerProgram': PPGIC_ID,
+        'coordination': [],
+        'secretariat': []
+    },
+    {
+        'ownerProgram': PPGSS_ID,
+        'coordination': [],
+        'secretariat': []
+    },
+    {
+        'ownerProgram': PPGTUR_ID,
+        'coordination': [],
+        'secretariat': []
     }
 ]);
 
@@ -667,6 +876,34 @@ db.boardsOfProfessors.insertMany([
                 'email': 'tfdpe@yahoo.com.br'
             }
         ]
+    },
+    {
+        'ownerProgram': PPGA_ID,
+        'professors': []
+    },
+    {
+        'ownerProgram': PPGCC_ID,
+        'professors': []
+    },
+    {
+        'ownerProgram': PPGD_ID,
+        'professors': []
+    },
+    {
+        'ownerProgram': PPGECO_ID,
+        'professors': []
+    },
+    {
+        'ownerProgram': PPGIC_ID,
+        'professors': []
+    },
+    {
+        'ownerProgram': PPGSS_ID,
+        'professors': []
+    },
+    {
+        'ownerProgram': PPGTUR_ID,
+        'professors': []
     }
 ]);
 
@@ -872,5 +1109,90 @@ db.calendar.insertMany([
     {
         'ownerProgram': PPGTUR_ID,
         'events': []
+    },
+]);
+
+print("Inserindo publicações...");
+
+db.publications.insertMany([
+    {
+        'ownerProgram': PPGP_ID,
+        'books': [
+          {
+            'authors': 'João Guimarães Rosa',
+            'title': 'Grande Sertão Veredas',
+            'edition': '12.ed',
+            'location' : 'São Paulo',
+            'publisher': 'Editora 34',
+            'year' : '2002'
+          },
+          {
+            'authors': 'Leonardo Martins e Dmitri Dimoulis',
+            'title': 'Teoria dos direitos fundamentais',
+            'edition': '5.ed',
+            'location' : 'Porto Alegre',
+            'publisher': 'Editora Saraiva',
+            'year' : '2014'
+          }
+        ],
+        'articles': [
+          {
+            'authors':'Roberto Campos',
+            'title': 'Em defesa dos bodes',
+            'publisher' : 'Veja',
+            'location' : 'São Paulo',
+            'edition' : '1731.ed',
+            'number': 'n. 2',
+            'pages': '23-30',
+            'date': '12 jan. 2000'
+
+          },
+          {
+            'authors':'Fabiana Mottta',
+            'title': 'Incapazes no novo código civil',
+            'publisher' : 'InVerbis',
+            'location' : 'Natal',
+            'edition' : '12.ed',
+            'number': 'n. 1',
+            'pages': '50-62',
+            'date': '13 jul. 2016'
+
+          }
+        ]
+    },
+    {
+        'ownerProgram': PPGA_ID,
+        'books': [],
+        'articles': []
+    },
+    {
+        'ownerProgram': PPGCC_ID,
+        'books': [],
+        'articles': []
+    },
+    {
+        'ownerProgram': PPGD_ID,
+        'books': [],
+        'articles': []
+    },
+    {
+        'ownerProgram': PPGECO_ID,
+        'books': [],
+        'articles': []
+    },
+    {
+        'ownerProgram': PPGIC_ID,
+        'books': [],
+        'articles': []
+    },
+    {
+        'ownerProgram': PPGSS_ID,
+        'books': [],
+        'articles': []
+    },
+    {
+        'ownerProgram': PPGTUR_ID,
+        'books': [],
+        'articles': []
     },
 ]);

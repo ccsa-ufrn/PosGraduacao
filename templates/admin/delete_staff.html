@@ -106,7 +106,6 @@ $(document).ready(function() {
 <div class="col-xs-6" style="margin-left: -5%">
 <form method="POST" id='form-edit' action="{{ url_for('admin.edit_staff') }}">
     <div class="form-group">
-    <fieldset disabled>
     {{ form.csrf_token }}
     {{ form.index(required='true', style="display:none;" ) }}
     <br/>
@@ -124,7 +123,6 @@ $(document).ready(function() {
     {{ form.photo.label}}
     {{ form.photo(class="form-control", readonly="readonly") }}
     <br/>
-    </fieldset>
     {{ form.create(class="form-control")}}
     </div>
 </form>

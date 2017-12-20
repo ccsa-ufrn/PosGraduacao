@@ -79,9 +79,19 @@
                                 <span class="glyphicon glyphicon-folder-open"></span> Teses</a>
                             </li>
                             {% endif %}
-                            
+
                             <li><a href="#">
                                 <span class="glyphicon glyphicon-briefcase"></span> Egressos (em breve)</a>
+                            </li>
+
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Publicações</li>
+
+                            <li><a href="{{ url_for('public.view_books', initials=std.post_graduation.initials) }}">
+                                    <span class="glyphicon glyphicon-book"></span> Livros</a>
+                            </li>
+                            <li><a href="{{ url_for('public.view_articles', initials=std.post_graduation.initials) }}">
+                                    <span class="glyphicon glyphicon-book"></span> Artigos</a>
                             </li>
                         </ul>
                     </li>

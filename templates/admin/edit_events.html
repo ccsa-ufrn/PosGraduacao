@@ -23,9 +23,11 @@ $(document).ready(function() {
             })
         }
     }
+
     $("#list").select2({
         data: listOfEvents
     });
+
 
     $("button").click(function(){
         var indexInEvents = $("select#list").val();

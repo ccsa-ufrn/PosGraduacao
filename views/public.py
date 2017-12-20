@@ -270,6 +270,39 @@ def view_projects(initials):
     )
 
 
+@app.route('/<string:initials>/livros/')
+def view_books(initials):
+    """Render a view for books list."""
+
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    publications = pfactory.publications_dao().find_one()
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/books.html',
+        std=get_std_for_template(post_graduation),
+        publications=publications
+    )
+
+@app.route('/<string:initials>/artigos/')
+def view_articles(initials):
+    """Render a view for artigos list."""
+
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    publications = pfactory.publications_dao().find_one()
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/articles.html',
+        std=get_std_for_template(post_graduation),
+        publications=publications
+    )
+
+
 
 @app.route('/<string:initials>/documentos/regimentos')
 def view_documents_regiments(initials):
