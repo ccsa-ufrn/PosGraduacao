@@ -104,8 +104,6 @@ class InstitutionsWithCovenantsForm(FlaskForm):
     logo = FileField(validators=[
         DataRequired('Por favor insira um logo em formato .jpeg ou .png')
     ])
-    
-    index = IntegerField()
 
     create = SubmitField('Adicionar')
 
@@ -123,7 +121,7 @@ class EditInstitutionsWithCovenantsForm(FlaskForm):
     ])
 
     logo = FileField()
-    
+
     index = IntegerField()
 
     create = SubmitField('Editar')

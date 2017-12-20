@@ -25,8 +25,11 @@
     {{ form.category(required='true', class="form-control") }}
     <br/>
 
-    {{ form.document.label }}<br/>
-    {{ form.document(required='true') }}
+    <label class="btn btn-default">
+        <span>Carregar documento</span>
+        {{ form.document(required='true', style="display:none") }}
+    </label>
+    <br/>
     <br/>
 
     {{ form.create(class="form-control")}}

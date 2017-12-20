@@ -102,8 +102,9 @@
                     </li>
                     <li><a href="">Convênios</a>
                         <ul>
-                            <li><a href=""class='btn disabled'>Adicionar convênios</a></li>
-                            <li><a href=""class='btn disabled'>Retirar convênios</a></li>
+                            <li><a href="{{ url_for('admin.covenants') }}">Adicionar convênios</a></li>
+                            <li><a href="{{ url_for('admin.edit_covenants') }}">Editar convênios</a></li>
+                            <li><a href="{{ url_for('admin.delete_covenants') }}">Retirar convênios</a></li>
                         </ul>
                     </li>
                     <li><a href="">Calendário</a>

@@ -19,7 +19,8 @@ from settings.extensions import ExtensionsManager
 from views.forms.auth import LoginForm
 from views.forms.content import ParticipationsInEventsForm, \
     ScheduledReportForm, InstitutionsWithCovenantsForm, \
-    DocumentForm, SubjectsForm, ProfessorForm, StaffForm, CalendarForm
+    DocumentForm, SubjectsForm, ProfessorForm, StaffForm, CalendarForm, \
+    EditInstitutionsWithCovenantsForm
 
 from models.clients.api_sistemas import SigaaError, \
     FailedToGetTokenForSigaaError, UnreachableSigaaError, \
@@ -805,16 +806,19 @@ def covenants():
 
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.integrations_infos_dao()
-    json = pfactory.calendar_dao().find_one()
-    json = dict(json)
-    json = dumps(json)
-    index = str(form.index.data)
 
     if form.validate_on_submit() and form.create.data:
         if form.logo.data and allowedFile(form.logo.data.filename, allowed_extensions):
             photo = form.logo.data
             path = os.path.normpath("static/assets")
             filename = secure_filename(photo.filename)
+            if filename.count('.') > 1:
+                return redirect(
+                    url_for(
+                        'admin.covenants',
+                        success_msg='Nome da logo contem mais de um . por favor corrija isso'
+                    )
+                )
             name, extension = filename.split('.')
             logoFile = 'logo-' + form.initials.data.lower() + '.' + extension
             uploadFiles(photo, path, logoFile)
@@ -838,8 +842,40 @@ def covenants():
 
     return render_template(
         'admin/covenants.html',
-        participations=dao.find_one()['institutionsWithCovenant'],
         form=form,
+        success_msg=request.args.get('success_msg')
+    )
+
+@APP.route('/deletar_convenios/', methods=['GET', 'POST'])
+@login_required
+def delete_covenants():
+    """Render covenant deleting form."""
+
+    form = EditInstitutionsWithCovenantsForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.integrations_infos_dao()
+    json = pfactory.integrations_infos_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+
+    if form.validate_on_submit() and form.create.data:
+        index = str(form.index.data)
+        dao.find_one_and_update(None, {
+            '$set': {'institutionsWithCovenant.' + index + '.deleted' : ""}
+        })
+        return redirect(
+            url_for(
+                'admin.delete_covenants',
+                integrations=json,
+                success_msg='Convênio deletado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/delete_covenants.html',
+        form=form,
+        integrations=json,
         success_msg=request.args.get('success_msg')
     )
 
@@ -854,12 +890,25 @@ def edit_covenants():
 
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.integrations_infos_dao()
+    json = pfactory.integrations_infos_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
 
     if form.validate_on_submit() and form.create.data:
+        index = str(form.index.data)
         if form.logo.data and allowedFile(form.logo.data.filename, allowed_extensions):
+            print('Arquivo selecionado', file=sys.stderr)
             photo = form.logo.data
             path = os.path.normpath("static/assets")
             filename = secure_filename(photo.filename)
+            if filename.count('.') > 1:
+                return redirect(
+                    url_for(
+                        'admin.edit_covenants',
+                        integrations=json,
+                        success_msg='Nome da logo contem mais de um . por favor corrija isso'
+                    )
+                )
             name, extension = filename.split('.')
             logoFile = 'logo-' + form.initials.data.lower() + '.' + extension
             uploadFiles(photo, path, logoFile)
@@ -869,27 +918,34 @@ def edit_covenants():
                 'logoFile': logoFile
             }
 
-        dao.find_one_and_update(None, {
-            '$push': {'institutionsWithCovenant': new_covenant}
-        })
+            dao.find_one_and_update(None, {
+                '$set': {'institutionsWithCovenant.' + index : new_covenant}
+            })
+        else:
+            new_covenant = {
+                'name': form.name.data,
+                'initials':form.initials.data.upper()
+            }
+
+            dao.find_one_and_update(None, {
+                '$set' : {'institutionsWithCovenant.' + index : new_covenant}
+            })
 
         return redirect(
             url_for(
-                'admin.covenants',
-                success_msg='Convênio adicionado adicionado com sucesso.'
+                'admin.edit_covenants',
+                integrations=json,
+                success_msg='Convênio editado com sucesso.'
             )
         )
 
 
     return render_template(
-        'admin/covenants.html',
-        participations=dao.find_one()['institutionsWithCovenant'],
+        'admin/edit_covenants.html',
         form=form,
+        integrations=json,
         success_msg=request.args.get('success_msg')
     )
-
-
-
 
 ###############################################################################
 #Adicionar deletar e editar documentos(Não finalizado)

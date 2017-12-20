@@ -16,6 +16,7 @@
     </header>
 
     {% for book in publications.books %}
+    {% if "deleted" not in book %}
     <h3>{{ book.title }}</h3>
     {% if book.subtitle != ""  %}
     <h4>{{ book.subtitle }}</h4>
@@ -23,11 +24,12 @@
     <ul>
         <li><strong>Autores:</strong> {{ book.authors }}</li>
         <li><strong>Edição:</strong>  {{ book.edition }}</li>
+        <li><strong>Editora:</strong> {{ book.publisher }}</li>   
         <li><strong>Local de impressão:</strong> {{ book.location }}</li>   
-        <li><strong>Membros:</strong> {{ book.publisher }}</li>
         <li><strong>Ano:</strong> {{ book.year }}</li>
     </ul>
     <br/>
+    {% endif %}
     {% endfor %}
 
 </section>

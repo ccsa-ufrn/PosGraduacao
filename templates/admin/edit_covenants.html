@@ -1,0 +1,79 @@
+{% extends "admin/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ post_graduation }}.css"/>
+{% endblock %}
+
+{% block scripts %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("input[name=create]").val("Editar");
+    var integrations = {{ integrations|tojson|safe }};
+    var integrations = JSON.parse(integrations);
+    console.log(integrations);
+    var listOfCovenants = [];
+    for( i = 0; i < integrations.institutionsWithCovenant.length; i++){
+        if (!(integrations.institutionsWithCovenant[i].hasOwnProperty('deleted'))){
+            listOfCovenants.push({
+                id: i,
+                text: (integrations.institutionsWithCovenant[i].name)
+            })
+        }
+    }
+    
+    $("#list").select2({
+        data: listOfCovenants 
+    });
+
+    $("button").click(function(){
+        var indexInCovenants = $("select#list").val();
+        $("#form-edit").css("display", "block");
+        $("input[name=name]").val(integrations.institutionsWithCovenant[indexInCovenants].name);
+        $("input[name=initials]").val(integrations.institutionsWithCovenant[indexInCovenants].initials);
+        $("input[name=index]").val(indexInCovenants);
+    });
+
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+<div class="col-xs-12" style="margin-left: -5%">
+<header class="page-header">
+    <h2>Convênio</h2>
+</header>
+<h4>Selecione um convênio</h4>
+<select id="list"></select>
+<button id="edit" type="button" class="btn btn-default">Selecionar</button>
+</div>
+<div class="col-xs-10" style="margin-left: -5%">
+<form method="POST" id="form-edit" action="{{ url_for('admin.edit_covenants') }}" enctype="multipart/form-data">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    {{ form.index(required='true', style="display:none;", readonly="readonly") }}
+    <br/>
+    {{ form.name.label }}
+    {{ form.name(required='true', class="form-control") }}
+    <br/>
+    {{ form.initials.label }}
+    {{ form.initials(required='true', class="form-control") }}
+    <br/>
+    <label class="btn btn-default">
+        <span>Carregar logo</span>
+        {{ form.logo(style="display:none") }}
+    </label>
+
+    <br/>
+    <br/>
+    {{ form.create(class="form-control") }}
+    </div>
+</form>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

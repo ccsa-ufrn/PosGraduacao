@@ -16,6 +16,7 @@
     </header>
 
     {% for article in publications.articles %}
+    {% if "deleted" not in article %}
     <h3>{{ article.title }}</h3>
     {% if article.subtitle != ""  %}
     <h4>{{ article.subtitle }}</h4>
@@ -34,7 +35,8 @@
     <header class="page-header">
         <h2> </h2>
     </header>
-
+    
+    {% endif %}
     {% endfor %}
 
 {% endblock %}
