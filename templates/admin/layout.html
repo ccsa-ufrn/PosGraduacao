@@ -120,7 +120,8 @@
                 <li><a href="">Documentos</a>
                     <ul>
                     <li><a href="{{ url_for('admin.documents') }}">Adicionar documentos</a></li>
-                    <li><a href=""class='btn disabled'>Retirar documentos</a></li>
+                    <li><a href="{{ url_for('admin.edit_documents') }}">Editar documentos</a></li>
+                    <li><a href="{{ url_for('admin.delete_documents') }}">Retirar documentos</a></li>
                     </ul>
                 </li>
                 </ul>

@@ -9,6 +9,8 @@ from flask_login import LoginManager, \
     login_user, login_required, logout_user, current_user
 from flask import Blueprint, render_template, redirect, url_for, request
 
+from bson.objectid import ObjectId
+
 from werkzeug.utils import secure_filename
 
 from models.factory import PosGraduationFactory
@@ -20,7 +22,7 @@ from views.forms.auth import LoginForm
 from views.forms.content import ParticipationsInEventsForm, \
     ScheduledReportForm, InstitutionsWithCovenantsForm, \
     DocumentForm, SubjectsForm, ProfessorForm, StaffForm, CalendarForm, \
-    EditInstitutionsWithCovenantsForm
+    EditInstitutionsWithCovenantsForm, EditDocumentForm
 
 from models.clients.api_sistemas import SigaaError, \
     FailedToGetTokenForSigaaError, UnreachableSigaaError, \
@@ -973,6 +975,7 @@ def documents():
             filename = uploadFiles(document, path, document.filename)
             new_document = {
                 'ownerProgram': ownerProgram,
+                'category': form.category.data,
                 'title': form.title.data,
                 'cod': form.cod.data,
                 'file': filename,
@@ -1004,6 +1007,105 @@ def documents():
         form=form,
         success_msg=request.args.get('success_msg')
     )
+
+@APP.route('/deletar_documentos/', methods=['GET', 'POST'])
+@login_required
+def delete_documents():
+    """Render document deleting form."""
+
+    form = EditDocumentForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.official_documents_dao()
+    json = pfactory.official_documents_dao().find()
+    json = list(json)
+    json = dumps(json)
+
+    if form.validate_on_submit() and form.create.data:
+        dao.find_one_and_update({'_id' : ObjectId(form.document_id.data)}, {
+            '$set' : {'deleted' : ''}})
+        return redirect(
+            url_for(
+                'admin.delete_documents',
+                success_msg='Documento deletado com sucesso.'
+            )
+        )
+        
+    return render_template(
+        'admin/delete_documents.html',
+        documents=json,
+        form=form,
+        success_msg=request.args.get('success_msg')
+    )
+
+
+@APP.route('/editar_documentos/', methods=['GET', 'POST'])
+@login_required
+def edit_documents():
+    """Render document editing form."""
+
+    allowed_extensions = ['docx', 'pdf']
+
+    form = EditDocumentForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.official_documents_dao()
+    ownerProgram = pfactory.mongo_id
+    json = pfactory.official_documents_dao().find()
+    json = list(json)
+    json = dumps(json)
+
+    if form.validate_on_submit() and form.create.data:
+        document_id = form.document_id.data
+        if form.document.data:
+            if allowedFile(form.document.data.filename, allowed_extensions):
+                insertedOn = datetime.datetime.now()
+                insertedBy = current_user._full_name
+                document = form.document.data
+                path = os.path.normpath("static/upload_files/" + current_user.pg_initials.lower())
+                filename = uploadFiles(document, path, document.filename)
+                new_document = {
+                    'title': form.title.data,
+                    'cod': form.cod.data,
+                    'file': filename,
+                    'insertedBy': insertedBy,
+                    'insertedOn': insertedOn
+                }
+
+                dao.find_one_and_update({'_id' : ObjectId(form.document_id.data)}, {
+                    '$set' : new_document
+                })
+            else:
+                return redirect(
+                    url_for(
+                        'admin.edit_documents',
+                        success_msg='Tipo de documento inválido'
+                    )
+                )
+
+        else:
+            new_document = {
+                'title':form.title.data,
+                'cod': form.cod.data
+            }
+            dao.find_one_and_update({'_id' : ObjectId(form.document_id.data)}, {
+                '$set' : new_document
+            })
+
+        return redirect(
+            url_for(
+                'admin.edit_documents',
+                success_msg='Documento editado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/edit_documents.html',
+        documents=json,
+        form=form,
+        success_msg=request.args.get('success_msg')
+    )
+
 
 def uploadFiles(document, path, filename):
     """3 functions, effectively upload files to server,

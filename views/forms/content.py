@@ -201,6 +201,29 @@ class DocumentForm(FlaskForm):
     title = StringField('Titulo do documento:', validators=[
         DataRequired('Digite o título do documento.')
     ])
+
+    cod = StringField('Código:', validators=[
+        DataRequired('Informe qual o código do documento.')
+    ])
+
+    category = SelectField('Categoria',  choices=[
+        ('regimento','Regimento'),('ata','ATA'),('outros','Outros')], validators=[
+            DataRequired('Especifique o tipo de documento.')
+    ])
+
+    document = FileField(validators=[
+        DataRequired('Por favor carregue um documento valido')
+    ])
+
+    create = SubmitField('Adicionar')
+
+class EditDocumentForm(FlaskForm):
+    """
+    Form for edit and delete document
+    """
+    title = StringField('Titulo do documento:', validators=[
+        DataRequired('Digite o título do documento.')
+    ])
  
     cod = StringField('Código:', validators=[
         DataRequired('Informe qual o código do documento.')
@@ -213,6 +236,9 @@ class DocumentForm(FlaskForm):
 
     document = FileField()
 
+    document_id = StringField(validators=[
+        DataRequired()
+    ])
+
     create = SubmitField('Adicionar')
 
- 

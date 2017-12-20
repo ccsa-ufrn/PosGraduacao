@@ -959,6 +959,7 @@ db.officialDocuments.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'title': 'Regimento Interno',
+        'category': 'regimento',
         'cod': '12-2015',
         'file': 'regimento_0122015consepe.pdf',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
@@ -967,6 +968,7 @@ db.officialDocuments.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'title': 'Estrutura Curricular',
+        'category': 'regimento',
         'cod': '01-2014',
         'file': 'resolucao_ESTRUTURA-CURRICULAR.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
@@ -975,6 +977,7 @@ db.officialDocuments.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'title': 'Matrícula',
+        'category': 'regimento',
         'cod': '02-2014',
         'file': 'resolucao_MATRICULA.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
@@ -983,6 +986,7 @@ db.officialDocuments.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'title': 'Exame de Proficiência',
+        'category': 'outros',
         'cod': '03-2014',
         'file': 'resolucao_EXAME-DE-PROFICIENCIA.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
@@ -991,6 +995,7 @@ db.officialDocuments.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'title': 'Procedimentos de Defesa',
+        'category': 'ata',
         'cod': '04-2014',
         'file': 'resolucao_PROCEDIMENTOS-DE-DEFESA.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
@@ -999,6 +1004,7 @@ db.officialDocuments.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'title': 'Exame de Qualificação',
+        'category': 'regimento',
         'cod': '05-2014',
         'file': 'resolucao_EXAME-DE-QUALIFICACAO.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
@@ -1007,6 +1013,7 @@ db.officialDocuments.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'title': 'Credenciamento Docente',
+        'category': 'ata',
         'cod': '06-2014',
         'file': 'resolucao_CREDENCIAMENTO-DOCENTE.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
@@ -1015,6 +1022,7 @@ db.officialDocuments.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'title': 'Resolução de Calendário',
+        'category': 'outros',
         'cod': '07-2014',
         'file': 'resolucao_RESOLUCAO-CALENDARIO.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
@@ -1023,6 +1031,7 @@ db.officialDocuments.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'title': 'Áreas de Concentração e Linhas de Pesquisa',
+        'category': 'ata',
         'cod': '08-2014',
         'file': 'resolucao_LINHAS-PESQUISA.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
@@ -1031,6 +1040,7 @@ db.officialDocuments.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'title': 'Projeto de Intervenção',
+        'category': 'outros',
         'cod': '09-2014',
         'file': 'resolucao_PROJETO-INTERVENCAO.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),
@@ -1039,6 +1049,7 @@ db.officialDocuments.insertMany([
     {
         'ownerProgram': PPGP_ID,
         'title': 'Aluno Especial',
+        'category': 'ata',
         'cod': '10-2014',
         'file': 'resolucao_ALUNO-ESPECIAL.docx',
         'insertedOn': new Date(2017, 04, 03, 09, 00, 00, 00),

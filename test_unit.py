@@ -61,6 +61,28 @@ class BasicTests(unittest.TestCase):
             create=True
         ), follow_redirects=True)
 
+    def add_subject(self, name, description, workload_in_hours, credits, requirement):
+        return self.app.post('/admin/add_disciplinas/', data=dict(
+            name=name,
+            description=description,
+            workload_in_hours=workload_in_hours,
+            credits=credits,
+            requirement=requirement,
+            create=True
+        ), follow_redirects=True)
+
+    def delete_subject(self, name, description, workload_in_hours, credits, requirement, index):
+        return self.app.post('/admin/deletar_disciplinas/', data=dict(
+            index=index,
+            name=name,
+            description=description,
+            workload_in_hours=workload_in_hours,
+            credits=credits,
+            requirement=requirement,
+            create=True
+        ), follow_redirects=True)
+
+
     def test_main_page(self):
         response = self.app.get('/', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
@@ -75,9 +97,9 @@ class BasicTests(unittest.TestCase):
         response = self.login('ppgic-teste', 'luccas')
         assert b'Bem-vindo' in response.data
 
-    ##############################################################################################################
-    #Tests involving reports
-    #############################################################################################################
+###############################################################################################
+#Tests involving reports
+###############################################################################################
 
     def test_add_report_ok(self):
         #When all fields are filled correctly
@@ -110,8 +132,12 @@ class BasicTests(unittest.TestCase):
         response = self.delete_report('0', time, 'Novas diretrizes...', 'João Vinicius', 'Setor IV Sala i4')
         assert b'sucesso' in response.data
 
+###############################################################################################
+#Tests involving events
+###############################################################################################
+
     def test_add_event_all(self):
-        #Testando com tudo inserido
+        #Everything good and all fields inserted
         self.login('ppgic-teste', 'luccas')
         initial_date = date(2017, 12, 1)
         initial_date = initial_date.strftime('%d/%m/%Y')
@@ -121,17 +147,17 @@ class BasicTests(unittest.TestCase):
         assert b'sucesso' in response.data
 
     def test_add_event_all_final_date_equals_initial(self):
-        #Data inicial e final igual
+        #Initial_date and final_date are equals
         self.login('ppgic-teste', 'luccas')
         initial_date = date(2017, 12, 7)
         initial_date = initial_date.strftime('%d/%m/%Y')
         final_date = date(2017, 12, 7)
         final_date = final_date.strftime('%d/%m/%Y')
-        response = self.add_event('Evento Teste',initial_date, final_date, 'https://google.com', '16:00')
+        response = self.add_event('Evento Teste', initial_date, final_date, 'https://google.com', '16:00')
         assert b'sucesso' in response.data
 
     def test_add_event_all_no_hour(self):
-        #Sem o valor da hora
+        #No value in hour field
         self.login('ppgic-teste', 'luccas')
         initial_date = date(2017, 12, 7)
         initial_date = initial_date.strftime('%d/%m/%Y')
@@ -141,7 +167,7 @@ class BasicTests(unittest.TestCase):
         assert b'sucesso' in response.data
 
     def test_add_event_no_final_date(self):
-        #Sem o valor da data final
+        #No value in final_date field
         self.login('ppgic-teste', 'luccas')
         initial_date = date(2017, 12, 7)
         initial_date = initial_date.strftime('%d/%m/%Y')
@@ -151,27 +177,27 @@ class BasicTests(unittest.TestCase):
         assert b'sucesso' in response.data
 
     def test_add_event_no_link(self):
-        #Sem o valor do link
+        #No value in link field
         self.login('ppgic-teste', 'luccas')
         initial_date = date(2017, 12, 7)
         initial_date = initial_date.strftime('%d/%m/%Y')
         final_date = date(2017, 12, 8)
         final_date = final_date.strftime('%d/%m/%Y')
-        response = self.add_event('Evento Teste',initial_date, final_date , '' ,'16:00')
+        response = self.add_event('Evento Teste', initial_date, final_date, '' , '16:00')
         assert b'sucesso' in response.data
 
     def test_add_event_nothing(self):
-        #Nada inserido
+        #Nothing inserted
         self.login('ppgic-teste', 'luccas')
         initial_date = date(2017, 12, 7)
         initial_date = initial_date.strftime('%d/%m/%Y')
         final_date = date(2017, 12, 8)
         final_date = final_date.strftime('%d/%m/%Y')
-        response = self.add_event('','', '', '', '')
+        response = self.add_event('', '', '', '', '')
         assert b'Erro' in response.data
 
     def test_add_event_all_no_title(self):
-        #Titulo não inserido
+        #Title not inserted
         self.login('ppgic-teste', 'luccas')
         initial_date = date(2017, 12, 7)
         initial_date = initial_date.strftime('%d/%m/%Y')
@@ -181,7 +207,7 @@ class BasicTests(unittest.TestCase):
         assert b'Erro' in response.data
 
     def test_add_event_all_no_initial_date(self):
-        #Initial date não inserido
+        #Initial date not inserted
         self.login('ppgic-teste', 'luccas')
         initial_date = date(2017, 12, 7)
         initial_date = initial_date.strftime('%d/%m/%Y')
@@ -191,7 +217,7 @@ class BasicTests(unittest.TestCase):
         assert b'Erro' in response.data
 
     def test_delete_event(self):
-        #Deletar evento
+        #Delete event
         self.login('ppgic-teste', 'luccas')
         initial_date = date(2017, 12, 7)
         initial_date = initial_date.strftime('%d/%m/%Y')
@@ -200,7 +226,27 @@ class BasicTests(unittest.TestCase):
         response = self.delete_event('0', 'Evento Teste',initial_date, final_date, 'https://google.com','')
         assert b'sucesso' in response.data
 
+###############################################################################################
+#Tests involving subjects
+###############################################################################################
+
+    def test_subject_all_good(self):
+        #Add subjects with everything ok
+        self.login('ppgp-teste', 'luccas')
+        response = self.add_subject('Nome exemplo', 'Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo', '20', '3', 'Eletivas')
+        assert b'sucesso' in response.data
+
+    def test_subject_int_not_good(self):
+        #Add subjects with credits and workload not numbers
+        self.login('ppgp-teste', 'luccas')
+        response = self.add_subject('Nome exemplo', 'Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo', 'string', 'string','Eletivas')
+        assert b'erro' in response.data
+
+    def test_delete_subject_all_good(self):
+        #Delete subjects
+        self.login('ppgp-teste', 'luccas')
+        response = self.delete_subject('Nome exemplo', 'Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo', '20', '4','Eletivas', '0')
+        assert b'sucesso' in response.data
 
 if __name__ == "__main__":
-       unittest.main()
-
+    unittest.main()
