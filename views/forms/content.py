@@ -244,3 +244,33 @@ class EditDocumentForm(FlaskForm):
 
     create = SubmitField('Adicionar')
 
+class BookForm(FlaskForm):
+    """
+    Form for books
+    """
+    title = StringField('Titulo do livro:', validators=[
+        DataRequired('Digite o título do livro.')
+    ])
+
+    subtitle = StringField('Subtitulo do livro(se houver):')
+
+    authors = StringField('Nome do autor(es):', validators=[
+        DataRequired('Digite o nome dos autor(es)')
+    ])
+
+    edition = IntegerField('Número da edição:', validators=[
+        DataRequired('Digite o número da edição')
+    ])
+
+    location = StringField('Local de impressão:')
+
+    publisher = StringField('Editora:')
+
+    year = IntegerField('Ano da publicação:')
+
+    index = IntegerField()
+
+    create = SubmitField('Adicionar')
+
+
+

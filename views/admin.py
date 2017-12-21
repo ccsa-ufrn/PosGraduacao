@@ -285,9 +285,9 @@ def delete_subjects():
     json = pfactory.grades_of_subjects_dao().find()
     json = list(json)
     json = dumps(json)
-    index = str(form.index.data)
 
     if form.validate_on_submit():
+        index = str(form.index.data)
         dao.find_one_and_update({'title': form.requirement.data}, {
             '$set': {'subjects.' + index + '.deleted' : ""}
         })
@@ -421,11 +421,11 @@ def edit_staff():
     json = pfactory.boards_of_staffs_dao().find_one()
     json = dict(json)
     json = dumps(json)
-    index = '.' + str(form.index.data)
 
     dao = pfactory.boards_of_staffs_dao()
 
     if form.validate_on_submit():
+        index = '.' + str(form.index.data)
         if form.photo.data == '':
             photo = None
         else:

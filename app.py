@@ -7,6 +7,7 @@ from flask import Flask
 
 from views.public import app as public_app
 from views.admin import APP as admin_app
+from views.crud_books import crud_books
 from settings.extensions import ExtensionsManager
 
 APP = Flask(__name__)
@@ -14,6 +15,7 @@ ExtensionsManager.auto_configure(APP)
 
 APP.register_blueprint(public_app)
 APP.register_blueprint(admin_app)
+APP.register_blueprint(crud_books)
 
 PUBLIC_HOST = '0.0.0.0'
 PUBLIC_PORT = 80

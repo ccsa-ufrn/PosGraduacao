@@ -80,6 +80,13 @@
                         <li><a href=""class='btn disabled'>Retirar projetos</a></li>
                         </ul>
                     </li>
+                    <li><a href="">Livros</a>
+                        <ul>
+                            <li><a href="{{ url_for('crud_books.add_book') }}">Adicionar livros</a></li>
+                            <li><a href="{{ url_for('crud_books.edit_book') }}">Editar livros</a></li>
+                            <li><a href="{{ url_for('crud_books.delete_book') }}">Deletar livros</a></li>
+                        </ul>
+                    </li>
                     <li><a href="">Intercâmbios</a>
                         <ul>
                         <li><a href="{{ url_for('admin.participations') }}">Adicionar intercâmbios</a></li>
