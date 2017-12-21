@@ -69,8 +69,9 @@
                     </li>
                     <li><a href="">Docentes</a>
                         <ul>
-                        <li><a href=""class='btn disabled'>Adicionar docentes</a></li>
-                        <li><a href=""class='btn disabled'>Retirar docentes</a></li>
+                            <li><a href="{{ url_for('admin.add_professors') }}">Adicionar docentes</a></li>
+                            <li><a href="{{ url_for('admin.edit_professors') }}">Editar docentes</a></li>
+                            <li><a href="{{ url_for('admin.delete_professors') }}">Deletar docentes</a></li>
                         </ul>
                     </li>
                     <li><a href="">Projetos</a>

@@ -2,7 +2,10 @@
 
 {% block content %}
 
-<header>
+<div class="container">
+<div class="row">
+<div class="col-xs-6" style="margin-left: -5%">
+<header style="margin-top : 6.5%">
     <h2>Professores</h2>
 </header>
 
@@ -11,38 +14,29 @@
         <p>{{ success_msg }}</p>
     </div>
 {% endif %}
-<div class="form">
+
 <form method="POST" action="{{ url_for('admin.add_professors') }}">
+    <div class="form-group">
     {{ form.csrf_token }}
-    
     <br/>
-    
     {{ form.name.label }}<br/>
-    {{ form.name(required='true') }}
-
+    {{ form.name(required='true', class="form-control") }}
     <br/>
-    
     {{ form.rank.label }}<br/>
-    {{ form.rank(required='true', placeholder='ex: Professor ou Colaborador') }}
-
+    {{ form.rank(required='true', placeholder='ex: Professor ou Colaborador', class="form-control") }}
     <br/>
-
     {{ form.lattes.label }}<br/>
-    {{ form.lattes }}
+    {{ form.lattes(class="form-control") }}
     <br/>
-
     {{ form.email.label }}<br/>
-    {{ form.email(required='true') }}    
-
+    {{ form.email(required='true', class="form-control") }}    
     <br/>
-
-    <br/>
-    <br/>
-    
-    {{ form.create }}
-    
+    {{ form.create(class="form-control") }}
+    </div>
 </form>
-    <br/>
+<br/>
+</div>
+</div>
 </div>
 
 <p>

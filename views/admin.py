@@ -199,9 +199,9 @@ def edit_scheduled_reports():
     json = pfactory.final_reports_dao().find_one()
     json = dict(json)
     json = dumps(json, ensure_ascii=False)
-    index = str(form.index.data)
 
     if form.validate_on_submit():
+        index = str(form.index.data)
         new_report = {
             'time': form.time.data,
             'title': form.title.data,
@@ -765,13 +765,10 @@ def add_professors():
     dao = pfactory.boards_of_professors_dao()
 
     if form.validate_on_submit() and form.create.data:
-        lattes = form.lattes.data
-        if lattes == "":
-            lattes = None
         new_professor = {
             'name': form.name.data,
             'rank': form.rank.data,
-            'lattes': lattes,
+            'lattes': form.lattes.data,
             'email': form.email.data
         }
 
@@ -791,6 +788,84 @@ def add_professors():
         form=form,
         success_msg=request.args.get('success_msg')
     )
+
+@APP.route('/editar_professors/', methods=['GET', 'POST'])
+@login_required
+def edit_professors():
+    """Render a view for editing professors."""
+
+    form = ProfessorForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.boards_of_professors_dao()
+    json = pfactory.boards_of_professors_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+
+    if form.validate_on_submit() and form.create.data:
+        index = str(form.index.data)
+        new_professor = {
+            'name': form.name.data,
+            'rank': form.rank.data,
+            'lattes': form.lattes.data,
+            'email': form.email.data
+        }
+
+        dao.find_one_and_update(None, {
+            '$set': {'professors.' + index : new_professor}
+        })
+
+        return redirect(
+            url_for(
+                'admin.edit_professors',
+                professors=json,
+                success_msg='Professor editado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/edit_professors.html',
+        form=form,
+        professors=json,
+        success_msg=request.args.get('success_msg')
+    )
+
+@APP.route('/deletar_professors/', methods=['GET', 'POST'])
+@login_required
+def delete_professors():
+    """Render a view for deleting professors."""
+
+    form = ProfessorForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.boards_of_professors_dao()
+    json = pfactory.boards_of_professors_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+
+    if form.validate_on_submit() and form.create.data:
+        index = str(form.index.data)
+        dao.find_one_and_update(None, {
+            '$set': {'professors.' + index + '.deleted'  : ""}
+        })
+
+        return redirect(
+            url_for(
+                'admin.delete_professors',
+                professors=json,
+                success_msg='Professor deletado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/delete_professors.html',
+        form=form,
+        professors=json,
+        success_msg=request.args.get('success_msg')
+    )
+
+
+
 
 
 ###############################################################################
@@ -899,7 +974,6 @@ def edit_covenants():
     if form.validate_on_submit() and form.create.data:
         index = str(form.index.data)
         if form.logo.data and allowedFile(form.logo.data.filename, allowed_extensions):
-            print('Arquivo selecionado', file=sys.stderr)
             photo = form.logo.data
             path = os.path.normpath("static/assets")
             filename = secure_filename(photo.filename)
@@ -950,7 +1024,7 @@ def edit_covenants():
     )
 
 ###############################################################################
-#Adicionar deletar e editar documentos(Não finalizado)
+#Adicionar deletar e editar documentos
 ###############################################################################
 
 @APP.route('/documentos/', methods=['GET', 'POST'])

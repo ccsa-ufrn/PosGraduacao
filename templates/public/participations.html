@@ -20,11 +20,13 @@
     </p>
 
     {% for event in integrations_infos.participationsInEvents %}
+    {% if "deleted" not in event %}
     <h3>{{ event.title }}<br/>
         <small>({% if event.international %}{{ event.international }} | {% endif %}{{ event.year|int }})</small>
     </h3>
     
     <p>{{ event.description }}</p>
+    {% endif %}
     {% endfor %}
 
 </section>

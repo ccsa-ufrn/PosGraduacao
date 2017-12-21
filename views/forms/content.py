@@ -192,6 +192,8 @@ class ProfessorForm(FlaskForm):
         DataRequired('Digite o Email do professor(a).'), Email()
         ])
 
+    index = IntegerField()
+
     create = SubmitField('Adicionar')
 
 class DocumentForm(FlaskForm):

@@ -61,6 +61,8 @@ def home(initials):
 
     # search for home data
     final_reports = pfactory.final_reports_dao().find_one()
+    events = pfactory.calendar_dao().find_one()
+    events = pfactory.calendar_dao().find_one()['events']
     final_reports = final_reports['scheduledReports']
     weekly_schedules = pfactory.weekly_schedules_dao().find()
     integrations_infos = pfactory.integrations_infos_dao().find_one()
@@ -95,6 +97,7 @@ def home(initials):
         std=get_std_for_template(post_graduation),
         google_maps_api_key=google_maps_api_key,
         final_reports=final_reports,
+        events=events,
         weekly_schedules=weekly_schedules,
         institutions_with_covenant=institutions_with_covenant,
         attendance=attendance,
@@ -139,21 +142,7 @@ def view_professors(initials):
     board_of_professors = pfactory.boards_of_professors_dao().find_one()
     if board_of_professors is None:
         board_of_professors = []
-    else:
-        # manually fill missing lattes
-        for professor in board_of_professors['professors']:
-            if 'Djalma Freire Borges'.upper() in professor['name'].upper():
-                professor['lattes'] = 'http://lattes.cnpq.br/3216184364856265'
-            elif 'Káio César Fernandes'.upper() in professor['name'].upper():
-                professor['lattes'] = 'http://lattes.cnpq.br/9740792920379789'
-            elif 'Richard Medeiros de Araújo'.upper() in professor['name'].upper():
-                professor['lattes'] = 'http://lattes.cnpq.br/6158536331515084'
-            elif 'Ítalo Fittipaldi'.upper() in professor['name'].upper():
-                professor['lattes'] = 'http://lattes.cnpq.br/7626654802346326'
-            elif 'Hironobu Sano'.upper() in professor['name'].upper():
-                professor['lattes'] = 'http://lattes.cnpq.br/6037766951080411'
-
-
+    
     # renders an own page or redirect to another (external/404)?
     return render_template(
         'public/professors.html',

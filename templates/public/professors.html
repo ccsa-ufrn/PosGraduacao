@@ -24,6 +24,7 @@
                 <th>Currículo Lattes</th>
             </thead>
             {% for professor in board_of_professors.professors %}
+            {% if "deleted" not in professor %}
             <tr>
                 <td>{{ professor.name }}</td>
                 <td>{{ professor.rank }}(a)</td>
@@ -36,17 +37,21 @@
                 </td>
                 
                 <td>
-                    {% if professor.lattes %}
+                    {% if professor.lattes != "" %}
                     <a href="{{ professor.lattes }}" target="_blank">
                         <img src="/static/assets/lattes.gif">
                         {{ professor.lattes }}
                     </a>
                     {% else %}
-                    <small>(Não informado)</small>
+                    <a href="#" target="_blank">
+                        <img src="/static/assets/lattes.gif">
+                        Não informado
+                    </a>
                     {% endif %}
                 </td>
 
             </tr>
+            {% endif %}
             {% endfor %}
         </table>
     </div>

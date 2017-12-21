@@ -1,0 +1,81 @@
+{% extends "admin/layout.html" %}
+{% block styles %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ post_graduation }}.css"/>
+{% endblock %}
+
+{% block scripts %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript"></script> 
+<script type="text/javascript">
+$(document).ready(function() {
+    $("input[name=create]").val("Deletar");
+    var professors = {{ professors|tojson|safe }};
+    var professors = JSON.parse(professors);
+    console.log(professors);
+    var listOfProfessors = [];
+    for( i = 0; i < professors.professors.length; i++){
+        if(!(professors.professors[i].hasOwnProperty('deleted'))){
+            listOfProfessors.push({
+                id: i,
+                text: (professors.professors[i].name)
+            })
+        }
+    }
+
+    $("#list").select2({
+        data: listOfProfessors
+    });
+
+    $("button").click(function(){
+        var indexInProfessors = $("select#list").val();
+        $("#form-edit").css("display", "block");
+        $("input[name=name]").val(professors.professors[indexInProfessors].name);
+        $("input[name=rank]").val(professors.professors[indexInProfessors].rank);
+        $("input[name=lattes]").val(professors.professors[indexInProfessors].lattes);
+        $("input[name=email]").val(professors.professors[indexInProfessors].email);
+        $("input[name=index]").val(indexInProfessors);
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+<div class="col-xs-6" style="margin-left: -5%">
+<header style="margin-top : 6.5%">
+    <h2>Professor</h2>
+</header>
+<h4>Selecione o professor</h4>
+<select id="list"></select>
+<button id="edit" type="button" class="btn btn-default">Selecionar</button>
+</div>
+<div class="col-xs-10" style="margin-left: -5%">
+<form method="POST" id="form-edit" action="{{ url_for('admin.delete_professors') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    {{ form.index(required='true', style="display:none;", readonly="readonly") }}
+    
+    {{ form.name.label }}<br/>
+    {{ form.name(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.rank.label }}<br/>
+    {{ form.rank(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.lattes.label }}<br/>
+    {{ form.lattes(class="form-control", readonly="readonly")}}
+    <br/>
+    {{ form.email.label }}<br/>
+    {{ form.email(class="form-control", readonly="readonly")}}
+    <br/>
+    {{ form.create(class="form-control")}}
+    </div>
+</form>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}

@@ -1065,31 +1065,31 @@ db.calendar.insertMany([
         'events': [
           {
             'title': 'Matrícula para o período 2017.2',
-            'initialDate': '17/07/2017',
-            'finalDate': '21/07/2017',
-            'hour' : null,
-            'link': null
+            'initialDate': new Date(2017, 07, 17, 00, 00, 00, 00),
+            'finalDate': new Date(2017, 07, 21, 00, 00, 00, 00),
+            'hour' : "",
+            'link': ""
           },
           {
             'title': 'Início do período letivo 2017.2.',
-            'initialDate': '17/07/2017',
-            'finalDate': null,
-            'hour' : null,
+            'initialDate': new Date(2017, 07, 17, 00, 00, 00, 00),
+            'finalDate': "",
+            'hour' : "",
             'link': 'https://duckduckgo.com'
           },
           {
             'title': 'Hackathon UFRN',
-            'initialDate': '17/07/2017',
-            'finalDate': '20/07/2017',
-            'hour' : null,
+            'initialDate': new Date(2017, 07, 17, 00, 00, 00, 00),
+            'finalDate': new Date(2017, 07, 20, 00, 00, 00, 00),
+            'hour' : "",
             'link': 'duckduckgo.com'
           },
           {
             'title': 'Palestra sobre Direito Processual Civil',
-            'initialDate': '17/07/2017',
-            'finalDate': '17/07/2017',
+            'initialDate': new Date(2017, 07, 17, 00, 00, 00, 00),
+            'finalDate': new Date(2017, 07, 17, 00, 00, 00, 00),
             'hour' : '13:00 a 18:00',
-            'link': null
+            'link': ""
           }
         ]
     },
