@@ -272,5 +272,39 @@ class BookForm(FlaskForm):
 
     create = SubmitField('Adicionar')
 
+class ArticleForm(FlaskForm):
+    """
+    Form for articles
+    """
+    title = StringField('Titulo do artigo:', validators=[
+        DataRequired('Digite o título do artigo.')
+    ])
+
+    subtitle = StringField('Subtitulo do artigo(se houver):')
+
+    authors = StringField('Nome do autor(es):', validators=[
+        DataRequired('Digite o nome dos autor(es)')
+    ])
+
+    edition = IntegerField('Número da edição:', validators=[
+        DataRequired('Digite o número da edição')
+    ])
+
+    pages = StringField('Número das páginas:', validators=[
+        DataRequired('Digite o número das páginas')
+    ])
+
+    number = IntegerField('Número:')
+    
+    location = StringField('Local de impressão:')
+
+    publisher = StringField('Editora:')
+
+    date = StringField('Data:')
+
+    index = IntegerField()
+
+    create = SubmitField('Adicionar')
+
 
 

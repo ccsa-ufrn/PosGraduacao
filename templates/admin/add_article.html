@@ -1,0 +1,76 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+<div class="container">
+<div class="row">
+<div class="col-xs-6" style="margin-left: -5%">
+<header style="margin-top : 6.5%">
+    <h2>Artigos</h2>
+</header>
+
+<form method="POST" action="{{ url_for('crud_articles.add_article') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    
+    <br/>
+    
+    {{ form.title.label }}<br/>
+    {{ form.title(required='true', class="form-control") }}
+
+    <br/>
+    
+    {{ form.subtitle.label }}<br/>
+    {{ form.subtitle(class="form-control") }}
+
+    <br/>
+    
+    {{ form.authors.label }}<br/>
+    {{ form.authors(required='true', class="form-control") }}
+
+    <br/>
+
+    {{ form.edition.label }}<br/>
+    {{ form.edition(required='true', class="form-control", type='number', step='1', min='1', max='300', placeholder='ex: 1') }}
+
+    <br/>
+    
+    {{ form.location.label }}<br/>
+    {{ form.location(required='true', class="form-control") }}
+
+    <br/>
+    
+    {{ form.pages.label }}<br/>
+    {{ form.pages(required='true', class="form-control") }}
+    <br/>
+
+    {{ form.number.label }}<br/>
+    {{ form.number(class="form-control") }}
+
+    <br/>
+
+    {{ form.publisher.label }}<br/>
+    {{ form.publisher(required='true', class="form-control") }}
+
+    <br/>
+
+    {{ form.date.label }}<br/>
+    {{ form.date(class="form-control") }}    
+
+    <br/>
+    <br/>
+    
+    {{ form.create(class="form-control")}}
+    </div>
+    
+</form>
+<br/>
+</div>
+</div>
+</div>
+
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+
+{% endblock %}
