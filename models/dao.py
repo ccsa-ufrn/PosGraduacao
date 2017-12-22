@@ -3,7 +3,7 @@ All data **MUST** be only manipulated through this middleware,
 and not directly using Pymongo nor other API wrapper. And also,
 all DAOs **SHOULD** be created using factory methods.
 """
-
+import sys
 
 from models.clients.mongo import DB
 from models.clients import api_sistemas
@@ -148,10 +148,11 @@ class GenericMongoDAO(AbstractDAO):
 
 class StudentSigaaDAO(AbstractDAO):
 
-    def __init__(self, program_sigaa_code: int):
+    def __init__(self, id_course: int):
         self.ENDPOINT = api_sistemas.API_URL_ROOT
-        self.ENDPOINT += 'stricto-sensu-services/services/consulta/discente/'
-        self.ENDPOINT += str(program_sigaa_code)
+        self.ENDPOINT += 'discente/v0.1/discentes?situacao-discente=1&id-curso='
+        self.ENDPOINT += str(id_course)
+        self.ENDPOINT += '&limit=100'
 
     def find_all(self):
         raise NotImplementedError("Not implemented method inherited from an abstract class.")
@@ -166,10 +167,8 @@ class StudentSigaaDAO(AbstractDAO):
         students = []
         for student_from_sigaa in students_from_sigaa:
             students.append({
-                'name': student_from_sigaa['nome'].title(),
-                'class': student_from_sigaa['matricula'][0:4],
-                'level': student_from_sigaa['descricaoNivel'].capitalize(),
-                'orientation': student_from_sigaa['orientacoesAcademica'][0]['nome'].title()
+                'name': student_from_sigaa['nome-discente'].title(),
+                'class': str(student_from_sigaa['matricula']),
             })
         return students
 

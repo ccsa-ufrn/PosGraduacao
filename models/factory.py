@@ -40,6 +40,7 @@ class PosGraduationFactory(object):
         if self.post_graduation is not None:
             self.mongo_id = self.post_graduation['_id']
             self.sigaa_code = self.post_graduation['sigaaCode']
+            self.id_courses = self.post_graduation['coursesId']
         else:
             self.mongo_id = None
             self.sigaa_code = None
@@ -90,7 +91,10 @@ class PosGraduationFactory(object):
         return GenericMongoDAO(_COLLECTION_OF_ATTENDANCES, self.mongo_id)
     def students_dao(self):
         """ Gets an instance of a data access object for a certain collection """
-        return StudentSigaaDAO(int(self.sigaa_code))
+        courses_dict = {}
+        for course in self.id_courses:
+            courses_dict[course['nameCourse']] = StudentSigaaDAO(int(course['idCourse'])).find()
+        return courses_dict
 
     def projects_dao(self):
         """ Gets an instance of a data access object for a certain collection """

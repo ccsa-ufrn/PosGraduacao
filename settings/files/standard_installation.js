@@ -9,6 +9,12 @@ db.postGraduations.insertMany([
         'initials': 'PPGP',
         'sigaaCode': '1672',
         'isSignedIn': true,
+        'coursesId': [
+          {
+            'nameCourse' : 'Mestrado profissional em gestão pública',
+            'idCourse' : '84798578'
+          }
+        ],
         'users': [
             {
                 'nick': 'ppgp-teste',
@@ -26,6 +32,16 @@ db.postGraduations.insertMany([
         'name': 'Administração',
         'initials': 'PPGA',
         'sigaaCode': '1621',
+        'coursesId': [
+          {
+            'nameCourse' : 'Mestrado em Administração',
+            'idCourse' : '315764'
+          },
+          {
+            'nameCourse' : 'Doutorado em Administração',
+            'idCourse': '315765'
+          }
+        ],
         'isSignedIn': true,
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=74',
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=5679',
@@ -35,7 +51,13 @@ db.postGraduations.insertMany([
     {
         'name': 'Ciências Contábeis',
         'initials': 'PPGCC',
-        'sigaaCode': '1622',
+        'sigaaCode': '160039',
+        'coursesId': [
+          {
+            'nameCourse' : 'Mestrado em Ciências Contábeis',
+            'idCourse' : '108416320'
+          }
+        ],
         'isSignedIn': true,
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=9066',
 	'descriptionSmall': 'O Mestrado Profissional em Ciências Contábeis tem como objetivo formar docentes pesquisadores e habilitar, profissionais a atuar de forma destacada nas mais diversas instituições, em áreas que demandem conhecimento de ponta em Ciências Contábeis e afins',
@@ -46,6 +68,12 @@ db.postGraduations.insertMany([
         'initials': 'PPGD',
         'sigaaCode': '1623',
         'isSignedIn': true,
+        'coursesId': [
+          {
+            'nameCourse' : 'Mestrado em Direito',
+            'idCourse' : '315779'
+          }
+        ],
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=404',
 	'descriptionSmall': 'O Mestrado Profissional em Direito tem como objetivo formar docentes pesquisadores e habilitar e especializar profissionais no campo do Direito',
 	'descriptionBig' : 'O Programa de Pós-Graduação em Direito (PPGDIR) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplicadas (CCSA). Atualmente oferece o curso de Mestrado, em nível de pós-graduação stricto sensu, com o objetivo de formar docentes pesquisadores e habilitar e especializar profissionais no campo do Direito, desenvolver atividades específicas na pesquisa e no ensino do Direito, visando à preparação de profissionais para atividades acadêmicas. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colabor adores.O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações. Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.'
@@ -55,6 +83,12 @@ db.postGraduations.insertMany([
         'initials': 'PPGECO',
         'sigaaCode': '1624',
         'isSignedIn': true,
+        'coursesId': [
+          {
+            'nameCourse' : 'Mestrado em Economia',
+            'idCourse' : '315744'
+          }
+        ],
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=434',
 	'descriptionSmall': 'O Mestrado Profissional em Economia tem como formar mestres em Economia, concedendo-lhes a devida formação teórica e investigativa',
 	'descriptionBig' : 'O Programa de Pós-Graduação em Administração (PPGA) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplicadas (CCSA), foi criado em 2002. Atualmente oferece o curso de Mestrado, em nível de pós-graduação stricto sensu, com o propósito de formar mestres em Economia, concedendo-lhes a devida formação teórica e investigativa, para que possam atuar com base na competência técnica, no conhecimento crítico e no compromisso ético-político com o desenvolvimento econômico e social. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colabor adores.O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações. Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.'
@@ -62,8 +96,14 @@ db.postGraduations.insertMany([
     {
         'name': 'Gestão da Informação e do Conhecimento',
         'initials': 'PPGIC',
-        'sigaaCode': '1629',
+        'sigaaCode': '160040',
         'isSignedIn': true,
+        'coursesId': [
+          {
+            'nameCourse' : 'Mestrado em Gestão da Informação e do Conhecimento',
+            'idCourse' : '113140463'
+          }
+        ],
         'users': [
             {
                 'nick': 'ppgic-teste',
@@ -82,6 +122,16 @@ db.postGraduations.insertMany([
         'initials': 'PPGSS',
         'sigaaCode': '1626',
         'isSignedIn': true,
+        'coursesId': [
+          {
+            'nameCourse' : 'Mestrado em Serviço Social',
+            'idCourse' : '315741'
+          },
+          {
+            'nameCourse' : 'Doutorado em Serviço Social',
+            'idCourse': '117229950'
+          }
+        ],
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=376',
 	'descriptionSmall': 'O Mestrado Profissional em Serviço Social tem como objetivo viabilizar a qualificação de profissionais do Serviço Social e áreas afins, a investigação crítica e prepositiva, que os levem a produção de conhecimento sobre o seu exercício profissional pensado no contexto da realidade social, especialmente, no espaço societário de sua inserção',
 	'descriptionBig' : 'O Programa de Pós-Graduação em Serviço Social (PPGSS) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplicadas (CCSA), criado em Agosto de 2000. Atualmente oferece o curso de Mestrado, em nível de pós-graduação stricto sensu, tendo como objetivo viabilizar a qualificação de profissionais do Serviço Social e áreas afins, a investigação crítica e prepositiva, que os levem a produção de conhecimento sobre o seu exercício profissional pensado no contexto da realidade social, especialmente, no espaço societário de sua inserção, sem perder de vista a sua inserção na realidade nacional e internacional, conforme exige o mundo contemporâneo. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colabor adores.O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações. Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.'
@@ -91,6 +141,16 @@ db.postGraduations.insertMany([
         'initials': 'PPGTUR',
         'sigaaCode': '1654',
         'isSignedIn': true,
+        'coursesId': [
+          {
+            'nameCourse' : 'Mestrado em Turismo',
+            'idCourse' : '507421'
+          },
+          {
+            'nameCourse' : 'Doutorado em Turismo',
+            'idCourse': '104910434'
+          }
+        ],
         'oldURL': 'https://sigaa.ufrn.br/sigaa/public/programa/portal.jsf?lc=pt_BR&id=4295',
 	'descriptionSmall': 'O Mestrado Profissional em Turismo tem como objetivo  promover e oferecer educação continuada de qualidade em nível de pós-graduação para portadores de diplomas de curso superior em turismo e áreas afin',
 	'descriptionBig' : 'O Programa de Pós-Graduação em Turismo (PPGTUR) da Universidade Federal do Rio Grande do Norte (UFRN), é parte integrante do Centro de Ciências Sociais Aplicadas (CCSA). Atualmente oferece o curso de Mestrado, em nível de pós-graduação stricto sensu, tendo como objetivo Promover e oferecer educação continuada de qualidade em nível de pós-graduação para portadores de diplomas de curso superior em turismo e áreas afins e preparar pesquisadores para o incremento da produção científica em Turismo e áreas afins. O corpo docente do curso é formado pelos professores do Centro de Ciências Sociais Aplicadas (CCSA) da UFRN, além de contar com professores convidados e colabor adores.O Curso é oferecido por meio de convênio com as instituições interessadas, que podem contatar a coordenação do curso para mais informações. Este site disponibiliza informações mais detalhadas sobre o Programa, inclusive informações de contato.'

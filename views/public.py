@@ -1,7 +1,7 @@
 """
 Routes and views for public pages about Post Graduation Programs.
 """
-
+import sys
 
 from flask import Blueprint, render_template, redirect, \
 current_app, request
@@ -231,7 +231,8 @@ def view_students(initials):
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
 
-    students = pfactory.students_dao().find()
+    students = pfactory.students_dao()
+    print(students,file=sys.stderr)
 
     # renders an own page or redirect to another (external/404)?
     return render_template(

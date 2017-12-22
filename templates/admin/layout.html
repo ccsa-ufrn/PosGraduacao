@@ -54,76 +54,97 @@
                 </ul>
                 <h6><strong>EDITAR PÁGINAS</strong></h6>
                 <ul class="nav nav-sidebar">
-                    <li><a href="">Disciplinas</a>
-                        <ul>
+                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Disciplinas
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
                         <li><a href="{{ url_for('admin.subjects') }}">Adicionar Disciplinas</a></li>
                         <li><a href="{{ url_for('admin.edit_subjects') }}">Editar Disciplina</a></li>
                         <li><a href="{{ url_for('admin.delete_subjects') }}">Retirar Disciplinas</a></li>
                         </ul>
                     </li>
-                    <li><a href="">Discentes</a>
-                        <ul>
+                    {% if current_user.pg_initials in 'PPGSS PPGP' %}
+                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Disciplinas(Doutorado)
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                        <li><a href="">Adicionar Disciplinas</a></li>
+                        <li><a href="">Editar Disciplina</a></li>
+                        <li><a href="">Retirar Disciplinas</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Discentes
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
                         <li><a href=""class='btn disabled'>Adicionar discentes</a></li>
                         <li><a href=""class='btn disabled'>Retirar discentes</a></li>
                         </ul>
                     </li>
-                    <li><a href="">Docentes</a>
-                        <ul>
+                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Docentes
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
                             <li><a href="{{ url_for('admin.add_professors') }}">Adicionar docentes</a></li>
                             <li><a href="{{ url_for('admin.edit_professors') }}">Editar docentes</a></li>
                             <li><a href="{{ url_for('admin.delete_professors') }}">Deletar docentes</a></li>
                         </ul>
                     </li>
-                    <li><a href="">Projetos</a>
-                        <ul>
+                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Projetos
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
                         <li><a href=""class='btn disabled'>Adicionar projetos</a></li>
                         <li><a href=""class='btn disabled'>Retirar projetos</a></li>
                         </ul>
                     </li>
-                    <li><a href="">Livros</a>
-                        <ul>
+                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Livros
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
                             <li><a href="{{ url_for('crud_books.add_book') }}">Adicionar livros</a></li>
                             <li><a href="{{ url_for('crud_books.edit_book') }}">Editar livros</a></li>
                             <li><a href="{{ url_for('crud_books.delete_book') }}">Deletar livros</a></li>
                         </ul>
                     </li>
-                    <li><a href="">Artigos</a>
-                        <ul>
+                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Artigos
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
                             <li><a href="{{ url_for('crud_articles.add_article') }}">Adicionar artigos</a></li>
                             <li><a href="{{ url_for('crud_articles.edit_article') }}">Editar artigos</a></li>
                             <li><a href="{{ url_for('crud_articles.delete_article') }}">Deletar livros</a></li>
                         </ul>
                     </li>
-                    <li><a href="">Intercâmbios</a>
-                        <ul>
+                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Intercâmbios
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
                         <li><a href="{{ url_for('admin.participations') }}">Adicionar intercâmbios</a></li>
                         <li><a href="{{ url_for('admin.edit_participations') }}">Editar intercâmbios</a></li>
                         <li><a href="{{ url_for('admin.delete_participations') }}">Retirar intercâmbios</a></li>
                         </ul>
                     </li>
-                    <li><a href="" >Agendamento de defesas</a>
-                        <ul>
+                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Agendamento de defesas
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
                         <li><a href="{{ url_for('admin.scheduled_reports') }}">Adicionar agendamento</a></li>
                         <li><a href="{{ url_for('admin.edit_scheduled_reports') }} ">Editar agendamento</a></li>
                         <li><a href="{{ url_for('admin.delete_scheduled_reports') }} ">Deletar agendamento</a></li>
                         </ul>
                     </li>
-                    <li><a href="">Equipe</a>
-                        <ul>
+                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Equipe
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
                         <li><a href="{{ url_for('admin.add_staff') }}">Adicionar membros da equipe</a></li>
                         <li><a href="{{ url_for('admin.edit_staff') }}">Editar membros da equipe</a></li>
                         <li><a href="{{ url_for('admin.delete_staff') }}">Retirar membrors da equipe</a></li>
                         </ul>
                     </li>
-                    <li><a href="">Convênios</a>
-                        <ul>
+                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Convênios
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
                             <li><a href="{{ url_for('admin.covenants') }}">Adicionar convênios</a></li>
                             <li><a href="{{ url_for('admin.edit_covenants') }}">Editar convênios</a></li>
                             <li><a href="{{ url_for('admin.delete_covenants') }}">Retirar convênios</a></li>
                         </ul>
                     </li>
-                    <li><a href="">Calendário</a>
-                        <ul>
+                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Calendário
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
                             <li><a href="{{ url_for('admin.add_events') }}">Adicionar evento</a></li>
                             <li><a href="{{ url_for('admin.edit_events') }}">Editar evento</a></li>
                             <li><a href="{{ url_for('admin.delete_events') }}">Retirar evento</a></li>
@@ -132,8 +153,9 @@
                 </ul>
                 <h6><strong>BUROCRACIA</strong></h6>
                 <ul class="nav nav-sidebar">
-                <li><a href="">Documentos</a>
-                    <ul>
+                <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Documentos
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
                     <li><a href="{{ url_for('admin.documents') }}">Adicionar documentos</a></li>
                     <li><a href="{{ url_for('admin.edit_documents') }}">Editar documentos</a></li>
                     <li><a href="{{ url_for('admin.delete_documents') }}">Retirar documentos</a></li>

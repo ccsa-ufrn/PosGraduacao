@@ -14,26 +14,26 @@
     <header class="page-header">
         <h2>&raquo Discentes</h2>
     </header>
-
+    {% for course in students %}
     <div class="panel panel-default">
+        <div class="panel-heading text-center">
+            <h4>{{ course }}</h4>
+        </div>
         <table class="table">
             <thead>
                 <th>Nome</th>
-                <th>Turma</th>
-                <th>Nível</th>
-                <th>Orientador</th>
+                <th>Matricula</th>
             </thead>
-            {% for student in students %}
             <tr>
+            {% for student in students[course] %}
                 <td>{{ student.name }}</td>
                 <td>{{ student.class }}</td>
-                <td>{{ student.level }}</td>
-                <td>{{ student.orientation }}</td>
             </tr>
             {% endfor %}
         </table>
     </div>
     <br/>
+    {% endfor %}
 
 </section>
 

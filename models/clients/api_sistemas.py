@@ -9,6 +9,7 @@ https://api.ufrn.br/
 """
 
 import json
+import sys
 
 import requests # To read: http://docs.python-requests.org/en/master/user/quickstart/
 #from urllib3 import urlencode
@@ -21,15 +22,17 @@ sinfo_api_dict = keyring.get(keyring.SINFO_API)
 # security data
 CLIENT_ID     = 'none'
 CLIENT_SECRET = 'none'
+X_API_KEY = 'none'
 
 try:
     CLIENT_ID     = sinfo_api_dict['client-id']
     CLIENT_SECRET = sinfo_api_dict['client-secret']
+    X_API_KEY = sinfo_api_dict['x-api-key']
 except KeyError:
     raise NoAppCredentialsForSigaaError()
 
 # important URLs for APISistemas
-API_URL_ROOT           = 'https://api.ufrn.br/' # API root (it's a test security link for now)
+API_URL_ROOT           = 'https://apitestes.info.ufrn.br/' # API root (it's a test security link for now)
 AUTHORIZATION_ENDPOINT = API_URL_ROOT + 'authz-server/oauth/authorize' # auth
 TOKEN_ENDPOINT         = API_URL_ROOT + 'authz-server/oauth/token' # token
 
@@ -51,6 +54,7 @@ def get_public_data(resource_url):
     """
     headers = {
         'Authorization' : 'Bearer ' + retrieve_token(),
+        'x-api-key': X_API_KEY
     }
     
     try:
