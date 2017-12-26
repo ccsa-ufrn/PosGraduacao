@@ -9,13 +9,7 @@
     <h2>Disciplinas</h2>
 </header>
 
-{% if success_msg %}
-    <div class="form-success">
-        <p>{{ success_msg }}</p>
-    </div>
-{% endif %}
-
-<form method="POST" action="{{ url_for('admin.subjects') }}">
+<form method="POST" action="{{ url_for('crud_subjects.subjects') }}">
     <div class="form-group">
     {{ form.csrf_token }}
     
@@ -44,7 +38,6 @@
     {{ form.requirement.label }}<br/>
     {{ form.requirement(required='true', class="form-control") }}
 
-    <br/>
     <br/>
     
     {{ form.create(class="form-control")}}

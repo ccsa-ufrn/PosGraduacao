@@ -349,6 +349,7 @@ db.gradesOfSubjects.insertMany([
         'title': 'Obrigatórias',
         'minCredits': 10,
         'minSubjectsQtt': 5,
+        'courseType' : 'Mestrado',
         'subjects': [
             {
                 'name': 'Teoria Geral da Administração Pública',
@@ -387,6 +388,7 @@ db.gradesOfSubjects.insertMany([
         'title': 'Eletivas',
         'minCredits': 14,
         'minSubjectsQtt': 7,
+        'courseType' : 'Mestrado',
         'subjects': [
             {
                 'name': 'Orçamento e Finanças Públicas',
@@ -491,6 +493,23 @@ db.gradesOfSubjects.insertMany([
         'title': 'Obrigatórias',
         'minCredits': 10,
         'minSubjectsQtt': 5,
+        'courseType' : 'Doutorado',
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGA_ID,
+        'title': 'Eletivas',
+        'minCredits': 10,
+        'minSubjectsQtt': 5,
+        'courseType' : 'Doutorado',
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGA_ID,
+        'title': 'Obrigatórias',
+        'minCredits': 10,
+        'minSubjectsQtt': 5,
+        'courseType' : 'Mestrado',
         'subjects': []
     },
     {
@@ -498,6 +517,7 @@ db.gradesOfSubjects.insertMany([
         'title': 'Eletivas',
         'minCredits': 14,
         'minSubjectsQtt': 7,
+        'courseType' : 'Mestrado',
         'subjects': []
     },
     {
@@ -505,6 +525,7 @@ db.gradesOfSubjects.insertMany([
         'title': 'Obrigatórias',
         'minCredits': 10,
         'minSubjectsQtt': 5,
+        'courseType' : 'Mestrado',
         'subjects': []
     },
     {
@@ -512,6 +533,7 @@ db.gradesOfSubjects.insertMany([
         'title': 'Eletivas',
         'minCredits': 14,
         'minSubjectsQtt': 7,
+        'courseType' : 'Mestrado',
         'subjects': []
     },
     {
@@ -519,6 +541,7 @@ db.gradesOfSubjects.insertMany([
         'title': 'Obrigatórias',
         'minCredits': 10,
         'minSubjectsQtt': 5,
+        'courseType' : 'Mestrado',
         'subjects': []
     },
     {
@@ -526,6 +549,7 @@ db.gradesOfSubjects.insertMany([
         'title': 'Eletivas',
         'minCredits': 14,
         'minSubjectsQtt': 7,
+        'courseType' : 'Mestrado',
         'subjects': []
     },
     {
@@ -533,6 +557,7 @@ db.gradesOfSubjects.insertMany([
         'title': 'Obrigatórias',
         'minCredits': 10,
         'minSubjectsQtt': 5,
+        'courseType' : 'Mestrado',
         'subjects': []
     },
     {
@@ -540,6 +565,7 @@ db.gradesOfSubjects.insertMany([
         'title': 'Eletivas',
         'minCredits': 14,
         'minSubjectsQtt': 7,
+        'courseType' : 'Mestrado',
         'subjects': []
     },
     {
@@ -547,6 +573,7 @@ db.gradesOfSubjects.insertMany([
         'title': 'Obrigatórias',
         'minCredits': 10,
         'minSubjectsQtt': 5,
+        'courseType' : 'Mestrado',
         'subjects': []
     },
     {
@@ -554,6 +581,23 @@ db.gradesOfSubjects.insertMany([
         'title': 'Eletivas',
         'minCredits': 14,
         'minSubjectsQtt': 7,
+        'courseType' : 'Mestrado',
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGSS_ID,
+        'title': 'Obrigatórias',
+        'minCredits': 10,
+        'minSubjectsQtt': 5,
+        'courseType' : 'Doutorado',
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGSS_ID,
+        'title': 'Eletivas',
+        'minCredits': 14,
+        'minSubjectsQtt': 7,
+        'courseType' : 'Doutorado',
         'subjects': []
     },
     {
@@ -561,6 +605,7 @@ db.gradesOfSubjects.insertMany([
         'title': 'Obrigatórias',
         'minCredits': 10,
         'minSubjectsQtt': 5,
+        'courseType' : 'Mestrado',
         'subjects': []
     },
     {
@@ -568,6 +613,23 @@ db.gradesOfSubjects.insertMany([
         'title': 'Eletivas',
         'minCredits': 14,
         'minSubjectsQtt': 7,
+        'courseType' : 'Mestrado',
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGTUR_ID,
+        'title': 'Obrigatórias',
+        'minCredits': 10,
+        'minSubjectsQtt': 5,
+        'courseType' : 'Doutorado',
+        'subjects': []
+    },
+    {
+        'ownerProgram': PPGTUR_ID,
+        'title': 'Eletivas',
+        'minCredits': 14,
+        'minSubjectsQtt': 7,
+        'courseType' : 'Doutorado',
         'subjects': []
     },
     {
@@ -575,6 +637,7 @@ db.gradesOfSubjects.insertMany([
         'title': 'Obrigatórias',
         'minCredits': 10,
         'minSubjectsQtt': 5,
+        'courseType' : 'Mestrado',
         'subjects': []
     },
     {
@@ -582,6 +645,7 @@ db.gradesOfSubjects.insertMany([
         'title': 'Eletivas',
         'minCredits': 14,
         'minSubjectsQtt': 7,
+        'courseType' : 'Mestrado',
         'subjects': []
     }
 ]);

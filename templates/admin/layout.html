@@ -57,18 +57,18 @@
                     <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Disciplinas
                         <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('admin.subjects') }}">Adicionar Disciplinas</a></li>
-                        <li><a href="{{ url_for('admin.edit_subjects') }}">Editar Disciplina</a></li>
-                        <li><a href="{{ url_for('admin.delete_subjects') }}">Retirar Disciplinas</a></li>
+                        <li><a href="{{ url_for('crud_subjects.subjects', course_type='Mestrado') }}">Adicionar Disciplinas</a></li>
+                        <li><a href="{{ url_for('crud_subjects.edit_subjects', course_type='Mestrado') }}">Editar Disciplina</a></li>
+                        <li><a href="{{ url_for('crud_subjects.delete_subjects', course_type='Mestrado') }}">Retirar Disciplinas</a></li>
                         </ul>
                     </li>
-                    {% if current_user.pg_initials in 'PPGSS PPGP' %}
+                    {% if current_user.pg_initials in 'PPGSS PPGA PPGTUR' %}
                     <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Disciplinas(Doutorado)
                         <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                        <li><a href="">Adicionar Disciplinas</a></li>
-                        <li><a href="">Editar Disciplina</a></li>
-                        <li><a href="">Retirar Disciplinas</a></li>
+                        <li><a href="{{ url_for('crud_subjects.subjects', course_type='Doutorado') }}">Adicionar Disciplinas</a></li>
+                        <li><a href="{{ url_for('crud_subjects.edit_subjects', course_type='Doutorado') }}">Editar Disciplina</a></li>
+                        <li><a href="{{ url_for('crud_subjects.delete_subjects', course_type='Doutorado') }}">Retirar Disciplinas</a></li>
                         </ul>
                     </li>
                     {% endif %}

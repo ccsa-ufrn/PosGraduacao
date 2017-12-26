@@ -58,7 +58,7 @@ class SubjectsForm(FlaskForm):
     requirement = SelectField('Tipo de disciplina', choices=[('Obrigatórias','Obrigatórias'), ('Eletivas','Eletivas')], validators = [
         DataRequired('Insira o tipo da disciplina')
     ])
- 
+
     index = IntegerField()
 
     create = SubmitField('Adicionar')
