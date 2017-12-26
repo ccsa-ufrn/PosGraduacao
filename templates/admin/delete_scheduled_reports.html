@@ -33,7 +33,7 @@ $(document).ready(function() {
         var date = new Date(time.$date);
         var date = date.toLocaleDateString() + " " + date.toLocaleTimeString();
         var date = date.substring(0, date.length - 3);
-        $("#form-edit").css("display", "block");
+        $("#form-edit").css("visibility", "visible");
         $("input[name=title]").val(title);
         $("input[name=location]").val(location);
         $("input[name=author]").val(author);
@@ -49,15 +49,19 @@ $(document).ready(function() {
 {% block content %}
 <div class="container">
 <div class="row">
-<div class="col-xs-12" style="margin-left: -5%">
-<header class="page-header">
-    <h2>&raquo Trabalhos de Conclusão</h2>
-</header>
-<h4>Selecione o agendamento</h4>
+<br/>
+<div class="col-xs-12">
+<div class="panel panel-danger" style="margin-left: -6%">
+<div class="panel-heading text-center">
+    <h4>Deletar agendamento<h4/>
+</div>
+<div class="panel-body">
+<div class="col-xs-10">
+<h5>Selecione o agendamento</h5>
 <select id="list"></select>
 <button id="edit" type="button" class="btn btn-default">Selecionar</button>
 </div>
-<div class="col-xs-10" style="margin-left: -5%">
+<div class="col-xs-10">
 <form method="POST" id="form-edit" action="{{ url_for('admin.delete_scheduled_reports') }}">
     <div class="form-group">
     {{ form.csrf_token }}
@@ -78,6 +82,9 @@ $(document).ready(function() {
     {{ form.create(class="form-control") }}
     </div>
 </form>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>

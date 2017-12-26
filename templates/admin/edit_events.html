@@ -31,7 +31,7 @@ $(document).ready(function() {
 
     $("button").click(function(){
         var indexInEvents = $("select#list").val();
-        $("#form-edit").css("display", "block");
+        $("#form-edit").css("visibility", "visible");
         $("input[name=title]").val(events.events[indexInEvents].title);
         var initialDate = new Date(events.events[indexInEvents].initialDate.$date);
         var initialDate = initialDate.toLocaleDateString();
@@ -62,20 +62,24 @@ $(function() {
 {% block content %}
 <div class="container">
 <div class="row">
-<div class="col-xs-6" style="margin-left: -5%">
-<header style="margin-top : 6.5%">
-    <h2>Eventos</h2>
-</header>
-<h4>Selecione o evento</h4>
+<br/>
+<div class="col-xs-12">
+<div class="panel panel-danger" style="margin-left: -6%">
+<div class="panel-heading text-center">
+    <h4>Editar evento<h4/>
+</div>
+<div class="panel-body">
+<div class="col-xs-10">
+<h5>Selecione o evento</h5>
 <select id="list"></select>
 <button id="edit" type="button" class="btn btn-default">Selecionar</button>
 </div>
-<div class="col-xs-10" style="margin-left: -5%">
+<div class="col-xs-10">
 <form method="POST" id="form-edit" action="{{ url_for('admin.edit_events') }}">
     <div class="form-group">
     {{ form.csrf_token }}
     {{ form.index(required='true', style="display:none;", readonly="readonly") }}
-    
+    <br/> 
     {{ form.title.label }}<br/>
     {{ form.title(required='true', class="form-control", placeholder='ex: Inicio do ano letivo') }}
     <br/>
@@ -97,6 +101,9 @@ $(function() {
     {{ form.create(class="form-control")}}
     </div>
 </form>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>

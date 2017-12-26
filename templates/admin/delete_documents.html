@@ -29,7 +29,7 @@ $(document).ready(function() {
 
     $("button").click(function(){
         var indexInDocuments = $("select#list").val();
-        $("#form-edit").css("display", "block");
+        $("#form-edit").css("visibility", "visible");
         $("input[name=title]").val(documents[indexInDocuments].title);
         $("input[name=cod]").val(documents[indexInDocuments].cod);
         $("select[name=category]").val(documents[indexInDocuments].category);
@@ -43,15 +43,19 @@ $(document).ready(function() {
 {% block content %}
 <div class="container">
 <div class="row">
-<div class="col-xs-12" style="margin-left: -5%">
-<header class="page-header">
-    <h2>Documento</h2>
-</header>
-<h4>Selecione o documento</h4>
+<br/>
+<div class="col-xs-12">
+<div class="panel panel-danger" style="margin-left: -6%">
+<div class="panel-heading text-center">
+    <h4>Deletar documento<h4/>
+</div>
+<div class="panel-body">
+<div class="col-xs-10">
+<h5>Selecione o documento</h5>
 <select id="list"></select>
 <button id="edit" type="button" class="btn btn-default">Selecionar</button>
 </div>
-<div class="col-xs-10" style="margin-left: -5%">
+<div class="col-xs-10">
 <form method="POST" id="form-edit" action="{{ url_for('admin.delete_documents') }}" >
     <div class="form-group">
     {{ form.csrf_token }}
@@ -70,6 +74,9 @@ $(document).ready(function() {
     {{ form.create(class="form-control") }}
     </div>
 </form>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>

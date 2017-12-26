@@ -4,16 +4,12 @@
 <div class="container">
 <div class="row">
 <div class="col-xs-6" style="margin-left: -5%">
-<header style="margin-top: 6.5%">
-    <h2>Teses e dissertações</h2>
-</header>
-
-{% if success_msg %}
-    <div class="form-success">
-        <p>{{ success_msg }}</p>
-    </div>
-{% endif %}
-
+<br/>
+<div class="panel panel-danger">
+<div class="panel-heading text-center">
+    <h4>Adicionar defesa<h4/>
+</div>
+<div class="panel-body">
 <form method="POST" action="{{ url_for('admin.scheduled_reports') }}">
     <div class="form-group">
     {{ form.csrf_token }}
@@ -43,12 +39,14 @@
     {{ form.create(class="form-control") }}
     </div>
 </form>
-</div>
-</div>
-</div>
-
+<br/>
 <p>
     Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
 </p>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 {% endblock %}

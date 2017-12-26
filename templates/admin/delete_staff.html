@@ -40,7 +40,7 @@ $(document).ready(function() {
         var indexInStaff = $("select#list").val();
         var functionStaff = ($("#functionStaff").val());
         $("input[name=index]").val(indexInStaff);
-        $("#form-edit").css("display","block");
+        $("#form-edit").css("visibility","visible");
         if(functionStaff == "coordination"){
             $("input[name=name]").val(staff.coordination[indexInStaff].name);
             $("textarea[name=abstract]").val(staff.coordination[indexInStaff].abstract);
@@ -91,10 +91,13 @@ $(document).ready(function() {
 {% block content %}
 <div class="container">
 <div class="row">
-<div class="col-xs-12" style="margin-left: -5%">
-<header class="page-header">
-    <h2>Equipe</h2>
-</header>
+<br/>
+<div class="panel panel-danger" style="margin-left: -4%">
+<div class="panel-heading text-center">
+    <h4>Deletar servidor</h4>
+</div>
+<div class="panel-body">
+<div class="col-xs-10">
 <h4>Selecione o servidor</h4>
 <select id="list"></select>
 <select id="functionStaff" type="select" class="btn btn-default">
@@ -103,7 +106,7 @@ $(document).ready(function() {
 </select>
 <button id="edit"type="button" class="btn btn-default">Selecionar</button>
 </div>
-<div class="col-xs-6" style="margin-left: -5%">
+<div class="col-xs-6">
 <form method="POST" id='form-edit' action="{{ url_for('admin.edit_staff') }}">
     <div class="form-group">
     {{ form.csrf_token }}
@@ -131,6 +134,9 @@ $(document).ready(function() {
     <img src="" class="img-circle pull-right" height="280" width="240" style="display:none">
 </div>
 
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>

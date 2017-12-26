@@ -196,6 +196,52 @@ class ProfessorForm(FlaskForm):
 
     create = SubmitField('Adicionar')
 
+class AttendanceForm(FlaskForm):
+    """
+    Form for adding attendance information to database
+    """
+    building = StringField('Prédio onde a unidade se localiza:', validators=[
+        DataRequired('Digite o nome do prédio.')
+    ])
+
+    floor = StringField('Digite o andar onde a unidade se localiza:', validators=[
+        DataRequired('Digite o andar.')
+    ])
+
+    room = StringField('Sala onde a unidade se localiza:', validators=[
+        DataRequired('Digite o nome da sala.')
+    ])
+
+    email = EmailField('Email da unidade:', validators=[
+        DataRequired('Digite o email.')
+    ])
+
+    opening = StringField('Horário de funcionamento:', validators=[
+        DataRequired('Digite o horário de funcionamento.')
+    ])
+
+    type1 = StringField('Tipo do telefone:', validators=[
+        DataRequired('Digite o tipo do telefone.')
+    ])
+
+    phone1 = StringField('Telefone:', validators=[
+        DataRequired('Digite o telefone para contato.')
+    ])
+
+    type2 = StringField('Tipo do telefone:')
+
+    phone2 = StringField('Telefone:')
+
+    type3 = StringField('Tipo do telefone:')
+
+    phone3 = StringField('Telefone:')
+
+    attendance_id = StringField(validators=[
+        DataRequired()
+    ])
+
+    create = SubmitField('Editar')
+
 class DocumentForm(FlaskForm):
     """
     Form for upload of document

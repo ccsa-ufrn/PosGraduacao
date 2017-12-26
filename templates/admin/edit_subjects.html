@@ -38,7 +38,7 @@ $(document).ready(function() {
 
     $("button").click(function(){
         var indexInSubjects = $("select#list").val();
-        $("#form-edit").css("display", "block");
+        $("#form-edit").css("visibility", "visible");
         $("input[name=name]").val(subjects[indexRequirement].subjects[indexInSubjects].name);
         $("textarea[name=description]").val(subjects[indexRequirement].subjects[indexInSubjects].description);
         console.log(subjects[indexRequirement].subjects[indexInSubjects].description);
@@ -74,11 +74,15 @@ $(document).ready(function() {
 {% block content %}
 <div class="container">
 <div class="row">
-<div class="col-xs-12" style="margin-left: -5%">
-<header class="page-header">
-    <h2>Disciplinas</h2>
-</header>
-<h4>Selecione a disciplina</h4>
+<br/>
+<div class="col-xs-10">
+<div class="panel panel-danger" style="margin-left: -6%">
+<div class="panel-heading text-center">
+    <h4>Editar disciplinas<h4/>
+</div>
+<div class="panel-body">
+<div class="col-xs-10">
+<h5>Selecione a disciplina</h5>
 <select id="list"></select>
 <select id="requirements" type="select" class="btn btn-default">
     <option value="Obrigatórias" selected="selected">Obrigatórias</option>
@@ -86,7 +90,7 @@ $(document).ready(function() {
 </select>
 <button id="edit" type="button" class="btn btn-default">Selecionar</button>
 </div>
-<div class="col-xs-8" style="margin-left: -5%">
+<div class="col-xs-10">
 <form method="POST" id="form-edit" action="{{ url_for('crud_subjects.edit_subjects') }}">
     <div class="form-group">
     {{ form.csrf_token }}
@@ -109,6 +113,9 @@ $(document).ready(function() {
     {{ form.create(class="form-control") }}
     </div>
 </form>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>

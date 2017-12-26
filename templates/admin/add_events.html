@@ -22,10 +22,12 @@ $(function() {
 <div class="container">
 <div class="row">
 <div class="col-xs-6" style="margin-left: -5%">
-<header style="margin-top : 6.5%">
-    <h2>Eventos</h2>
-</header>
-
+<br/>
+<div class="panel panel-danger">
+<div class="panel-heading text-center">
+    <h4>Adicionar evento<h4/>
+</div>
+<div class="panel-body">
 <form method="POST" action="{{ url_for('admin.add_events') }}">
     <div class="form-group">
     {{ form.csrf_token }}
@@ -51,6 +53,12 @@ $(function() {
     {{ form.create(class="form-control")}}
     </div>
 </form>
+<br/>
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+</div>
+</div>
 </div>
 </div>
 </div>
