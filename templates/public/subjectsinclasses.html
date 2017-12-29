@@ -1,0 +1,73 @@
+{% extends "public/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ std.post_graduation.initials.lower() }}.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>&raquo Disciplinas</h2>
+    </header>
+
+    <div class="container mx-auto">
+        <div class="row align-items-center">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        <h5>Selecione o ano e periodo</h5>
+                    </div>
+                    <div class="panel-body form-inline col-md-offset-2">
+                            <div class="form-group">
+                                <form method="POST" action="{{ url_for('public.view_classes', initials=std.post_graduation.initials) }}">
+                                {{ form.csrf_token }}
+                                {{ form.year(required="true", class="form-control", placeholder="2017", style="width: 33%") }}
+                                {{ form.period(required="true", class="form-control", placeholder="1") }}
+                                <input type="submit" value="Go"/>
+                                </form>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="panel panel-default">
+        <div class="panel-heading text-center">
+            <h4>Turmas</h4>
+        </div>
+
+        <table class="table">
+            <thead>
+                <th>Código</th>
+                <th>Disciplina</th>
+                <th>Professor</th>
+                <th>Horário</th>
+                {% for class in classes %}
+                <tr>
+                <td>{{ class.component_code }}</td>
+                <td>{{ class.component_name }}</td>
+                <td>{{ class.professor_name }}</td>
+                <td>{{ class.hours }}</td>
+                </tr>
+                {% endfor %}
+            </thead>
+        </table>
+    </div>
+    <br/>
+
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+});
+</script>
+{% endblock %}

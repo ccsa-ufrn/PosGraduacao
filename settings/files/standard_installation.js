@@ -8,6 +8,7 @@ db.postGraduations.insertMany([
         'name': 'Gestão Pública',
         'initials': 'PPGP',
         'sigaaCode': '1672',
+        'idUnit' : '6296',
         'isSignedIn': true,
         'coursesId': [
           {
@@ -32,6 +33,7 @@ db.postGraduations.insertMany([
         'name': 'Administração',
         'initials': 'PPGA',
         'sigaaCode': '1621',
+        'idUnit' : '74',
         'coursesId': [
           {
             'nameCourse' : 'Mestrado em Administração',
@@ -52,6 +54,7 @@ db.postGraduations.insertMany([
         'name': 'Ciências Contábeis',
         'initials': 'PPGCC',
         'sigaaCode': '160039',
+        'idUnit' : '9066',
         'coursesId': [
           {
             'nameCourse' : 'Mestrado em Ciências Contábeis',
@@ -67,6 +70,7 @@ db.postGraduations.insertMany([
         'name': 'Direito',
         'initials': 'PPGD',
         'sigaaCode': '1623',
+        'idUnit' : '404',
         'isSignedIn': true,
         'coursesId': [
           {
@@ -82,6 +86,7 @@ db.postGraduations.insertMany([
         'name': 'Economia',
         'initials': 'PPGECO',
         'sigaaCode': '1624',
+        'idUnit' : '434',
         'isSignedIn': true,
         'coursesId': [
           {
@@ -97,6 +102,7 @@ db.postGraduations.insertMany([
         'name': 'Gestão da Informação e do Conhecimento',
         'initials': 'PPGIC',
         'sigaaCode': '160040',
+        'idUnit' : '1617',
         'isSignedIn': true,
         'coursesId': [
           {
@@ -121,6 +127,7 @@ db.postGraduations.insertMany([
         'name': 'Serviço Social',
         'initials': 'PPGSS',
         'sigaaCode': '1626',
+        'idUnit' : '376',
         'isSignedIn': true,
         'coursesId': [
           {
@@ -140,6 +147,7 @@ db.postGraduations.insertMany([
         'name': 'Turismo',
         'initials': 'PPGTUR',
         'sigaaCode': '1654',
+        'idUnit' : '4295',
         'isSignedIn': true,
         'coursesId': [
           {
@@ -655,8 +663,8 @@ print("Inserindo agendas semanais...");
 db.weeklySchedules.insertMany([
     {
         'ownerProgram': PPGP_ID,
-        'title': 'Turma 2017',
-        'week': [
+        'period': '2017.1',
+        'classesForSubjects': [
             {
                 'day': 'Quinta',
                 'classes': [
@@ -692,47 +700,6 @@ db.weeklySchedules.insertMany([
                     },
                     {
                         'subject': 'Instituições Políticas Brasileiras',
-                        'hour': '14:00',
-                        'isMandatory': true
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        'ownerProgram': PPGP_ID,
-        'title': 'Turma 2016',
-        'week': [
-            {
-                'day': 'Quinta',
-                'classes': [
-                    {
-                        'subject': 'Gestão de Pessoas no Setor Público',
-                        'hour': '09:00',
-                        'isMandatory': false
-                    },
-                    {
-                        'subject': 'Responsabilização, Transparência e Controle Social',
-                        'hour': '14:00',
-                        'isMandatory': false
-                    },
-                    {
-                        'subject': 'Tópicos Especiais em Gestão Pública III - Análise de Redes Sociais',
-                        'hour': '14:00',
-                        'isMandatory': false
-                    }
-                ]
-            },
-            {
-                'day': 'Sexta',
-                'classes': [
-                    {
-                        'subject': 'Inovação na Gestão Pública',
-                        'hour': '08:30',
-                        'isMandatory': false
-                    },
-                    {
-                        'subject': 'Seminário de Dissertação/Projeto de Intervenção',
                         'hour': '14:00',
                         'isMandatory': true
                     }

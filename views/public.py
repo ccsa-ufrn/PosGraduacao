@@ -4,14 +4,18 @@ Routes and views for public pages about Post Graduation Programs.
 import sys
 
 from flask import Blueprint, render_template, redirect, \
-current_app, request
+current_app, request, jsonify, url_for
 from pymongo.errors import ServerSelectionTimeoutError
 
 from scraping.institutional_repository import RIScraper
 from models.clients.util import keyring
 
+from views.forms.content import FindClass 
+
 from models.factory import PosGraduationFactory
 from models.clients.api_sistemas import SigaaError, FailedToGetTokenForSigaaError, UnreachableSigaaError, NoAppCredentialsForSigaaError
+
+from bson.json_util import dumps
 
 
 app = Blueprint('public', __name__, static_folder='static', url_prefix='')
@@ -64,7 +68,7 @@ def home(initials):
     events = pfactory.calendar_dao().find_one()
     events = pfactory.calendar_dao().find_one()['events']
     final_reports = final_reports['scheduledReports']
-    weekly_schedules = pfactory.weekly_schedules_dao().find()
+    classes = pfactory.classes_dao(2017,1).find() 
     integrations_infos = pfactory.integrations_infos_dao().find_one()
     if integrations_infos is None:
         integrations_infos = {
@@ -98,7 +102,7 @@ def home(initials):
         google_maps_api_key=google_maps_api_key,
         final_reports=final_reports,
         events=events,
-        weekly_schedules=weekly_schedules,
+        classes=classes,
         institutions_with_covenant=institutions_with_covenant,
         attendance=attendance,
     )
@@ -232,7 +236,6 @@ def view_students(initials):
     post_graduation = pfactory.post_graduation
 
     students = pfactory.students_dao()
-    print(students,file=sys.stderr)
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -241,6 +244,45 @@ def view_students(initials):
         students=students
     )
 
+@app.route('/<string:initials>/turmas/', methods=['POST','GET'])
+def view_classes(initials):
+    """Render a view for classes list."""
+
+    form = FindClass()
+    
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+    classes=pfactory.classes_dao(2017,1).find()
+    if form.validate_on_submit():
+        return redirect(
+            url_for(
+                'public.find_classes',
+                initials=initials,
+                year=form.year.data,
+                period=form.period.data
+            )
+        )
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/subjectsinclasses.html',
+        std=get_std_for_template(post_graduation),
+        form=form,
+        classes=classes
+    )
+
+@app.route('/achar_classes', methods=['POST', 'GET'])
+def find_classes():
+    form = FindClass()
+    pfactory = PosGraduationFactory(request.args['initials'])
+    post_graduation = pfactory.post_graduation
+    classes_2 =pfactory.classes_dao(request.args['year'], request.args['period']).find()
+    return render_template(
+        'public/subjectsinclasses.html',
+        std=get_std_for_template(post_graduation),
+        form=form,
+        classes=classes_2
+    )
 
 
 @app.route('/<string:initials>/projetos/')
@@ -251,6 +293,7 @@ def view_projects(initials):
     post_graduation = pfactory.post_graduation
 
     projects = pfactory.projects_dao().find()
+    print(type(projects), file=sys.stderr)
 
     # renders an own page or redirect to another (external/404)?
     return render_template(

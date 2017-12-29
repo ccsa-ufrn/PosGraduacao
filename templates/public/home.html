@@ -229,40 +229,26 @@
             <header>
                 <h2><span class="glyphicon glyphicon-hourglass"></span> Horários</h2>
             </header>
-            {% for weekly_schedule in weekly_schedules %}
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
-                    <h4>{{ weekly_schedule.title }}</h4>
+                    <h4>Turma de 2017.1</h4>
                 </div>
                 <table class="table schedule-table">
                     <thead>
                         <tr>
-                            <th>Dia</th>
-                            <th>Lista de aulas</th>
+                            <th>Disciplina</th>
+                            <th>Horário</th>
                         </tr>
-                    </thead>
-                    {% for day in weekly_schedule.week %}
+                    {% for class in classes %}
                     <tr>
-                        <td>
-                            {{ day.day }}
-                        </td>
-                        <td>
-                            <ul>
-                                {% for class in day.classes %}
-                                <li>
-                                    <span{% if class.isMandatory %} style="font-weight: bold" {% endif %}>
-                                        {{ class.subject }}
-                                    </span>
-                                    às {{ class.hour }}
-                                </li>
-                                {% endfor %}
-                            </ul>
+                        <td>{{ class.component_name }}</td>
+                        <td>{{ class.hours }}</td>
                         </td>
                     </tr>
                     {% endfor %}
+                    </thead>
                 </table>
             </div>
-            {% endfor %}
         </section>
     </div>
 

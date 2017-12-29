@@ -13,6 +13,7 @@ from views.forms.content import BookForm
 
 from bson.json_util import dumps
 import json
+import sys
 
 crud_books = Blueprint('crud_books', __name__, url_prefix='/admin')
 

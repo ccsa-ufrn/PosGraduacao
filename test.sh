@@ -1,0 +1,1 @@
+export DATABASE_NAME="posgrad-test";echo $DATABASE_NAME;mongo < settings/files/standard_installation_tests.js;python test_unit.py;export DATABASE_NAME="posgrad";echo $DATABASE_NAME;mongo < delete_database.js

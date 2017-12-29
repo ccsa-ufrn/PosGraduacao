@@ -10,6 +10,19 @@ from flask_wtf.file import FileField, FileRequired
 from wtforms.fields.html5 import EmailField, URLField
 from wtforms.validators import DataRequired, Email, URL
 
+class FindClass(FlaskForm):
+    """
+    Form for finding the classes in a period and year
+    """
+
+    year = IntegerField('Ano:', validators=[
+        DataRequired('Informe o ano da turma.')
+    ])
+
+    period = SelectField('Período:', choices=[('1','1 Período'),
+        ('2', '2 Período'), ('3', '3 Período'), ('4', '4 Período')], validators=[
+        DataRequired('Informe o período da turma.')
+    ])
 
 class ParticipationsInEventsForm(FlaskForm):
     """
@@ -351,6 +364,5 @@ class ArticleForm(FlaskForm):
     index = IntegerField()
 
     create = SubmitField('Adicionar')
-
 
 

@@ -1,4 +1,4 @@
-=<!DOCTYPE html>
+
 <html lang="pt-br">
 
 <head>
@@ -56,6 +56,10 @@
                                 <span class="glyphicon glyphicon-list-alt"></span> Discentes</a>
                             </li>
                             
+                            <li><a href="{{ url_for('public.view_classes', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-list-alt"></span> Turmas</a>
+                            </li>
+
                             <li><a href="{{ url_for('public.view_professors', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-apple"></span> Docentes</a>
                             </li>

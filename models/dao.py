@@ -143,9 +143,6 @@ class GenericMongoDAO(AbstractDAO):
         """
         raise NotImplementedError("Need to implement update function for logical deleting it.")
 
-
-
-
 class StudentSigaaDAO(AbstractDAO):
 
     def __init__(self, id_course: int):
@@ -184,7 +181,76 @@ class StudentSigaaDAO(AbstractDAO):
     def delete(self, document: dict):
         raise NotImplementedError("Data from SIGAA are read-only.")
 
+class ClassesSigaaDAO(AbstractDAO):
 
+    def __init__(self, id_unit: int, year: int, period: int):
+        self.ENDPOINT = api_sistemas.API_URL_ROOT
+        self.ENDPOINT += 'turma/v0.1/turmas?id-unidade={id_unit}&ano={year}&periodo={period}&limit=100'
+        self.ENDPOINT = self.ENDPOINT.format(id_unit=id_unit, year=year, period=period)
+
+    def find_all(self):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def find_one(self, conditions):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def find(self, conditions: dict = {}):
+        return self._parse(api_sistemas.get_public_data(self.ENDPOINT))
+
+    def _parse(self, classes_from_sigaa):
+        classes = []
+        for class_from_sigaa in classes_from_sigaa:
+            classes.append({
+                'component_name': class_from_sigaa['nome-componente'].title(),
+                'component_code': class_from_sigaa['codigo-componente'],
+                'hours': class_from_sigaa['descricao-horario'],
+                'professor_name': ProfessorsSigaaDAO(class_from_sigaa['id-turma']).find()
+            })
+        return classes
+
+    def insert_one(self, document: dict):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+    def insert_many(self, document: list):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+    def update(self, document: dict):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+    def delete(self, document: dict):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+class ProfessorsSigaaDAO(AbstractDAO):
+
+    def __init__(self, id_class: int):
+        self.ENDPOINT = api_sistemas.API_URL_ROOT
+        self.ENDPOINT += 'turma/v0.1/participantes?id-turma={id_class}&id-tipo-participante=1'
+        self.ENDPOINT = self.ENDPOINT.format(id_class=id_class)
+
+    def find_all(self):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def find_one(self, conditions):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def find(self, conditions: dict = {}):
+        return self._parse(api_sistemas.get_public_data(self.ENDPOINT))
+
+    def _parse(self, professor_from_sigaa):
+        for professor in professor_from_sigaa:
+            return professor['nome'].title()
+
+    def insert_one(self, document: dict):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+    def insert_many(self, document: list):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+    def update(self, document: dict):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+    def delete(self, document: dict):
+        raise NotImplementedError("Data from SIGAA are read-only.")
 
 class ProjectSigaaDAO(AbstractDAO):
 
