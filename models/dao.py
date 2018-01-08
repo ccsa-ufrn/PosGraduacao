@@ -3,6 +3,7 @@ All data **MUST** be only manipulated through this middleware,
 and not directly using Pymongo nor other API wrapper. And also,
 all DAOs **SHOULD** be created using factory methods.
 """
+from threading import Thread
 import sys
 
 from models.clients.mongo import DB
@@ -96,7 +97,7 @@ class GenericMongoDAO(AbstractDAO):
             conditions['ownerProgram'] = self.owner_post_graduation_id
 	#Ex: return DB['gradesOfSubjects'].find(5a15ca97d818ecf5068593c9) <- Sendo esse número o id do programa de pós-graduação
         return DB[self.collection].find(conditions)
-    
+
     def count(self, conditions: dict = None):
         """
         Find the number of documents inside collection
@@ -158,7 +159,8 @@ class StudentSigaaDAO(AbstractDAO):
         raise NotImplementedError("Not implemented method inherited from an abstract class.")
 
     def find(self, conditions: dict = {}):
-        return self._parse(api_sistemas.get_public_data(self.ENDPOINT))
+        bearer_token = api_sistemas.retrieve_token()
+        return self._parse(api_sistemas.get_public_data(self.ENDPOINT, bearer_token))
 
     def _parse(self, students_from_sigaa):
         students = []
@@ -185,8 +187,11 @@ class ClassesSigaaDAO(AbstractDAO):
 
     def __init__(self, id_unit: int, year: int, period: int):
         self.ENDPOINT = api_sistemas.API_URL_ROOT
-        self.ENDPOINT += 'turma/v0.1/turmas?id-unidade={id_unit}&ano={year}&periodo={period}&limit=100'
+        self.ENDPOINT += 'turma/v0.1/turmas?id-unidade={id_unit}&ano={year}&periodo={period}&limit=100&id-situacao-turma=1%2C2%2C3'
         self.ENDPOINT = self.ENDPOINT.format(id_unit=id_unit, year=year, period=period)
+        self._classes = []
+        self._professors = []
+        self._bearer_token = None
 
     def find_all(self):
         raise NotImplementedError("Not implemented method inherited from an abstract class.")
@@ -195,50 +200,38 @@ class ClassesSigaaDAO(AbstractDAO):
         raise NotImplementedError("Not implemented method inherited from an abstract class.")
 
     def find(self, conditions: dict = {}):
-        return self._parse(api_sistemas.get_public_data(self.ENDPOINT))
+        self._bearer_token = api_sistemas.retrieve_token()
+        return self._parse(api_sistemas.get_public_data(self.ENDPOINT, self._bearer_token))
 
     def _parse(self, classes_from_sigaa):
-        classes = []
+        classes_id = []
         for class_from_sigaa in classes_from_sigaa:
-            classes.append({
+            self._classes.append({
                 'component_name': class_from_sigaa['nome-componente'].title(),
                 'component_code': class_from_sigaa['codigo-componente'],
                 'hours': class_from_sigaa['descricao-horario'],
-                'professor_name': ProfessorsSigaaDAO(class_from_sigaa['id-turma']).find()
+                'id_class': class_from_sigaa['id-turma'],
             })
-        return classes
+            classes_id.append(class_from_sigaa['id-turma'])
 
-    def insert_one(self, document: dict):
-        raise NotImplementedError("Data from SIGAA are read-only.")
+        threads = []
+        for i in range(len(classes_id)):
+            process = Thread(target=self.get_professor, args=[classes_id[i]])
+            threads.append(process)
+            process.start()
+        for process in threads:
+            process.join()
+        return self._classes
 
-    def insert_many(self, document: list):
-        raise NotImplementedError("Data from SIGAA are read-only.")
-
-    def update(self, document: dict):
-        raise NotImplementedError("Data from SIGAA are read-only.")
-
-    def delete(self, document: dict):
-        raise NotImplementedError("Data from SIGAA are read-only.")
-
-class ProfessorsSigaaDAO(AbstractDAO):
-
-    def __init__(self, id_class: int):
-        self.ENDPOINT = api_sistemas.API_URL_ROOT
-        self.ENDPOINT += 'turma/v0.1/participantes?id-turma={id_class}&id-tipo-participante=1'
-        self.ENDPOINT = self.ENDPOINT.format(id_class=id_class)
-
-    def find_all(self):
-        raise NotImplementedError("Not implemented method inherited from an abstract class.")
-
-    def find_one(self, conditions):
-        raise NotImplementedError("Not implemented method inherited from an abstract class.")
-
-    def find(self, conditions: dict = {}):
-        return self._parse(api_sistemas.get_public_data(self.ENDPOINT))
-
-    def _parse(self, professor_from_sigaa):
-        for professor in professor_from_sigaa:
-            return professor['nome'].title()
+    def get_professor(self, id_class: str):
+        url = api_sistemas.API_URL_ROOT
+        url += 'turma/v0.1/participantes?id-turma={id_class}&id-tipo-participante=1'
+        url = url.format(id_class=id_class)
+        result = api_sistemas.get_public_data(url, self._bearer_token)
+        for grade in range(len(self._classes)):
+            if self._classes[grade]['id_class'] == id_class:
+                for professor in result:
+                    self._classes[grade]['professor_name'] = professor['nome'].title()
 
     def insert_one(self, document: dict):
         raise NotImplementedError("Data from SIGAA are read-only.")
@@ -257,8 +250,9 @@ class ProjectSigaaDAO(AbstractDAO):
     def __init__(self, program_sigaa_code: int):
         self.ENDPOINT = api_sistemas.API_URL_ROOT
 	#Descobrir qual o "formato" dessa consulta
-        self.ENDPOINT += 'stricto-sensu-services/services/consulta/projeto/' 
+        self.ENDPOINT += 'stricto-sensu-services/services/consulta/projeto/'
         self.ENDPOINT += str(program_sigaa_code)
+        self._bearer_token = None
 
     def find_all(self):
         raise NotImplementedError("Not implemented method inherited from an abstract class.")
@@ -267,7 +261,8 @@ class ProjectSigaaDAO(AbstractDAO):
         raise NotImplementedError("Not implemented method inherited from an abstract class.")
 
     def find(self, conditions: dict = {}):
-        return self._parse(api_sistemas.get_public_data(self.ENDPOINT))
+        self._bearer_token = api_sistemas.retrieve_token()
+        return self._parse(api_sistemas.get_public_data(self.ENDPOINT, self._bearer_token))
 
     def _parse(self, projects_from_sigaa):
         projects = []

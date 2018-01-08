@@ -10,9 +10,11 @@ https://api.ufrn.br/
 
 import json
 import sys
+import datetime
 
 import requests # To read: http://docs.python-requests.org/en/master/user/quickstart/
 #from urllib3 import urlencode
+from flask import session
 
 from models.clients.util import keyring
 
@@ -20,7 +22,7 @@ from models.clients.util import keyring
 sinfo_api_dict = keyring.get(keyring.SINFO_API)
 
 # security data
-CLIENT_ID     = 'none'
+CLIENT_ID  =T = 'none'
 CLIENT_SECRET = 'none'
 X_API_KEY = 'none'
 
@@ -44,16 +46,14 @@ URL_SERVICES = {
     'docente'       : API_URL_ROOT + 'docente-services/services/',
 }
 
-
-
-def get_public_data(resource_url):
+def get_public_data(resource_url, bearer_token):
     """
     Try to retrieve a token and then access a resource from API Sistemas.
     
     Returns the expected json (check API Sistemas web site and its Swagger) as a Python Dictionary.
     """
     headers = {
-        'Authorization' : 'Bearer ' + retrieve_token(),
+        'Authorization' : 'Bearer ' + bearer_token,
         'x-api-key': X_API_KEY
     }
     
@@ -84,14 +84,12 @@ def retrieve_token():
     try:
         returned_data = requests.post(TOKEN_ENDPOINT, data=query_params)
         dict_data = json.loads(returned_data.text)
-        return dict_data['access_token'] # what is the return type if json cannot be loaded?
+        bearer_token = dict_data['access_token']
+        return bearer_token
     except KeyError:
         raise FailedToGetTokenForSigaaError()
     except:
         raise UnreachableSigaaError(TOKEN_ENDPOINT)
-
-
-
 
 def user_authorization_url():
     """
