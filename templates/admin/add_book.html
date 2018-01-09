@@ -18,17 +18,17 @@
     <br/>
     
     {{ form.title.label }}<br/>
-    {{ form.title(required='true', class="form-control") }}
+    {{ form.title(required='true', class="form-control", placeholder="Ex: O principe") }}
 
     <br/>
     
     {{ form.subtitle.label }}<br/>
-    {{ form.subtitle(class="form-control") }}
+    {{ form.subtitle(class="form-control", placeholder="Ex: Com anotações de Napoleão") }}
 
     <br/>
     
     {{ form.authors.label }}<br/>
-    {{ form.authors(required='true', class="form-control") }}
+    {{ form.authors(required='true', class="form-control", placeholder="Ex: Maquiavel e Napoleão") }}
 
     <br/>
 
@@ -38,12 +38,12 @@
     <br/>
     
     {{ form.location.label }}<br/>
-    {{ form.location(required='true', class="form-control") }}
+    {{ form.location(required='true', class="form-control", placeholder="Ex: Natal") }}
 
     <br/>
     
     {{ form.publisher.label }}<br/>
-    {{ form.publisher(required='true', class="form-control") }}
+    {{ form.publisher(required='true', class="form-control", placeholder="Ex: Editora 34") }}
 
     <br/>
 

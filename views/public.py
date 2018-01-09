@@ -68,7 +68,7 @@ def home(initials):
     events = pfactory.calendar_dao().find_one()
     events = pfactory.calendar_dao().find_one()['events']
     final_reports = final_reports['scheduledReports']
-    classes = pfactory.classes_dao(2017,1).find() 
+    classes = pfactory.classes_dao(2017,1, 10).find()
     integrations_infos = pfactory.integrations_infos_dao().find_one()
     if integrations_infos is None:
         integrations_infos = {
@@ -252,7 +252,7 @@ def view_classes(initials):
     
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
-    classes=pfactory.classes_dao(2017,1).find()
+    classes=pfactory.classes_dao(2017,1,100).find()
     if form.validate_on_submit():
         return redirect(
             url_for(
@@ -276,7 +276,7 @@ def find_classes():
     form = FindClass()
     pfactory = PosGraduationFactory(request.args['initials'])
     post_graduation = pfactory.post_graduation
-    classes_2 =pfactory.classes_dao(request.args['year'], request.args['period']).find()
+    classes_2 =pfactory.classes_dao(request.args['year'], request.args['period'], 100).find()
     return render_template(
         'public/subjectsinclasses.html',
         std=get_std_for_template(post_graduation),

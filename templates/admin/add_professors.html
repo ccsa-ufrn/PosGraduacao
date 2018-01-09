@@ -16,10 +16,10 @@
     {{ form.csrf_token }}
     <br/>
     {{ form.name.label }}<br/>
-    {{ form.name(required='true', class="form-control") }}
+    {{ form.name(required='true', class="form-control", placeholder="Ex: Leonardo Martins") }}
     <br/>
     {{ form.rank.label }}<br/>
-    {{ form.rank(required='true', placeholder='ex: Professor ou Colaborador', class="form-control") }}
+    {{ form.rank(required='true', placeholder="Ex: Professor ou Colaborador", class="form-control") }}
     <br/>
     {{ form.lattes.label }}<br/>
     {{ form.lattes(class="form-control") }}

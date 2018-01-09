@@ -185,10 +185,10 @@ class StudentSigaaDAO(AbstractDAO):
 
 class ClassesSigaaDAO(AbstractDAO):
 
-    def __init__(self, id_unit: int, year: int, period: int):
+    def __init__(self, id_unit: int, year: int, period: int, limit: int):
         self.ENDPOINT = api_sistemas.API_URL_ROOT
-        self.ENDPOINT += 'turma/v0.1/turmas?id-unidade={id_unit}&ano={year}&periodo={period}&limit=100&id-situacao-turma=1%2C2%2C3'
-        self.ENDPOINT = self.ENDPOINT.format(id_unit=id_unit, year=year, period=period)
+        self.ENDPOINT += 'turma/v0.1/turmas?id-unidade={id_unit}&ano={year}&periodo={period}&limit={limit}&id-situacao-turma=1%2C2%2C3'
+        self.ENDPOINT = self.ENDPOINT.format(id_unit=id_unit, year=year, period=period, limit=limit)
         self._classes = []
         self._professors = []
         self._bearer_token = None

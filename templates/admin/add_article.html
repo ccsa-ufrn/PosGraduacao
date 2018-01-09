@@ -18,46 +18,46 @@
     <br/>
     
     {{ form.title.label }}<br/>
-    {{ form.title(required='true', class="form-control") }}
+    {{ form.title(required='true', class="form-control", placeholder="Ex: A Gestão de Pessoas na Área da Administração Pública") }}
 
     <br/>
     
     {{ form.subtitle.label }}<br/>
-    {{ form.subtitle(class="form-control") }}
+    {{ form.subtitle(class="form-control", placeholder="Ex: Uma abordagem quantitativa") }}
 
     <br/>
     
     {{ form.authors.label }}<br/>
-    {{ form.authors(required='true', class="form-control") }}
+    {{ form.authors(required='true', class="form-control", placeholder="Ex: João Guimarães Rosa e Clarice Lispector") }}
 
     <br/>
 
     {{ form.edition.label }}<br/>
-    {{ form.edition(required='true', class="form-control", type='number', step='1', min='1', max='300', placeholder='ex: 1') }}
+    {{ form.edition(required='true', class="form-control", type='number', step='1', min='1', max='300', placeholder="1") }}
 
     <br/>
     
     {{ form.location.label }}<br/>
-    {{ form.location(required='true', class="form-control") }}
+    {{ form.location(required='true', class="form-control", placeholder="Ex: São Paulo") }}
 
     <br/>
     
     {{ form.pages.label }}<br/>
-    {{ form.pages(required='true', class="form-control") }}
+    {{ form.pages(required='true', class="form-control", placeholder="Ex: 15-20") }}
     <br/>
 
     {{ form.number.label }}<br/>
-    {{ form.number(class="form-control") }}
+    {{ form.number(class="form-control", placeholder="5") }}
 
     <br/>
 
     {{ form.publisher.label }}<br/>
-    {{ form.publisher(required='true', class="form-control") }}
+    {{ form.publisher(required='true', class="form-control", placeholder="Ex: Saraiva") }}
 
     <br/>
 
     {{ form.date.label }}<br/>
-    {{ form.date(class="form-control") }}    
+    {{ form.date(class="form-control", placeholder="Ex: jan-fev 2015") }} 
 
     <br/>
     <br/>

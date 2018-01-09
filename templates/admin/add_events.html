@@ -33,7 +33,7 @@ $(function() {
     {{ form.csrf_token }}
     
     {{ form.title.label }}<br/>
-    {{ form.title(required='true', class="form-control", placeholder='ex: Inicio do ano letivo') }}
+    {{ form.title(required='true', class="form-control", placeholder="Ex: Inicio do ano letivo") }}
     <br/>
     {{ form.initial_date.label }}<br/>
     {{ form.initial_date(required='true', class="form-control", id="datepickerInitial")}}
@@ -42,10 +42,10 @@ $(function() {
     {{ form.final_date(class="form-control", id="datepickerFinal")}}
     <br/>
     {{ form.hour.label }}<br/>
-    {{ form.hour(class="form-control")}}
+    {{ form.hour(class="form-control", placeholder="Ex: 16:00 a 18:00")}}
     <br/>
     {{ form.link.label }}<br/>
-    {{ form.link(class="form-control")}}
+    {{ form.link(class="form-control", placeholder="Ex: https://google.com")}}
     <p class="form-text text-muted">
         Por favor insira uma URL válida, não esqueça do https://
     </p>

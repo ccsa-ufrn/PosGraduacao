@@ -102,6 +102,6 @@ class PosGraduationFactory(object):
         """ Gets an instance of a data access object for a certain collection """
         return ProjectSigaaDAO(int(self.sigaa_code))
 
-    def classes_dao(self, year, period):
+    def classes_dao(self, year, period, limit):
         """Gets an instance of a data access object for a certain collection """
-        return ClassesSigaaDAO(int(self.id_unit), int(year), int(period))
+        return ClassesSigaaDAO(int(self.id_unit), int(year), int(period), int(limit))
