@@ -981,7 +981,7 @@ def delete_documents():
                 success_msg='Documento deletado com sucesso.'
             )
         )
-        
+
     return render_template(
         'admin/delete_documents.html',
         documents=json,

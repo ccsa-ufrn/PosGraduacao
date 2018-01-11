@@ -11,6 +11,7 @@ from views.crud_books import crud_books
 from views.crud_articles import crud_articles
 from views.crud_subjects import crud_subjects
 from views.crud_attendances import crud_attendances
+from views.crud_projects import crud_projects
 from settings.extensions import ExtensionsManager
 
 APP = Flask(__name__)
@@ -22,9 +23,10 @@ APP.register_blueprint(crud_books)
 APP.register_blueprint(crud_articles)
 APP.register_blueprint(crud_subjects)
 APP.register_blueprint(crud_attendances)
+APP.register_blueprint(crud_projects)
 
 PUBLIC_HOST = '0.0.0.0'
-PUBLIC_PORT = 3001 
+PUBLIC_PORT = 3001
 DEV_HOST = 'localhost'
 DEV_PORT = 4444
 

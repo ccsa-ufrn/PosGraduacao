@@ -5,7 +5,7 @@ Forms about content editing.
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField,\
                     TextAreaField, DateTimeField, SubmitField,\
-                    SelectField, DateField
+                    SelectField, DateField, BooleanField
 from flask_wtf.file import FileField, FileRequired
 from wtforms.fields.html5 import EmailField, URLField
 from wtforms.validators import DataRequired, Email, URL
@@ -285,7 +285,7 @@ class EditDocumentForm(FlaskForm):
     title = StringField('Titulo do documento:', validators=[
         DataRequired('Digite o título do documento.')
     ])
- 
+
     cod = StringField('Código:', validators=[
         DataRequired('Informe qual o código do documento.')
     ])
@@ -354,7 +354,7 @@ class ArticleForm(FlaskForm):
     ])
 
     number = IntegerField('Número:')
-    
+
     location = StringField('Local de impressão:')
 
     publisher = StringField('Editora:')
@@ -365,4 +365,63 @@ class ArticleForm(FlaskForm):
 
     create = SubmitField('Adicionar')
 
+class ProjectForm(FlaskForm):
+    """
+    Form for projects
+    """
+    title = StringField('Titulo do projeto:', validators=[
+        DataRequired('Digite o título do projeto')
+    ])
 
+    subtitle = StringField('Subtitulo do projeto:')
+
+    description = TextAreaField('Descrição do projeto:')
+
+    situation = SelectField('Situação', choices=[
+        ('Renovado', 'Renovado'), ('Em execução', 'Em execução'), ('Encerrado com pendências', 'Encerrado com pendências'), ('Finalizado', 'Finalizado'), ('Necessita correção', 'Necessita correção')], validators=[
+            DataRequired('Escolha a situação do projeto')
+    ])
+
+    year = IntegerField('Ano do projeto', validators=[
+        DataRequired('Digite o ano do projeto')
+    ])
+
+    email = EmailField('Email para contato', validators=[
+        DataRequired('Por favor digite um email válido para contato')
+    ])
+
+    dt_init = StringField('Data de início do projeto', validators=[
+        DataRequired('Digite a data de início do projeto')
+    ])
+
+    dt_end = StringField('Data esperada pra o final do projeto', validators=[
+        DataRequired('Digite a data esperada para finalização do projeto')
+    ])
+
+    project_id = StringField()
+
+    create = SubmitField('Adicionar')
+
+class MemberOfProjectForm(FlaskForm):
+    """
+    Form for members inside project
+    """
+    name = StringField('Nome do membro:', validators=[
+        DataRequired('Digite o nome do membro do projeto')
+    ])
+
+    project_role = SelectField('Categoria', choices=[
+        ('Colaborador(a)', 'Colaborador(a)'), ('Coordenador(a)', 'Coordenador(a)')
+    ])
+
+    general_role = SelectField('Tipo', choices=[
+        ('Discente', 'Discente'), ('Externo', 'Externo'), ('Coordenador(a)', 'Coordenador(a)')
+    ])
+
+    project_id = StringField(validators=[
+        DataRequired('Houve um erro')
+    ])
+
+    index = IntegerField()
+
+    create = SubmitField('Adicionar')

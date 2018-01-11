@@ -91,8 +91,10 @@
                     <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Projetos
                         <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                        <li><a href=""class='btn disabled'>Adicionar projetos</a></li>
-                        <li><a href=""class='btn disabled'>Retirar projetos</a></li>
+                            <li><a href="{{ url_for('crud_projects.add_project') }}">Adicionar projetos</a></li>
+                            <li><a href="{{ url_for('crud_projects.view_member') }}">Adicionar membros</a></li>
+                            <li><a href="{{ url_for('crud_projects.delete_project') }}">Retirar projetos</a></li>
+                            <li><a href="{{ url_for('crud_projects.edit_project') }}">Editar projetos</a></li>
                         </ul>
                     </li>
                     <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Livros

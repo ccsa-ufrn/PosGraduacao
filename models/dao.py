@@ -131,6 +131,7 @@ class GenericMongoDAO(AbstractDAO):
         """
         Finds a single document and updates it, returning the original.
         """
+        print(self.owner_post_graduation_id, file=sys.stderr)
         if conditions is None:
             conditions = {}
         if self.owner_post_graduation_id is not None:
@@ -282,20 +283,23 @@ class ProjectSigaaDAO(AbstractDAO):
                         blocked = True
 
                     # convert from 'sigaa member' to a 'minerva member'
-                    if 'COORDENADOR' in member['funcao'].upper():
-                        coordinators_names.append(member['nome'].title())
-                    else:
-                        members.append({
+                    if "COORDENADOR" in member['funcao'].upper():
+                        coordinators_names.append({
                             'name': member['nome'].title(),
                             'general_role': member['caterogia'].capitalize(),
                             'project_role': member['funcao'].capitalize()
                         })
+                    members.append({
+                        'name': member['nome'].title(),
+                        'general_role': member['caterogia'].capitalize(),
+                        'project_role': member['funcao'].capitalize()
+                    })
 
                     # avoid a certain professor when he's alone coordinating the project
                     if len(coordinators_names) == 1 and coordinators_names[0] == 'Washington Jose De Sousa':
                         blocked = True
 
-                # after transfusing all members, are we really going finish the assembling? 
+                # after transfusing all members, are we really going finish the assembling?
                 if not blocked:
                     title, _, subtitle = project_from_sigaa['titulo'].rpartition(':')
 
