@@ -92,9 +92,11 @@
                         <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url_for('crud_projects.add_project') }}">Adicionar projetos</a></li>
-                            <li><a href="{{ url_for('crud_projects.view_member') }}">Adicionar membros</a></li>
+                            <li><a href="{{ url_for('crud_projects.view_member', crud_type='Adicionar') }}">Adicionar membros</a></li>
                             <li><a href="{{ url_for('crud_projects.delete_project') }}">Retirar projetos</a></li>
+                            <li><a href="{{ url_for('crud_projects.view_member', crud_type='Deletar') }}">Deletar membros</a></li>
                             <li><a href="{{ url_for('crud_projects.edit_project') }}">Editar projetos</a></li>
+                            <li><a href="{{ url_for('crud_projects.view_member', crud_type='Editar') }}">Editar membros</a></li>
                         </ul>
                     </li>
                     <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Livros

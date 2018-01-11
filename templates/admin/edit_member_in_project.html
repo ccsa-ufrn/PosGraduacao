@@ -6,6 +6,7 @@
 $(document).ready(function() {
     var projects = {{ projects|tojson|safe }};
     var projects = JSON.parse(projects);
+    $("input[name=create]").val("Editar");
     console.log(projects);
     var listOfProjects = [];
     for( i = 0; i < projects.length; i++){
@@ -26,9 +27,21 @@ $(document).ready(function() {
         showMembers(projects);
     });
 
+    $("tbody").on("click", ".delete", function(){
+        var name = $(this).parent().parent().find(">:first-child").text();
+        var general_role = $(this).parent().parent().find(">:nth-child(2)").text();
+        var project_role = $(this).parent().parent().find(">:nth-child(3)").text();
+        var index = $(this).parent().parent().find(">:nth-child(5)").text();
+        $("input[name=name]").val(name);
+        $("input[name=general_role]").val(general_role);
+        $("input[name=project_role]").val(project_role);
+        $("input[name=index]").val(index);
+    });
+
     $("form").on("submit", function(event) {
         $.ajax({
             data : {
+            "index" : $("input[name=index]").val(),
             "name" : $("input[name=name]").val(),
             "project_id" : $("input[name=project_id]").val(),
             "project_role" : $("select[name=project_role]").val(),
@@ -36,7 +49,7 @@ $(document).ready(function() {
             "csrf_token" : $("input[name=csrf_token]").val()
             },
             type: "POST",
-            url: "{{ url_for('crud_projects.add_member') }}",
+            url: "{{ url_for('crud_projects.edit_member') }}",
         })
         .done(function(data) {
             if (data.error) {
@@ -58,8 +71,7 @@ function showMembers(projects) {
     if(projects[indexInProjects].members.length > 0){
         for( i = 0; i < (projects[indexInProjects].members).length; i++){
             if(!(projects[indexInProjects].members[i].hasOwnProperty('deleted'))){
-            $("tbody").append("<tr>" + "<td>" + projects[indexInProjects].members[i].name + "</td>" + "<td>" + projects[indexInProjects].members[i].general_role + "<td>" + projects[indexInProjects].members[i].project_role +"</td>" + "<td style='display:none'>" + i.toString() + "</td></tr>");
-            console.log('pq n ta prestando');
+            $("tbody").append("<tr>" + "<td>" + projects[indexInProjects].members[i].name + "</td>" + "<td>" + projects[indexInProjects].members[i].general_role + "<td>" + projects[indexInProjects].members[i].project_role +"</td>" + "<td><button class='delete' type='button'>Editar</button>" + "<td style='display:none'>" + i.toString() + "</td></tr>");
             }
         };
     }
@@ -88,6 +100,7 @@ function showMembers(projects) {
                         <div class="form-group">
                         {{ form.csrf_token }}
                         {{ form.project_id(style="display:none") }}
+                        {{ form.index(style="display:none") }}
                         <br/>
                         {{ form.name.label }}<br/>
                         {{ form.name(required='true', class="form-control", placeholder="Thiago Ferreira Dias") }}

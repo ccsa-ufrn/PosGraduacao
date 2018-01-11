@@ -41,7 +41,6 @@ def add_project():
             'email': form.email.data,
             'dt_init': form.dt_init.data,
             'dt_end': form.dt_end.data,
-            'coordinators_names' : [],
             'members' : []
         }
 
@@ -126,7 +125,7 @@ def edit_project():
         success_msg=request.args.get('success_msg')
     )
 
-@crud_projects.route('/add_membro_de_projeto/', methods=['GET', 'POST'])
+@crud_projects.route('/membros_de_projeto/', methods=['GET', 'POST'])
 @login_required
 def view_member():
 
@@ -136,13 +135,30 @@ def view_member():
     projects = pfactory.projects_database_dao().find()
     projects = list(projects)
     projects = dumps(projects)
-    return render_template(
-        'admin/add_member_in_project.html',
-        form=form,
-        projects=projects,
-        success_msg=request.args.get('success_msg')
-    )
-
+    if request.args.get('crud_type') == 'Adicionar':
+        return render_template(
+            'admin/add_member_in_project.html',
+            form=form,
+            projects=projects,
+            crud_type=request.args.get('crud_type'),
+            success_msg=request.args.get('success_msg')
+        )
+    if request.args.get('crud_type') == 'Deletar':
+        return render_template(
+            'admin/delete_member_in_project.html',
+            form=form,
+            projects=projects,
+            crud_type=request.args.get('crud_type'),
+            success_msg=request.args.get('success_msg')
+        )
+    else:
+        return render_template(
+            'admin/edit_member_in_project.html',
+            form=form,
+            projects=projects,
+            crud_type=request.args.get('crud_type'),
+            success_msg=request.args.get('success_msg')
+        )
 @crud_projects.route('/add_membro/', methods=['GET', 'POST'])
 @login_required
 def add_member():
@@ -160,13 +176,51 @@ def add_member():
             'general_role' : form.general_role.data,
             'project_role' : form.project_role.data
         }
+        dao.find_one_and_update({'_id' : ObjectId(form.project_id.data)}, {
+            '$push': {'members': new_member}})
+        return jsonify(projects=projects)
+    else:
+        return jsonify({'error':'Houve um erro'})
 
-        if form.project_role.data == 'Coordenador(a)':
-            dao.find_one_and_update({'_id' : ObjectId(form.project_id.data)}, {
-                '$push': {'coordinators_names': new_member}})
-        else:
-            dao.find_one_and_update({'_id' : ObjectId(form.project_id.data)}, {
-                '$push': {'members': new_member}})
+@crud_projects.route('/deletar_membro/', methods=['GET', 'POST'])
+@login_required
+def delete_member():
+
+    form = MemberOfProjectForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.projects_database_dao()
+    projects = pfactory.projects_database_dao().find()
+    projects = list(projects)
+    projects = dumps(projects)
+    if form.validate_on_submit():
+        index = str(form.index.data)
+        dao.find_one_and_update({'_id' : ObjectId(form.project_id.data)}, {
+            '$set': {'members.' + index + '.deleted' : '' }})
+        return jsonify(projects=projects)
+    else:
+        return jsonify({'error':'Houve um erro'})
+
+@crud_projects.route('/editar_membro/', methods=['GET', 'POST'])
+@login_required
+def edit_member():
+
+    form = MemberOfProjectForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.projects_database_dao()
+    projects = pfactory.projects_database_dao().find()
+    projects = list(projects)
+    projects = dumps(projects)
+    if form.validate_on_submit():
+        index = str(form.index.data)
+        new_member = {
+            'name' : form.name.data,
+            'general_role' : form.general_role.data,
+            'project_role' : form.project_role.data
+        }
+        dao.find_one_and_update({'_id' : ObjectId(form.project_id.data)}, {
+            '$set': {'members.' + index : new_member}})
         return jsonify(projects=projects)
     else:
         return jsonify({'error':'Houve um erro'})

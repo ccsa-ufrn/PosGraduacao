@@ -6,7 +6,6 @@
 $(document).ready(function() {
     var projects = {{ projects|tojson|safe }};
     var projects = JSON.parse(projects);
-    console.log(projects);
     var listOfProjects = [];
     for( i = 0; i < projects.length; i++){
         if (!(projects[i].hasOwnProperty('deleted'))){
@@ -26,28 +25,30 @@ $(document).ready(function() {
         showMembers(projects);
     });
 
-    $("form").on("submit", function(event) {
+    $("tbody").on("click", ".delete", function(event) {
+        var name = $(this).parent().parent().find(">:first-child").text();
+        var general_role = $(this).parent().parent().find(">:nth-child(2)").text();
+        var project_role = $(this).parent().parent().find(">:nth-child(3)").text();
+        var index = $(this).parent().parent().find(">:nth-child(5)").text();
+        event.preventDefault();
         $.ajax({
             data : {
-            "name" : $("input[name=name]").val(),
+            "index" : index,
+            "name" : name,
             "project_id" : $("input[name=project_id]").val(),
-            "project_role" : $("select[name=project_role]").val(),
-            "general_role" : $("select[name=general_role]").val(),
+            "project_role" : project_role,
+            "general_role" : general_role,
             "csrf_token" : $("input[name=csrf_token]").val()
             },
             type: "POST",
-            url: "{{ url_for('crud_projects.add_member') }}",
-        })
-        .done(function(data) {
-            if (data.error) {
-                console.log('Krl mermão presta pra nada');
-            } else {
+            url: "{{ url_for('crud_projects.delete_member') }}",
+            success : function(data) {
                 var projects = JSON.parse(data.projects);
                 $("tbody").empty();
                 showMembers(projects);
             }
         });
-        event.preventDefault();
+
     });
 
 });
@@ -58,8 +59,7 @@ function showMembers(projects) {
     if(projects[indexInProjects].members.length > 0){
         for( i = 0; i < (projects[indexInProjects].members).length; i++){
             if(!(projects[indexInProjects].members[i].hasOwnProperty('deleted'))){
-            $("tbody").append("<tr>" + "<td>" + projects[indexInProjects].members[i].name + "</td>" + "<td>" + projects[indexInProjects].members[i].general_role + "<td>" + projects[indexInProjects].members[i].project_role +"</td>" + "<td style='display:none'>" + i.toString() + "</td></tr>");
-            console.log('pq n ta prestando');
+            $("tbody").append("<tr>" + "<td>" + projects[indexInProjects].members[i].name + "</td>" + "<td>" + projects[indexInProjects].members[i].general_role + "<td>" + projects[indexInProjects].members[i].project_role +"</td>" + "<td><button class='delete' type='button'>Deletar</button>" + "<td style='display:none'>" + i.toString() + "</td></tr>");
             }
         };
     }
@@ -76,42 +76,16 @@ function showMembers(projects) {
             <div class="panel-body">
                 <h5>Selecione o projeto</h5>
                 <select id="list"></select>
-                <button id="selecionar" type="button" class="btn btn-default">Selecionar</button>
+                <button type="button" id="selecionar" class="btn btn-default">Selecionar</button>
             </div>
         </div>
         </div>
-        <div class="col-xs-6" style="margin-left: -6%">
-            <div class="panel panel-danger">
-                <div class="panel-heading text-center"><h5>Formulário</h5></div>
-                    <div class="panel-body">
-                    <form method="POST" action="{{ url_for('crud_projects.add_member') }}">
-                        <div class="form-group">
-                        {{ form.csrf_token }}
-                        {{ form.project_id(style="display:none") }}
-                        <br/>
-                        {{ form.name.label }}<br/>
-                        {{ form.name(required='true', class="form-control", placeholder="Thiago Ferreira Dias") }}
-                        <br/>
-                        {{ form.project_role.label }}<br/>
-                        {{ form.project_role(required='true', class="form-control") }}
-                        <br/>
-                        {{ form.general_role.label }}<br/>
-                        {{ form.general_role(required='true', class="form-control") }}
-                        <br/>
-                        {{ form.create(class="form-control")}}
-                        </div>
-                    </form>
-                    <br/>
-                    <p>
-                        Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
-                    </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6">
+        <div class="col-xs-12" style="margin-left: -6%">
                 <div class="panel panel-danger">
                     <div class="panel-heading text-center"><h5>Membros presentes no projeto</h5></div>
                     <div class="panel-body">
+                    {{ form.csrf_token }}
+                    {{ form.project_id(style="display:none;") }}
                     <table class="table">
                         <thead>
                             <th>Nome</th>
