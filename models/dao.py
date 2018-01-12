@@ -3,7 +3,6 @@ All data **MUST** be only manipulated through this middleware,
 and not directly using Pymongo nor other API wrapper. And also,
 all DAOs **SHOULD** be created using factory methods.
 """
-import sys
 
 from models.clients.mongo import DB
 from models.clients import api_sistemas
@@ -207,11 +206,13 @@ class ProjectSigaaDAO(AbstractDAO):
         projects = []
 
         for project_from_sigaa in projects_from_sigaa:
+            if 'error' in project_from_sigaa:
+                print('DEU ERRO FUDEU', file=sys.stderr)
+                print('\n', file=sys.stderr)
             
             if not project_from_sigaa['situacaoProjeto'] == 'FINALIZADO':
                 members = None #?
                 members = []
-                coordinators_names = []
                 blocked = False
 
                 for member in project_from_sigaa['membrosProjeto']:
@@ -221,18 +222,11 @@ class ProjectSigaaDAO(AbstractDAO):
                         blocked = True
 
                     # convert from 'sigaa member' to a 'minerva member'
-                    if 'COORDENADOR' in member['funcao'].upper():
-                        coordinators_names.append(member['nome'].title())
-                    else:
-                        members.append({
-                            'name': member['nome'].title(),
-                            'general_role': member['caterogia'].capitalize(),
-                            'project_role': member['funcao'].capitalize()
-                        })
-
-                    # avoid a certain professor when he's alone coordinating the project
-                    if len(coordinators_names) == 1 and coordinators_names[0] == 'Washington Jose De Sousa':
-                        blocked = True
+                    members.append({
+                        'name': member['nome'].title(),
+                        'general_role': member['caterogia'].capitalize(),
+                        'project_role': member['funcao'].capitalize()
+                    })
 
                 # after transfusing all members, are we really going finish the assembling? 
                 if not blocked:
@@ -256,7 +250,6 @@ class ProjectSigaaDAO(AbstractDAO):
                             'description': project_from_sigaa['descricao'],
                             'email': project_from_sigaa['email'],
                             'members': list(members),
-                            'coordinators_names': list(coordinators_names)
                         })
         return projects
 
