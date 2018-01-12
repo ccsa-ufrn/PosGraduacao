@@ -291,9 +291,15 @@ def view_projects(initials):
 
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
-
-    projects = pfactory.projects_dao().find()
-    print(type(projects), file=sys.stderr)
+    projects = pfactory.projects_database_dao().find()
+    projects = list(projects)
+    for project in projects:
+        coordinators_names = []
+        for member in project['members']:
+            if 'Coordenador(a)' in member['project_role']:
+                coordinators_names.append(member)
+                project['members'].remove(member)
+        project['coordinators_names'] = coordinators_names
 
     # renders an own page or redirect to another (external/404)?
     return render_template(

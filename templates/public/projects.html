@@ -25,7 +25,7 @@
         <li><strong>Coordenação:</strong>
             <ul>
                 {% for coordinator in project.coordinators_names %}
-                <li>{{ coordinator }}</li>
+                <li>{{ coordinator.name }}</li>
                 {% endfor %}
             </ul>
         </li>
