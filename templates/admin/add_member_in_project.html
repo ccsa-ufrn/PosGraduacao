@@ -66,21 +66,32 @@ function showMembers(projects) {
 }
 </script>
 {% endblock %}
+{% block styles %}
+<style>
+    @media (max-width: 768px) {
+    .col-md-6 {
+        margin-left: -6%;
+    }
+    }
+</style>
+{% endblock %}
 {% block content %}
 <div class="container">
     <div class="row">
     <br/>
-        <div class="col-xs-12" style="margin-left: -6%">
+        <div class="col-md-12" style="margin-left: -6%">
             <div class="panel panel-danger">
                 <div class="panel-heading text-center"><h4>Adicionar membro<h4/></div>
             <div class="panel-body">
                 <h5>Selecione o projeto</h5>
                 <select id="list"></select>
+                </br>
+                </br>
                 <button id="selecionar" type="button" class="btn btn-default">Selecionar</button>
             </div>
         </div>
         </div>
-        <div class="col-xs-6" style="margin-left: -6%">
+        <div class="col-md-6" style="margin-left: -6%">
             <div class="panel panel-danger">
                 <div class="panel-heading text-center"><h5>Formulário</h5></div>
                     <div class="panel-body">
@@ -108,7 +119,7 @@ function showMembers(projects) {
                     </div>
                 </div>
             </div>
-            <div class="col-xs-6">
+            <div class="col-md-6">
                 <div class="panel panel-danger">
                     <div class="panel-heading text-center"><h5>Membros presentes no projeto</h5></div>
                     <div class="panel-body">

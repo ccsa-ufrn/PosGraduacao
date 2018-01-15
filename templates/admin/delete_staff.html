@@ -97,16 +97,18 @@ $(document).ready(function() {
     <h4>Deletar servidor</h4>
 </div>
 <div class="panel-body">
-<div class="col-xs-10">
+<div class="col-md-10">
 <h4>Selecione o servidor</h4>
 <select id="list"></select>
+</br>
+</br>
 <select id="functionStaff" type="select" class="btn btn-default">
     <option value="coordination" selected="selected">Coordenação</option>
     <option value="secretariat">Secretária</option>
 </select>
 <button id="edit"type="button" class="btn btn-default">Selecionar</button>
 </div>
-<div class="col-xs-6">
+<div class="col-md-6">
 <form method="POST" id='form-edit' action="{{ url_for('admin.edit_staff') }}">
     <div class="form-group">
     {{ form.csrf_token }}

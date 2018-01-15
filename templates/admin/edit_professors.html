@@ -45,18 +45,20 @@ $(document).ready(function() {
 <div class="container">
 <div class="row">
 <br/>
-<div class="col-xs-10">
+<div class="col-md-10">
 <div class="panel panel-danger" style="margin-left: -6%">
 <div class="panel-heading text-center">
     <h4>Editar docente<h4/>
 </div>
 <div class="panel-body">
-<div class="col-xs-10">
+<div class="col-md-10">
 <h5>Selecione o docente</h5>
 <select id="list"></select>
+</br>
+</br>
 <button id="edit" type="button" class="btn btn-default">Selecionar</button>
 </div>
-<div class="col-xs-10">
+<div class="col-md-10">
 <form method="POST" id="form-edit" action="{{ url_for('admin.edit_professors') }}">
     <div class="form-group">
     {{ form.csrf_token }}

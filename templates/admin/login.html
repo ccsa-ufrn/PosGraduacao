@@ -1,11 +1,26 @@
 {% extends "admin/layout.html" %}
+{% block styles %}
+<style>
+    @media (min-width: 768px) {
+        .content {
+            margin-left: -200px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .content {
+            margin-top: 80px;
+        }
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="container" style="width: 50%; margin: 0 auto">
+<div class="container">
 <div class="row">
-<div class="col-xs-6">
-<header>
-    <h2 style="margin-left: 38%">Login</h2>
+<div class="col-md-4 col-md-offset-5">
+<header class="text-center">
+    <h2>Login</h2>
 </header>
 
 <form method="POST" action="/admin/login/">

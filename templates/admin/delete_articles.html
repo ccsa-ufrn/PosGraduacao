@@ -56,12 +56,14 @@ $(document).ready(function() {
     <h4>Deletar artigo<h4/>
 </div>
 <div class="panel-body">
-<div class="col-xs-10">
+<div class="col-md-10">
 <h5>Selecione o artigo</h5>
 <select id="list"></select>
+</br>
+</br>
 <button id="edit" type="button" class="btn btn-default">Selecionar</button>
 </div>
-<div class="col-xs-10">
+<div class="col-md-10">
 <form method="POST" id="form-edit" action="{{ url_for('crud_articles.delete_article') }}">
     <div class="form-group">
     {{ form.csrf_token }}

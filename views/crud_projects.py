@@ -119,7 +119,7 @@ def edit_project():
             )
         )
     return render_template(
-        'admin/edit_project.html',
+        'admin/edit_projects.html',
         form=form,
         projects=projects,
         success_msg=request.args.get('success_msg')

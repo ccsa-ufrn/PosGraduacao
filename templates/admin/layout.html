@@ -20,14 +20,13 @@
 
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
-            
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/admin/" class="navbar-brand">Pós-Graduação <small>Painel de Controle</small></a>
+                <a href="/admin/" class="navbar-brand">Painel de Controle</a>
             </div>
 
             <div class="navbar-collapse collapse">                
@@ -44,53 +43,56 @@
     {% block precontent %}{% endblock %}
 
     <div class="container-fluid">
-        <div class="row">
-    
+        <div class="row no-gutters">
+        <div class="col-sm-12"> 
             {% if current_user and current_user.is_authenticated %}
-            <div class="col-sm-3 col-md-2 sidebar">
-                <h6><strong>INFORMAÇÕES</strong></h6>
+            <div class="col-sm-3">
+            <div class="col sidebar mainbar">
                 <ul class="nav nav-sidebar">
-                    <li class="active"><a href="#">{{ current_user.pg_initials }}<span class="sr-only">(atual)</span></a></li>
+                    <li class="active"><a data-target=".sidebar-collapse" aria-expanded="true" data-toggle="collapse">{{ current_user.pg_initials }}<span class="sr-only">(atual)</span><span class="caret"></span></a></li>
                 </ul>
-                <h6><strong>EDITAR PÁGINAS</strong></h6>
-                <ul class="nav nav-sidebar">
+            </div>
+            <div class="w-100"></div>
+            <div class="col sidebar">
+                <h6 class="sidebar-collapse collapse in"><strong>EDITAR PÁGINAS</strong></h6>
+                <ul class="nav nav-sidebar sidebar-collapse collapse in">
                     <li><a href="{{ url_for('crud_attendances.edit_attendance') }}">Informações para contato</a></li>
-                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Disciplinas
+                    <li><a href="#subjects" data-toggle="collapse">Disciplinas
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="subjects" class="collapse">
                         <li><a href="{{ url_for('crud_subjects.subjects', course_type='Mestrado') }}">Adicionar Disciplinas</a></li>
                         <li><a href="{{ url_for('crud_subjects.edit_subjects', course_type='Mestrado') }}">Editar Disciplina</a></li>
                         <li><a href="{{ url_for('crud_subjects.delete_subjects', course_type='Mestrado') }}">Retirar Disciplinas</a></li>
                         </ul>
                     </li>
                     {% if current_user.pg_initials in 'PPGSS PPGA PPGTUR' %}
-                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Disciplinas(Doutorado)
+                    <li><a href="#subjectsPHD" data-toggle="collapse">Disciplinas(Doutorado)
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="subjectsPHD" class="collapse">
                         <li><a href="{{ url_for('crud_subjects.subjects', course_type='Doutorado') }}">Adicionar Disciplinas</a></li>
                         <li><a href="{{ url_for('crud_subjects.edit_subjects', course_type='Doutorado') }}">Editar Disciplina</a></li>
                         <li><a href="{{ url_for('crud_subjects.delete_subjects', course_type='Doutorado') }}">Retirar Disciplinas</a></li>
                         </ul>
                     </li>
                     {% endif %}
-                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Discentes
+                    <li><a href="#students" data-toggle="collapse">Discentes
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="students" class="collapse">
                         <li><a href=""class='btn disabled'>Adicionar discentes</a></li>
                         <li><a href=""class='btn disabled'>Retirar discentes</a></li>
                         </ul>
                     </li>
-                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Docentes
+                    <li><a href="#professors" data-toggle="collapse">Docentes
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="professors" class="collapse">
                             <li><a href="{{ url_for('admin.add_professors') }}">Adicionar docentes</a></li>
                             <li><a href="{{ url_for('admin.edit_professors') }}">Editar docentes</a></li>
                             <li><a href="{{ url_for('admin.delete_professors') }}">Deletar docentes</a></li>
                         </ul>
                     </li>
-                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Projetos
+                    <li><a href="#projects" data-toggle="collapse">Projetos
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="projects" class="collapse">
                             <li><a href="{{ url_for('crud_projects.add_project') }}">Adicionar projetos</a></li>
                             <li><a href="{{ url_for('crud_projects.view_member', crud_type='Adicionar') }}">Adicionar membros</a></li>
                             <li><a href="{{ url_for('crud_projects.delete_project') }}">Retirar projetos</a></li>
@@ -99,74 +101,75 @@
                             <li><a href="{{ url_for('crud_projects.view_member', crud_type='Editar') }}">Editar membros</a></li>
                         </ul>
                     </li>
-                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Livros
+                    <li><a href="#books" data-toggle="collapse">Livros
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="books" class="collapse">
                             <li><a href="{{ url_for('crud_books.add_book') }}">Adicionar livros</a></li>
                             <li><a href="{{ url_for('crud_books.edit_book') }}">Editar livros</a></li>
                             <li><a href="{{ url_for('crud_books.delete_book') }}">Deletar livros</a></li>
                         </ul>
                     </li>
-                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Artigos
+                    <li><a href="#articles" data-toggle="collapse">Artigos
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="articles" class="collapse">
                             <li><a href="{{ url_for('crud_articles.add_article') }}">Adicionar artigos</a></li>
                             <li><a href="{{ url_for('crud_articles.edit_article') }}">Editar artigos</a></li>
                             <li><a href="{{ url_for('crud_articles.delete_article') }}">Deletar livros</a></li>
                         </ul>
                     </li>
-                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Intercâmbios
+                    <li><a href="#participations" data-toggle="collapse">Intercâmbios
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="participations" class="collapse">
                         <li><a href="{{ url_for('admin.participations') }}">Adicionar intercâmbios</a></li>
                         <li><a href="{{ url_for('admin.edit_participations') }}">Editar intercâmbios</a></li>
                         <li><a href="{{ url_for('admin.delete_participations') }}">Retirar intercâmbios</a></li>
                         </ul>
                     </li>
-                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Agendamento de defesas
+                    <li><a href="#scheduledReports" data-toggle="collapse">Agendamento de defesas
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="scheduledReports" class="collapse">
                         <li><a href="{{ url_for('admin.scheduled_reports') }}">Adicionar agendamento</a></li>
                         <li><a href="{{ url_for('admin.edit_scheduled_reports') }} ">Editar agendamento</a></li>
                         <li><a href="{{ url_for('admin.delete_scheduled_reports') }} ">Deletar agendamento</a></li>
                         </ul>
                     </li>
-                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Equipe
+                    <li><a href="#staff" data-toggle="collapse">Equipe
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="staff" class="collapse">
                         <li><a href="{{ url_for('admin.add_staff') }}">Adicionar membros da equipe</a></li>
                         <li><a href="{{ url_for('admin.edit_staff') }}">Editar membros da equipe</a></li>
                         <li><a href="{{ url_for('admin.delete_staff') }}">Retirar membrors da equipe</a></li>
                         </ul>
                     </li>
-                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Convênios
+                    <li><a href="#covenants" data-toggle="collapse">Convênios
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="covenants" class="collapse">
                             <li><a href="{{ url_for('admin.covenants') }}">Adicionar convênios</a></li>
                             <li><a href="{{ url_for('admin.edit_covenants') }}">Editar convênios</a></li>
                             <li><a href="{{ url_for('admin.delete_covenants') }}">Retirar convênios</a></li>
                         </ul>
                     </li>
-                    <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Calendário
+                    <li><a href="#calendar" data-toggle="collapse">Calendário
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="calendar" class="collapse">
                             <li><a href="{{ url_for('admin.add_events') }}">Adicionar evento</a></li>
                             <li><a href="{{ url_for('admin.edit_events') }}">Editar evento</a></li>
                             <li><a href="{{ url_for('admin.delete_events') }}">Retirar evento</a></li>
                         </ul>
                     </li>
                 </ul>
-                <h6><strong>BUROCRACIA</strong></h6>
-                <ul class="nav nav-sidebar">
-                <li><a href="" class="dropdown-toggle" data-toggle="dropdown">Documentos
+                <h6 class="sidebar-collapse collapse in"><strong>BUROCRACIA</strong></h6>
+                <ul class="nav nav-sidebar sidebar-collapse collapse in">
+                <li><a href="#documents" data-toggle="collapse">Documentos
                     <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
+                    <ul id="documents" class="collapse">
                     <li><a href="{{ url_for('admin.documents') }}">Adicionar documentos</a></li>
                     <li><a href="{{ url_for('admin.edit_documents') }}">Editar documentos</a></li>
                     <li><a href="{{ url_for('admin.delete_documents') }}">Retirar documentos</a></li>
                     </ul>
                 </li>
                 </ul>
+            </div>
             </div>
             {% endif %}
 
@@ -193,6 +196,7 @@
                 {% endif %}
                 
                 {% block content %}{% endblock %}
+            </div>
 
             </div>
         </div>
@@ -224,6 +228,26 @@
 
     <script src="/static/jquery3/jquery-3.1.1.min.js"></script>
     <script src="/static/bootstrap3/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".content").toggleClass("col-sm-8");
+            if($(window).width() <= 768){
+            $(".in").toggleClass("in");
+            }
+            $(window).resize(function(){
+                if($(window).width() <= 768){
+                    $(".in").toggleClass("in");
+                } else {
+                    $(".in").toggleClass("in");
+                }
+                if($(window).width() <= 375){
+                    $(".mainbar").css("margin-top", "80px");
+                } else {
+                    $(".mainbar").css("margin-top","20px");
+                }
+            });
+        });
+    </script>
     {% block scripts %}{% endblock %}
 
 </body>

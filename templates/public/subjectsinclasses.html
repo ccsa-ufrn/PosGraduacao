@@ -22,15 +22,19 @@
                     <div class="panel-heading text-center">
                         <h5>Selecione o ano e periodo</h5>
                     </div>
-                    <div class="panel-body form-inline col-md-offset-2">
-                            <div class="form-group">
+                    <div class="panel-body">
                                 <form method="POST" action="{{ url_for('public.view_classes', initials=std.post_graduation.initials) }}">
-                                {{ form.csrf_token }}
-                                {{ form.year(required="true", class="form-control", placeholder="2017", style="width: 33%") }}
-                                {{ form.period(required="true", class="form-control", placeholder="1") }}
-                                <input type="submit" value="Go"/>
+                                    <div class="form-group">
+                                        {{ form.csrf_token }}
+                                        {{ form.year.label }}
+                                        {{ form.year(required="true", class="form-control", placeholder="2017") }}
+                                        </br>
+                                        {{ form.period.label }}
+                                        {{ form.period(required="true", class="form-control", placeholder="1") }}
+                                        </br>
+                                        {{ form.create(class="form-control") }}
+                                    </div>
                                 </form>
-                            </div>
                     </div>
                 </div>
             </div>
@@ -41,7 +45,7 @@
         <div class="panel-heading text-center">
             <h4>Turmas</h4>
         </div>
-
+        <div class="table-responsive">
         <table class="table">
             <thead>
                 <th>Código</th>
@@ -58,6 +62,7 @@
                 {% endfor %}
             </thead>
         </table>
+        </div>
     </div>
     <br/>
 

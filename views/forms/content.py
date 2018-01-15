@@ -24,6 +24,8 @@ class FindClass(FlaskForm):
         DataRequired('Informe o período da turma.')
     ])
 
+    create = SubmitField('Pesquisar')
+
 class ParticipationsInEventsForm(FlaskForm):
     """
     Form for the list of participations in events.

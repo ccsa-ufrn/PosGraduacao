@@ -1,70 +1,79 @@
-{% extends "admin/layout.html" %}
-{% block scripts %}
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    var projects = {{ projects|tojson|safe }};
-    var projects = JSON.parse(projects);
-    var listOfProjects = [];
-    for( i = 0; i < projects.length; i++){
-        if (!(projects[i].hasOwnProperty('deleted'))){
-            listOfProjects.push({
-                id: i,
-                text: (projects[i].title)
-            })
-        }
-    }
-
-    $("#list").select2({
-        data: listOfProjects
-    });
-
-    $("#selecionar").click(function(){
-        $("tbody").empty();
-        showMembers(projects);
-    });
-
-    $("tbody").on("click", ".delete", function(event) {
-        var name = $(this).parent().parent().find(">:first-child").text();
-        var general_role = $(this).parent().parent().find(">:nth-child(2)").text();
-        var project_role = $(this).parent().parent().find(">:nth-child(3)").text();
-        var index = $(this).parent().parent().find(">:nth-child(5)").text();
-        event.preventDefault();
-        $.ajax({
-            data : {
-            "index" : index,
-            "name" : name,
-            "project_id" : $("input[name=project_id]").val(),
-            "project_role" : project_role,
-            "general_role" : general_role,
-            "csrf_token" : $("input[name=csrf_token]").val()
-            },
-            type: "POST",
-            url: "{{ url_for('crud_projects.delete_member') }}",
-            success : function(data) {
-                var projects = JSON.parse(data.projects);
-                $("tbody").empty();
-                showMembers(projects);
+    {% extends "admin/layout.html" %}
+    {% block scripts %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var projects = {{ projects|tojson|safe }};
+        var projects = JSON.parse(projects);
+        var listOfProjects = [];
+        for( i = 0; i < projects.length; i++){
+            if (!(projects[i].hasOwnProperty('deleted'))){
+                listOfProjects.push({
+                    id: i,
+                    text: (projects[i].title)
+                })
             }
+        }
+
+        $("#list").select2({
+            data: listOfProjects
+        });
+
+        $("#selecionar").click(function(){
+            $("tbody").empty();
+            showMembers(projects);
+        });
+
+        $("tbody").on("click", ".delete", function(event) {
+            var name = $(this).parent().parent().find(">:first-child").text();
+            var general_role = $(this).parent().parent().find(">:nth-child(2)").text();
+            var project_role = $(this).parent().parent().find(">:nth-child(3)").text();
+            var index = $(this).parent().parent().find(">:nth-child(5)").text();
+            event.preventDefault();
+            $.ajax({
+                data : {
+                "index" : index,
+                "name" : name,
+                "project_id" : $("input[name=project_id]").val(),
+                "project_role" : project_role,
+                "general_role" : general_role,
+                "csrf_token" : $("input[name=csrf_token]").val()
+                },
+                type: "POST",
+                url: "{{ url_for('crud_projects.delete_member') }}",
+                success : function(data) {
+                    var projects = JSON.parse(data.projects);
+                    $("tbody").empty();
+                    showMembers(projects);
+                }
+            });
+
         });
 
     });
 
-});
-
-function showMembers(projects) {
-    var indexInProjects = $("select#list").val();
-    $("input[name=project_id]").val(projects[indexInProjects]._id.$oid);
-    if(projects[indexInProjects].members.length > 0){
-        for( i = 0; i < (projects[indexInProjects].members).length; i++){
-            if(!(projects[indexInProjects].members[i].hasOwnProperty('deleted'))){
-            $("tbody").append("<tr>" + "<td>" + projects[indexInProjects].members[i].name + "</td>" + "<td>" + projects[indexInProjects].members[i].general_role + "<td>" + projects[indexInProjects].members[i].project_role +"</td>" + "<td><button class='delete' type='button'>Deletar</button>" + "<td style='display:none'>" + i.toString() + "</td></tr>");
-            }
-        };
+    function showMembers(projects) {
+        var indexInProjects = $("select#list").val();
+        $("input[name=project_id]").val(projects[indexInProjects]._id.$oid);
+        if(projects[indexInProjects].members.length > 0){
+            for( i = 0; i < (projects[indexInProjects].members).length; i++){
+                if(!(projects[indexInProjects].members[i].hasOwnProperty('deleted'))){
+                $("tbody").append("<tr>" + "<td>" + projects[indexInProjects].members[i].name + "</td>" + "<td>" + projects[indexInProjects].members[i].general_role + "<td>" + projects[indexInProjects].members[i].project_role +"</td>" + "<td><button class='delete' type='button'>Deletar</button>" + "<td style='display:none'>" + i.toString() + "</td></tr>");
+                }
+            };
+        }
     }
-}
-</script>
+    </script>
+    {% endblock %}
+{% block styles %}
+<style>
+    @media (max-width: 768px) {
+    .col-md-6 {
+        margin-left: -6%;
+    }
+    }
+</style>
 {% endblock %}
 {% block content %}
 <div class="container">
@@ -72,7 +81,7 @@ function showMembers(projects) {
     <br/>
         <div class="col-xs-12" style="margin-left: -6%">
             <div class="panel panel-danger">
-                <div class="panel-heading text-center"><h4>Adicionar membro<h4/></div>
+                <div class="panel-heading text-center"><h4>Deletar membro<h4/></div>
             <div class="panel-body">
                 <h5>Selecione o projeto</h5>
                 <select id="list"></select>
@@ -83,7 +92,7 @@ function showMembers(projects) {
         <div class="col-xs-12" style="margin-left: -6%">
                 <div class="panel panel-danger">
                     <div class="panel-heading text-center"><h5>Membros presentes no projeto</h5></div>
-                    <div class="panel-body">
+                    <div class="panel-body table-responsive">
                     {{ form.csrf_token }}
                     {{ form.project_id(style="display:none;") }}
                     <table class="table">
