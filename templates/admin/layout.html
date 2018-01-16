@@ -44,12 +44,12 @@
 
     <div class="container-fluid">
         <div class="row no-gutters">
-        <div class="col-sm-12"> 
+        <div class="col-md-12"> 
             {% if current_user and current_user.is_authenticated %}
-            <div class="col-sm-3">
+            <div class="col-md-3" style="padding-left: 0px">
             <div class="col sidebar mainbar">
                 <ul class="nav nav-sidebar">
-                    <li class="active"><a data-target=".sidebar-collapse" aria-expanded="true" data-toggle="collapse">{{ current_user.pg_initials }}<span class="sr-only">(atual)</span><span class="caret"></span></a></li>
+                    <li class="active"><a data-target=".sidebar-collapse" aria-expanded="true" data-toggle="collapse">{{ current_user.pg_initials }}<span class="sr-only">(atual)</span><span class="caret"></span> Clique para expandir/esconder</a></li>
                 </ul>
             </div>
             <div class="w-100"></div>
@@ -230,21 +230,16 @@
     <script src="/static/bootstrap3/js/bootstrap.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $(".content").toggleClass("col-sm-8");
+            marginTop = $(".navbar-fixed-top").height() - 45 ;
+            $('.mainbar').css('margin-top', marginTop + 'px');
+            $(".content").toggleClass("col-md-8");
             if($(window).width() <= 768){
             $(".in").toggleClass("in");
+            $('.mainbar').css('width',$(window).width());
             }
             $(window).resize(function(){
-                if($(window).width() <= 768){
-                    $(".in").toggleClass("in");
-                } else {
-                    $(".in").toggleClass("in");
-                }
-                if($(window).width() <= 375){
-                    $(".mainbar").css("margin-top", "80px");
-                } else {
-                    $(".mainbar").css("margin-top","20px");
-                }
+                marginTop = $(".navbar-fixed-top").height() - 45 ;
+                $('.mainbar').css('margin-top', marginTop + 'px');
             });
         });
     </script>

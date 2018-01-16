@@ -147,12 +147,12 @@ ul li a {
 -------------------------------------------------- */
 
 .content {
-    margin-left: 10px;
+    margin-left: -5px;
 }
 
 @media (max-width: 768px) {
-    .mainbar {
-        margin-top: 80px;
+    .content {
+        margin-left: -10px;
     }
 }
 
