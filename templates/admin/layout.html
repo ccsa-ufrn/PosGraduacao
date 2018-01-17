@@ -78,7 +78,7 @@
                     <li><a href="#students" data-toggle="collapse">Discentes
                         <span class="caret"></span></a>
                         <ul id="students" class="collapse">
-                        <li><a href=""class='btn disabled'>Adicionar discentes</a></li>
+                        <li><a href="{{ url_for('crud_students.view_student') }}">Editar coordenador</a></li>
                         <li><a href=""class='btn disabled'>Retirar discentes</a></li>
                         </ul>
                     </li>
@@ -228,6 +228,7 @@
 
     <script src="/static/jquery3/jquery-3.1.1.min.js"></script>
     <script src="/static/bootstrap3/js/bootstrap.js"></script>
+    {% block scripts %}{% endblock %}
     <script type="text/javascript">
         $(document).ready(function(){
             marginTop = $(".navbar-fixed-top").height() - 45 ;
@@ -243,7 +244,6 @@
             });
         });
     </script>
-    {% block scripts %}{% endblock %}
 
 </body>
 </html>

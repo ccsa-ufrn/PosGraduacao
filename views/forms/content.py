@@ -26,6 +26,21 @@ class FindClass(FlaskForm):
 
     create = SubmitField('Pesquisar')
 
+class StudentCoordinatorForm(FlaskForm):
+    """
+    Form for adding and editing coordinators
+    """
+
+    registration = IntegerField('Matricula:', validators=[
+        DataRequired('Informe a matricula do estudante')
+    ])
+
+    coordinator = StringField('Nome do coordenador:', validators=[
+        DataRequired('Informe o nome do coordenador')
+    ])
+
+    create = SubmitField('Editar');
+
 class ParticipationsInEventsForm(FlaskForm):
     """
     Form for the list of participations in events.

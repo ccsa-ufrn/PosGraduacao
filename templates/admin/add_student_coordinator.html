@@ -1,0 +1,104 @@
+{% extends "admin/layout.html" %}
+{% block scripts %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    var students = {{ students|tojson|safe }};
+    var students = JSON.parse(students);
+    console.log(students[0]);
+    var listOfStudents = [];
+    showStudents(students);
+    $("tbody").on("click", ".edit", function(){
+        var registration = $(this).parent().parent().find(">:first-child").text();
+        $("input[name=registration]").val(registration);
+    });
+
+    $("form").on("submit", function(event) {
+        $.ajax({
+            data : {
+            "coordinator" : $("input[name=coordinator]").val(),
+            "registration" : $("input[name=registration]").val(),
+            "csrf_token" : $("input[name=csrf_token]").val()
+            },
+            type: "POST",
+            url: "{{ url_for('crud_students.coordinator') }}",
+        })
+        .done(function(data) {
+            if (data.error) {
+                console.log(data.error)
+            } else {
+                var students = JSON.parse(data);
+                $("tbody").empty();
+                showStudents(students);
+            }
+        });
+        event.preventDefault();
+    });
+
+});
+
+function showStudents(students) {
+    console.log(students);
+    for( i = 0; i < students[0].length; i++){
+        table = "<tr>" + "<td>" + students[0][i].class + "</td>" + "<td>" + students[0][i].name + "</td>" + "<td>" + students[0][i].coordinator + "</td>" + "<td><button class='edit' type='button'>Editar</button>" + "</td></tr>";
+        $("tbody").append(table);
+    };
+}
+</script>
+{% endblock %}
+{% block styles %}
+<style>
+    @media (max-width: 768px) {
+    .col-md-6 {
+        margin-left: -6%;
+    }
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" style="margin-left: -6%">
+            <div class="panel panel-danger">
+                <div class="panel-heading text-center"><h5>Formulário</h5></div>
+                    <div class="panel-body">
+                    <form method="POST" action="{{ url_for('crud_projects.add_member') }}">
+                        <div class="form-group">
+                        {{ form.csrf_token }}
+                        <br/>
+                        {{ form.registration.label }}<br/>
+                        {{ form.registration(required='true', class="form-control", placeholder="20161007432") }}
+                        <br/>
+                        {{ form.coordinator.label }}<br/>
+                        {{ form.coordinator(required='true', class="form-control") }}
+                        <br/>
+                        {{ form.create(class="form-control")}}
+                        </div>
+                    </form>
+                    <br/>
+                    <p>
+                        Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+                    </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-danger">
+                    <div class="panel-heading text-center"><h5>Discentes ativos</h5></div>
+                    <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <th>Matricula</th>
+                            <th>Nome</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
