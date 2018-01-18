@@ -77,65 +77,65 @@ function showMembers(projects) {
 {% endblock %}
 {% block content %}
 <div class="container">
-    <div class="row">
-    <br/>
-        <div class="col-md-12" style="margin-left: -6%">
-            <div class="panel panel-danger">
-                <div class="panel-heading text-center"><h4>Adicionar membro<h4/></div>
+<div class="row">
+</br>
+<div class="col-md-12" style="margin-left: -4%">
+    <div class="panel panel-danger">
+        <div class="panel-heading text-center"><h4>Adicionar membro<h4/></div>
+    <div class="panel-body">
+        <h5>Selecione o projeto</h5>
+        <select id="list"></select>
+        </br>
+        </br>
+        <button id="selecionar" type="button" class="btn btn-default">Selecionar</button>
+    </div>
+</div>
+</div>
+<div class="col-md-6" style="margin-left: -4%">
+    <div class="panel panel-danger">
+        <div class="panel-heading text-center"><h5>Formulário</h5></div>
             <div class="panel-body">
-                <h5>Selecione o projeto</h5>
-                <select id="list"></select>
-                </br>
-                </br>
-                <button id="selecionar" type="button" class="btn btn-default">Selecionar</button>
-            </div>
-        </div>
-        </div>
-        <div class="col-md-6" style="margin-left: -6%">
-            <div class="panel panel-danger">
-                <div class="panel-heading text-center"><h5>Formulário</h5></div>
-                    <div class="panel-body">
-                    <form method="POST" action="{{ url_for('crud_projects.add_member') }}">
-                        <div class="form-group">
-                        {{ form.csrf_token }}
-                        {{ form.project_id(style="display:none") }}
-                        <br/>
-                        {{ form.name.label }}<br/>
-                        {{ form.name(required='true', class="form-control", placeholder="Thiago Ferreira Dias") }}
-                        <br/>
-                        {{ form.project_role.label }}<br/>
-                        {{ form.project_role(required='true', class="form-control") }}
-                        <br/>
-                        {{ form.general_role.label }}<br/>
-                        {{ form.general_role(required='true', class="form-control") }}
-                        <br/>
-                        {{ form.create(class="form-control")}}
-                        </div>
-                    </form>
-                    <br/>
-                    <p>
-                        Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
-                    </p>
-                    </div>
+            <form method="POST" action="{{ url_for('crud_projects.add_member') }}">
+                <div class="form-group">
+                {{ form.csrf_token }}
+                {{ form.project_id(style="display:none") }}
+                <br/>
+                {{ form.name.label }}<br/>
+                {{ form.name(required='true', class="form-control", placeholder="Thiago Ferreira Dias") }}
+                <br/>
+                {{ form.project_role.label }}<br/>
+                {{ form.project_role(required='true', class="form-control") }}
+                <br/>
+                {{ form.general_role.label }}<br/>
+                {{ form.general_role(required='true', class="form-control") }}
+                <br/>
+                {{ form.create(class="form-control")}}
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="panel panel-danger">
-                    <div class="panel-heading text-center"><h5>Membros presentes no projeto</h5></div>
-                    <div class="panel-body">
-                    <table class="table">
-                        <thead>
-                            <th>Nome</th>
-                            <th>Categoria</th>
-                            <th>Função</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
+            </form>
+            <br/>
+            <p>
+                Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+            </p>
             </div>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="panel panel-danger">
+            <div class="panel-heading text-center"><h5>Membros presentes no projeto</h5></div>
+            <div class="panel-body">
+            <table class="table">
+                <thead>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>Função</th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </div>
 {% endblock %}

@@ -43,7 +43,7 @@
     {% block precontent %}{% endblock %}
 
     <div class="container-fluid">
-        <div class="row no-gutters">
+        <div class="row">
         <div class="col-md-12"> 
             {% if current_user and current_user.is_authenticated %}
             <div class="col-md-3" style="padding-left: 0px">
@@ -236,7 +236,8 @@
             $(".content").toggleClass("col-md-8");
             if($(window).width() <= 768){
             $(".in").toggleClass("in");
-            $('.mainbar').css('width',$(window).width());
+            var width = $(window).width() - 15;
+            $('.mainbar').css('width', width);
             }
             $(window).resize(function(){
                 marginTop = $(".navbar-fixed-top").height() - 45 ;

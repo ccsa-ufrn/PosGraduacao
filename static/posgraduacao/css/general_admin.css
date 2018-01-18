@@ -160,10 +160,17 @@ ul li a {
     .col-sm-3 {
         padding-left: 5px;
     }
+    .col-md-8 {
+        padding-top: 10px;
+    }
 }
 
 .select2 {
     width: 100% !important;
+}
+
+.content col-md-10 .panel {
+    margin-left: -4%;
 }
 
 .form-success{

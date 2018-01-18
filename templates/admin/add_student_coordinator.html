@@ -6,11 +6,20 @@
 $(document).ready(function() {
     var students = {{ students|tojson|safe }};
     var students = JSON.parse(students);
-    console.log(students[0]);
+    var courses = {{ courses|tojson|safe }};
+    var courses = JSON.parse(courses);
+    console.log(courses);
+    console.log(students);
     var listOfStudents = [];
-    showStudents(students);
+    showStudents(students, courses);
     $("tbody").on("click", ".edit", function(){
+        $("input[name=coordinator]").val("");
+        $("input[name=registration]").val("");
         var registration = $(this).parent().parent().find(">:first-child").text();
+        if($(this).parent().parent().find(">:nth-child(3)").text() != "Sem coordenador(a)"){
+            var coordinator = $(this).parent().parent().find(">:nth-child(3)").text();
+            $("input[name=coordinator]").val(coordinator);
+        }
         $("input[name=registration]").val(registration);
     });
 
@@ -28,9 +37,10 @@ $(document).ready(function() {
             if (data.error) {
                 console.log(data.error)
             } else {
-                var students = JSON.parse(data);
-                $("tbody").empty();
-                showStudents(students);
+                var students = JSON.parse(data[0]);
+                var courses = JSON.parse(data[1]);
+                $(".students").empty();
+                showStudents(students, courses);
             }
         });
         event.preventDefault();
@@ -38,28 +48,23 @@ $(document).ready(function() {
 
 });
 
-function showStudents(students) {
-    console.log(students);
-    for( i = 0; i < students[0].length; i++){
-        table = "<tr>" + "<td>" + students[0][i].class + "</td>" + "<td>" + students[0][i].name + "</td>" + "<td>" + students[0][i].coordinator + "</td>" + "<td><button class='edit' type='button'>Editar</button>" + "</td></tr>";
-        $("tbody").append(table);
+function showStudents(students, courses) {
+    var table = "";
+    for( i = 0; i < students.length; i++){
+        table += "<div class='panel-heading text-center'><h5>" + courses[i] + "</h5></div><div class='panel-body table-responsive'><table class='table'><thead><th>Matricula</th><th>Nome</th></thead><tbody>"
+        for( y = 0; y < students[i].length; y++){
+            table += "<tr>" + "<td>" + students[i][y].class + "</td>" + "<td>" + students[i][y].name + "</td>" + "<td>" + students[i][y].coordinator + "</td>" + "<td><button class='edit' type='button'>Editar</button>" + "</td></tr>";
+        };
+        table += "</tbody></table></div>";
     };
+    $(".students").append(table);
 }
 </script>
-{% endblock %}
-{% block styles %}
-<style>
-    @media (max-width: 768px) {
-    .col-md-6 {
-        margin-left: -6%;
-    }
-    }
-</style>
 {% endblock %}
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-6" style="margin-left: -6%">
+        <div class="col-md-6" style="margin-left: -3%">
             <div class="panel panel-danger">
                 <div class="panel-heading text-center"><h5>Formulário</h5></div>
                     <div class="panel-body">
@@ -84,19 +89,7 @@ function showStudents(students) {
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="panel panel-danger">
-                    <div class="panel-heading text-center"><h5>Discentes ativos</h5></div>
-                    <div class="panel-body">
-                    <table class="table">
-                        <thead>
-                            <th>Matricula</th>
-                            <th>Nome</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
+                <div class="students panel panel-danger"></div>
             </div>
         </div>
     </div>

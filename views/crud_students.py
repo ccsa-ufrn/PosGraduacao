@@ -24,11 +24,12 @@ def view_student():
 
     form = StudentCoordinatorForm()
     pfactory = PosGraduationFactory(current_user.pg_initials)
-    students = mergeDicts(pfactory)
+    students, courses = mergeDicts(pfactory)
     return render_template(
         'admin/add_student_coordinator.html',
         form=form,
         students=students,
+        courses=courses,
         crud_type=request.args.get('crud_type'),
         success_msg=request.args.get('success_msg')
     )
@@ -59,6 +60,7 @@ def mergeDicts(pfactory):
     coordinators = pfactory.coordinators_dao()
     coordinators = list(coordinators.find())
     students_list = []
+    course_list = []
     for course in students.keys():
         for student in students[course]:
             for coordinator in coordinators:
@@ -66,6 +68,8 @@ def mergeDicts(pfactory):
                     student['coordinator'] = coordinator['coordinator']
             if 'coordinator' not in student.keys():
                 student['coordinator'] = 'Sem coordenador(a)'
+        course_list.append(course)
         students_list.append(students[course])
     students = dumps(students_list)
-    return students
+    course_list = dumps(course_list)
+    return students, course_list
