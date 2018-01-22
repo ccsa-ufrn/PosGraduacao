@@ -52,8 +52,6 @@ class User(object):
         except:
             return None
 
-
-
     @property
     def id(self):
         return self._nick

@@ -1,51 +1,65 @@
 {% extends "admin/layout.html" %}
 
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $("select[name=function]").val('coordination');
+    $("select[name=function]").change(function(){
+        if($(this).val() == 'secretariat'){
+            $("input[name=abstract]").attr('minLength', 10);
+            $("input[name=photo]").css('visibility','hidden');
+            $("label[for='photo']").css('visibility','hidden');
+        }
+        if($(this).val() == 'coordination'){
+            $("input[name=abstract]").attr('minLength', 50);
+            $("input[name=photo]").css('visibility','visible');
+            $("label[for='photo']").css('visibility','visible');
+        }
+    });
+
+});
+</script>
+{% endblock %}
 {% block content %}
-
-<header>
-    <h2>Equipe</h2>
-</header>
-
-{% if success_msg %}
-    <div class="form-success">
-        <p>{{ success_msg }}</p>
-    </div>
-{% endif %}
-<div class="form">
-<form method="POST" action="{{ url_for('admin.add_staff') }}">
-    {{ form.csrf_token }}
-    
-    <br/>
-    
-    {{ form.name.label }}<br/>
-    {{ form.name(required='true') }}
-
-    <br/>
-    
-    {{ form.abstract.label }}<br/>
-    {{ form.abstract(required='true', minlength='30', maxlength='1200', placeholder='ex:Possui graduação em Psicologia pela Universidade Federal do Rio Grande do Norte (1993) e mestrado em Administração (1999) e doutorado em Psicologia (2012) também pela UFRN. De 2009 a 2013 foi professor adjunto da Universidade Federal de Alagoas (UFAL), no curso de Psicologia. A partir de dezembro de 2013, passou a ser professor adjunto do Departamento de Ciências Administrativas da Universidade Federal do Rio Grande do Norte. Na Psicologia atua na área da Psicologia do Trabalho e das Organizações, com ênfase em Fatores Humanos no Trabalho. Na Administração atua na área de Gestão de Pessoas. Desde 2014 é docente permanente do Programa de Pós-Graduação em Gestão Pública, UFRN ') }}
-
-    <br/>
-
-    {{ form.rank.label }}<br/>
-    {{ form.rank(required='true') }}
-
-    <br/>
-
-    {{ form.function.label }}<br/>
-    {{ form.function(required='true') }}
-
-    <br/>
-    <br/>
-    
-    {{ form.create }}
-    
-</form>
-    <br/>
+<div class="col-md-6" style="margin-left: -4%">
+<div class="panel panel-danger">
+<div class="panel-heading text-center">
+    <h4>Adicionar servidor<h4/>
 </div>
-
+<div class="panel-body">
+<form method="POST" action="{{ url_for('admin.add_staff') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    <br/>
+    {{ form.name.label }}<br/>
+    {{ form.name(required='true', class="form-control", placeholder="Thiago Ferreira Dias") }}
+    <br/>
+    {{ form.abstract.label }}<br/>
+    {{ form.abstract(required='true', class="form-control", minlength='50', maxlength='1200', placeholder="Ex: Possui graduação em Psicologia pela Universidade Federal do Rio Grande do Norte (1993) e mestrado em Administração (1999) e doutorado em Psicologia (2012) também pela UFRN. De 2009 a 2013 foi professor adjunto da Universidade Federal de Alagoas (UFAL), no curso de Psicologia. A partir de dezembro de 2013, passou a ser professor adjunto do Departamento de Ciências Administrativas da Universidade Federal do Rio Grande do Norte. Na Psicologia atua na área da Psicologia do Trabalho e das Organizações, com ênfase em Fatores Humanos no Trabalho. Na Administração atua na área de Gestão de Pessoas. Desde 2014 é docente permanente do Programa de Pós-Graduação em Gestão Pública, UFRN ") }}
+    <br/>
+    {{ form.rank.label }}<br/>
+    {{ form.rank(required='true', class="form-control", placeholder="Coordenador") }}
+    <br/>
+    {{ form.function.label }}<br/>
+    {{ form.function(required='true', class="form-control") }}
+    <br/>
+    {{ form.photo.label}}<br/>
+    {{ form.photo(class="form-control", placeholder="Ex: https://ccsa.ufrn.br/portal/wp-content/uploads/2014/08/LOGO-TOP.fw_.png")}}
+    <p class="form-text text-muted">
+        Procure a imagem na internet, aperte o botão direito do mouse, selecione 'Copiar endereço de imagem' ou semelhante, e cole o resultado aqui
+    </p>
+    </br>
+    {{ form.create(class="form-control")}}
+    </div>    
+</form>
+<br/>
 <p>
     Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
 </p>
-
+</div>
+</div>
+</div>
+</div>
+</div>
 {% endblock %}

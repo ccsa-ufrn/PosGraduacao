@@ -1,0 +1,102 @@
+{% extends "admin/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ post_graduation }}.css"/>
+{% endblock %}
+
+{% block scripts %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("input[name=create]").val("Deletar");
+    var projects = {{ projects|tojson|safe }};
+    var projects = JSON.parse(projects);
+    console.log(projects);
+    var listOfProjects = [];
+    for( i = 0; i < projects.length; i++){
+            if (!(projects[i].hasOwnProperty('deleted'))){
+                listOfProjects.push({
+                    id: i,
+                    text: (projects[i].title)
+                })
+            }
+        }
+        
+        $("#list").select2({
+            data: listOfProjects
+        });
+
+        $("button").click(function(){
+            var indexInProjects = $("select#list").val();
+            $("#form-edit").css("visibility", "visible");
+            $("input[name=title]").val(projects[indexInProjects].title);
+            $("input[name=subtitle]").val(projects[indexInProjects].subtitle);
+            $("input[name=description]").val(projects[indexInProjects].description);
+            $("input[name=situation]").val(projects[indexInProjects].situation);
+            $("input[name=year]").val(projects[indexInProjects].year);
+            $("input[name=email]").val(projects[indexInProjects].email);
+            $("input[name=dt_init]").val(projects[indexInProjects].dt_init);
+            $("input[name=dt_end]").val(projects[indexInProjects].dt_end);
+            $("input[name=project_id]").val(projects[indexInProjects]._id.$oid);
+        });
+
+    });
+    </script>
+    {% endblock %}
+
+    {% block content %}
+    <div class="col-md-12">
+    <div class="panel panel-danger" style="margin-left: -4%">
+    <div class="panel-heading text-center">
+        <h4>Deletar Projeto<h4/>
+    </div>
+    <div class="panel-body">
+    <div class="col-md-10">
+    <h5>Selecione o projeto</h5>
+    <select id="list"></select>
+    </br>
+    </br>
+    <button id="edit" type="button" class="btn btn-default">Selecionar</button>
+    </div>
+    <div class="col-md-10">
+    <form method="POST" id="form-edit" action="{{ url_for('crud_projects.delete_project') }}">
+        <div class="form-group">
+        {{ form.csrf_token }}
+        {{ form.project_id(required='true', style="display:none;", readonly="readonly") }} 
+        {{ form.title.label }}<br/>
+        {{ form.title(required='true', class="form-control", readonly="readonly") }}
+        <br/>
+        {{ form.subtitle.label }}<br/>
+        {{ form.subtitle(required='true', class="form-control", readonly="readonly") }}
+        <br/>
+        {{ form.description.label }}<br/>
+        {{ form.description(required='true', class="form-control", readonly="readonly") }}
+        <br/>
+        {{ form.situation.label }}<br/>
+        {{ form.situation(required='true', class="form-control", readonly="readonly") }}
+        <br/>
+        {{ form.year.label }}<br/>
+        {{ form.year(required='true', class="form-control", readonly="readonly") }}
+        <br/>
+        {{ form.email.label }}<br/>
+        {{ form.email(required='true', class="form-control", readonly="readonly") }}
+        <br/>
+        {{ form.dt_init.label }}<br/>
+        {{ form.dt_init(required='true', class="form-control", readonly="readonly")}}
+        <br/>
+        {{ form.dt_end.label }}<br/>
+        {{ form.dt_end(class="form-control", readonly="readonly")}}
+        <br/>
+        {{ form.create(class="form-control")}}
+        </div>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

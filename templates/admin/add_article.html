@@ -1,0 +1,75 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+<div class="col-md-6">
+<div class="panel panel-danger" style="margin-left: -4%">
+<div class="panel-heading text-center">
+    <h4>Adicionar artigo<h4/>
+</div>
+<div class="panel-body">
+<form method="POST" action="{{ url_for('crud_articles.add_article') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    
+    <br/>
+    
+    {{ form.title.label }}<br/>
+    {{ form.title(required='true', class="form-control", placeholder="Ex: A Gestão de Pessoas na Área da Administração Pública") }}
+
+    <br/>
+    
+    {{ form.subtitle.label }}<br/>
+    {{ form.subtitle(class="form-control", placeholder="Ex: Uma abordagem quantitativa") }}
+
+    <br/>
+    
+    {{ form.authors.label }}<br/>
+    {{ form.authors(required='true', class="form-control", placeholder="Ex: João Guimarães Rosa e Clarice Lispector") }}
+
+    <br/>
+
+    {{ form.edition.label }}<br/>
+    {{ form.edition(required='true', class="form-control", type='number', step='1', min='1', max='300', placeholder="1") }}
+
+    <br/>
+    
+    {{ form.location.label }}<br/>
+    {{ form.location(required='true', class="form-control", placeholder="Ex: São Paulo") }}
+
+    <br/>
+    
+    {{ form.pages.label }}<br/>
+    {{ form.pages(required='true', class="form-control", placeholder="Ex: 15-20") }}
+    <br/>
+
+    {{ form.number.label }}<br/>
+    {{ form.number(class="form-control", placeholder="5") }}
+
+    <br/>
+
+    {{ form.publisher.label }}<br/>
+    {{ form.publisher(required='true', class="form-control", placeholder="Ex: Saraiva") }}
+
+    <br/>
+
+    {{ form.date.label }}<br/>
+    {{ form.date(class="form-control", placeholder="Ex: jan-fev 2015") }} 
+
+    <br/>
+    <br/>
+    
+    {{ form.create(class="form-control")}}
+    </div>
+    
+</form>
+<br/>
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

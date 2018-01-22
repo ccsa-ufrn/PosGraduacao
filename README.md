@@ -74,6 +74,14 @@ some initial data. It consists of redirecting some scripts to ```mongo```:
 mongo < ./settings/files/standard_installation.js
 ```
 
+Not only do we need the PosGrad database, but is also good practice to have a database whose only function is to 
+run tests, we create that database in the next line.
+
+```sh
+mongo < ./settings/files/standard_installation_tests.js
+```
+
+
 Please, check if mongo output looking for errors before proceding, everything should have been
 well acknowledged. Make sure to have an updated Mongo service running too.
 
@@ -92,7 +100,20 @@ access using a web browser.
 It should be http://localhost:4444/ but always read the output ("0.0.0.0:80" means you have super user
 permission and your server is opened for public access, so you need to know your IP address instead of "localhost" or "0.0.0.0").
 
-You should see the application running now. To sign in, there's a test username and password ```mazuh``` (for both fields).
+### Tests
+
+If you wanna run some tests, this is what you have to do.
+
+First you need to tell the application what database to use, you can do that by setting an environment variable, after that you can
+run the unit test script test_unit.py
+
+'''sh
+export DATABASE_NAME='posgrad-test'
+python test_unit.py
+'''
+
+You should see the application running now. Unfortunately to use the admin function, an admin+password from the PortalCCSA is needed, since the autentication
+is made using this service API.
 
 Any doubts, just open an issue here on GitHub!
 

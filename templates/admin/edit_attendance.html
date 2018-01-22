@@ -1,0 +1,98 @@
+{% extends "admin/layout.html" %}
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+    var attendance = {{ attendance|tojson|safe }};
+    var attendance = JSON.parse(attendance);
+    console.log(attendance)
+    $("input[name=attendance_id]").val(attendance._id.$oid);
+    console.log($("input[name=attendance_id").val());
+    $("input[name=building]").val(attendance.location.building);
+    $("input[name=floor]").val(attendance.location.floor);
+    $("input[name=room]").val(attendance.location.room);
+    $("input[name=opening]").val(attendance.location.opening);
+
+    $("input[name=email]").val(attendance.email);
+
+    $("input[name=type1]").val(attendance.phones[0].type);
+    $("input[name=phone1]").val(attendance.phones[0].number);
+    console.log($("input[name=phone1").val());
+
+    $("input[name=type2]").val(attendance.phones[1].type);
+    $("input[name=phone2]").val(attendance.phones[1].number);
+
+    $("input[name=type3]").val(attendance.phones[2].type);
+    $("input[name=phone3]").val(attendance.phones[2].number);
+});
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-6" style="margin-left: -4%">
+<header>
+    <h2>Informações para contato</h2>
+</header>
+<form method="POST" action="{{ url_for('crud_attendances.edit_attendance') }}">
+    <div class="form-group">
+    <div class="panel panel-danger">
+    <div class="panel-heading text-center">Localização</div>
+    <div class="panel-body">
+    {{ form.csrf_token }}
+    {{ form.attendance_id(required='true', style="display:none;") }}
+    <br/>
+    {{ form.building.label }}<br/>
+    {{ form.building(required='true', class="form-control") }}
+    <br/>
+    {{ form.floor.label }}<br/>
+    {{ form.floor(class="form-control") }}
+    <br/>
+    {{ form.room.label }}<br/>
+    {{ form.room(required='true', class="form-control") }}
+    <br/>
+    {{ form.opening.label }}<br/>
+    {{ form.opening(required='true', class="form-control") }}
+    <br/>
+    </div>
+    </div>
+    <div class="panel panel-danger">
+    <div class="panel-heading text-center">Contato</div>
+    <div class="panel-body">
+    <br/> 
+    {{ form.email.label }}<br/>
+    {{ form.email(required='true', class="form-control") }}
+
+    <br/>
+
+    {{ form.type1.label }}<br/>
+    {{ form.type1(required='true', class="form-control") }}
+    {{ form.phone1.label }}<br/>
+    {{ form.phone1(required='true', class="form-control") }}
+
+    <br/>
+
+    {{ form.type2.label }}<br/>
+    {{ form.type2(class="form-control") }}
+    {{ form.phone2.label }}<br/>
+    {{ form.phone2(class="form-control") }}
+
+    <br/>
+
+    {{ form.type3.label }}<br/>
+    {{ form.type3(class="form-control") }}
+    {{ form.phone3.label }}<br/>
+    {{ form.phone3(class="form-control") }}
+    </div>
+    </div>
+    {{ form.create(class="form-control")}}
+    </div>
+<form>
+</div>
+</div>
+</div>
+
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+
+{% endblock %}

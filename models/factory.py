@@ -6,7 +6,7 @@ A factory of Data Access Objects.
 """
 
 from models.clients import api_sistemas
-from models.dao import GenericMongoDAO, StudentSigaaDAO, ProjectSigaaDAO
+from models.dao import GenericMongoDAO, StudentSigaaDAO, ProjectSigaaDAO, ClassesSigaaDAO
 
 # constants for collection names in mongodb
 
@@ -19,6 +19,10 @@ _COLLECTION_OF_INTEGRATIONS_INFOS = 'integrationsInfos'
 _COLLECTION_OF_BOARDS_OF_STAFFS = 'boardsOfStaffs'
 _COLLECTION_OF_OFFICIAL_DOCUMENTS = 'officialDocuments'
 _COLLECTION_OF_ATTENDANCES = 'attendances'
+_COLLECTION_OF_CALENDAR = 'calendar'
+_COLLECTION_OF_PUBLICATIONS = 'publications'
+_COLLECTION_OF_PROJECTS = 'projects'
+_COLLECTION_OF_COORDINATORS = 'studentsCoordinators'
 
 # factory methods
 
@@ -38,6 +42,8 @@ class PosGraduationFactory(object):
         if self.post_graduation is not None:
             self.mongo_id = self.post_graduation['_id']
             self.sigaa_code = self.post_graduation['sigaaCode']
+            self.id_courses = self.post_graduation['coursesId']
+            self.id_unit = self.post_graduation['idUnit']
         else:
             self.mongo_id = None
             self.sigaa_code = None
@@ -59,6 +65,10 @@ class PosGraduationFactory(object):
         """ Gets an instance of a data access object for a certain collection """
         return GenericMongoDAO(_COLLECTION_OF_GRADES_OF_SUBJECTS, self.mongo_id)
 
+    def publications_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return GenericMongoDAO(_COLLECTION_OF_PUBLICATIONS, self.mongo_id)
+
     def boards_of_professors_dao(self):
         """ Gets an instance of a data access object for a certain collection """
         return GenericMongoDAO(_COLLECTION_OF_BOARDS_OF_PROFESSORS, self.mongo_id)
@@ -66,6 +76,10 @@ class PosGraduationFactory(object):
     def integrations_infos_dao(self):
         """ Gets an instance of a data access object for a certain collection """
         return GenericMongoDAO(_COLLECTION_OF_INTEGRATIONS_INFOS, self.mongo_id)
+
+    def calendar_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return GenericMongoDAO(_COLLECTION_OF_CALENDAR, self.mongo_id)
 
     def boards_of_staffs_dao(self):
         """ Gets an instance of a data access object for a certain collection """
@@ -78,10 +92,26 @@ class PosGraduationFactory(object):
     def attendances_dao(self):
         """ Gets an instance of a data access object for a certain collection """
         return GenericMongoDAO(_COLLECTION_OF_ATTENDANCES, self.mongo_id)
-    def students_dao(self):
+
+    def projects_database_dao(self):
         """ Gets an instance of a data access object for a certain collection """
-        return StudentSigaaDAO(int(self.sigaa_code))
+        return GenericMongoDAO(_COLLECTION_OF_PROJECTS, self.mongo_id)
 
     def projects_dao(self):
         """ Gets an instance of a data access object for a certain collection """
         return ProjectSigaaDAO(int(self.sigaa_code))
+
+    def coordinators_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return GenericMongoDAO('studentsCoordinators', self.mongo_id)
+
+    def students_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        courses_dict = {}
+        for course in self.id_courses:
+            courses_dict[course['nameCourse']] = StudentSigaaDAO(int(course['idCourse'])).find()
+        return courses_dict
+
+    def classes_dao(self, year, period, limit):
+        """Gets an instance of a data access object for a certain collection """
+        return ClassesSigaaDAO(int(self.id_unit), int(year), int(period), int(limit))

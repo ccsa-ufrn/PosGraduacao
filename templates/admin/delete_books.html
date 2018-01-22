@@ -1,0 +1,98 @@
+{% extends "admin/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ post_graduation }}.css"/>
+{% endblock %}
+
+{% block scripts %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("input[name=create]").val("Deletar");
+    var publications = {{ publications|tojson|safe }};
+    var publications = JSON.parse(publications);
+    console.log(publications)
+    var listOfBooks = [];
+    for( i = 0; i < publications.books.length; i++){
+        if (!(publications.books[i].hasOwnProperty('deleted'))){
+            listOfBooks.push({
+                id: i,
+                text: (publications.books[i].title)
+            })
+        }
+    }
+    
+    $("#list").select2({
+        data: listOfBooks
+    });
+
+    $("button").click(function(){
+        var indexInBooks = $("select#list").val();
+        $("#form-edit").css("visibility","visible");
+        $("input[name=title]").val(publications.books[indexInBooks].title);
+        $("input[name=subtitle]").val(publications.books[indexInBooks].subtitle);
+        $("input[name=authors]").val(publications.books[indexInBooks].authors);
+        $("input[name=edition]").val(publications.books[indexInBooks].edition);
+        $("input[name=location]").val(publications.books[indexInBooks].location);
+        $("input[name=publisher]").val(publications.books[indexInBooks].publisher);
+        $("input[name=year]").val(publications.books[indexInBooks].year);
+        $("input[name=index]").val(indexInBooks);
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="col-md-12">
+<div class="panel panel-danger" style="margin-left: -4%">
+<div class="panel-heading text-center">
+    <h4>Deletar livro<h4/>
+</div>
+<div class="panel-body">
+<div class="col-md-10">
+<h5>Selecione o livro</h5>
+<select id="list"></select>
+</br>
+</br>
+<button id="edit" type="button" class="btn btn-default">Selecionar</button>
+</div>
+<div class="col-md-10">
+<form method="POST" id="form-edit" action="{{ url_for('crud_books.delete_book') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    {{ form.index(required='true', style="display:none;") }}
+    <br/>
+    {{ form.title.label }}<br/>
+    {{ form.title(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.subtitle.label }}<br/>
+    {{ form.subtitle(class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.authors.label }}<br/>
+    {{ form.authors(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.edition.label }}<br/>
+    {{ form.edition(required='true', class="form-control", readonly="readonly", type='number', step='1', min='1', max='300', placeholder='ex: 1') }}
+    <br/>
+    {{ form.location.label }}<br/>
+    {{ form.location(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.publisher.label }}<br/>
+    {{ form.publisher(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.year.label }}<br/>
+    {{ form.year(required='true', type='number', step='1', placeholder='2002', class="form-control", readonly="readonly") }}    
+    <br/>
+    <br/>
+    {{ form.create(class="form-control")}}
+    </div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="pt-br">
 
 <head>
@@ -56,6 +56,10 @@
                                 <span class="glyphicon glyphicon-list-alt"></span> Discentes</a>
                             </li>
                             
+                            <li><a href="{{ url_for('public.view_classes', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-list-alt"></span> Turmas</a>
+                            </li>
+
                             <li><a href="{{ url_for('public.view_professors', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-apple"></span> Docentes</a>
                             </li>
@@ -72,11 +76,26 @@
                             </li>
 
                             <li><a href="{{ url_for('public.view_final_reports', initials=std.post_graduation.initials) }}">
-                                <span class="glyphicon glyphicon-folder-open"></span> Defesas e Dissertações</a>
+                                <span class="glyphicon glyphicon-folder-open"></span> Dissertações </a>
                             </li>
-                            
+                            {% if std.post_graduation.initials in 'PPGA' %}
+                            <li><a href="{{ url_for('public.view_final_reports_phd', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-folder-open"></span> Teses</a>
+                            </li>
+                            {% endif %}
+
                             <li><a href="#">
                                 <span class="glyphicon glyphicon-briefcase"></span> Egressos (em breve)</a>
+                            </li>
+
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Publicações</li>
+
+                            <li><a href="{{ url_for('public.view_books', initials=std.post_graduation.initials) }}">
+                                    <span class="glyphicon glyphicon-book"></span> Livros</a>
+                            </li>
+                            <li><a href="{{ url_for('public.view_articles', initials=std.post_graduation.initials) }}">
+                                    <span class="glyphicon glyphicon-book"></span> Artigos</a>
                             </li>
                         </ul>
                     </li>
@@ -97,17 +116,31 @@
                             </li>
                         </ul>
                     </li>
-
-                    <li><a href="{{ url_for('public.view_documents', initials=std.post_graduation.initials) }}">
+                    <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-file"></span> Documentos</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('public.view_documents_regiments', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-file"></span> Regimentos</a>
+                            </li>
+                            <li><a href="{{ url_for('public.view_documents_atas', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-file"></span> ATAs</a>
+                            </li>
+                            <li><a href="{{ url_for('public.view_documents_others', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-file"></span> Outros</a>
+                            </li>
+                        </ul>
                     </li>
 
                 </ul>
                 {% endif %}
                 <ul class="nav navbar-nav navbar-right">
+                    {% if current_user and current_user.is_authenticated %}
                     <li><a href="{{ url_for('admin.index') }}">
-                        <span class="glyphicon glyphicon-user"></span> Login </a></li>
-                    
+                            <span class="glyphicon glyphicon-user"></span> {{ current_user.nick }} </a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('admin.index') }}">
+                            <span class="glyphicon glyphicon-user"></span> Login </a></li>
+                    {% endif %}
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-random"></span> Pós-Graduações <span class="caret"></a>
                         <ul class="dropdown-menu">

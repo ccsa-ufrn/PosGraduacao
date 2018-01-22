@@ -1,15 +1,15 @@
 """
 Routes and views for system administration pages.
 """
-import re
 import os
-import datetime
 import glob
 import sys
 
 from flask_login import LoginManager, \
     login_user, login_required, logout_user, current_user
 from flask import Blueprint, render_template, redirect, url_for, request
+
+from bson.objectid import ObjectId
 
 from werkzeug.utils import secure_filename
 
@@ -21,14 +21,18 @@ from settings.extensions import ExtensionsManager
 from views.forms.auth import LoginForm
 from views.forms.content import ParticipationsInEventsForm, \
     ScheduledReportForm, InstitutionsWithCovenantsForm, \
-    DocumentForm, SubjectsForm, ProfessorForm, StaffForm
+    DocumentForm, SubjectsForm, ProfessorForm, StaffForm, CalendarForm, \
+    EditInstitutionsWithCovenantsForm, EditDocumentForm
 
 from models.clients.api_sistemas import SigaaError, \
     FailedToGetTokenForSigaaError, UnreachableSigaaError, \
     NoAppCredentialsForSigaaError
 
+from bson.json_util import dumps
 import json
 import requests
+
+import datetime
 
 APP = Blueprint('admin',
                 __name__,
@@ -74,7 +78,7 @@ def login():
                 'admin/login.html',
                 form=form,
                 incorrect_attempt=True
-            ) 
+            )
     else:
         return render_template(
             'admin/login.html',
@@ -109,6 +113,9 @@ def user_loader(user_id):
     else:
         return None
 
+###############################################################################
+#Adicionar deletar e editar defesas de teses e dissertações
+###############################################################################
 
 @APP.route('/apresentacoes/', methods=['GET', 'POST'])
 @login_required
@@ -147,57 +154,84 @@ def scheduled_reports():
         success_msg=request.args.get('success_msg')
     )
 
-@APP.route('/editar_agendamento/')
+@APP.route('/deletar_agendamento/', methods=['GET', 'POST'])
 @login_required
-def edit_scheduled_reports():
+def delete_scheduled_reports():
+
+    form = ScheduledReportForm()
 
     pfactory = PosGraduationFactory(current_user.pg_initials)
-    dao = pfactory.final_reports_dao().find_one()
+    dao = pfactory.final_reports_dao()
+    json = pfactory.final_reports_dao().find_one()
+    json = dict(json)
 
-    return render_template(
-        'admin/edit_scheduled_reports.html',
-        final_reports=dao,
-        post_graduation = current_user.pg_initials
-        )
+    json = dumps(json)
 
-
-@APP.route('/add_disciplinas/', methods=['GET', 'POST'])
-@login_required
-def subjects():
-    """
-    Render a subject form.
-    """
-
-    form = SubjectsForm()
-
-    pfactory = PosGraduationFactory(current_user.pg_initials)
-    dao = pfactory.grades_of_subjects_dao()
-
-    if form.validate_on_submit():
-        new_subject = {
-            'name': form.name.data,
-            'description': form.description.data,
-            'workloadInHours': form.workload_in_hours.data,
-            'credits': form.credits.data
-        }
-
-        condition = {'title': form.requirement.data}
-
-        dao.find_one_and_update(condition, {
-            '$push': {'subjects': new_subject}
+    if form.validate_on_submit() and form.create.data:
+        index = str(form.index.data)
+        dao.find_one_and_update(None, {
+            '$set': {'scheduledReports.' + index + '.deleted' : ""}
         })
-
         return redirect(
             url_for(
-                'admin.subjects',
-                success_msg='Disciplina adicionada com sucesso.'
+                'admin.delete_scheduled_reports',
+                final_reports=json,
+                success_msg='Documento deletado com sucesso'
             )
         )
 
     return render_template(
-        'admin/subjects.html',
+        'admin/delete_scheduled_reports.html',
+        final_reports=json,
         form=form,
+        post_graduation=current_user.pg_initials,
+        success_msg=request.args.get('success_msg')
     )
+
+@APP.route('/editar_agendamento/', methods=['GET', 'POST'])
+@login_required
+def edit_scheduled_reports():
+
+    form = ScheduledReportForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.final_reports_dao()
+    json = pfactory.final_reports_dao().find_one()
+    json = dict(json)
+    json = dumps(json, ensure_ascii=False)
+
+    if form.validate_on_submit():
+        index = str(form.index.data)
+        new_report = {
+            'time': form.time.data,
+            'title': form.title.data,
+            'author': form.author.data,
+            'location': form.location.data
+        }
+        dao.find_one_and_update(None, {
+            '$set': {'scheduledReports.' + index : new_report}
+        })
+        return redirect(
+            url_for(
+                'admin.edit_scheduled_reports',
+                success_msg='Defesa de tese editada com sucesso.',
+                final_reports=json
+            )
+        )
+
+    return render_template(
+        'admin/edit_scheduled_reports.html',
+        final_reports=json,
+        form=form,
+        post_graduation=current_user.pg_initials,
+        success_msg=request.args.get('success_msg')
+    )
+
+
+###############################################################################
+#Adicionar deletar e editar membros da equipe de servidores
+###############################################################################
+
 
 
 @APP.route('/add_servidor/', methods=['GET', 'POST'])
@@ -213,23 +247,29 @@ def add_staff():
     dao = pfactory.boards_of_staffs_dao()
 
     if form.validate_on_submit():
+        if form.photo.data == '':
+            photo = None
+        else:
+            photo = form.photo.data
         if form.function.data == 'coordination':
             new_staff = {
                 'name': form.name.data,
                 'rank': form.rank.data,
                 'abstract': form.abstract.data,
+                'photo': photo
             }
- 
+
         else:
             new_staff = {
                 'name': form.name.data,
                 'function': {
                     'rank': form.rank.data,
                     'description': form.abstract.data
-                }
+                },
+                'photo': photo
             }
         dao.find_one_and_update(None, {
-                '$push': {form.function.data: new_staff}
+            '$push': {form.function.data: new_staff}
             })
         return redirect(
             url_for(
@@ -241,8 +281,105 @@ def add_staff():
     return render_template(
         'admin/add_staff.html',
         form=form,
+        success_msg=request.args.get('success_msg')
     )
 
+@APP.route('/editar_servidor/', methods=['GET', 'POST'])
+@login_required
+def edit_staff():
+    """
+    Render a subject form.
+    """
+
+    form = StaffForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.boards_of_staffs_dao()
+    json = pfactory.boards_of_staffs_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+
+    dao = pfactory.boards_of_staffs_dao()
+
+    if form.validate_on_submit():
+        index = '.' + str(form.index.data)
+        if form.photo.data == '':
+            photo = None
+        else:
+            photo = form.photo.data
+        if form.function.data == 'coordination':
+            new_staff = {
+                'name': form.name.data,
+                'rank': form.rank.data,
+                'abstract': form.abstract.data,
+                'photo': photo
+            }
+
+        else:
+            new_staff = {
+                'name': form.name.data,
+                'function': {
+                    'rank': form.rank.data,
+                    'description': form.abstract.data
+                },
+                'photo': photo
+            }
+        dao.find_one_and_update(None, {
+            '$set': {form.function.data + index: new_staff}
+            })
+        return redirect(
+            url_for(
+                'admin.edit_staff',
+                success_msg='Servidor editado com sucesso.',
+                staff=json
+                )
+        )
+
+    return render_template(
+        'admin/edit_staff.html',
+        form=form,
+        success_msg=request.args.get('success_msg'),
+        staff=json
+    )
+
+
+@APP.route('/deletar_servidor/', methods=['GET', 'POST'])
+@login_required
+def delete_staff():
+    """
+    Render a delete staff form.
+    """
+
+    form = StaffForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.boards_of_staffs_dao()
+    json = pfactory.boards_of_staffs_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+    index = '.' + str(form.index.data)
+    if form.validate_on_submit():
+        dao.find_one_and_update(None, {
+            '$set': {form.function.data + index + '.deleted' : ''}
+            })
+        return redirect(
+            url_for(
+                'admin.delete_staff',
+                success_msg='Servidor deletado com sucesso.',
+                staff=json
+                )
+        )
+
+    return render_template(
+        'admin/delete_staff.html',
+        form=form,
+        success_msg=request.args.get('success_msg'),
+        staff=json
+    )
+
+###############################################################################
+#Adicionar deletar e editar intercâmbios
+###############################################################################
 
 @APP.route('/intercambios/', methods=['GET', 'POST'])
 @login_required
@@ -279,6 +416,220 @@ def participations():
         success_msg=request.args.get('success_msg')
     )
 
+@APP.route('/deletar_intercâmbio/', methods=['GET', 'POST'])
+@login_required
+def delete_participations():
+    """
+    Render a delete participation form.
+    """
+
+    form = ParticipationsInEventsForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.integrations_infos_dao()
+    json = pfactory.integrations_infos_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+    index = str(form.index.data)
+
+
+    if form.validate_on_submit():
+        dao.find_one_and_update(None , {
+            '$set': {'participationsInEvents.' + index + '.deleted' : ""}
+        })
+
+        return redirect(
+            url_for(
+                'admin.delete_participations',
+                participations=json,
+                success_msg='Participação deletada com sucesso'
+            )
+        )
+    return render_template(
+        'admin/delete_participations.html',
+        form=form,
+        participations=json,
+        success_msg=request.args.get('success_msg')
+    )
+
+@APP.route('/editar_intercâmbio/', methods=['GET', 'POST'])
+@login_required
+def edit_participations():
+    """
+    Render a edit participation form.
+    """
+
+    form = ParticipationsInEventsForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.integrations_infos_dao()
+    json = pfactory.integrations_infos_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+    index = str(form.index.data)
+
+    if form.validate_on_submit() and form.create.data:
+        year = int(form.year.data)
+        new_participation = {
+            'title': form.title.data,
+            'description': form.description.data,
+            'year': year,
+            'international': form.location.data
+        }
+
+        dao.find_one_and_update(None, {
+            '$set': {'participationsInEvents.' + index : new_participation}
+        })
+
+        return redirect(
+            url_for(
+                'admin.edit_participations',
+                participations=json,
+                success_msg='Participação editada com sucesso'
+            )
+        )
+    return render_template(
+        'admin/edit_participations.html',
+        form=form,
+        participations=json,
+        success_msg=request.args.get('success_msg')
+    )
+
+###############################################################################
+#Adicionar deletar e editar eventos
+###############################################################################
+
+@APP.route('/add_evento/', methods=['GET', 'POST'])
+@login_required
+def add_events():
+    """Render a view for adding events."""
+
+    form = CalendarForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.calendar_dao()
+    
+    if form.validate_on_submit():
+        initial_date = datetime.datetime.combine(form.initial_date.data, datetime.datetime.min.time())
+        if form.final_date.data != "":
+            final_date = datetime.datetime.strptime(form.final_date.data, '%d/%m/%Y')
+            final_date = datetime.datetime.combine(final_date, datetime.datetime.min.time())
+        else:
+            final_date = form.final_date.data
+        new_event = {
+            'title': form.title.data,
+            'initialDate': initial_date,
+            'finalDate': final_date,
+            'hour': form.hour.data,
+            'link': form.link.data
+        }
+
+        dao.find_one_and_update(None, {
+            '$push': {'events': new_event}
+        })
+
+        return redirect(
+            url_for(
+                'admin.add_events',
+                success_msg='Evento adicionado adicionado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/add_events.html',
+        form=form,
+        success_msg=request.args.get('success_msg')
+    )
+
+@APP.route('/editar_evento/', methods=['GET', 'POST'])
+@login_required
+def edit_events():
+    """Render a view for editing events."""
+
+    form = CalendarForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.calendar_dao()
+    json = pfactory.calendar_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+    index = str(form.index.data)
+
+    if form.validate_on_submit() and form.create.data:
+        initial_date = datetime.datetime.combine(form.initial_date.data, datetime.datetime.min.time())
+        if form.final_date.data != "":
+            final_date = datetime.datetime.strptime(form.final_date.data, '%d/%m/%Y')
+            final_date = datetime.datetime.combine(final_date, datetime.datetime.min.time())
+        else:
+            final_date = form.final_date.data
+        new_event = {
+            'title': form.title.data,
+            'initialDate': initial_date,
+            'finalDate': final_date,
+            'hour': form.hour.data,
+            'link': form.link.data
+        }
+
+        dao.find_one_and_update(None, {
+            '$set': {'events.' + index : new_event}
+        })
+
+        return redirect(
+            url_for(
+                'admin.edit_events',
+                events=json,
+                success_msg='Evento editado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/edit_events.html',
+        events=json,
+        form=form,
+        success_msg=request.args.get('success_msg')
+    )
+
+
+@APP.route('/deletar_evento/', methods=['GET', 'POST'])
+@login_required
+def delete_events():
+    """Render a view for deleting events."""
+
+    form = CalendarForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.calendar_dao()
+    json = pfactory.calendar_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+
+    if form.validate_on_submit() and form.create.data:
+        index = str(form.index.data)
+        dao.find_one_and_update(None, {
+            '$set': {'events.' + index + '.deleted' : ""}
+        })
+
+        return redirect(
+            url_for(
+                'admin.delete_events',
+                events=json,
+                success_msg='Evento deletado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/delete_events.html',
+        events=json,
+        form=form,
+        success_msg=request.args.get('success_msg')
+    )
+
+
+
+###############################################################################
+#Adicionar deletar e editar professores(Não finalizado)
+###############################################################################
+
 
 @APP.route('/add_professors/', methods=['GET', 'POST'])
 @login_required
@@ -291,13 +642,10 @@ def add_professors():
     dao = pfactory.boards_of_professors_dao()
 
     if form.validate_on_submit() and form.create.data:
-        lattes = form.lattes.data
-        if lattes == "":
-            lattes = None
         new_professor = {
             'name': form.name.data,
             'rank': form.rank.data,
-            'lattes': lattes,
+            'lattes': form.lattes.data,
             'email': form.email.data
         }
 
@@ -311,18 +659,101 @@ def add_professors():
                 success_msg='Professor adicionado adicionado com sucesso.'
             )
         )
- 
+
     return render_template(
         'admin/add_professors.html',
         form=form,
         success_msg=request.args.get('success_msg')
     )
 
+@APP.route('/editar_professors/', methods=['GET', 'POST'])
+@login_required
+def edit_professors():
+    """Render a view for editing professors."""
+
+    form = ProfessorForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.boards_of_professors_dao()
+    json = pfactory.boards_of_professors_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+
+    if form.validate_on_submit() and form.create.data:
+        index = str(form.index.data)
+        new_professor = {
+            'name': form.name.data,
+            'rank': form.rank.data,
+            'lattes': form.lattes.data,
+            'email': form.email.data
+        }
+
+        dao.find_one_and_update(None, {
+            '$set': {'professors.' + index : new_professor}
+        })
+
+        return redirect(
+            url_for(
+                'admin.edit_professors',
+                professors=json,
+                success_msg='Professor editado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/edit_professors.html',
+        form=form,
+        professors=json,
+        success_msg=request.args.get('success_msg')
+    )
+
+@APP.route('/deletar_professors/', methods=['GET', 'POST'])
+@login_required
+def delete_professors():
+    """Render a view for deleting professors."""
+
+    form = ProfessorForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.boards_of_professors_dao()
+    json = pfactory.boards_of_professors_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+
+    if form.validate_on_submit() and form.create.data:
+        index = str(form.index.data)
+        dao.find_one_and_update(None, {
+            '$set': {'professors.' + index + '.deleted'  : ""}
+        })
+
+        return redirect(
+            url_for(
+                'admin.delete_professors',
+                professors=json,
+                success_msg='Professor deletado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/delete_professors.html',
+        form=form,
+        professors=json,
+        success_msg=request.args.get('success_msg')
+    )
+
+
+
+
+
+###############################################################################
+#Adicionar deletar e editar convênios(Não finalizado)
+###############################################################################
+
 @APP.route('/convenios/', methods=['GET', 'POST'])
 @login_required
 def covenants():
     """Render covenant adding form."""
- 
+
     allowed_extensions = ['jpg', 'png']
 
     form = InstitutionsWithCovenantsForm()
@@ -335,6 +766,13 @@ def covenants():
             photo = form.logo.data
             path = os.path.normpath("static/assets")
             filename = secure_filename(photo.filename)
+            if filename.count('.') > 1:
+                return redirect(
+                    url_for(
+                        'admin.covenants',
+                        success_msg='Nome da logo contem mais de um . por favor corrija isso'
+                    )
+                )
             name, extension = filename.split('.')
             logoFile = 'logo-' + form.initials.data.lower() + '.' + extension
             uploadFiles(photo, path, logoFile)
@@ -347,21 +785,120 @@ def covenants():
         dao.find_one_and_update(None, {
             '$push': {'institutionsWithCovenant': new_covenant}
         })
- 
+
         return redirect(
             url_for(
                 'admin.covenants',
-                success_msg = 'Convênio adicionado adicionado com sucesso.'
+                success_msg='Convênio adicionado adicionado com sucesso.'
             )
         )
 
 
     return render_template(
         'admin/covenants.html',
-        participations=dao.find_one()['institutionsWithCovenant'],
         form=form,
         success_msg=request.args.get('success_msg')
     )
+
+@APP.route('/deletar_convenios/', methods=['GET', 'POST'])
+@login_required
+def delete_covenants():
+    """Render covenant deleting form."""
+
+    form = EditInstitutionsWithCovenantsForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.integrations_infos_dao()
+    json = pfactory.integrations_infos_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+
+    if form.validate_on_submit() and form.create.data:
+        index = str(form.index.data)
+        dao.find_one_and_update(None, {
+            '$set': {'institutionsWithCovenant.' + index + '.deleted' : ""}
+        })
+        return redirect(
+            url_for(
+                'admin.delete_covenants',
+                integrations=json,
+                success_msg='Convênio deletado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/delete_covenants.html',
+        form=form,
+        integrations=json,
+        success_msg=request.args.get('success_msg')
+    )
+
+@APP.route('/editar_convenios/', methods=['GET', 'POST'])
+@login_required
+def edit_covenants():
+    """Render covenant editing form."""
+
+    allowed_extensions = ['jpg', 'png']
+
+    form = EditInstitutionsWithCovenantsForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.integrations_infos_dao()
+    json = pfactory.integrations_infos_dao().find_one()
+    json = dict(json)
+    json = dumps(json)
+
+    if form.validate_on_submit() and form.create.data:
+        index = str(form.index.data)
+        if form.logo.data and allowedFile(form.logo.data.filename, allowed_extensions):
+            photo = form.logo.data
+            path = os.path.normpath("static/assets")
+            filename = secure_filename(photo.filename)
+            if filename.count('.') > 1:
+                return redirect(
+                    url_for(
+                        'admin.edit_covenants',
+                        integrations=json,
+                        success_msg='Nome da logo contem mais de um . por favor corrija isso'
+                    )
+                )
+            name, extension = filename.split('.')
+            logoFile = 'logo-' + form.initials.data.lower() + '.' + extension
+            uploadFiles(photo, path, logoFile)
+            new_covenant = {
+                'name': form.name.data,
+                'initials': form.initials.data.upper(),
+                'logoFile': logoFile
+            }
+
+            dao.find_one_and_update(None, {
+                '$set': {'institutionsWithCovenant.' + index : new_covenant}
+            })
+        else:
+            dao.find_one_and_update(None, {
+                '$set' : {'institutionsWithCovenant.' + index + '.name' : form.name.data},
+                '$set' : {'institutionsWithCovenant.' + index + '.initials' : form.initials.data.upper()}
+            })
+
+        return redirect(
+            url_for(
+                'admin.edit_covenants',
+                integrations=json,
+                success_msg='Convênio editado com sucesso.'
+            )
+        )
+
+
+    return render_template(
+        'admin/edit_covenants.html',
+        form=form,
+        integrations=json,
+        success_msg=request.args.get('success_msg')
+    )
+
+###############################################################################
+#Adicionar deletar e editar documentos
+###############################################################################
 
 @APP.route('/documentos/', methods=['GET', 'POST'])
 @login_required
@@ -369,9 +906,9 @@ def documents():
     """Render document adding form."""
 
     allowed_extensions = ['docx', 'pdf']
- 
+
     form = DocumentForm()
- 
+
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.official_documents_dao()
     ownerProgram = pfactory.mongo_id
@@ -380,18 +917,14 @@ def documents():
         insertedOn = datetime.datetime.now()
         insertedBy = current_user._full_name
         document = form.document.data
-        path = os.path.normpath("static/upload_files/" + current_user.pg_initials.lower() + '/documents/' + str(form.year.data))
-        x = 0
-        dirs = glob.glob(path + '/*')
-        for i in dirs:
-            x += 1
-        cod = str(x) + '-' + str(form.year.data)
+        path = os.path.normpath("static/upload_files/" + current_user.pg_initials.lower())
         if allowedFile(document.filename, allowed_extensions):
             filename = uploadFiles(document, path, document.filename)
             new_document = {
                 'ownerProgram': ownerProgram,
+                'category': form.category.data,
                 'title': form.title.data,
-                'cod': cod,
+                'cod': form.cod.data,
                 'file': filename,
                 'insertedOn': insertedOn,
                 'insertedBy': insertedBy
@@ -406,7 +939,7 @@ def documents():
                 )
             )
         else:
- 
+
             return redirect(
                 url_for(
                     'admin.documents',
@@ -414,13 +947,112 @@ def documents():
                     invalid_type='Tipo de documento inválido'
                 )
             )
- 
+
     return render_template(
         'admin/documents.html',
         documents=dao.find_one(),
         form=form,
         success_msg=request.args.get('success_msg')
     )
+
+@APP.route('/deletar_documentos/', methods=['GET', 'POST'])
+@login_required
+def delete_documents():
+    """Render document deleting form."""
+
+    form = EditDocumentForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.official_documents_dao()
+    json = pfactory.official_documents_dao().find()
+    json = list(json)
+    json = dumps(json)
+
+    if form.validate_on_submit() and form.create.data:
+        dao.find_one_and_update({'_id' : ObjectId(form.document_id.data)}, {
+            '$set' : {'deleted' : ''}})
+        return redirect(
+            url_for(
+                'admin.delete_documents',
+                success_msg='Documento deletado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/delete_documents.html',
+        documents=json,
+        form=form,
+        success_msg=request.args.get('success_msg')
+    )
+
+
+@APP.route('/editar_documentos/', methods=['GET', 'POST'])
+@login_required
+def edit_documents():
+    """Render document editing form."""
+
+    allowed_extensions = ['docx', 'pdf']
+
+    form = EditDocumentForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.official_documents_dao()
+    ownerProgram = pfactory.mongo_id
+    json = pfactory.official_documents_dao().find()
+    json = list(json)
+    json = dumps(json)
+
+    if form.validate_on_submit() and form.create.data:
+        document_id = form.document_id.data
+        if form.document.data:
+            if allowedFile(form.document.data.filename, allowed_extensions):
+                insertedOn = datetime.datetime.now()
+                insertedBy = current_user._full_name
+                document = form.document.data
+                path = os.path.normpath("static/upload_files/" + current_user.pg_initials.lower())
+                filename = uploadFiles(document, path, document.filename)
+                new_document = {
+                    'title': form.title.data,
+                    'cod': form.cod.data,
+                    'file': filename,
+                    'insertedBy': insertedBy,
+                    'insertedOn': insertedOn
+                }
+
+                dao.find_one_and_update({'_id' : ObjectId(form.document_id.data)}, {
+                    '$set' : new_document
+                })
+            else:
+                return redirect(
+                    url_for(
+                        'admin.edit_documents',
+                        success_msg='Tipo de documento inválido'
+                    )
+                )
+
+        else:
+            new_document = {
+                'title':form.title.data,
+                'cod': form.cod.data
+            }
+            dao.find_one_and_update({'_id' : ObjectId(form.document_id.data)}, {
+                '$set' : new_document
+            })
+
+        return redirect(
+            url_for(
+                'admin.edit_documents',
+                success_msg='Documento editado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/edit_documents.html',
+        documents=json,
+        form=form,
+        success_msg=request.args.get('success_msg')
+    )
+
 
 def uploadFiles(document, path, filename):
     """3 functions, effectively upload files to server,
@@ -434,9 +1066,9 @@ def uploadFiles(document, path, filename):
         dirs = glob.glob(checkpath + '*.' + extension)
         for i in dirs:
             numberofcopies += 1
-        filename = name + '_' + str(numberofcopies) + '_.' + extension 
+        filename = name + '_' + str(numberofcopies) + '_.' + extension
     filename = secure_filename(filename)
-    document.save(os.path.join((os.getcwd()), path, os.path.normpath(filename)))        
+    document.save(os.path.join((os.getcwd()), path, os.path.normpath(filename)))
     return filename
 
 def allowedFile(filename, allowed_extensions):

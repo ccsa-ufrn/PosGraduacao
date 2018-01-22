@@ -3,13 +3,43 @@ Forms about content editing.
 """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, BooleanField,\
+from wtforms import StringField, IntegerField,\
                     TextAreaField, DateTimeField, SubmitField,\
-                    SelectField
+                    SelectField, DateField, BooleanField
 from flask_wtf.file import FileField, FileRequired
-from wtforms.fields.html5 import EmailField
-from wtforms.validators import DataRequired, Email
+from wtforms.fields.html5 import EmailField, URLField
+from wtforms.validators import DataRequired, Email, URL
 
+class FindClass(FlaskForm):
+    """
+    Form for finding the classes in a period and year
+    """
+
+    year = IntegerField('Ano:', validators=[
+        DataRequired('Informe o ano da turma.')
+    ])
+
+    period = SelectField('Período:', choices=[('1','1 Período'),
+        ('2', '2 Período'), ('3', '3 Período'), ('4', '4 Período')], validators=[
+        DataRequired('Informe o período da turma.')
+    ])
+
+    create = SubmitField('Pesquisar')
+
+class StudentCoordinatorForm(FlaskForm):
+    """
+    Form for adding and editing coordinators
+    """
+
+    registration = IntegerField('Matricula:', validators=[
+        DataRequired('Informe a matricula do estudante')
+    ])
+
+    coordinator = StringField('Nome do coordenador:', validators=[
+        DataRequired('Informe o nome do coordenador')
+    ])
+
+    create = SubmitField('Editar');
 
 class ParticipationsInEventsForm(FlaskForm):
     """
@@ -30,6 +60,8 @@ class ParticipationsInEventsForm(FlaskForm):
     location = StringField('Cidade e país:', validators=[
         DataRequired('Falta localizar a cidade e país.')
     ])
+
+    index = IntegerField()
 
     create = SubmitField('Adicionar')
 
@@ -57,6 +89,8 @@ class SubjectsForm(FlaskForm):
         DataRequired('Insira o tipo da disciplina')
     ])
 
+    index = IntegerField()
+
     create = SubmitField('Adicionar')
 
 class StaffForm(FlaskForm):
@@ -79,10 +113,11 @@ class StaffForm(FlaskForm):
         DataRequired('Insira o tipo de servidor')
     ])
 
+    photo = URLField('Foto do servidor')
+
+    index = IntegerField()
+
     create = SubmitField('Adicionar')
-
-
-
 
 class InstitutionsWithCovenantsForm(FlaskForm):
     """
@@ -102,7 +137,27 @@ class InstitutionsWithCovenantsForm(FlaskForm):
 
     create = SubmitField('Adicionar')
 
+class EditInstitutionsWithCovenantsForm(FlaskForm):
+    """
+    Form for editing list of institutions with covenants.
+    """
+
+    name = StringField('Instituição com convênio:', validators=[
+        DataRequired('Digite o nome da instituição.')
+    ])
+
+    initials = StringField('Sigla da Instituição:', validators=[
+        DataRequired('Digite a sigla da instituição.')
+    ])
+
+    logo = FileField()
+
+    index = IntegerField()
+
+    create = SubmitField('Editar')
+
 class ScheduledReportForm(FlaskForm):
+
     """
     Scheduled report form.
     """
@@ -120,7 +175,34 @@ class ScheduledReportForm(FlaskForm):
         DataRequired('Digite a localização.')
     ])
 
+    index = IntegerField()
+
     create = SubmitField('Agendar')
+
+class CalendarForm(FlaskForm):
+
+    """
+    Calendar event form
+    """
+
+    title = StringField('Título do evento:', validators=[
+        DataRequired('Digite o título do evento.')
+    ])
+
+    initial_date = DateField('Data inicial:', format='%d/%m/%Y', validators=[
+        DataRequired('Escolha a data de começo do evento.')
+    ])
+
+
+    final_date = StringField('Data final(Se existir):')
+
+    hour = StringField('Hora de começo e termino do evento(Se existir)')
+
+    link = URLField('Link para mais informações(Se existir)')
+
+    index = IntegerField()
+
+    create = SubmitField('Adicionar')
 
 class ProfessorForm(FlaskForm):
     """
@@ -133,14 +215,62 @@ class ProfessorForm(FlaskForm):
     rank = StringField('Rank do professor(a):', validators=[
         DataRequired('Digite o rank do professor(a).')
     ])
-    
+
     lattes = StringField('Link para Lattes do professor(a):')
 
     email = EmailField('Email do professor(a):', validators=[
         DataRequired('Digite o Email do professor(a).'), Email()
         ])
 
+    index = IntegerField()
+
     create = SubmitField('Adicionar')
+
+class AttendanceForm(FlaskForm):
+    """
+    Form for adding attendance information to database
+    """
+    building = StringField('Prédio onde a unidade se localiza:', validators=[
+        DataRequired('Digite o nome do prédio.')
+    ])
+
+    floor = StringField('Digite o andar onde a unidade se localiza:', validators=[
+        DataRequired('Digite o andar.')
+    ])
+
+    room = StringField('Sala onde a unidade se localiza:', validators=[
+        DataRequired('Digite o nome da sala.')
+    ])
+
+    email = EmailField('Email da unidade:', validators=[
+        DataRequired('Digite o email.')
+    ])
+
+    opening = StringField('Horário de funcionamento:', validators=[
+        DataRequired('Digite o horário de funcionamento.')
+    ])
+
+    type1 = StringField('Tipo do telefone:', validators=[
+        DataRequired('Digite o tipo do telefone.')
+    ])
+
+    phone1 = StringField('Telefone:', validators=[
+        DataRequired('Digite o telefone para contato.')
+    ])
+
+    type2 = StringField('Tipo do telefone:')
+
+    phone2 = StringField('Telefone:')
+
+    type3 = StringField('Tipo do telefone:')
+
+    phone3 = StringField('Telefone:')
+
+    attendance_id = StringField(validators=[
+        DataRequired()
+    ])
+
+    create = SubmitField('Editar')
 
 class DocumentForm(FlaskForm):
     """
@@ -149,13 +279,166 @@ class DocumentForm(FlaskForm):
     title = StringField('Titulo do documento:', validators=[
         DataRequired('Digite o título do documento.')
     ])
-    
-    year = IntegerField('Ano:', validators=[
-        DataRequired('Informe qual o ano do evento.')
+
+    cod = StringField('Código:', validators=[
+        DataRequired('Informe qual o código do documento.')
+    ])
+
+    category = SelectField('Categoria',  choices=[
+        ('regimento','Regimento'),('ata','ATA'),('outros','Outros')], validators=[
+            DataRequired('Especifique o tipo de documento.')
+    ])
+
+    document = FileField(validators=[
+        DataRequired('Por favor carregue um documento valido')
+    ])
+
+    create = SubmitField('Adicionar')
+
+class EditDocumentForm(FlaskForm):
+    """
+    Form for edit and delete document
+    """
+    title = StringField('Titulo do documento:', validators=[
+        DataRequired('Digite o título do documento.')
+    ])
+
+    cod = StringField('Código:', validators=[
+        DataRequired('Informe qual o código do documento.')
+    ])
+
+    category = SelectField('Categoria',  choices=[
+        ('regimento','Regimento'),('ata','ATA'),('outros','Outros')], validators=[
+            DataRequired('Especifique o tipo de documento.')
     ])
 
     document = FileField()
 
+    document_id = StringField(validators=[
+        DataRequired()
+    ])
+
     create = SubmitField('Adicionar')
 
-    
+class BookForm(FlaskForm):
+    """
+    Form for books
+    """
+    title = StringField('Titulo do livro:', validators=[
+        DataRequired('Digite o título do livro.')
+    ])
+
+    subtitle = StringField('Subtitulo do livro(se houver):')
+
+    authors = StringField('Nome do autor(es):', validators=[
+        DataRequired('Digite o nome dos autor(es)')
+    ])
+
+    edition = IntegerField('Número da edição:', validators=[
+        DataRequired('Digite o número da edição')
+    ])
+
+    location = StringField('Local de impressão:')
+
+    publisher = StringField('Editora:')
+
+    year = IntegerField('Ano da publicação:')
+
+    index = IntegerField()
+
+    create = SubmitField('Adicionar')
+
+class ArticleForm(FlaskForm):
+    """
+    Form for articles
+    """
+    title = StringField('Titulo do artigo:', validators=[
+        DataRequired('Digite o título do artigo.')
+    ])
+
+    subtitle = StringField('Subtitulo do artigo(se houver):')
+
+    authors = StringField('Nome do autor(es):', validators=[
+        DataRequired('Digite o nome dos autor(es)')
+    ])
+
+    edition = IntegerField('Número da edição:', validators=[
+        DataRequired('Digite o número da edição')
+    ])
+
+    pages = StringField('Número das páginas:', validators=[
+        DataRequired('Digite o número das páginas')
+    ])
+
+    number = IntegerField('Número:')
+
+    location = StringField('Local de impressão:')
+
+    publisher = StringField('Editora:')
+
+    date = StringField('Data:')
+
+    index = IntegerField()
+
+    create = SubmitField('Adicionar')
+
+class ProjectForm(FlaskForm):
+    """
+    Form for projects
+    """
+    title = StringField('Titulo do projeto:', validators=[
+        DataRequired('Digite o título do projeto')
+    ])
+
+    subtitle = StringField('Subtitulo do projeto:')
+
+    description = TextAreaField('Descrição do projeto:')
+
+    situation = SelectField('Situação', choices=[
+        ('Renovado', 'Renovado'), ('Em execução', 'Em execução'), ('Encerrado com pendências', 'Encerrado com pendências'), ('Finalizado', 'Finalizado'), ('Necessita correção', 'Necessita correção')], validators=[
+            DataRequired('Escolha a situação do projeto')
+    ])
+
+    year = IntegerField('Ano do projeto', validators=[
+        DataRequired('Digite o ano do projeto')
+    ])
+
+    email = EmailField('Email para contato', validators=[
+        DataRequired('Por favor digite um email válido para contato')
+    ])
+
+    dt_init = StringField('Data de início do projeto', validators=[
+        DataRequired('Digite a data de início do projeto')
+    ])
+
+    dt_end = StringField('Data esperada pra o final do projeto', validators=[
+        DataRequired('Digite a data esperada para finalização do projeto')
+    ])
+
+    project_id = StringField()
+
+    create = SubmitField('Adicionar')
+
+class MemberOfProjectForm(FlaskForm):
+    """
+    Form for members inside project
+    """
+    name = StringField('Nome do membro:', validators=[
+        DataRequired('Digite o nome do membro do projeto')
+    ])
+
+    project_role = SelectField('Categoria', choices=[
+        ('Colaborador(a)', 'Colaborador(a)'), ('Coordenador(a)', 'Coordenador(a)')
+    ])
+
+    general_role = SelectField('Tipo', choices=[
+        ('Discente', 'Discente'), ('Externo', 'Externo'), ('Coordenador(a)', 'Coordenador(a)')
+    ])
+
+    project_id = StringField(validators=[
+        DataRequired('Houve um erro')
+    ])
+
+    index = IntegerField()
+
+    create = SubmitField('Adicionar')

@@ -16,6 +16,7 @@
     </header>
 
     {% for coordinator in board_of_staffs.coordination %}
+    {% if "deleted" not in coordinator %}
     <div class="row">
         <div class="col-md-3">
             <img alt="Coordenador(a)" src="{{ coordinator.photo }}" class="img-circle pull-right" height="190" width="180">
@@ -28,6 +29,7 @@
         </div>
     </div>
     <br/>
+    {% endif %}
     {% endfor %}
 
     <h3>Secretaria</h3>
@@ -46,11 +48,13 @@
                 <th>Descrição das atividades</th>
             </thead>
             {% for worker in board_of_staffs.secretariat %}
+            {% if "deleted" not in worker %}
             <tr>
                 <td>{{ worker.name }}</td>
                 <td>{{ worker.function.rank }}</td>
                 <td>{{ worker.function.description }}</td>
             </tr>
+            {% endif %}
             {% endfor %}
         </table>
     </div>

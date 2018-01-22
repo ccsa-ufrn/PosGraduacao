@@ -1,30 +1,47 @@
 {% extends "admin/layout.html" %}
 
 {% block content %}
-
-<header>
-    <h2>Documentos</h2>
-</header>
-
+<div class="col-md-6" style="margin-left: -4%">
+<div class="panel panel-danger">
+<div class="panel-heading text-center">
+    <h4>Adicionar documento<h4/>
+</div>
+<div class="panel-body">
 <form method="POST" action="{{ url_for('admin.documents') }}" enctype="multipart/form-data">
+    <div class="form-group">
     {{ form.csrf_token }}
     
     {{ form.title.label }}<br/>
-    {{ form.title(required='true', placeholder='ex: Regimento Interno') }}
+    {{ form.title(required='true', placeholder="Ex: Regimento Interno", class="form-control") }}
     
     <br/>
 
-    {{ form.year.label }}<br/>
-    {{ form.year(required='true', type='number', step='1', min='1970', max='2050    ', placeholder='ex: 2017') }}
+    {{ form.cod.label }}<br/>
+    {{ form.cod(required='true', placeholder="Ex: 12-2015", class="form-control") }}
 
     <br/>
-
-    {{ form.document.label }}<br/>
-    {{ form.document(required='true') }}
-
+    {{ form.category.label }}<br/>
+    {{ form.category(required='true', class="form-control") }}
     <br/>
 
-    {{ form.create }}
+    <label class="btn btn-default">
+        <span>Carregar documento</span>
+        {{ form.document(required='true', style="display:none") }}
+    </label>
+    <br/>
+    <br/>
+
+    {{ form.create(class="form-control")}}
+    </div>
 </form>
+<br/>
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 {% endblock %}

@@ -1,30 +1,45 @@
 {% extends "admin/layout.html" %}
 
 {% block content %}
-
-<header>
-    <h2>Convênios</h2>
-</header>
-
+<div class="col-md-6" style="margin-left: -4%">
+<div class="panel panel-danger">
+<div class="panel-heading text-center">
+    <h4>Adicionar convênio<h4/>
+</div>
+<div class="panel-body">
 <form method="POST" action="{{ url_for('admin.covenants') }}" enctype="multipart/form-data">
+    <div class="form-group">
     {{ form.csrf_token }}
     
     {{ form.name.label }}<br/>
-    {{ form.name(required='true', placeholder='ex: Universidade Federal do Rio de Janeiro') }}
+    {{ form.name(required='true', placeholder="Ex: Universidade Federal do Rio de Janeiro", class="form-control") }}
     
     <br/>
 
     {{ form.initials.label }}<br/>
-    {{ form.initials(required='true', placeholder='ex: UFRJ') }}
+    {{ form.initials(required='true', placeholder="ex: UFRJ", class="form-control") }}
 
     <br/>
 
-    {{ form.logo.label }}<br/>
-    {{ form.logo }}
+    <label class="btn btn-default">
+        <span>Carregar documento</span>
+        {{ form.logo(style="display:none") }}
+    </label>
 
     <br/>
-
-    {{ form.create }}
+    <br/>
+    
+    {{ form.create(class="form-control") }}
+    </div>
 </form>
+<br/>
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 {% endblock %}

@@ -1,17 +1,21 @@
 """
 Routes and views for public pages about Post Graduation Programs.
 """
-
+import sys
 
 from flask import Blueprint, render_template, redirect, \
-current_app, request
+current_app, request, jsonify, url_for
 from pymongo.errors import ServerSelectionTimeoutError
 
 from scraping.institutional_repository import RIScraper
 from models.clients.util import keyring
 
+from views.forms.content import FindClass 
+
 from models.factory import PosGraduationFactory
 from models.clients.api_sistemas import SigaaError, FailedToGetTokenForSigaaError, UnreachableSigaaError, NoAppCredentialsForSigaaError
+
+from bson.json_util import dumps
 
 
 app = Blueprint('public', __name__, static_folder='static', url_prefix='')
@@ -61,8 +65,10 @@ def home(initials):
 
     # search for home data
     final_reports = pfactory.final_reports_dao().find_one()
+    events = pfactory.calendar_dao().find_one()
+    events = pfactory.calendar_dao().find_one()['events']
     final_reports = final_reports['scheduledReports']
-    weekly_schedules = pfactory.weekly_schedules_dao().find()
+    classes = pfactory.classes_dao(2017,1, 10).find()
     integrations_infos = pfactory.integrations_infos_dao().find_one()
     if integrations_infos is None:
         integrations_infos = {
@@ -70,22 +76,22 @@ def home(initials):
             'initials': "",
             'logoFile': "",
         }
-        institutionsWithCovenant = integrations_infos
+        institutions_with_covenant = integrations_infos
     else:
-        institutionsWithCovenant=integrations_infos['institutionsWithCovenant']
+        institutions_with_covenant = integrations_infos['institutionsWithCovenant']
     attendance = pfactory.attendances_dao().find_one()
     if attendance is None:
         attendance = {
-                'location' : {
-                    'building' : '',
-                    'floor' : '',
-                    'room' : '',
-                    'opening' : ''
+            'location' : {
+                'building' : '',
+                'floor' : '',
+                'room' : '',
+                'opening' : ''
                 },
-                'email' : '',
-                'phones' : {
-                    'type' : '',
-                    'number' : ''
+            'email' : '',
+            'phones' : {
+                'type' : '',
+                'number' : ''
                 }
         }
 
@@ -95,8 +101,9 @@ def home(initials):
         std=get_std_for_template(post_graduation),
         google_maps_api_key=google_maps_api_key,
         final_reports=final_reports,
-        weekly_schedules=weekly_schedules,
-        institutionsWithCovenant=institutionsWithCovenant,
+        events=events,
+        classes=classes,
+        institutions_with_covenant=institutions_with_covenant,
         attendance=attendance,
     )
 
@@ -118,7 +125,7 @@ def view_subjects(initials):
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
 
-    grades_of_subjects = pfactory.grades_of_subjects_dao().find()
+    grades_of_subjects = pfactory.grades_of_subjects_dao().find({ '$or': [ { 'title': 'Eletivas' }, { 'title':'Obrigatórias' } ] })
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -139,21 +146,7 @@ def view_professors(initials):
     board_of_professors = pfactory.boards_of_professors_dao().find_one()
     if board_of_professors is None:
         board_of_professors = []
-    else:
-        # manually fill missing lattes
-        for professor in board_of_professors['professors']:
-            if 'Djalma Freire Borges'.upper() in professor['name'].upper():
-                professor['lattes'] = 'http://lattes.cnpq.br/3216184364856265'
-            elif 'Káio César Fernandes'.upper() in professor['name'].upper():
-                professor['lattes'] = 'http://lattes.cnpq.br/9740792920379789'
-            elif 'Richard Medeiros de Araújo'.upper() in professor['name'].upper():
-                professor['lattes'] = 'http://lattes.cnpq.br/6158536331515084'
-            elif 'Ítalo Fittipaldi'.upper() in professor['name'].upper():
-                professor['lattes'] = 'http://lattes.cnpq.br/7626654802346326'
-            elif 'Hironobu Sano'.upper() in professor['name'].upper():
-                professor['lattes'] = 'http://lattes.cnpq.br/6037766951080411'
-
-
+    
     # renders an own page or redirect to another (external/404)?
     return render_template(
         'public/professors.html',
@@ -206,10 +199,13 @@ def view_calendar(initials):
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
 
+    calendar_info = pfactory.calendar_dao().find_one()
+
     # renders an own page or redirect to another (external/404)?
     return render_template(
         'public/calendar.html',
-        std=get_std_for_template(post_graduation)
+        std=get_std_for_template(post_graduation),
+        calendar_info=calendar_info
     )
 
 
@@ -239,7 +235,7 @@ def view_students(initials):
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
 
-    students = pfactory.students_dao().find()
+    students = pfactory.students_dao()
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -248,6 +244,45 @@ def view_students(initials):
         students=students
     )
 
+@app.route('/<string:initials>/turmas/', methods=['POST','GET'])
+def view_classes(initials):
+    """Render a view for classes list."""
+
+    form = FindClass()
+    
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+    classes=pfactory.classes_dao(2017,1,100).find()
+    if form.validate_on_submit():
+        return redirect(
+            url_for(
+                'public.find_classes',
+                initials=initials,
+                year=form.year.data,
+                period=form.period.data
+            )
+        )
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/subjectsinclasses.html',
+        std=get_std_for_template(post_graduation),
+        form=form,
+        classes=classes
+    )
+
+@app.route('/achar_classes', methods=['POST', 'GET'])
+def find_classes():
+    form = FindClass()
+    pfactory = PosGraduationFactory(request.args['initials'])
+    post_graduation = pfactory.post_graduation
+    classes_2 =pfactory.classes_dao(request.args['year'], request.args['period'], 100).find()
+    return render_template(
+        'public/subjectsinclasses.html',
+        std=get_std_for_template(post_graduation),
+        form=form,
+        classes=classes_2
+    )
 
 
 @app.route('/<string:initials>/projetos/')
@@ -256,8 +291,15 @@ def view_projects(initials):
 
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
-
-    projects = pfactory.projects_dao().find()
+    projects = pfactory.projects_database_dao().find()
+    projects = list(projects)
+    for project in projects:
+        coordinators_names = []
+        for member in project['members']:
+            if 'Coordenador(a)' in member['project_role']:
+                coordinators_names.append(member)
+                project['members'].remove(member)
+        project['coordinators_names'] = coordinators_names
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -267,24 +309,87 @@ def view_projects(initials):
     )
 
 
+@app.route('/<string:initials>/livros/')
+def view_books(initials):
+    """Render a view for books list."""
 
-@app.route('/<string:initials>/documentos/')
-def view_documents(initials):
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    publications = pfactory.publications_dao().find_one()
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/books.html',
+        std=get_std_for_template(post_graduation),
+        publications=publications
+    )
+
+@app.route('/<string:initials>/artigos/')
+def view_articles(initials):
+    """Render a view for artigos list."""
+
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    publications = pfactory.publications_dao().find_one()
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/articles.html',
+        std=get_std_for_template(post_graduation),
+        publications=publications
+    )
+
+
+
+@app.route('/<string:initials>/documentos/regimentos')
+def view_documents_regiments(initials):
     """Render a view for documents list."""
 
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
 
-    documents = pfactory.official_documents_dao().find()
+    documents = pfactory.official_documents_dao().find({'category':'regimento'})
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
-        'public/documents.html',
+        'public/documents_regiments.html',
         std=get_std_for_template(post_graduation),
         documents=documents
     )
 
+@app.route('/<string:initials>/documentos/atas')
+def view_documents_atas(initials):
+    """Render a view for documents list."""
 
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    documents = pfactory.official_documents_dao().find({'category':'ata'})
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/documents_atas.html',
+        std=get_std_for_template(post_graduation),
+        documents=documents
+    )
+
+@app.route('/<string:initials>/documentos/outros')
+def view_documents_others(initials):
+    """Render a view for documents list."""
+
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    documents = pfactory.official_documents_dao().find({'category':'outros'})
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/documents_others.html',
+        std=get_std_for_template(post_graduation),
+        documents=documents
+    )
 
 @app.route('/<string:initials>/conclusoes/')
 def view_final_reports(initials):
@@ -299,10 +404,10 @@ def view_final_reports(initials):
         else:
             page = int(page)
         if initials != 'PPGIC':
-            final_reports, max_page = RIScraper.final_reports_list(initials, page)
+            final_reports, max_page = RIScraper.final_reports_list(initials, page, 'master')
         else:
-            final_reports = [{'author':'','title':'','year':'','link':''}]
-            max_page = 1 
+            final_reports = [{'author':'', 'title':'', 'year':'', 'link':''}]
+            max_page = 1
 
         return render_template(
             'public/final_reports.html',
@@ -313,6 +418,35 @@ def view_final_reports(initials):
         )
     except Exception:
         return page_not_found()
+
+@app.route('/<string:initials>/conclusoes_doutorado/')
+def view_final_reports_phd(initials):
+    """Render a view for phd conclusion works list."""
+
+    try:
+        post_graduation = PosGraduationFactory(initials).post_graduation
+
+        page = request.args.get('page')
+        if page is None:
+            page = 1
+        else:
+            page = int(page)
+        if initials != 'PPGIC':
+            final_reports, max_page = RIScraper.final_reports_list(initials, page, 'phd')
+        else:
+            final_reports = [{'author':'', 'title':'', 'year':'', 'link':''}]
+            max_page = 1
+
+        return render_template(
+            'public/final_reports_phd.html',
+            std=get_std_for_template(post_graduation),
+            final_reports=final_reports,
+            current_page=page,
+            max_page=max_page,
+        )
+    except Exception:
+        return page_not_found()
+
 
 
 # AUX

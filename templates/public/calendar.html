@@ -5,7 +5,7 @@
 <style>
     .card {
         width: 100%;
-        height: 120px;
+        height: 180px;
         border: 1.5px solid grey;
         border-radius: 5px;
         padding-left: 10px;
@@ -28,42 +28,21 @@
         </h2>
     </header>
     <div class="row">
+        {% for event in calendar_info.events %}
+        {% if "deleted" not in event %}
         <div class="col-sm-3">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Matrícula para o período 2017.2</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Início: 17/07/2017</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Fim: 21/07/2017</h6>
+                    <h4 class="card-title">{{ event.title }}</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">Início: {{ event.initialDate }}</h6>
+                    {% if event.finalDate != None %}<h6 class="card-subtitle mb-2 text-muted">Fim: {{ event.finalDate }}</h6>{% endif %}
+                    {% if event.hour != None%}<h6 class="card-subtitle mb-2 text-muted">Horário: {{ event.hour }}</h6>{% endif %}
+                    {% if event.link != None%}<h6 class="card-subtitle mb-2 text-muted"><a href="{{ ''.join(['http://', event.link]) }}"> Mais informações</a></h6>{% endif %}
                 </div>
             </div>
         </div>
-    
-        <div class="col-sm-3">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Início do período letivo 2017.2.</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Início: 10/08/2017</h6>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Hackathon UFRN</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Início: 27/10/2017</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Fim: 10/11/2017</h6>
-                </div>
-            </div>
-        </div>
-    
-        <div class="col-sm-3">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Término do período letivo 2017.2</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Fim: 08/12/2017</h6>
-                </div>
-            </div>
-        </div>
+        {% endif %}
+        {% endfor %}
     </div>
 </section>
 

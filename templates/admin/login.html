@@ -1,21 +1,30 @@
 {% extends "admin/layout.html" %}
-
+{% block styles %}
+<style>
+@media(max-width: 375px) {
+    .col-md-4 {
+        margin-top: 30%;
+    }
+}
+</style>
+{% endblock %}
 {% block content %}
-
-<header>
+<div class="col-md-4 col-md-offset-6" style="padding-left: 5%">
+<header class="text-center">
     <h2>Login</h2>
 </header>
 
 <form method="POST" action="/admin/login/">
+    <div class="form-group">
     {{ form.csrf_token }}
     
     {{ form.nick.label }}<br/>
-    {{ form.nick(required='true') }}
+    {{ form.nick(required='true', class="form-control") }}
 
     <br/>
 
     {{ form.password.label }}<br/>
-    {{ form.password(required='true') }}
+    {{ form.password(required='true', class="form-control") }}
 
     <br/>
     
@@ -23,11 +32,15 @@
     <p class="error-text">Erro no usuário ou senha.</p>
     {% endif %}
 
-    <input type="submit" value="Entrar">
+    <input type="submit" value="Entrar" class="form-control">
+    </div>
 </form>
 
 <p>
     Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
 </p>
 
+</div>
+</div>
+</div>
 {% endblock %}

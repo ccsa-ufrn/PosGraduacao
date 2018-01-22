@@ -1,0 +1,67 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+<div class="col-md-6" style="margin-left: -4%">
+<div class="panel panel-danger">
+<div class="panel-heading text-center">
+    <h4>Adicionar Livro<h4/>
+</div>
+<div class="panel-body">
+<form method="POST" action="{{ url_for('crud_books.add_book') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    
+    <br/>
+    
+    {{ form.title.label }}<br/>
+    {{ form.title(required='true', class="form-control", placeholder="Ex: O principe") }}
+
+    <br/>
+    
+    {{ form.subtitle.label }}<br/>
+    {{ form.subtitle(class="form-control", placeholder="Ex: Com anotações de Napoleão") }}
+
+    <br/>
+    
+    {{ form.authors.label }}<br/>
+    {{ form.authors(required='true', class="form-control", placeholder="Ex: Maquiavel e Napoleão") }}
+
+    <br/>
+
+    {{ form.edition.label }}<br/>
+    {{ form.edition(required='true', class="form-control", type='number', step='1', min='1', max='300', placeholder='ex: 1') }}
+
+    <br/>
+    
+    {{ form.location.label }}<br/>
+    {{ form.location(required='true', class="form-control", placeholder="Ex: Natal") }}
+
+    <br/>
+    
+    {{ form.publisher.label }}<br/>
+    {{ form.publisher(required='true', class="form-control", placeholder="Ex: Editora 34") }}
+
+    <br/>
+
+    {{ form.year.label }}<br/>
+    {{ form.year(required='true', type='number', step='1', placeholder='2002', class="form-control") }}    
+
+    <br/>
+    <br/>
+    
+    {{ form.create(class="form-control")}}
+    </div>
+    
+</form>
+<br/>
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}

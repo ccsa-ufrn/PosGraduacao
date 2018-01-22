@@ -27,10 +27,12 @@
                 <th>Instituição</th>
             </thead>
             {% for institution in integrations_infos.institutionsWithCovenant %}
+            {% if "deleted" not in institution %}
             <tr>
                 <td>{{ institution.initials }}</td>
                 <td>{{ institution.name }}</td>
             </tr>
+            {% endif %}
             {% endfor %}
         </table>
     </div>

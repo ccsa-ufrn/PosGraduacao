@@ -2,55 +2,56 @@
 
 {% block content %}
 
-<header>
-    <h2>Disciplinas</h2>
-</header>
-
-{% if success_msg %}
-    <div class="form-success">
-        <p>{{ success_msg }}</p>
-    </div>
-{% endif %}
-<div class="form">
-<form method="POST" action="{{ url_for('admin.subjects') }}">
+<div class="col-md-6" style="margin-left: -4%">
+<div class="panel panel-danger">
+<div class="panel-heading text-center">
+    <h4>Adicionar Disciplina<h4/>
+</div>
+<div class="panel-body">
+<form method="POST" action="{{ url_for('crud_subjects.subjects') }}">
+    <div class="form-group">
     {{ form.csrf_token }}
     
     <br/>
     
     {{ form.name.label }}<br/>
-    {{ form.name(required='true') }}
+    {{ form.name(required='true', class="form-control", placeholder="Ex: Teoria Geral da Administração Pública ") }}
 
     <br/>
     
     {{ form.description.label }}<br/>
-    {{ form.description(required='true', minlength='100', maxlength='1200', placeholder='ex: Compreensão dos campos da política, das políticas públicas e da administração pública; O Contexto decisório da Administração Pública; O Contexto organizacional da Administração Pública; O Contexto normativo da Administração Pública; Teoria das Organizações e Administração Pública; Novos paradigmas da gestão pública.') }}
+    {{ form.description(required='true' , class="form-control", minlength='100', maxlength='1200', placeholder="Ex: Compreensão dos campos da política, das políticas públicas e da administração pública; O Contexto decisório da Administração Pública; O Contexto organizacional da Administração Pública; O Contexto normativo da Administração Pública; Teoria das Organizações e Administração Pública; Novos paradigmas da gestão pública.") }}
 
     <br/>
 
     {{ form.workload_in_hours.label }}<br/>
-    {{ form.workload_in_hours(required='true', type='number', step='1', min='1', max='300', placeholder='ex: 30') }}
+    {{ form.workload_in_hours(required='true', class="form-control", type='number', step='1', min='1', max='300', placeholder="Ex: 30") }}
 
     <br/>
 
     {{ form.credits.label }}<br/>
-    {{ form.credits(required='true', type='number', step='1', placeholder='ex:4') }}    
+    {{ form.credits(required='true', type='number', step='1', placeholder="Ex: 4", class="form-control") }}    
 
     <br/>
 
     {{ form.requirement.label }}<br/>
-    {{ form.requirement(required='true') }}
+    {{ form.requirement(required='true', class="form-control") }}
 
     <br/>
-    <br/>
     
-    {{ form.create }}
+    {{ form.create(class="form-control")}}
+    </div>
     
 </form>
-    <br/>
-</div>
-
+<br/>
 <p>
     Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
 </p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
 
 {% endblock %}

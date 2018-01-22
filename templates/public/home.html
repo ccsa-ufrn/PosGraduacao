@@ -115,22 +115,33 @@
             {% if events %}
             <table class="schedule-table">
                 {% for event in events %}
+                {% if "deleted" not in event %}
+                {% if loop.revindex < 4 %}
                 <tr class="schedule-container">
                     <td class="schedule-container-date">
                         <ul>
-                            <li class="schedule-date-day">{{ event.time.strftime("%d") }}</li>
-                            <li class="schedule-date-month">{{ event.time.strftime("%b").upper() }}</li>
-                            <li class="schedule-date-year">{{ event.time.strftime("%Y") }}</li>
+                            <li class="schedule-date-day">{{ event.initialDate.strftime("%d") }}</li>
+                            <li class="schedule-date-month">{{ event.initialDate.strftime("%b").upper() }}</li>
+                            <li class="schedule-date-year">{{ event.initialDate.strftime("%Y") }}</li>
                         </ul>
                     </td>
                     <td class="schedule-container-info">
                         <h4>{{ event.title }}</h4>
                         <p>
-                            Local: {{ event.location }}<br/>
-                            Horário: {{ event.time.strftime("%H:%M") }}<br/>
+                            {% if event.finalDate != "" %}
+                            Encerramento: {{ event.finalDate.strftime("%d/%m/%Y") }}<br/>
+                            {% endif %}
+                            {% if event.hour != "" %}
+                            Horário: {{ event.hour }}<br/>
+                            {% endif %}
+                            {% if event.link != "" %}
+                            <a href="{{ event.link }}">Mais informações</a>
+                            {% endif %}
                         </p>
                     </td>
                 </tr>
+                {% endif %}
+                {% endif %}
                 {% endfor %}
             </table>
             {% else %}
@@ -146,6 +157,8 @@
             {% if final_reports %}
             <table class="schedule-table">
                 {% for report in final_reports %}
+                {% if "deleted" not in report %}
+                {% if loop.revindex < 4 %}
                 <tr class="schedule-container">
                     <td class="schedule-container-date">
                         <ul>
@@ -165,6 +178,8 @@
                         </p>
                     </td>
                 </tr>
+                {% endif %}
+                {% endif %}
                 {% endfor %}
             </table>
             {% else %}
@@ -214,40 +229,29 @@
             <header>
                 <h2><span class="glyphicon glyphicon-hourglass"></span> Horários</h2>
             </header>
-            {% for weekly_schedule in weekly_schedules %}
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
-                    <h4>{{ weekly_schedule.title }}</h4>
+                    <h4>Turma de 2017.1</h4>
                 </div>
                 <table class="table schedule-table">
                     <thead>
                         <tr>
-                            <th>Dia</th>
-                            <th>Lista de aulas</th>
+                            <th>Disciplina</th>
+                            <th>Horário</th>
                         </tr>
-                    </thead>
-                    {% for day in weekly_schedule.week %}
+                    {% for class in classes %}
                     <tr>
-                        <td>
-                            {{ day.day }}
-                        </td>
-                        <td>
-                            <ul>
-                                {% for class in day.classes %}
-                                <li>
-                                    <span{% if class.isMandatory %} style="font-weight: bold" {% endif %}>
-                                        {{ class.subject }}
-                                    </span>
-                                    às {{ class.hour }}
-                                </li>
-                                {% endfor %}
-                            </ul>
+                        <td>{{ class.component_name }}</td>
+                        <td>{{ class.hours }}</td>
                         </td>
                     </tr>
                     {% endfor %}
+                    </thead>
                 </table>
+                <div class="panel-heading text-center">
+                    <h5><p><a href="{{ url_for('public.view_classes', initials=std.post_graduation.initials) }}"> Clique para ver o resto das turmas</a></h5>
+                </div>
             </div>
-            {% endfor %}
         </section>
     </div>
 
@@ -269,8 +273,10 @@
             <a href="{{ url_for('public.view_covenants', initials=std.post_graduation.initials) }}">Ler mais</a>
         </p>
         <div class="autoplay">
-            {% for institution in institutionsWithCovenant %}
+            {% for institution in institutions_with_covenant %}
+            {% if "deleted" not in institution %}
             <div><img src="/static/assets/{{ institution.logoFile }}" alt="{{ institution.name }}"/></div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>

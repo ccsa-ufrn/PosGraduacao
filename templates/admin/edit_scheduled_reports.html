@@ -4,25 +4,87 @@
 <link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ post_graduation }}.css"/>
 {% endblock %}
 
-{% block content %}
-
-<section>
-    <header class="page-header">
-        <h2>&raquo Trabalhos de Conclusão</h2>
-    </header>
-
-    {% for report in final_reports.scheduledReports %}
-
-    <form method="POST" action="{{ url_for('admin.edit_scheduled_reports') }}">
-        {{ form.csrf_token }}
-        <h4>{{ report.title }}</h4>
-        <h5><strong>Autor:</strong> {{ report.author }}.</h5>
-        <h6><strong>Data:</strong> {{ report.time}}.</h5>
-        <h6><strong>Localização:</strong> {{ report.location }}.</h6>
-        <br/>
+{% block scripts %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("input[name=create]").val("Editar");
+    var scheduledReports = {{ final_reports|tojson|safe }};
+    var scheduledReports = JSON.parse(scheduledReports);
+    var listOfTitles = [];
+    for( i = 0; i < scheduledReports.scheduledReports.length; i++){ 
+        if (!(scheduledReports.scheduledReports[i].hasOwnProperty('deleted'))){ 
+        listOfTitles.push({
+            id: i,
+            text: (scheduledReports.scheduledReports[i].title)
+            })
+        }
+    }
+    $("#list").select2({
+        data: listOfTitles
+    });
+    $("button").click(function() {
+        var indexInReports = $("select#list").val();
+        var title = scheduledReports.scheduledReports[indexInReports].title;
+        var time = scheduledReports.scheduledReports[indexInReports].time;
+        var location = scheduledReports.scheduledReports[indexInReports].location;
+        var author = scheduledReports.scheduledReports[indexInReports].author;
+        var date = new Date(time.$date);
+        var date = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+        var date = date.substring(0, date.length - 3);
+        $("#form-edit").css("visibility", "visible");
+        $("input[name=title]").val(title);
+        $("input[name=location]").val(location);
+        $("input[name=author]").val(author);
+        $("input[name=time]").val(date);
+        $("input[name=index]").val(indexInReports);
         
-    {% endfor %}
+    });
+});
+</script>
+{% endblock %}
 
-</section>
-
+{% block content %}
+<div class="col-md-12">
+<div class="panel panel-danger" style="margin-left: -4%">
+<div class="panel-heading text-center">
+    <h4>Editar agendamento<h4/>
+</div>
+<div class="panel-body">
+<div class="col-md-10">
+<h5>Selecione o agendamento</h5>
+<select id="list"></select>
+</br>
+</br>
+<button id="edit" type="button" class="btn btn-default">Selecionar</button>
+</div>
+<div class="col-md-10">
+<form method="POST" id="form-edit" action="{{ url_for('admin.edit_scheduled_reports') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    {{ form.index(required='true', style="display:none;", readonly="readonly") }}
+    <br/>
+    {{ form.title.label(class="label-edit") }}
+    {{ form.title(required='true', class="form-control") }}
+    <br/>
+    {{ form.author.label(class="label-edit") }}
+    {{ form.author(required='true', class="form-control") }}
+    <br/>
+    {{ form.location.label(class="label-edit") }}
+    {{ form.location(required='true', class="form-control") }}
+    <br/>
+    {{ form.time.label(class="label-edit") }}
+    {{ form.time(required='true', class="form-control") }}
+    <br/>
+    {{ form.create }}
+    </div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 {% endblock %}

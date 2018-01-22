@@ -1,0 +1,120 @@
+{% extends "admin/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ post_graduation }}.css"/>
+{% endblock %}
+
+{% block scripts %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("input[name=create]").val("Editar");
+    var requirement = ($("#requirements").val());
+    var indexRequirement = 0;
+    var subjects = {{ subjects|tojson|safe }};
+    var subjects = JSON.parse(subjects);
+    var listOfElectives = [];
+    var listOfMandatory = [];
+    for( i = 0; i < subjects[0].subjects.length; i++){
+        if (!(subjects[0].subjects[i].hasOwnProperty('deleted'))){
+            listOfMandatory.push({
+                id: i,
+                text: (subjects[0].subjects[i].name)
+            })
+        }
+    }
+    for( i = 0; i < subjects[1].subjects.length; i++){
+        if (!(subjects[1].subjects[i].hasOwnProperty('deleted'))){
+            listOfElectives.push({
+                id: i,
+                text: (subjects[1].subjects[i].name)
+            })
+        }
+    }
+    $("#list").select2({
+        data: listOfMandatory
+    });
+
+    $("button").click(function(){
+        var indexInSubjects = $("select#list").val();
+        $("#form-edit").css("visibility", "visible");
+        $("input[name=name]").val(subjects[indexRequirement].subjects[indexInSubjects].name);
+        $("textarea[name=description]").val(subjects[indexRequirement].subjects[indexInSubjects].description);
+        console.log(subjects[indexRequirement].subjects[indexInSubjects].description);
+        $("input[name=workload_in_hours]").val(subjects[indexRequirement].subjects[indexInSubjects].workloadInHours);
+        $("input[name=credits]").val(subjects[indexRequirement].subjects[indexInSubjects].credits);
+        $("select[name=requirement]").val($("#requirements").val());
+        $("input[name=index]").val(indexInSubjects);
+    });
+
+    $("#requirements").change(function(){
+        var requirement = $(this).val();
+        console.log(requirement);
+        if($(this).val() == "Eletivas"){
+            indexRequirement = 1;
+            $("#list").html("");
+            $("#list").select2({
+                data: listOfElectives
+            });
+        }
+        if($(this).val() == "Obrigatórias"){
+            indexRequirement = 0;
+            $("#list").html("");
+            $("#list").select2({
+                data: listOfMandatory
+            });
+        }
+    });
+
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="col-md-10" style="margin-left: -4%">
+<div class="panel panel-danger">
+<div class="panel-heading text-center">
+    <h4>Editar disciplinas<h4/>
+</div>
+<div class="panel-body">
+<div class="col-md-10">
+<h5>Selecione a disciplina</h5>
+<select id="list"></select>
+</br>
+</br>
+<select id="requirements" type="select" class="btn btn-default">
+    <option value="Obrigatórias" selected="selected">Obrigatórias</option>
+    <option value="Eletivas">Eletivas</option>
+</select>
+<button id="edit" type="button" class="btn btn-default">Selecionar</button>
+</div>
+<div class="col-md-10">
+<form method="POST" id="form-edit" action="{{ url_for('crud_subjects.edit_subjects') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    {{ form.index(required='true', style="display:none;") }}
+    <br/>
+    {{ form.name.label }}
+    {{ form.name(required='true', class="form-control") }}
+    <br/>
+    {{ form.description.label }}
+    {{ form.description(required='true', class="form-control") }}
+    <br/>
+    {{ form.workload_in_hours.label }}
+    {{ form.workload_in_hours(required='true', class="form-control") }}
+    <br/>
+    {{ form.credits.label }}
+    {{ form.credits(required='true', class="form-control") }}
+    <br/>
+    {{ form.requirement.label(class="label-edit", style="display:none") }}
+    {{ form.requirement(required='true', class="form-control", style="display:none") }}
+    {{ form.create(class="form-control") }}
+    </div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

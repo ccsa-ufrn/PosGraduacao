@@ -1,0 +1,42 @@
+{% extends "public/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ std.post_graduation.initials.lower() }}.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>Livros publicados</h2>
+    </header>
+
+    {% for article in publications.articles %}
+    {% if "deleted" not in article %}
+    <h3>{{ article.title }}</h3>
+    {% if article.subtitle != ""  %}
+    <h4>{{ article.subtitle }}</h4>
+    {% endif %}
+    <ul>
+        <li><strong>Autores:</strong> {{ article.authors }}</li>
+        <li><strong>Edição:</strong>  {{ article.edition }}</li>
+        <li><strong>Revista:</strong> {{ article.publisher }}</li>
+        {% if article.number != "" %}
+        <li><strong>Número:</strong> {{ article.number }}</li>   
+        {% endif %}
+        <li><strong>Local de impressão:</strong> {{ article.location }}</li>   
+        <li><strong>Páginas:</strong> {{ article.pages }}</li>
+        <li><strong>Data:</strong> {{ article.date }}</li>
+    </ul>
+    <header class="page-header">
+        <h2> </h2>
+    </header>
+    
+    {% endif %}
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "public/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ std.post_graduation.initials.lower() }}.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>Livros publicados</h2>
+    </header>
+
+    {% for book in publications.books %}
+    {% if "deleted" not in book %}
+    <h3>{{ book.title }}</h3>
+    {% if book.subtitle != ""  %}
+    <h4>{{ book.subtitle }}</h4>
+    {% endif %}
+    <ul>
+        <li><strong>Autores:</strong> {{ book.authors }}</li>
+        <li><strong>Edição:</strong>  {{ book.edition }}</li>
+        <li><strong>Editora:</strong> {{ book.publisher }}</li>   
+        <li><strong>Local de impressão:</strong> {{ book.location }}</li>   
+        <li><strong>Ano:</strong> {{ book.year }}</li>
+    </ul>
+    <br/>
+    {% endif %}
+    {% endfor %}
+
+</section>
+
+{% endblock %}
