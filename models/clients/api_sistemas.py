@@ -22,17 +22,15 @@ sinfo_api_dict = keyring.get(keyring.SINFO_API)
 # security data
 CLIENT_ID     = 'none'
 CLIENT_SECRET = 'none'
-X_API_KEY = 'none'
 
 try:
     CLIENT_ID     = sinfo_api_dict['client-id']
     CLIENT_SECRET = sinfo_api_dict['client-secret']
-    X_API_KEY = sinfo_api_dict['x-api-key']
 except KeyError:
     raise NoAppCredentialsForSigaaError()
 
 # important URLs for APISistemas
-API_URL_ROOT           = 'https://apitestes.info.ufrn.br/' # API root (it's a test security link for now)
+API_URL_ROOT           = 'https://api.ufrn.br/' # API root (it's a test security link for now)
 AUTHORIZATION_ENDPOINT = API_URL_ROOT + 'authz-server/oauth/authorize' # auth
 TOKEN_ENDPOINT         = API_URL_ROOT + 'authz-server/oauth/token' # token
 
@@ -53,8 +51,7 @@ def get_public_data(resource_url):
     Returns the expected json (check API Sistemas web site and its Swagger) as a Python Dictionary.
     """
     headers = {
-        'Authorization' : 'Bearer ' + retrieve_token(),
-        'x-api-key': X_API_KEY
+        'Authorization' : 'Bearer ' + retrieve_token()
     }
     
     try:
