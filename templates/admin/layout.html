@@ -31,7 +31,9 @@
 
             <div class="navbar-collapse collapse">                
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"> Ver página </a></li>
+                    {% if current_user and current_user.is_authenticated %}
+                    <li><a href="/{{ current_user.pg_initials }}"> Página pública</a></li>
+                    {% endif %}
                     <li><a href="#"> Configurações </a></li>
                     <li><a href="{{ url_for('admin.logout') }}"> Sair </a></li>
                 </ul>
