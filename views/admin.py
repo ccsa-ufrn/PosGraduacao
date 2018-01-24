@@ -876,8 +876,10 @@ def edit_covenants():
             })
         else:
             dao.find_one_and_update(None, {
-                '$set' : {'institutionsWithCovenant.' + index + '.name' : form.name.data},
                 '$set' : {'institutionsWithCovenant.' + index + '.initials' : form.initials.data.upper()}
+            })
+            dao.find_one_and_update(None, {
+                '$set' : {'institutionsWithCovenant.' + index + '.name' : form.name.data}
             })
 
         return redirect(
