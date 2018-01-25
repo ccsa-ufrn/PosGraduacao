@@ -15,6 +15,7 @@ tcl
 # PosGraduacao
 
 *settings/files/api_keys.json
+*settings/files/api_keys_old.json
 
 #######################################################
 #Upload files
