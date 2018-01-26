@@ -66,7 +66,14 @@ def home(initials):
     # search for home data
     final_reports = pfactory.final_reports_dao().find_one()
     events = pfactory.calendar_dao().find_one()
-    events = pfactory.calendar_dao().find_one()['events']
+    calendar = pfactory.calendar_dao().find_one()['events']
+    selections = []
+    events = []
+    for event in range(len(calendar)):
+        if "Seleção" in calendar[event]['title']:
+            selections.append(calendar[event])
+        else:
+            events.append(calendar[event])
     final_reports = final_reports['scheduledReports']
     classes = pfactory.classes_dao(2017,1, 10).find()
     integrations_infos = pfactory.integrations_infos_dao().find_one()
@@ -102,6 +109,7 @@ def home(initials):
         google_maps_api_key=google_maps_api_key,
         final_reports=final_reports,
         events=events,
+        selections=selections,
         classes=classes,
         institutions_with_covenant=institutions_with_covenant,
         attendance=attendance,

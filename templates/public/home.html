@@ -193,38 +193,41 @@
             <header>
             <h2><span class="glyphicon glyphicon-bullhorn"></span> Seleções</h2>
             </header>
-            <p><small>(Não há seleções ocorrendo agora.)</small></p>
+            {% if selections %}
+            <table class="schedule-table">
+                {% for selection in selections %}
+                {% if "deleted" not in selection %}
+                <tr class="schedule-container">
+                    <td class="schedule-container-date">
+                        <ul>
+                            <li class="schedule-date-day">{{ selection.initialDate.strftime("%d") }}</li>
+                            <li class="schedule-date-month">{{ selection.initialDate.strftime("%b").upper() }}</li>
+                            <li class="schedule-date-year">{{ selection.initialDate.strftime("%Y") }}</li>
+                        </ul>
+                    </td>
+                    <td class="schedule-container-info">
+                        <h4>{{ selection.title }}</h4>
+                        <p>
+                            {% if selection.finalDate != "" %}
+                            Encerramento: {{ selection.finalDate.strftime("%d/%m/%Y") }}<br/>
+                            {% endif %}
+                            {% if selection.hour != "" %}
+                            Horário: {{ selection.hour }}<br/>
+                            {% endif %}
+                            {% if selection.link != "" %}
+                            <a href="{{ selection.link }}">Mais informações</a>
+                            {% endif %}
+                        </p>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+            {% else %}
+            <p><small>(Sem eventos agendados no momento.)</small></p>
+            {% endif %}
+
         </section>
-        <!--
-        <h4>Mestrado (15 vagas):
-            <br/>
-            <small>(10/03/2017 à 05/06/2017)</small>
-        </h4>
-        <ul>
-            <li><span>Status:</span> <span style="color: green">Aguardando submissões</span></li>
-            <li><span>Quadro de vagas por instituição:</span> 
-                <ul>
-                    <li>"Público geral" (0 vagas)</li>
-                    <li>UFRN (5 vagas)</li>
-                    <li>IFPA (5 vagas)</li>
-                    <li>IFRN (5 vagas)</li>
-                </ul>
-            </li>
-            <li><span>Documentos necessários:</span> 
-                <ul>
-                    <li>Comprovante do resultado do teste da ANPAD realizados a partir de fevereiro de 2015</li>
-                    <li>Cópia do Anteprojeto de Proposta de Intervenção ou do Anteprojeto de Dissertação de Mestrado</li>
-                    <li>Carta de anuência emitida pela instituição conveniada autorizando o candidato a participação no processo seletivo</li>
-                </ul>
-            </li>
-            <li><span>Como participar:</span>
-                Realizar sua inscrição online através do site do SIGAA (http://www.sigaa.ufrn.br), na
-                opção Processos Seletivos - STRICTO SENSU, clicar no link Mestrado Profissional em
-                Gestão Pública. No processo de inscrição o candidato deverá anexar os documentos.
-            </li>
-        </ul>
-        <p><a class="btn btn-default center-block" href="{{ url_for('public.page_not_found') }}">Baixar edital &raquo;</a></p>
-        -->
         <section>
             <header>
                 <h2><span class="glyphicon glyphicon-hourglass"></span> Horários</h2>
