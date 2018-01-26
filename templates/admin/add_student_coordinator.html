@@ -6,22 +6,8 @@
 $(document).ready(function() {
     var students = {{ students|tojson|safe }};
     var students = JSON.parse(students);
-    var courses = {{ courses|tojson|safe }};
-    var courses = JSON.parse(courses);
-    console.log(courses);
-    console.log(students);
     var listOfStudents = [];
-    showStudents(students, courses);
-    $("tbody").on("click", ".edit", function(){
-        $("input[name=coordinator]").val("");
-        $("input[name=registration]").val("");
-        var registration = $(this).parent().parent().find(">:first-child").text();
-        if($(this).parent().parent().find(">:nth-child(3)").text() != "Sem coordenador(a)"){
-            var coordinator = $(this).parent().parent().find(">:nth-child(3)").text();
-            $("input[name=coordinator]").val(coordinator);
-        }
-        $("input[name=registration]").val(registration);
-    });
+    showStudents(students);
 
     $("form").on("submit", function(event) {
         $.ajax({
@@ -37,23 +23,31 @@ $(document).ready(function() {
             if (data.error) {
                 console.log(data.error)
             } else {
-                var students = JSON.parse(data[0]);
-                var courses = JSON.parse(data[1]);
+                var students = JSON.parse(data);
                 $(".students").empty();
-                showStudents(students, courses);
+                showStudents(students);
             }
         });
         event.preventDefault();
     });
 
+    $(document).on("click", ".edit", function(){
+        console.log('wtf');
+        $("input[name=coordinator]").val("");
+        $("input[name=registration]").val("");
+        var registration = $(this).parent().parent().find(">:first-child").text();
+        var coordinator = $(this).parent().parent().find(">:nth-child(3)").text();
+        $("input[name=coordinator]").val(coordinator);
+        $("input[name=registration]").val(registration);
+    });
 });
 
-function showStudents(students, courses) {
+function showStudents(students) {
     var table = "";
-    for( i = 0; i < students.length; i++){
-        table += "<div class='panel-heading text-center'><h5>" + courses[i] + "</h5></div><div class='panel-body table-responsive'><table class='table'><thead><th>Matricula</th><th>Nome</th></thead><tbody>"
-        for( y = 0; y < students[i].length; y++){
-            table += "<tr>" + "<td>" + students[i][y].class + "</td>" + "<td>" + students[i][y].name + "</td>" + "<td>" + students[i][y].coordinator + "</td>" + "<td><button class='edit' type='button'>Editar</button>" + "</td></tr>";
+    for(course in students){
+        table += "<div class='panel-heading text-center'><h5>" + course + "</h5></div><div class='panel-body table-responsive'><table class='table'><thead><th>Matricula</th><th>Nome</th></thead><tbody>"
+        for(student in students[course]){
+            table += "<tr>" + "<td>" + students[course][student].class + "</td>" + "<td>" + students[course][student].name + "</td>" + "<td>" + students[course][student].coordinator + "</td>" + "<td><button class='edit' type='button'>Editar</button>" + "</td></tr>";
         };
         table += "</tbody></table></div>";
     };
@@ -76,7 +70,7 @@ function showStudents(students, courses) {
                         {{ form.registration(required='true', class="form-control", placeholder="20161007432") }}
                         <br/>
                         {{ form.coordinator.label }}<br/>
-                        {{ form.coordinator(required='true', class="form-control") }}
+                        {{ form.coordinator(class="form-control") }}
                         <br/>
                         {{ form.create(class="form-control")}}
                         </div>

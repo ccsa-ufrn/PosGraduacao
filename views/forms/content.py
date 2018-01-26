@@ -35,9 +35,7 @@ class StudentCoordinatorForm(FlaskForm):
         DataRequired('Informe a matricula do estudante')
     ])
 
-    coordinator = StringField('Nome do coordenador:', validators=[
-        DataRequired('Informe o nome do coordenador')
-    ])
+    coordinator = StringField('Nome do coordenador:')
 
     create = SubmitField('Editar');
 
@@ -87,6 +85,10 @@ class SubjectsForm(FlaskForm):
 
     requirement = SelectField('Tipo de disciplina', choices=[('Obrigatórias','Obrigatórias'), ('Eletivas','Eletivas')], validators = [
         DataRequired('Insira o tipo da disciplina')
+    ])
+
+    course_type = StringField('Você não devia estar vendo isso', validators=[
+        DataRequired('Houve um erro por favor tente fechar o navegador e abrir essa página novamente')
     ])
 
     index = IntegerField()

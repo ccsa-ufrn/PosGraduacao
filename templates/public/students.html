@@ -22,11 +22,13 @@
         <table class="table">
             <thead>
                 <th>Nome</th>
+                <th>Coordenador</th>
                 <th>Matricula</th>
             </thead>
             <tr>
             {% for student in students[course] %}
                 <td>{{ student.name }}</td>
+                <td>{{ student.coordinator }}</td>
                 <td>{{ student.class }}</td>
             </tr>
             {% endfor %}

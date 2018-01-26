@@ -93,6 +93,7 @@ $(document).ready(function() {
     <div class="form-group">
     {{ form.csrf_token }}
     {{ form.index(required='true', style="display:none;") }}
+    {{ form.course_type(required='true', style="display:none;") }}
     <br/>
     {{ form.name.label}}
     <br/>

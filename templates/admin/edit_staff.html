@@ -2,6 +2,11 @@
 
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ post_graduation }}.css"/>
+<style>
+    .hide {
+        display: hidden;
+    }
+</style>
 {% endblock %}
 
 {% block scripts %}
@@ -42,15 +47,17 @@ $(document).ready(function() {
         $("input[name=index]").val(indexInStaff);
         $("#form-edit").css("visibility","visible");
         if(functionStaff == "coordination"){
+            $(".form-group div").removeClass("hide");
             $("input[name=name]").val(staff.coordination[indexInStaff].name);
             $("textarea[name=abstract]").val(staff.coordination[indexInStaff].abstract);
             $("input[name=rank]").val(staff.coordination[indexInStaff].rank);
             $("input[name=photo]").val(staff.coordination[indexInStaff].photo);
-            $(".col-md-3").css("display", "block");
-            $(".img-circle").css("display", "block");
+            $(".img-circle").removeClass("hide");
             $(".img-circle").attr("src", staff.coordination[indexInStaff].photo);
             $("select[name=function]").val(functionStaff);
         } else {
+            $(".form-group div").addClass("hide");
+            $(".img-circle").addClass("hide");
             $("input[name=name]").val(staff.secretariat[indexInStaff].name);
             $("input[name=rank]").val(staff.secretariat[indexInStaff].function.rank);
             $("textarea[name=abstract]").val(staff.secretariat[indexInStaff].function.description);
@@ -63,20 +70,13 @@ $(document).ready(function() {
     $("#functionStaff").change(function(){
         functionStaff = $(this).val();
         if($(this).val() == 'secretariat'){
-            $("input[name=photo]").css('visibility','hidden');
-            $("label[for='photo']").css('visibility','hidden');
-            $(".col-md-3").css("display", "none");
-            $(".img-circle").css("display", "none");
+            console.log('secretariado');
             $("#list").html("");
             $("#list").select2({
                 data: listOfSecretariat
             });
         }
         if($(this).val() == 'coordination'){
-            $("input[name=photo]").css('visibility','visible');
-            $("label[for='photo']").css('visibility','visible');
-            $(".col-md-3").css("display", "block");
-            $(".img-circle").css("display", "block");
             $("#list").html("");
             $("#list").select2({
                 data: listOfCoordination
@@ -119,18 +119,20 @@ $(document).ready(function() {
     <br/>
     {{ form.function.label(style="display: none") }}
     {{ form.function(required='true', style="display: none", class="form-control") }}
+    <div>
     {{ form.photo.label}}
     {{ form.photo(class="form-control") }}
     <p class="form-text text-muted">
         Procure a imagem na internet, aperte o botão direito do mouse, selecione 'Copiar endereço de imagem' ou semelhante, e cole o resultado aqui
     </p>
+    </div>
     <br/>
     {{ form.create(class="form-control")}}
     </div>
 </form>
 </div>
-<div class="col-md-3" style="margin-top: 3%; display:block">
-    <img src="" class="img-circle pull-right" height="280" width="240" style="display:none">
+<div class="col-md-3" style="margin-top: 3%">
+    <img src="" class="img-circle pull-right" height="280" width="240">
 </div>
 
 </div>

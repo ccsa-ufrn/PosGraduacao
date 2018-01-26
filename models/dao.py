@@ -4,7 +4,6 @@ and not directly using Pymongo nor other API wrapper. And also,
 all DAOs **SHOULD** be created using factory methods.
 """
 from threading import Thread
-import sys
 
 from models.clients.mongo import DB
 from models.clients import api_sistemas
@@ -131,7 +130,6 @@ class GenericMongoDAO(AbstractDAO):
         """
         Finds a single document and updates it, returning the original.
         """
-        print(self.owner_post_graduation_id, file=sys.stderr)
         if conditions is None:
             conditions = {}
         if self.owner_post_graduation_id is not None:

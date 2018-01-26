@@ -1013,12 +1013,14 @@ def edit_documents():
                 document = form.document.data
                 path = os.path.normpath("static/upload_files/" + current_user.pg_initials.lower())
                 filename = uploadFiles(document, path, document.filename)
+                print(form.category.data, file=sys.stderr)
                 new_document = {
                     'title': form.title.data,
                     'cod': form.cod.data,
                     'file': filename,
                     'insertedBy': insertedBy,
-                    'insertedOn': insertedOn
+                    'insertedOn': insertedOn,
+                    'category' : form.category.data
                 }
 
                 dao.find_one_and_update({'_id' : ObjectId(form.document_id.data)}, {
@@ -1035,7 +1037,8 @@ def edit_documents():
         else:
             new_document = {
                 'title':form.title.data,
-                'cod': form.cod.data
+                'cod': form.cod.data,
+                'category': form.category.data
             }
             dao.find_one_and_update({'_id' : ObjectId(form.document_id.data)}, {
                 '$set' : new_document

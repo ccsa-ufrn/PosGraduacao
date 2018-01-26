@@ -244,6 +244,17 @@ def view_students(initials):
     post_graduation = pfactory.post_graduation
 
     students = pfactory.students_dao()
+    course_list = {}
+    coordinators = pfactory.coordinators_dao()
+    coordinators = list(coordinators.find())
+    for course in students.keys():
+        for student in students[course]:
+            for coordinator in coordinators:
+                if student['class'] == str(coordinator['registration']):
+                    student['coordinator'] = coordinator['coordinator']
+                if 'coordinator' not in student.keys():
+                    student['coordinator'] = 'Sem coordenador(a)'
+    print(students, file=sys.stderr)
 
     # renders an own page or redirect to another (external/404)?
     return render_template(

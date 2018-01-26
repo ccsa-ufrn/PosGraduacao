@@ -153,15 +153,6 @@
                             {% for registered in std.post_graduations_registered %}
                             <li><a href="/{{ registered.initials }}">{{ registered.name }}</a></li>
                             {% endfor %}
-
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Páginas externas (SIGAA)
-                                <span class="glyphicon glyphicon-link"></span>
-                            </li> 
-
-                            {% for unregistered in std.post_graduations_unregistered %}
-                            <li><a href="/{{ unregistered.initials }}" target="_blank">{{ unregistered.name }}</a></li>
-                            {% endfor %}
                         </ul>
                     </li>
                     <!--
