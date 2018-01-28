@@ -4,6 +4,7 @@ and not directly using Pymongo nor other API wrapper. And also,
 all DAOs **SHOULD** be created using factory methods.
 """
 from threading import Thread
+import time
 
 from models.clients.mongo import DB
 from models.clients import api_sistemas
@@ -214,6 +215,7 @@ class ClassesSigaaDAO(AbstractDAO):
             classes_id.append(class_from_sigaa['id-turma'])
         threads = []
         for i in range(len(classes_id)):
+            time.sleep(0.1)
             process = Thread(target=self.get_professor, args=[classes_id[i]])
             threads.append(process)
             process.start()
