@@ -16,6 +16,7 @@ ENV_FILE_PATH = 'settings/files/api_keys.json'
 # keys for each element, the available ones will be listed here as constants:
 GOOGLE_MAPS = 'google_maps_js_api'
 SINFO_API = 'sinfo_api_sistemas'
+MONGO_URI = 'mongo_uri'
 
 
 
