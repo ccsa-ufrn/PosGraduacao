@@ -70,10 +70,11 @@ def home(initials):
     selections = []
     events = []
     for event in range(len(calendar)):
-        if "Seleção" in calendar[event]['title']:
-            selections.append(calendar[event])
-        else:
-            events.append(calendar[event])
+        if "deleted" not in calendar[event]:
+            if "Seleção" in calendar[event]['title']:
+                selections.append(calendar[event])
+            else:
+                events.append(calendar[event])
     final_reports = final_reports['scheduledReports']
     classes = pfactory.classes_dao(2017,1, 10).find()
     integrations_infos = pfactory.integrations_infos_dao().find_one()
