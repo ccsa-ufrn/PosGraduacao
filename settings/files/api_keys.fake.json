@@ -1,0 +1,13 @@
+{
+    "google_maps_js_api": {
+        "key": ""
+    },
+    "sinfo_api_sistemas":{
+        "client-id": "",
+        "client-secret" : "",
+        "x-api-key" : ""
+    },
+    "mongo_uri": {
+        "mongo_uri: "localhost"
+    }
+}
