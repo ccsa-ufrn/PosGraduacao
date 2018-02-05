@@ -37,6 +37,10 @@ section header h2{
     margin-bottom: 5px;
 }
 
+.col-md-3 img {
+    filter:brightness(70%);
+}
+
 
 /* NAVBAR
 -------------------------------------------------- */

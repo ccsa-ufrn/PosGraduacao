@@ -1,0 +1,26 @@
+{% extends "public/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/ppgp.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>Notícias</h2>
+    </header>
+
+    <h3>{{ fullNews.title }}</br>
+        <small>{{ fullNews.headLine }}</small>
+    </h3>
+    
+    <p style="white-space: pre-wrap">{{ fullNews.body }}</p>
+
+</section>
+
+{% endblock %}

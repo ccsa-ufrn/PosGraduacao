@@ -13,6 +13,7 @@ from views.crud_subjects import crud_subjects
 from views.crud_attendances import crud_attendances
 from views.crud_projects import crud_projects
 from views.crud_students import crud_students
+from views.crud_news import crud_news
 from settings.extensions import ExtensionsManager
 
 APP = Flask(__name__)
@@ -25,6 +26,7 @@ APP.register_blueprint(crud_articles)
 APP.register_blueprint(crud_subjects)
 APP.register_blueprint(crud_attendances)
 APP.register_blueprint(crud_projects)
+APP.register_blueprint(crud_news)
 APP.register_blueprint(crud_students)
 
 PUBLIC_HOST = '0.0.0.0'

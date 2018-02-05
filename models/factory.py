@@ -22,6 +22,7 @@ _COLLECTION_OF_ATTENDANCES = 'attendances'
 _COLLECTION_OF_CALENDAR = 'calendar'
 _COLLECTION_OF_PUBLICATIONS = 'publications'
 _COLLECTION_OF_PROJECTS = 'projects'
+_COLLECTION_OF_NEWS = 'news'
 _COLLECTION_OF_COORDINATORS = 'studentsCoordinators'
 
 # factory methods
@@ -80,6 +81,10 @@ class PosGraduationFactory(object):
     def calendar_dao(self):
         """ Gets an instance of a data access object for a certain collection """
         return GenericMongoDAO(_COLLECTION_OF_CALENDAR, self.mongo_id)
+
+    def news_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return GenericMongoDAO(_COLLECTION_OF_NEWS, self.mongo_id)
 
     def boards_of_staffs_dao(self):
         """ Gets an instance of a data access object for a certain collection """

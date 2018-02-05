@@ -16,6 +16,7 @@ from models.factory import PosGraduationFactory
 from models.clients.api_sistemas import SigaaError, FailedToGetTokenForSigaaError, UnreachableSigaaError, NoAppCredentialsForSigaaError
 
 from bson.json_util import dumps
+from bson.objectid import ObjectId
 
 
 app = Blueprint('public', __name__, static_folder='static', url_prefix='')
@@ -65,7 +66,6 @@ def home(initials):
 
     # search for home data
     final_reports = pfactory.final_reports_dao().find_one()
-    events = pfactory.calendar_dao().find_one()
     calendar = pfactory.calendar_dao().find_one()['events']
     selections = []
     events = []
@@ -76,6 +76,8 @@ def home(initials):
             else:
                 events.append(calendar[event])
     final_reports = final_reports['scheduledReports']
+    news = pfactory.news_dao().find_one()['news']
+    print(news, file=sys.stderr)
     classes = pfactory.classes_dao(2017,1, 10).find()
     integrations_infos = pfactory.integrations_infos_dao().find_one()
     if integrations_infos is None:
@@ -112,6 +114,7 @@ def home(initials):
         events=events,
         selections=selections,
         classes=classes,
+        news=news,
         institutions_with_covenant=institutions_with_covenant,
         attendance=attendance,
     )
@@ -361,6 +364,40 @@ def view_articles(initials):
         publications=publications
     )
 
+@app.route('/<string:initials>/noticias/')
+def view_news(initials):
+    """Render a view for news viewing."""
+
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    id = request.args.get('id')
+    news = pfactory.news_dao().find_one()['news']
+    fullNews = next(piece for piece in news if piece['id'] == id)
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/news.html',
+        std=get_std_for_template(post_graduation),
+        fullNews=fullNews 
+    )
+
+
+@app.route('/<string:initials>/capitulos/')
+def view_chapters(initials):
+    """Render a view for chapters list."""
+
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    publications = pfactory.publications_dao().find_one()
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/chapters.html',
+        std=get_std_for_template(post_graduation),
+        publications=publications
+    )
 
 
 @app.route('/<string:initials>/documentos/regimentos')

@@ -1,0 +1,36 @@
+{% extends "public/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/ppgp.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+    <header class="page-header">
+        <h2>Capítulos publicados em livros</h2>
+    </header>
+
+    {% for chapter in publications.chapters %}
+    {% if "deleted" not in chapter %}
+    <h3>{{ chapter.chapterTitle }}</h3>
+    <h5>Em: {{ chapter.bookTitle }}</h5>
+    <h5>    Feito por: {{ chapter.bookAuthors }}</h5>
+    <ul>
+        <li><strong>Autores:</strong> {{ chapter.chapterAuthors }}</li>
+        <li><strong>Edição:</strong>  {{ chapter.edition }}</li>
+        <li><strong>Editora:</strong> {{ chapter.publisher }}</li>   
+        <li><strong>Local de impressão:</strong> {{ chapter.location }}</li>   
+        <li><strong>Ano:</strong> {{ chapter.year }}</li>
+        <li><strong>Páginas:</strong> {{ chapter.pages }}</li>
+    </ul>
+    <br/>
+    {% endif %}
+    {% endfor %}
+
+</section>
+
+{% endblock %}

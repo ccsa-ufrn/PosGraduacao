@@ -16,7 +16,7 @@
     {% block styles %}{% endblock %}
 </head>
 
-<body>
+<body style="min-height: 100%">
 
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -27,6 +27,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <img src="/static/assets/ufrn_logo.png" style="padding: 5px" class="pull-left" height="50" width="100">
+                <img src="/static/assets/ccsa_logo.png" style="padding: 5px" class="pull-left" height="50" width="50">
                 {% if std.post_graduation %}
                 <a href="/{{ std.post_graduation.initials }}" class="navbar-brand">{{ std.post_graduation.initials }}</a>
                 {% else %}
@@ -87,15 +89,19 @@
                             <li><a href="#">
                                 <span class="glyphicon glyphicon-briefcase"></span> Egressos (em breve)</a>
                             </li>
-
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Publicações</li>
-
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-briefcase"></span> Publicações <span class="caret"></a>
+                        <ul class="dropdown-menu">
                             <li><a href="{{ url_for('public.view_books', initials=std.post_graduation.initials) }}">
                                     <span class="glyphicon glyphicon-book"></span> Livros</a>
                             </li>
                             <li><a href="{{ url_for('public.view_articles', initials=std.post_graduation.initials) }}">
                                     <span class="glyphicon glyphicon-book"></span> Artigos</a>
+                            </li>
+                            <li><a href="{{ url_for('public.view_chapters', initials=std.post_graduation.initials) }}">
+                                    <span class="glyphicon glyphicon-book"></span> Capítulos de livros</a>
                             </li>
                         </ul>
                     </li>

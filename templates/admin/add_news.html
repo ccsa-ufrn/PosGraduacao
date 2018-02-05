@@ -1,0 +1,42 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+<div class="col-md-6">
+<div class="panel panel-danger" style="margin-left: -4%">
+<div class="panel-heading text-center">
+    <h4>Adicionar notícia<h4/>
+</div>
+<div class="panel-body">
+<form method="POST" action="{{ url_for('crud_news.add_news') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    
+    <br/>
+    
+    {{ form.title.label }}<br/>
+    {{ form.title(required='true', class="form-control", placeholder="Ex: PPGP realiza o II Encontro Brasileiro de Administração Pública") }}
+
+    <br/>
+    {{ form.headLine.label }}<br/>
+    {{ form.headLine(required='true', class="form-control", placeholder="Ex: A Coordenação do Programa de Pós-graduação em Gestão Pública (PPGP) da Universidade Federal do Rio Grande do Norte (UFRN) realiza nos dias 11 e 12 de junho o II Encontro Brasileiro de Administração Pública – Interlocuções entre Academia e o Governo do Brasil: Entre o Saber e o fazer.") }}
+    <br/>
+
+    {{ form.body.label }}<br/>
+    {{ form.body(required='true', class="form-control") }}
+    <br/>
+    
+    {{ form.create(class="form-control")}}
+    </div>
+    
+</form>
+<br/>
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

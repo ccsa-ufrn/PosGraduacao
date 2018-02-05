@@ -1,7 +1,7 @@
 {% extends "public/layout.html" %}
 
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ std.post_graduation.initials.lower() }}.css"/>
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/ppgp.css"/>
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,7 @@
     {% if "deleted" not in coordinator %}
     <div class="row">
         <div class="col-md-3">
-            <img alt="Coordenador(a)" src="{{ coordinator.photo }}" class="img-circle pull-right" height="190" width="180">
+            <img alt="Coordenador(a)" src="{{ coordinator.photo }}" class="img-circle pull-right" height="150" width="120">
         </div>
         <div class="col-md-9">
             <h3>{{ coordinator.name }}<br/>

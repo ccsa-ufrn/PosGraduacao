@@ -39,6 +39,27 @@ class StudentCoordinatorForm(FlaskForm):
 
     create = SubmitField('Editar');
 
+class NewsForm(FlaskForm):
+    """
+    Form for adding and editing news 
+    """
+
+    title = StringField('Titúlo da notícia:', validators=[
+        DataRequired('Digite um titúlo para a notícia')
+    ])
+    
+    headLine = StringField('Resumo básico/Manchete:', validators=[
+        DataRequired('Digite a manchete')
+    ])
+
+    body = TextAreaField('Notícia:', validators=[
+        DataRequired('Insira a notícia.')
+    ])
+
+    index = IntegerField()
+
+    create = SubmitField('Editar');
+
 class ParticipationsInEventsForm(FlaskForm):
     """
     Form for the list of participations in events.
@@ -444,3 +465,43 @@ class MemberOfProjectForm(FlaskForm):
     index = IntegerField()
 
     create = SubmitField('Adicionar')
+
+class ChapterForm(FlaskForm):
+    """
+    Form for chapters in books
+    """
+    book_title = StringField('Titulo do livro:', validators=[
+        DataRequired('Digite o título do livro.')
+    ])
+    
+    book_authors = StringField('Nome do autor(es) do livro:', validators=[
+        DataRequired('Digite o nome dos autor(es)')
+    ])
+
+    chapter_title = StringField('Titulo do capitulo:', validators=[
+        DataRequired('Digite o título do capitulo.')
+    ])
+
+    chapter_authors = StringField('Nome do autor(es) do capitulo:', validators=[
+        DataRequired('Digite o nome dos autor(es)')
+    ])
+
+    edition = IntegerField('Número da edição:', validators=[
+        DataRequired('Digite o número da edição')
+    ])
+
+    location = StringField('Local de impressão:')
+
+    publisher = StringField('Editora:')
+
+    year = IntegerField('Ano da publicação:')
+
+    pages = StringField('Número das páginas:', validators=[
+        DataRequired('Digite o número das páginas')
+    ])
+
+    index = IntegerField()
+
+    create = SubmitField('Adicionar')
+
+

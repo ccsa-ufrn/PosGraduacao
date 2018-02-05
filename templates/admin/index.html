@@ -1,15 +1,7 @@
 {% extends "admin/layout.html" %}
 
 {% block content %}
+<h2>Bem vindo a {{ post_graduation.name }}</h2>
 
-<header>
-    <h2>{{ post_graduation.name }}<br/>
-        <small>@{{ current_user.nick }}</small></h2>
-</header>
-
-<p>
-    Bem-vindo, <br/>
-    <strong>{{ current_user.full_name }}</strong>!
-</p>
 
 {% endblock %}

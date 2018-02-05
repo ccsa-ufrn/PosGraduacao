@@ -1260,41 +1260,61 @@ db.publications.insertMany([
             'date': '13 jul. 2016'
 
           }
+        ],
+        'chapters' : [
+          {
+            'bookAuthors': 'Madureira',
+            'bookTitle' : 'Percursos da literatura Brasileira',
+            'chapterTitle' : 'Como ler textos de ficção',
+            'chapterAuthors' : 'Carlos Silveira e Joaquim Mendes',
+            'pages': 'p.15 a 20',
+            'edition': 12,
+            'location' : 'São Paulo',
+            'publisher': 'Editora 34',
+            'year' : 2002
+          }
         ]
     },
     {
         'ownerProgram': PPGA_ID,
         'books': [],
-        'articles': []
+        'articles': [],
+        'chapters' : []
     },
     {
         'ownerProgram': PPGCC_ID,
         'books': [],
-        'articles': []
+        'articles': [],
+        'chapters' : []
     },
     {
         'ownerProgram': PPGD_ID,
         'books': [],
-        'articles': []
+        'articles': [],
+        'chapters': []
     },
     {
         'ownerProgram': PPGECO_ID,
         'books': [],
-        'articles': []
+        'articles': [],
+        'chapters': []
     },
     {
         'ownerProgram': PPGIC_ID,
         'books': [],
-        'articles': []
+        'articles': [],
+        'chapters': []
     },
     {
         'ownerProgram': PPGSS_ID,
         'books': [],
-        'articles': []
+        'articles': [],
+        'chapters': []
     },
     {
         'ownerProgram': PPGTUR_ID,
         'books': [],
-        'articles': []
+        'articles': [],
+        'chapters': []
     },
 ]);

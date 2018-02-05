@@ -16,7 +16,7 @@
     {% block styles %}{% endblock %}
 </head>
 
-<body>
+<body style="min-height: 100%">
 
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -103,12 +103,28 @@
                             <li><a href="{{ url_for('crud_projects.view_member', crud_type='Editar') }}">Editar membros</a></li>
                         </ul>
                     </li>
+                    <li><a href="#news" data-toggle="collapse">Notícias
+                        <span class="caret"></span></a>
+                        <ul id="news" class="collapse">
+                            <li><a href="{{ url_for('crud_news.add_news') }}">Adicionar notícias</a></li>
+                            <li><a href="{{ url_for('crud_news.edit_news') }}">Editar notícias</a></li>
+                            <li><a href="{{ url_for('crud_news.delete_news') }}">Deletar notícias</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#books" data-toggle="collapse">Livros
                         <span class="caret"></span></a>
                         <ul id="books" class="collapse">
                             <li><a href="{{ url_for('crud_books.add_book') }}">Adicionar livros</a></li>
                             <li><a href="{{ url_for('crud_books.edit_book') }}">Editar livros</a></li>
                             <li><a href="{{ url_for('crud_books.delete_book') }}">Deletar livros</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#chapters" data-toggle="collapse"> Capítulos de livros
+                        <span class="caret"></span></a>
+                        <ul id="chapters" class="collapse">
+                            <li><a href="{{ url_for('crud_books.add_chapter') }}">Adicionar capítulo</a></li>
+                            <li><a href="{{ url_for('crud_books.edit_chapter') }}">Editar capítulo</a></li>
+                            <li><a href="{{ url_for('crud_books.delete_chapter') }}">Deletar capítulo</a></li>
                         </ul>
                     </li>
                     <li><a href="#articles" data-toggle="collapse">Artigos
