@@ -10,9 +10,9 @@
     <h1 class="text-center">Pós Graduações</h1>
 </div>
 </br>
-{% for registered in std.post_graduations_registered.rewind() %}
-<div class="col-md-4" style="margin-top: 10px">
-    <button onclick="window.location.href='/{{ registered.initials}}'" type="button" class="btn btn-danger btn-block">{{ registered.name }}</button> 
+{% for registered in std.post_graduations_registered.rewind() | sort(attribute="name") %}
+<div class="col-md-6" style="margin-top: 10px">
+    <button onclick="window.location.href='/{{ registered.initials}}'" style="height: 8%;" type="button" class="btn btn-{{ registered.initials.lower() }} btn-block">{{ registered.name }}</button> 
 </div>
 {% endfor %}
 <div class="col-md-12">

@@ -28,11 +28,11 @@
                     <span class="icon-bar"></span>
                 </button>
                 <img src="/static/assets/ufrn_logo.png" style="padding: 5px" class="pull-left" height="50" width="100">
-                <img src="/static/assets/ccsa_logo.png" style="padding: 5px" class="pull-left" height="50" width="50">
+                <img src="/static/assets/ccsa_logo.png" style="padding: 5px; margin-right: 6px;" class="pull-left" height="50" width="50">
                 {% if std.post_graduation %}
-                <a href="/{{ std.post_graduation.initials }}" class="navbar-brand">{{ std.post_graduation.initials }}</a>
+                <a href="/{{ std.post_graduation.initials }}" style="font-size: 30px" class="navbar-brand">{{ std.post_graduation.initials }}</a>
                 {% else %}
-                <a href="/" class="navbar-brand">Pós-Graduação</a>
+                <a href="/" style="font-size:30px" class="navbar-brand">Pós-Graduação</a>
                 {% endif %}
             </div>
 
