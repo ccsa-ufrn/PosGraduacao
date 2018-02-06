@@ -85,7 +85,7 @@
         <header>
             <h2><span class="glyphicon glyphicon-map-marker"></span> Atendimento</h2>
         </header>
-        <img src="/static/assets/logo_ppgp.png" class="program-logo center-block" width="200">
+        <img src="/static/assets/logo_{{ std.post_graduation.initials.lower() }}.png" class="program-logo center-block" width="200">
         <p>
             <span>Sala:</span> {{ attendance.location.building }}, {{ attendance.location.floor }}, {{ attendance.location.room }}.<br/>
             <span>Horários: </span> {{ attendance.location.opening }}<br/>
