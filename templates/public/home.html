@@ -29,9 +29,8 @@
             <div class="container">
                 <div class="carousel-caption">
                     <div class="carousel-caption-content">
-                        <h1>Programa de Pós-Graduação em<br/><strong>{{ std.post_graduation.name }}</strong>.</h1>
-                        <p>
-                        Stricto sensu: {{ std.post_graduation.descriptionSmall }}</p>
+                        <h3>Programa de Pós-Graduação em<br/><strong>{{ std.post_graduation.name }}</strong>.</h3>
+                        <p>Stricto sensu: {{ std.post_graduation.descriptionSmall }}</p>
                         <p><a class="btn btn-lg btn-primary" href="#program-about" role="button">Ver mais</a></p>
                     </div>
                 </div>
@@ -44,7 +43,7 @@
             <div class="container">
                 <div class="carousel-caption">
                     <div class="carousel-caption-content">
-                        <h1>Como ingressar?</h1>
+                        <h3>Como ingressar?</h3>
                         <p>O edital de inscrição abre normalmente após outubro, com vagas exclusivas para instituições com convênio com o Programa.</p>
                         <p><a class="btn btn-lg btn-primary" href="{{ url_for('public.view_covenants', initials=std.post_graduation.initials) }}" role="button">Ver convênios</a></p>
                     </div>
@@ -350,7 +349,7 @@
 
 <script type="text/javascript" src="/static/slick/slick.js"></script>
 
-<!-- Smooth scrolling for inner links -->
+<!-- Smooth scrolling for inner links 
 
 <script>
     $('a[href*=\\#]').on('click', function(event){
@@ -360,5 +359,6 @@
         }, 500);
     });
 </script>
+//-->
 
 {% endblock %}

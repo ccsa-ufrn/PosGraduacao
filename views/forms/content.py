@@ -308,7 +308,7 @@ class DocumentForm(FlaskForm):
     ])
 
     category = SelectField('Categoria',  choices=[
-        ('regimento','Regimento'),('ata','ATA'),('outros','Outros')], validators=[
+        ('resolucao','Resolução'),('ata','ATA'),('outros','Outros')], validators=[
             DataRequired('Especifique o tipo de documento.')
     ])
 
@@ -331,7 +331,7 @@ class EditDocumentForm(FlaskForm):
     ])
 
     category = SelectField('Categoria',  choices=[
-        ('regimento','Regimento'),('ata','ATA'),('outros','Outros')], validators=[
+        ('resolucao','Resolução'),('ata','ATA'),('outros','Outros')], validators=[
             DataRequired('Especifique o tipo de documento.')
     ])
 

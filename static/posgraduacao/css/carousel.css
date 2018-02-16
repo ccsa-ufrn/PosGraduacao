@@ -1,10 +1,13 @@
 /* THE CAROUSEL
 -------------------------------------------------- */
+#myCarousel {
+    width: 75%;
+    margin-left: 12%;
+}
 
 .carousel {
     /* Carousel base class */
-    height: 500px;
-    margin-bottom: 60px;
+    height: 300px;
 }
 
 .carousel-caption {
@@ -12,11 +15,20 @@
     z-index: 10;
 }
 
+.item img {
+    height: 300px;
+    margin: auto;
+}
+
 .carousel-caption .carousel-caption-content{
     background-color: rgba(0, 0, 0, 0.5);
     padding: 10px;
     padding-bottom: 5px;
     margin-bottom: 5px;
+}
+
+.carousel-caption .carousel-caption-content p {
+    font-size: 1em;
 }
 
 .carousel-indicators li{
@@ -30,7 +42,7 @@
 
 .carousel-inner > .item {
     /* Declare heights because of positioning of img element */
-    height: 500px;
+    height: 300px;
     background-color: #777;
 }
 
@@ -39,7 +51,7 @@
     top: 0;
     left: 0;
     min-width: 100%;
-    height: 500px;
+    height: 300px;
     max-width: none !important;
 }
 
