@@ -1,10 +1,5 @@
 /* THE CAROUSEL
 -------------------------------------------------- */
-#myCarousel {
-    width: 75%;
-    margin-left: 12%;
-}
-
 .carousel {
     /* Carousel base class */
     height: 300px;
