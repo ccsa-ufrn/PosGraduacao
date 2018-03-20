@@ -78,7 +78,7 @@ def home(initials):
     final_reports = final_reports['scheduledReports']
     news = pfactory.news_dao().find_one()['news']
     print(news, file=sys.stderr)
-    classes = pfactory.classes_dao(2017,1, 10).find()
+    classes = pfactory.classes_database_dao().find_one()['firstClasses']
     integrations_infos = pfactory.integrations_infos_dao().find_one()
     if integrations_infos is None:
         integrations_infos = {

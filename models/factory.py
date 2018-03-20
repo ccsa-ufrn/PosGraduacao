@@ -24,6 +24,7 @@ _COLLECTION_OF_PUBLICATIONS = 'publications'
 _COLLECTION_OF_PROJECTS = 'projects'
 _COLLECTION_OF_NEWS = 'news'
 _COLLECTION_OF_COORDINATORS = 'studentsCoordinators'
+_COLLECTION_OF_FIRST_CLASSES = 'firstClasses'
 
 # factory methods
 
@@ -101,6 +102,10 @@ class PosGraduationFactory(object):
     def projects_database_dao(self):
         """ Gets an instance of a data access object for a certain collection """
         return GenericMongoDAO(_COLLECTION_OF_PROJECTS, self.mongo_id)
+
+    def classes_database_dao(self):
+        """ Gets an instance of a data access object for a certain collection """
+        return GenericMongoDAO(_COLLECTION_OF_FIRST_CLASSES, self.mongo_id)
 
     def projects_dao(self):
         """ Gets an instance of a data access object for a certain collection """
