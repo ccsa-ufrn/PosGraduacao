@@ -8,6 +8,7 @@ current_app, request, jsonify, url_for
 from pymongo.errors import ServerSelectionTimeoutError
 
 from scraping.institutional_repository import RIScraper
+from scraping.professors_sigaa import SigaaScraper
 from models.clients.util import keyring
 
 from views.forms.content import FindClass 
@@ -77,7 +78,6 @@ def home(initials):
                 events.append(calendar[event])
     final_reports = final_reports['scheduledReports']
     news = pfactory.news_dao().find_one()['news']
-    print(news, file=sys.stderr)
     classes = pfactory.classes_database_dao().find_one()['firstClasses']
     integrations_infos = pfactory.integrations_infos_dao().find_one()
     if integrations_infos is None:
@@ -152,19 +152,17 @@ def view_subjects(initials):
 def view_professors(initials):
     """Render a view for professors list."""
 
-    pfactory = PosGraduationFactory(initials)
-    post_graduation = pfactory.post_graduation
+    try:
+        post_graduation = PosGraduationFactory(initials).post_graduation
+        board_of_professors = SigaaScraper.professors_list(initials)
 
-    board_of_professors = pfactory.boards_of_professors_dao().find_one()
-    if board_of_professors is None:
-        board_of_professors = []
-    
-    # renders an own page or redirect to another (external/404)?
-    return render_template(
-        'public/professors.html',
-        std=get_std_for_template(post_graduation),
-        board_of_professors=board_of_professors
-    )
+        return render_template(
+            'public/professors.html',
+            std=get_std_for_template(post_graduation),
+            board_of_professors=board_of_professors,
+        )
+    except Exception:
+        return page_not_found()
 
 
 
@@ -258,7 +256,6 @@ def view_students(initials):
                     student['coordinator'] = coordinator['coordinator']
                 if 'coordinator' not in student.keys():
                     student['coordinator'] = 'Sem coordenador(a)'
-    print(students, file=sys.stderr)
 
     # renders an own page or redirect to another (external/404)?
     return render_template(

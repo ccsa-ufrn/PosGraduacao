@@ -61,7 +61,7 @@ $(document).ready(function() {
 <button id="edit" type="button" class="btn btn-default">Selecionar</button>
 </div>
 <div class="col-md-10">
-<form method="POST" id="form-edit" action="{{ url_for('admin.delete_scheduled_reports') }}">
+<form method="POST" id="form-edit" action="{{ url_for('crud_scheduled_reports.delete_scheduled_reports') }}">
     <div class="form-group">
     {{ form.csrf_token }}
     {{ form.index(required='true', style="display:none;") }}

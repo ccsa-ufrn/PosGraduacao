@@ -338,13 +338,13 @@ class BasicTests(unittest.TestCase):
 
     def test_login(self):
         response = self.login('ppgp-teste', 'luccas')
-        assert b'Bem-vindo' in response.data
+        assert b'Bem vindo' in response.data
         response = self.login('ppgcc-teste', 'luccas')
         assert b'Erro' in response.data
         response = self.login('ppgp-teste', 'lucas')
         assert b'Erro' in response.data
         response = self.login('ppgic-teste', 'luccas')
-        assert b'Bem-vindo' in response.data
+        assert b'Bem vindo' in response.data
 
 ###############################################################################################
 #Tests involving reports
@@ -511,7 +511,7 @@ class BasicTests(unittest.TestCase):
         self.login('ppgic-teste', 'luccas')
         self.add_subject('Nome exemplo tudo tranquilo', 'Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo', '20', '3', 'Eletivas')
         result = self.check_subject('PPGIC')
-        assert b'tudo tranquilo' in result.data
+        assert b'Nome exemplo' in result.data
 
 
     def test_subject_int_not_good(self):
@@ -532,35 +532,6 @@ class BasicTests(unittest.TestCase):
         self.login('ppgic-teste', 'luccas')
         self.delete_subject('Nome exemplo editado', 'Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo Descrição exemplo', '20', '4','Eletivas', '0')
         result = self.check_subject('PPGIC')
-        assert b'Nome exemplo editado' not in result.data
-
-##########################################################################################
-#Tests involving professors
-##########################################################################################
-    
-    def test_add_professor_all_good(self):
-        #Add professor with everything ok
-        self.login('ppgic-teste', 'luccas')
-        self.add_professor('Nome exemplo', 'Professor', 'http://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4333097J8', 'luccasmmg@gmail.com')
-        result = self.check_professor('PPGIC')
-        assert b'Nome exemplo' in result.data
-
-    def test_add_professor_invalid_email(self):
-        #Add professor with invalid email
-        self.login('ppgic-teste', 'luccas')
-        result = self.add_professor('Nome exemplo', 'Professor', 'http://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4333097J8', 'luccasmmggmailom')
-        assert b'Erros' in result.data
-
-    def test_edit_professor(self):
-        self.login('ppgic-teste', 'luccas')
-        self.edit_professor('0', 'Nome exemplo editado', 'Professor', 'http://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4333097J8', 'luccasmmg@gmail.com')
-        result = self.check_professor('PPGIC')
-        assert b'Nome exemplo editado' in result.data
-
-    def test_delete_professor(self):
-        self.login('ppgic-teste', 'luccas')
-        self.delete_professor('0','Nome exemplo editado', 'Professor', 'http://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4333097J8','luccasmmg@gmail.com')
-        result = self.check_professor('PPGIC')
         assert b'Nome exemplo editado' not in result.data
 
 ###########################################################

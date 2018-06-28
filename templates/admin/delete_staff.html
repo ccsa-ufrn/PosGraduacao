@@ -106,7 +106,7 @@ $(document).ready(function() {
 <button id="edit"type="button" class="btn btn-default">Selecionar</button>
 </div>
 <div class="col-md-6">
-<form method="POST" id='form-edit' action="{{ url_for('admin.edit_staff') }}">
+<form method="POST" id='form-edit' action="{{ url_for('crud_staff.edit_staff') }}">
     <div class="form-group">
     {{ form.csrf_token }}
     {{ form.index(required='true', style="display:none;" ) }}
