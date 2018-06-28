@@ -138,25 +138,25 @@
                     <li><a href="#participations" data-toggle="collapse">Intercâmbios
                         <span class="caret"></span></a>
                         <ul id="participations" class="collapse">
-                        <li><a href="{{ url_for('admin.participations') }}">Adicionar intercâmbios</a></li>
-                        <li><a href="{{ url_for('admin.edit_participations') }}">Editar intercâmbios</a></li>
-                        <li><a href="{{ url_for('admin.delete_participations') }}">Retirar intercâmbios</a></li>
+                        <li><a href="{{ url_for('crud_participation.participations') }}">Adicionar intercâmbios</a></li>
+                        <li><a href="{{ url_for('crud_participation.edit_participations') }}">Editar intercâmbios</a></li>
+                        <li><a href="{{ url_for('crud_participation.delete_participations') }}">Retirar intercâmbios</a></li>
                         </ul>
                     </li>
                     <li><a href="#scheduledReports" data-toggle="collapse">Agendamento de defesas
                         <span class="caret"></span></a>
                         <ul id="scheduledReports" class="collapse">
-                        <li><a href="{{ url_for('admin.scheduled_reports') }}">Adicionar agendamento</a></li>
-                        <li><a href="{{ url_for('admin.edit_scheduled_reports') }} ">Editar agendamento</a></li>
-                        <li><a href="{{ url_for('admin.delete_scheduled_reports') }} ">Deletar agendamento</a></li>
+                        <li><a href="{{ url_for('crud_scheduled_reports.scheduled_reports') }}">Adicionar agendamento</a></li>
+                        <li><a href="{{ url_for('crud_scheduled_reports.edit_scheduled_reports') }} ">Editar agendamento</a></li>
+                        <li><a href="{{ url_for('crud_scheduled_reports.delete_scheduled_reports') }} ">Deletar agendamento</a></li>
                         </ul>
                     </li>
                     <li><a href="#staff" data-toggle="collapse">Equipe
                         <span class="caret"></span></a>
                         <ul id="staff" class="collapse">
-                        <li><a href="{{ url_for('admin.add_staff') }}">Adicionar membros da equipe</a></li>
-                        <li><a href="{{ url_for('admin.edit_staff') }}">Editar membros da equipe</a></li>
-                        <li><a href="{{ url_for('admin.delete_staff') }}">Retirar membrors da equipe</a></li>
+                        <li><a href="{{ url_for('crud_staff.add_staff') }}">Adicionar membros da equipe</a></li>
+                        <li><a href="{{ url_for('crud_staff.edit_staff') }}">Editar membros da equipe</a></li>
+                        <li><a href="{{ url_for('crud_staff.delete_staff') }}">Retirar membrors da equipe</a></li>
                         </ul>
                     </li>
                     <li><a href="#covenants" data-toggle="collapse">Convênios
@@ -170,9 +170,9 @@
                     <li><a href="#calendar" data-toggle="collapse">Calendário
                         <span class="caret"></span></a>
                         <ul id="calendar" class="collapse">
-                            <li><a href="{{ url_for('admin.add_events') }}">Adicionar evento</a></li>
-                            <li><a href="{{ url_for('admin.edit_events') }}">Editar evento</a></li>
-                            <li><a href="{{ url_for('admin.delete_events') }}">Retirar evento</a></li>
+                            <li><a href="{{ url_for('crud_events.add_events') }}">Adicionar evento</a></li>
+                            <li><a href="{{ url_for('crud_events.edit_events') }}">Editar evento</a></li>
+                            <li><a href="{{ url_for('crud_events.delete_events') }}">Retirar evento</a></li>
                         </ul>
                     </li>
                 </ul>

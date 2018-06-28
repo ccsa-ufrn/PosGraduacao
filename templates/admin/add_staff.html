@@ -28,7 +28,7 @@ $(document).ready(function() {
     <h4>Adicionar servidor<h4/>
 </div>
 <div class="panel-body">
-<form method="POST" action="{{ url_for('admin.add_staff') }}">
+<form method="POST" action="{{ url_for('crud_staff.add_staff') }}">
     <div class="form-group">
     {{ form.csrf_token }}
     <br/>

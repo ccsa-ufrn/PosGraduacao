@@ -14,8 +14,11 @@
     <header class="page-header">
         <h2>&raquo Docentes</h2>
     </header>
-
+    {% for area in board_of_professors %}
     <div class="panel panel-default table-responsive">
+        <div class="panel-heading text-center">
+                <h4>{{ area }}</h4>
+        </div>
         <table class="table">
             <thead>
                 <th>Nome</th>
@@ -23,7 +26,7 @@
                 <th>E-mail</th>
                 <th>Currículo Lattes</th>
             </thead>
-            {% for professor in board_of_professors.professors %}
+            {% for professor in board_of_professors[area] %}
             {% if "deleted" not in professor %}
             <tr>
                 <td>{{ professor.name }}</td>
@@ -55,6 +58,7 @@
             {% endfor %}
         </table>
     </div>
+    {% endfor %}
     <br/>
 
 </section>

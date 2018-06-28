@@ -105,13 +105,14 @@ def edit_subjects():
     """
     Render an edit subject form.
     """
-
     course_type = request.args.get('course_type')
+    if (course_type is None):
+        course_type = 'Mestrado'
+
     form = SubjectsForm(course_type=course_type)
 
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.grades_of_subjects_dao()
-    print(course_type, file=sys.stderr)
     json = pfactory.grades_of_subjects_dao().find({'courseType': course_type })
     json = list(json)
     json = dumps(json)

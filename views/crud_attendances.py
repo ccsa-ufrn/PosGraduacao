@@ -31,7 +31,6 @@ def edit_attendance():
     json = dumps(json)
 
     if form.validate_on_submit() and form.create.data:
-        print(form.attendance_id.data, file=sys.stderr)
         new_attendance = {
             'location' : {
                 'building' : form.building.data,
