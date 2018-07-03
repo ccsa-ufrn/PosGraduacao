@@ -53,7 +53,8 @@ def index():
 
         return render_template(
             'admin/index.html',
-            post_graduation=post_graduation
+            post_graduation=post_graduation,
+            success_msg=request.args.get('success_msg')
         )
 
     else:
