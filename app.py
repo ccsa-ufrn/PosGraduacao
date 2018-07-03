@@ -16,6 +16,7 @@ from views.crud_students import crud_students
 from views.crud_news import crud_news
 from views.crud_staff import crud_staff
 from views.crud_events import crud_events
+from views.crud_classes import crud_classes
 from views.crud_participation import crud_participation
 from views.crud_scheduled_reports import crud_scheduled_reports
 from settings.extensions import ExtensionsManager
@@ -34,6 +35,7 @@ APP.register_blueprint(crud_news)
 APP.register_blueprint(crud_staff)
 APP.register_blueprint(crud_students)
 APP.register_blueprint(crud_events)
+APP.register_blueprint(crud_classes)
 APP.register_blueprint(crud_participation)
 APP.register_blueprint(crud_scheduled_reports)
 
