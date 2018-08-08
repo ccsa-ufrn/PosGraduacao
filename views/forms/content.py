@@ -58,7 +58,7 @@ class NewsForm(FlaskForm):
 
     index = IntegerField()
 
-    create = SubmitField('Editar');
+    create = SubmitField('Adicionar')
 
 class ParticipationsInEventsForm(FlaskForm):
     """
