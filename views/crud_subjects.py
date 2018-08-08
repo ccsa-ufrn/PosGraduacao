@@ -30,11 +30,12 @@ def subjects():
     Render a subject form.
     """
 
-    form = SubjectsForm()
+    course_type = request.args.get('course_type')
+    form = SubjectsForm(course_type=course_type)
+    print(course_type, file=sys.stderr)
 
     pfactory = PosGraduationFactory(current_user.pg_initials)
     dao = pfactory.grades_of_subjects_dao()
-
     if form.validate_on_submit():
         new_subject = {
             'name': form.name.data,
@@ -43,7 +44,7 @@ def subjects():
             'credits': form.credits.data
         }
 
-        condition = {'title': form.requirement.data, 'courseType' : request.args.get('course_type') }
+        condition = {'title': form.requirement.data, 'courseType' : form.course_type.data }
 
         dao.find_one_and_update(condition, {
             '$push': {'subjects': new_subject}
@@ -53,14 +54,13 @@ def subjects():
             url_for(
                 'crud_subjects.subjects',
                 success_msg='Disciplina adicionada com sucesso.',
-                course_type=request.args.get('course_type')
+                course_type=form.course_type.data,
             )
         )
 
     return render_template(
         'admin/subjects.html',
         form=form,
-        course_type=request.args.get('course_type')
     )
 
 @crud_subjects.route('/deletar_disciplinas/', methods=['GET', 'POST'])

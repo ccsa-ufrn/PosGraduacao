@@ -100,7 +100,6 @@ def edit_project():
     projects = dumps(projects)
     if form.validate_on_submit() and form.create.data:
         new_project = {
-            'ownerProgram': ownerProgram,
             'title': form.title.data,
             'subtitle': form.subtitle.data,
             'description': form.description.data,

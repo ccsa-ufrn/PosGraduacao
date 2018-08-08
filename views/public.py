@@ -2,6 +2,7 @@
 Routes and views for public pages about Post Graduation Programs.
 """
 import sys
+import datetime
 
 from flask import Blueprint, render_template, redirect, \
 current_app, request, jsonify, url_for
@@ -272,7 +273,12 @@ def view_classes(initials):
     
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
-    classes=pfactory.classes_dao(2017,1,100).find()
+    now = datetime.datetime.now()
+    if now.month <= 7:
+        semester = 1
+    else:
+        semester = 2
+    classes=pfactory.classes_dao(now.year,semester,100).find()
     if form.validate_on_submit():
         return redirect(
             url_for(
