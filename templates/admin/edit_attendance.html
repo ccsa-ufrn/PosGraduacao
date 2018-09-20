@@ -4,19 +4,17 @@
 $(document).ready(function() {
     var attendance = {{ attendance|tojson|safe }};
     var attendance = JSON.parse(attendance);
-    console.log(attendance)
     $("input[name=attendance_id]").val(attendance._id.$oid);
-    console.log($("input[name=attendance_id").val());
     $("input[name=building]").val(attendance.location.building);
     $("input[name=floor]").val(attendance.location.floor);
     $("input[name=room]").val(attendance.location.room);
+    $("input[name=calendar]").val(attendance.calendar);
     $("input[name=opening]").val(attendance.location.opening);
 
     $("input[name=email]").val(attendance.email);
 
     $("input[name=type1]").val(attendance.phones[0].type);
     $("input[name=phone1]").val(attendance.phones[0].number);
-    console.log($("input[name=phone1").val());
 
     $("input[name=type2]").val(attendance.phones[1].type);
     $("input[name=phone2]").val(attendance.phones[1].number);
@@ -49,6 +47,12 @@ $(document).ready(function() {
     <br/>
     {{ form.room.label }}<br/>
     {{ form.room(required='true', class="form-control") }}
+    <br/>
+    {{ form.calendar.label }}<br/>
+    {{ form.calendar(class="form-control") }}
+    <p class="form-text text-muted">
+        Não se esqueça de colocar o https://www antes do link, de preferência adicione o documento na aba de Documentos e depois copie o link de lá
+    </p>
     <br/>
     {{ form.opening.label }}<br/>
     {{ form.opening(required='true', class="form-control") }}
