@@ -385,6 +385,21 @@ def view_news(initials):
         fullNews=fullNews 
     )
 
+@app.route('/<string:initials>/lista_noticias/')
+def view_news_list(initials):
+    """Render a view for a list of news viewing."""
+
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    news = pfactory.news_dao().find_one()['news']
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/news_list.html',
+        std=get_std_for_template(post_graduation),
+        news=news
+    )
 
 @app.route('/<string:initials>/capitulos/')
 def view_chapters(initials):

@@ -39,6 +39,7 @@ def edit_attendance():
                 'opening' : form.opening.data
             },
             'email': form.email.data,
+            'calendar': form.calendar.data,
             'phones' : {
                 '0' : {
                     'type' : form.type1.data,

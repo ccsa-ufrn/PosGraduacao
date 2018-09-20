@@ -14,6 +14,7 @@ from views.forms.content import NewsForm
 from bson.json_util import dumps
 import json
 import string
+import time 
 import random
 
 crud_news = Blueprint('crud_news', __name__, url_prefix='/admin')
@@ -36,7 +37,8 @@ def add_news():
             'title': form.title.data,
             'headLine': form.headLine.data,
             'body': form.body.data,
-            'id' : id
+            'id' : id,
+            'date': time.strftime("%d/%m/%Y")
         }
 
         dao.find_one_and_update(None, {

@@ -265,6 +265,10 @@ class AttendanceForm(FlaskForm):
         DataRequired('Digite o nome da sala.')
     ])
 
+    calendar = StringField('Calendário acadêmico:', validators=[
+        DataRequired('Digite o link para o calendário.')
+    ])
+
     email = EmailField('Email da unidade:', validators=[
         DataRequired('Digite o email.')
     ])

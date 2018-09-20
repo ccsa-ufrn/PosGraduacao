@@ -353,11 +353,11 @@ def edit_covenants():
                 )
             name, extension = filename.split('.')
             logoFile = 'logo-' + form.initials.data.lower() + '.' + extension
-            uploadFiles(photo, path, logoFile)
+            logo = uploadFiles(photo, path, logoFile)
             new_covenant = {
                 'name': form.name.data,
                 'initials': form.initials.data.upper(),
-                'logoFile': logoFile
+                'logoFile': logo
             }
 
             dao.find_one_and_update(None, {

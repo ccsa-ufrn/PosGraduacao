@@ -1,0 +1,37 @@
+{% extends "public/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/ppgp.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>Lista de notícias</h2>
+    </header>
+    <div class="panel panel-default">
+        <div class="panel-heading text-center">
+        </div>
+        <table class="table">
+            <thead>
+                <th>Data</th>
+                <th>Título</th>
+            </thead>
+            {% for new in news %}
+            <tr>
+                <td>{{ new.date }}</td>
+                <td><a href="{{ url_for('public.view_news', id=new.id, initials=std.post_graduation.initials) }}">{{ new.title }}</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br/>
+
+</section>
+
+{% endblock %}

@@ -91,6 +91,7 @@
         </header>
         <img src="/static/assets/logo_{{ std.post_graduation.initials.lower() }}.png" class="program-logo center-block" width="200">
         <p>
+            <span>Calendário academico:</span> <a href="{{ attendance.calendar }}">Calendário acadêmico</a><br/>
             <span>Sala:</span> {{ attendance.location.building }}, {{ attendance.location.floor }}, {{ attendance.location.room }}.<br/>
             <span>Horários: </span> {{ attendance.location.opening }}<br/>
             <span>E-mail:</span> <a href="mailto:{{ std.post_graduation.email }}">{{ attendance.email }}</a><br/>
@@ -132,6 +133,9 @@
                 {% endif %}
                 {% endfor %}
             </table>
+            <div class="panel-heading text-center">
+                <h5><p><a href="{{ url_for('public.view_news_list', initials=std.post_graduation.initials) }}"> Clique para ver a lista de notícias</a></h5>
+            </div>
             {% else %}
             <p><small>(Não há nenhuma notícia cadastrada.)</small></p>
             {% endif %}
@@ -176,44 +180,6 @@
             </table>
             {% else %}
             <p><small>(Sem eventos agendados no momento.)</small></p>
-            {% endif %}
-        </section>
-
-        <section>
-            <header>
-                <h2><span class="glyphicon glyphicon-pushpin"></span> Apresentações</h2>
-            </header>
-            <p>Apresentações públicas dos discentes diante de suas bancas examinadoras.</p>
-            {% if final_reports %}
-            <table class="schedule-table">
-                {% for report in final_reports %}
-                {% if "deleted" not in report %}
-                {% if loop.revindex < 3 %}
-                <tr class="schedule-container">
-                    <td class="schedule-container-date">
-                        <ul>
-                            <li class="schedule-date-day">{{ report.time.strftime("%d") }}</li>
-                            <li class="schedule-date-month">{{ report.time.strftime("%b").upper() }}</li>
-                            <li class="schedule-date-year">{{ report.time.strftime("%Y") }}</li>
-                        </ul>
-                    </td>
-                    <td class="schedule-container-info">
-                        <h4>{{ report.title }}
-                            <br/>
-                            <small>{{ report.author }}</small>
-                        </h4>
-                        <p>
-                            Local: {{ report.location }}<br/>
-                            Horário: {{ report.time.strftime("%H:%M") }}<br/>
-                        </p>
-                    </td>
-                </tr>
-                {% endif %}
-                {% endif %}
-                {% endfor %}
-            </table>
-            {% else %}
-            <p><small>(Não há nenhuma apresentação do Programa agendada.)</small></p>
             {% endif %}
         </section>
     </div>
