@@ -96,7 +96,9 @@
             <span>Horários: </span> {{ attendance.location.opening }}<br/>
             <span>E-mail:</span> <a href="mailto:{{ std.post_graduation.email }}">{{ attendance.email }}</a><br/>
             {% for phone in attendance.phones %}
-            <span>Telefone {{ phone.type }}:</span> {{ phone.number }}<br/>
+            {% if attendance.phones[phone]. type %}
+            <span>Telefone:</span> {{ attendance.phones[phone].number }} - {{ attendance.phones[phone].type }}<br/>
+            {% endif %}
             {% endfor %}
         </p>
         <div id="map"><!-- Google Maps API. --></div>
