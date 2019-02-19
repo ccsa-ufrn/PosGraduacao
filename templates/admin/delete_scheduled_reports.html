@@ -27,17 +27,19 @@ $(document).ready(function() {
     $("button").click(function() {
         var indexInReports = $("select#list").val();
         var title = scheduledReports.scheduledReports[indexInReports].title;
-        var time = scheduledReports.scheduledReports[indexInReports].time;
+        var dateTime = scheduledReports.scheduledReports[indexInReports].time;
         var location = scheduledReports.scheduledReports[indexInReports].location;
         var author = scheduledReports.scheduledReports[indexInReports].author;
-        var date = new Date(time.$date);
-        var date = date.toLocaleDateString() + " " + date.toLocaleTimeString();
-        var date = date.substring(0, date.length - 3);
+        dateTime = new Date(dateTime.$date);
+        dateTime.setHours(dateTime.getHours() + 3);
+        var date = dateTime.toLocaleDateString();
+        var time = dateTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
         $("#form-edit").css("visibility", "visible");
         $("input[name=title]").val(title);
         $("input[name=location]").val(location);
         $("input[name=author]").val(author);
-        $("input[name=time]").val(date);
+        $("input[name=date]").val(date);
+        $("input[name=time]").val(time);
         $("input[name=index]").val(indexInReports);
         console.log($("input[name=index]").val());
         
@@ -75,8 +77,12 @@ $(document).ready(function() {
     {{ form.location.label }}
     {{ form.location(required='true', class="form-control", readonly="readonly") }}
     <br/>
+    {{ form.date.label }}
+    {{ form.date(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    <br/>
     {{ form.time.label }}
-    {{ form.time(required='true', class="form-control", readonly="readonly") }}
+    {{ form.time(required='true', type="time", class="form-control", readonly="readonly") }}
     <br/>
     {{ form.create(class="form-control") }}
     </div>

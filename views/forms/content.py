@@ -5,7 +5,7 @@ Forms about content editing.
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField,\
                     TextAreaField, DateTimeField, SubmitField,\
-                    SelectField, DateField, BooleanField
+                    SelectField, DateField, BooleanField 
 from flask_wtf.file import FileField, FileRequired
 from wtforms.fields.html5 import EmailField, URLField
 from wtforms.validators import DataRequired, Email, URL
@@ -184,7 +184,9 @@ class ScheduledReportForm(FlaskForm):
     """
     Scheduled report form.
     """
-    time = DateTimeField('Data e hora:', format='%d/%m/%Y %H:%M')
+    date = DateTimeField('Data:', format='%d/%m/%Y')
+
+    time = DateTimeField('Hora:', format='%H:%M')
 
     title = StringField('Título do trabalho:', validators=[
         DataRequired('Digite o título do trabalho.')

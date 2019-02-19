@@ -12,7 +12,9 @@ from settings.extensions import ExtensionsManager
 from views.forms.content import ScheduledReportForm
 
 from bson.json_util import dumps
+from datetime import datetime, timedelta
 import json
+import sys
 
 crud_scheduled_reports = Blueprint('crud_scheduled_reports', __name__, url_prefix='/admin')
 
@@ -34,7 +36,7 @@ def scheduled_reports():
 
     if form.validate_on_submit():
         new_report = {
-            'time': form.time.data,
+            'time': datetime.combine(form.date.data, form.time.data.time()),
             'title': form.title.data,
             'author': form.author.data,
             'location': form.location.data
@@ -106,7 +108,7 @@ def edit_scheduled_reports():
     if form.validate_on_submit():
         index = str(form.index.data)
         new_report = {
-            'time': form.time.data,
+            'time': datetime.combine(form.date.data, form.time.data.time()),
             'title': form.title.data,
             'author': form.author.data,
             'location': form.location.data
