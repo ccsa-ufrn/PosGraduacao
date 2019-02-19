@@ -1,5 +1,20 @@
 {% extends "admin/layout.html" %}
 
+{% block styles %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/ppgp.css"/>
+{% endblock %}
+{% block scripts %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript"></script> 
+<script src="/static/jquery3/datepicker-pt-BR.js"></script>
+<script type="text/javascript">
+$(function() {
+    $("#datepicker").datepicker({
+        dateFormat: "dd/mm/yy"
+    });
+});
+</script>
+{% endblock %}
 {% block content %}
 <div class="col-md-6" style="margin-left: -4%">
 <br/>
@@ -29,8 +44,13 @@
 
     <br/>
 
+    {{ form.date.label }}<br/>
+    {{ form.date(required='true', class="form-control", id="datepicker") }}
+
+    <br/>
+
     {{ form.time.label }}<br/>
-    {{ form.time(required='true', class="form-control", placeholder="Ex: 17/08/2017 12:30") }}
+    {{ form.time(required='true', class="form-control", type="time") }}
 
     <br/>
     

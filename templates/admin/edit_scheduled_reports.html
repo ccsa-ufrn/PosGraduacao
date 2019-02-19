@@ -2,11 +2,14 @@
 
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/{{ post_graduation }}.css"/>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css">
 {% endblock %}
 
 {% block scripts %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript"></script> 
+<script src="/static/jquery3/datepicker-pt-BR.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
     $("input[name=create]").val("Editar");
@@ -21,23 +24,30 @@ $(document).ready(function() {
             })
         }
     }
+    $(function() {
+        $("#datepicker").datepicker({
+            dateFormat: "dd/mm/yy"
+        });
+    });
     $("#list").select2({
         data: listOfTitles
     });
     $("button").click(function() {
         var indexInReports = $("select#list").val();
         var title = scheduledReports.scheduledReports[indexInReports].title;
-        var time = scheduledReports.scheduledReports[indexInReports].time;
+        var dateTime = scheduledReports.scheduledReports[indexInReports].time;
         var location = scheduledReports.scheduledReports[indexInReports].location;
         var author = scheduledReports.scheduledReports[indexInReports].author;
-        var date = new Date(time.$date);
-        var date = date.toLocaleDateString() + " " + date.toLocaleTimeString();
-        var date = date.substring(0, date.length - 3);
+        dateTime = new Date(dateTime.$date);
+        dateTime.setHours(dateTime.getHours() + 3);
+        var date = dateTime.toLocaleDateString();
+        var time = dateTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
         $("#form-edit").css("visibility", "visible");
         $("input[name=title]").val(title);
         $("input[name=location]").val(location);
         $("input[name=author]").val(author);
-        $("input[name=time]").val(date);
+        $("input[name=date]").val(date);
+        $("input[name=time]").val(time);
         $("input[name=index]").val(indexInReports);
         
     });
@@ -74,8 +84,11 @@ $(document).ready(function() {
     {{ form.location.label(class="label-edit") }}
     {{ form.location(required='true', class="form-control") }}
     <br/>
+    {{ form.date.label(class="label-edit") }}
+    {{ form.date(required='true', id="datepicker", class="form-control") }}
+    <br/>
     {{ form.time.label(class="label-edit") }}
-    {{ form.time(required='true', class="form-control") }}
+    {{ form.time(required='true', type="time", class="form-control") }}
     <br/>
     {{ form.create(class="form-control") }}
     </div>
