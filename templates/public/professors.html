@@ -30,21 +30,17 @@
             {% if "deleted" not in professor %}
             <tr>
                 <td>{{ professor.name }}</td>
-                <td>{{ professor.rank }}(a)</td>
-                
+                <td>{{ professor.level }}(a)</td>
                 <td>
                     <a href="mailto:{{ professor.email }}">
                         <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                         {{ professor.email }}
                     </a>
                 </td>
-                
                 <td>
                     {% if professor.lattes != "" %}
-                    <a href="{{ professor.lattes }}" target="_blank">
                         <img src="/static/assets/lattes.gif">
                         {{ professor.lattes }}
-                    </a>
                     {% else %}
                     <a href="#" target="_blank">
                         <img src="/static/assets/lattes.gif">

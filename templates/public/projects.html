@@ -16,11 +16,11 @@
     </header>
 
     {% for project in projects %}
+    {% if "deleted" not in project %}
     <h3>{{ project.title }}</h3>
     {% if project.subtitle %}
     <h4>{{ project.subtitle }}</h4>
     {% endif %}
-        
     <ul>
         <li><strong>Coordenação:</strong>
             <ul>
@@ -47,6 +47,7 @@
 
     </ul>
     <br/>
+    {% endif %}
     {% endfor %}
 
 </section>
