@@ -30,7 +30,7 @@ $(function() {
 <form method="POST" action="{{ url_for('crud_projects.add_project') }}">
     <div class="form-group">
     {{ form.csrf_token }}
-    
+
     {{ form.title.label }}<br/>
     {{ form.title(required='true', class="form-control", placeholder="Ex: Turismo e Desenvolvimento Regional") }}
     <br/>
@@ -48,12 +48,6 @@ $(function() {
     <br/>
     {{ form.email.label }}<br/>
     {{ form.email(required='true', class="form-control") }}
-    <br/>
-    {{ form.dt_init.label }}<br/>
-    {{ form.dt_init(required='true', class="form-control", id="datepickerInitial")}}
-    <br/>
-    {{ form.dt_end.label }}<br/>
-    {{ form.dt_end(class="form-control", id="datepickerFinal")}}
     <br/>
     {{ form.create(class="form-control")}}
     </div>

@@ -22,7 +22,7 @@ $(document).ready(function() {
             })
         }
     }
-    
+
     $("#list").select2({
         data: listOfArticles
     });
@@ -39,6 +39,7 @@ $(document).ready(function() {
         $("input[name=date]").val(publications.articles[indexInArticles].date);
         $("input[name=number]").val(publications.articles[indexInArticles].number);
         $("input[name=pages]").val(publications.articles[indexInArticles].pages);
+        $("input[name=link]").val(publications.articles[indexInArticles].link);
         $("input[name=index]").val(indexInArticles);
         console.log($("input[name=index]").val());
     });
@@ -91,7 +92,14 @@ $(document).ready(function() {
     {{ form.publisher(required='true', class="form-control") }}
     <br/>
     {{ form.date.label }}<br/>
-    {{ form.date(class="form-control") }}    
+    {{ form.date(class="form-control") }}
+    <br/>
+    {{ form.link.label }}<br/>
+    {{ form.link(class="form-control",placeholder="Ex: https://google.com")}}
+    <p class="form-text text-muted">
+        Por favor insira uma URL válida, não esqueça do https://
+    </p>
+
     <br/>
     <br/>
     {{ form.create(class="form-control")}}

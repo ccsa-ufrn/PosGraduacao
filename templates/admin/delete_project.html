@@ -22,7 +22,7 @@ $(document).ready(function() {
                 })
             }
         }
-        
+
         $("#list").select2({
             data: listOfProjects
         });
@@ -32,12 +32,10 @@ $(document).ready(function() {
             $("#form-edit").css("visibility", "visible");
             $("input[name=title]").val(projects[indexInProjects].title);
             $("input[name=subtitle]").val(projects[indexInProjects].subtitle);
-            $("input[name=description]").val(projects[indexInProjects].description);
+            $("textarea[name=description]").val(projects[indexInProjects].description);
             $("input[name=situation]").val(projects[indexInProjects].situation);
             $("input[name=year]").val(projects[indexInProjects].year);
             $("input[name=email]").val(projects[indexInProjects].email);
-            $("input[name=dt_init]").val(projects[indexInProjects].dt_init);
-            $("input[name=dt_end]").val(projects[indexInProjects].dt_end);
             $("input[name=project_id]").val(projects[indexInProjects]._id.$oid);
         });
 
@@ -81,12 +79,6 @@ $(document).ready(function() {
         <br/>
         {{ form.email.label }}<br/>
         {{ form.email(required='true', class="form-control", readonly="readonly") }}
-        <br/>
-        {{ form.dt_init.label }}<br/>
-        {{ form.dt_init(required='true', class="form-control", readonly="readonly")}}
-        <br/>
-        {{ form.dt_end.label }}<br/>
-        {{ form.dt_end(class="form-control", readonly="readonly")}}
         <br/>
         {{ form.create(class="form-control")}}
         </div>

@@ -31,11 +31,12 @@
         <li><strong>Local de impressão:</strong> {{ article.location }}</li>   
         <li><strong>Páginas:</strong> {{ article.pages }}</li>
         <li><strong>Data:</strong> {{ article.date }}</li>
+        <li><a href="{{ article.link }}">Link para revista</a></li>
     </ul>
     <header class="page-header">
         <h2> </h2>
     </header>
-    
+
     {% endif %}
     {% endfor %}
 

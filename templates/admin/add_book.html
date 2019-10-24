@@ -33,26 +33,31 @@
     {{ form.edition(required='true', class="form-control", type='number', step='1', min='1', max='300', placeholder='ex: 1') }}
 
     <br/>
-    
+
     {{ form.location.label }}<br/>
     {{ form.location(required='true', class="form-control", placeholder="Ex: Natal") }}
 
     <br/>
-    
+
     {{ form.publisher.label }}<br/>
     {{ form.publisher(required='true', class="form-control", placeholder="Ex: Editora 34") }}
 
     <br/>
 
     {{ form.year.label }}<br/>
-    {{ form.year(required='true', type='number', step='1', placeholder='2002', class="form-control") }}    
+    {{ form.year(required='true', type='number', step='1', placeholder='2002', class="form-control") }}
 
     <br/>
+    {{ form.link.label }}<br/>
+    {{ form.link(class="form-control", placeholder="Ex: https://google.com")}}
+    <p class="form-text text-muted">
+        Por favor insira uma URL válida, não esqueça do https://
+    </p>
     <br/>
-    
+
     {{ form.create(class="form-control")}}
     </div>
-    
+
 </form>
 <br/>
 <p>

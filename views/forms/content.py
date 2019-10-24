@@ -373,6 +373,8 @@ class BookForm(FlaskForm):
 
     year = IntegerField('Ano da publicação:')
 
+    link = URLField('Link para a revista(Se existir)')
+
     index = IntegerField()
 
     create = SubmitField('Adicionar')
@@ -407,6 +409,8 @@ class ArticleForm(FlaskForm):
 
     date = StringField('Data:')
 
+    link = URLField('Link para a revista(Se existir)')
+
     index = IntegerField()
 
     create = SubmitField('Adicionar')
@@ -434,14 +438,6 @@ class ProjectForm(FlaskForm):
 
     email = EmailField('Email para contato', validators=[
         DataRequired('Por favor digite um email válido para contato')
-    ])
-
-    dt_init = StringField('Data de início do projeto', validators=[
-        DataRequired('Digite a data de início do projeto')
-    ])
-
-    dt_end = StringField('Data esperada pra o final do projeto', validators=[
-        DataRequired('Digite a data esperada para finalização do projeto')
     ])
 
     project_id = StringField()
@@ -479,7 +475,7 @@ class ChapterForm(FlaskForm):
     book_title = StringField('Titulo do livro:', validators=[
         DataRequired('Digite o título do livro.')
     ])
-    
+
     book_authors = StringField('Nome do autor(es) do livro:', validators=[
         DataRequired('Digite o nome dos autor(es)')
     ])
@@ -505,6 +501,8 @@ class ChapterForm(FlaskForm):
     pages = StringField('Número das páginas:', validators=[
         DataRequired('Digite o número das páginas')
     ])
+
+    link = URLField('Link para a revista(Se existir)')
 
     index = IntegerField()
 

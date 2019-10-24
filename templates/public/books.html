@@ -24,9 +24,10 @@
     <ul>
         <li><strong>Autores:</strong> {{ book.authors }}</li>
         <li><strong>Edição:</strong>  {{ book.edition }}</li>
-        <li><strong>Editora:</strong> {{ book.publisher }}</li>   
-        <li><strong>Local de impressão:</strong> {{ book.location }}</li>   
+        <li><strong>Editora:</strong> {{ book.publisher }}</li>
+        <li><strong>Local de impressão:</strong> {{ book.location }}</li>
         <li><strong>Ano:</strong> {{ book.year }}</li>
+        <li><a href="{{ book.link }}">Link para revista</a></li>
     </ul>
     <br/>
     {% endif %}

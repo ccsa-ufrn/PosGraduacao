@@ -256,7 +256,7 @@ def view_students(initials):
                 if student['class'] == str(coordinator['registration']):
                     student['coordinator'] = coordinator['coordinator']
                 if 'coordinator' not in student.keys():
-                    student['coordinator'] = 'Sem coordenador(a)'
+                    student['coordinator'] = ''
 
     # renders an own page or redirect to another (external/404)?
     return render_template(

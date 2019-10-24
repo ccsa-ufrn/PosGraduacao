@@ -21,7 +21,7 @@ $(document).ready(function() {
             })
         }
     }
-    
+
     $("#list").select2({
         data: listOfChapters
     });
@@ -38,6 +38,7 @@ $(document).ready(function() {
         $("input[name=publisher]").val(publications.chapters[indexInChapters].publisher);
         $("input[name=year]").val(publications.chapters[indexInChapters].year);
         $("input[name=pages]").val(publications.chapters[indexInChapters].pages);
+        $("input[name=link]").val(publications.chapters[indexInChapters].link);
         $("input[name=index]").val(indexInChapters);
     });
 });
@@ -86,10 +87,16 @@ $(document).ready(function() {
     {{ form.publisher(required='true', class="form-control", readonly="readonly", placeholder="Ex: Editora 34") }}
     <br/>
     {{ form.year.label }}<br/>
-    {{ form.year(required='true', type='number', step='1', placeholder='2002', class="form-control", readonly="readonly") }}    
+    {{ form.year(required='true', type='number', step='1', placeholder='2002', class="form-control", readonly="readonly") }}
     <br/>
     {{ form.pages.label }}<br/>
-    {{ form.pages(required='true', placeholder="p. 63-76", class="form-control", readonly="readonly") }}    
+    {{ form.pages(required='true', placeholder="p. 63-76", class="form-control", readonly="readonly") }}
+    <br/>
+    {{ form.link.label }}<br/>
+    {{ form.link(class="form-control", readonly="readonly", placeholder="Ex: https://google.com")}}
+    <p class="form-text text-muted">
+        Por favor insira uma URL válida, não esqueça do https://
+    </p>
     <br/>
     {{ form.create(class="form-control")}}
     </div>

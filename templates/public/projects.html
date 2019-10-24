@@ -32,11 +32,10 @@
         <li><strong>E-mail:</strong> {{ project.email }}</li>
         <li><strong>Dados:</strong>
             <ul>
+                <li>Ano: {{ project.year }}</li>
                 <li>Situação: {{ project.situation }}</li>
-                <li>Início: {{ project.dt_init }}</li>
-                <li>Fim: {{ project.dt_end }}</li>
-            </ul>        
-        </li>   
+            </ul>
+        </li>
         <li><strong>Membros:</strong>
             <ul>
                 {% for member in project.members %}

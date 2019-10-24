@@ -10,19 +10,19 @@
 <form method="POST" action="{{ url_for('crud_articles.add_article') }}">
     <div class="form-group">
     {{ form.csrf_token }}
-    
+
     <br/>
-    
+
     {{ form.title.label }}<br/>
     {{ form.title(required='true', class="form-control", placeholder="Ex: A Gestão de Pessoas na Área da Administração Pública") }}
 
     <br/>
-    
+
     {{ form.subtitle.label }}<br/>
     {{ form.subtitle(class="form-control", placeholder="Ex: Uma abordagem quantitativa") }}
 
     <br/>
-    
+
     {{ form.authors.label }}<br/>
     {{ form.authors(required='true', class="form-control", placeholder="Ex: João Guimarães Rosa e Clarice Lispector") }}
 
@@ -32,12 +32,12 @@
     {{ form.edition(required='true', class="form-control", type='number', step='1', min='1', max='300', placeholder="1") }}
 
     <br/>
-    
+
     {{ form.location.label }}<br/>
     {{ form.location(required='true', class="form-control", placeholder="Ex: São Paulo") }}
 
     <br/>
-    
+
     {{ form.pages.label }}<br/>
     {{ form.pages(required='true', class="form-control", placeholder="Ex: 15-20") }}
     <br/>
@@ -56,11 +56,17 @@
     {{ form.date(class="form-control", placeholder="Ex: jan-fev 2015") }} 
 
     <br/>
+
+    {{ form.link.label }}<br/>
+    {{ form.link(class="form-control",placeholder="Ex: https://google.com")}}
+    <p class="form-text text-muted">
+        Por favor insira uma URL válida, não esqueça do https://
+    </p>
+
     <br/>
-    
     {{ form.create(class="form-control")}}
     </div>
-    
+
 </form>
 <br/>
 <p>

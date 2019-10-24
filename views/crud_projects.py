@@ -39,8 +39,6 @@ def add_project():
             'situation': form.situation.data,
             'year': form.year.data,
             'email': form.email.data,
-            'dt_init': form.dt_init.data,
-            'dt_end': form.dt_end.data,
             'members' : []
         }
 
@@ -106,8 +104,6 @@ def edit_project():
             'situation': form.situation.data,
             'year': form.year.data,
             'email': form.email.data,
-            'dt_init': form.dt_init.data,
-            'dt_end': form.dt_end.data
         }
         dao.find_one_and_update({'_id' : ObjectId(form.project_id.data)}, {
             '$set' : new_project})
