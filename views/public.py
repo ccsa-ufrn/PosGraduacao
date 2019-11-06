@@ -418,14 +418,14 @@ def view_chapters(initials):
     )
 
 
-@app.route('/<string:initials>/documentos/regimentos')
-def view_documents_regiments(initials):
+@app.route('/<string:initials>/documentos/resolucoes')
+def view_documents_resolutions(initials):
     """Render a view for documents list."""
 
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
 
-    documents = pfactory.official_documents_dao().find({'category':'regimento'})
+    documents = pfactory.official_documents_dao().find({'category':'resolucao'})
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
