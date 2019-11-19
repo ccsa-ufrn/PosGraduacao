@@ -268,7 +268,9 @@ def covenants():
             new_covenant = {
                 'name': form.name.data,
                 'initials': form.initials.data.upper(),
-                'logoFile': logoFile
+                'logoFile': logoFile,
+                'objective': form.objective.data,
+                'status': form.status.data,
             }
 
         dao.find_one_and_update(None, {
@@ -357,7 +359,9 @@ def edit_covenants():
             new_covenant = {
                 'name': form.name.data,
                 'initials': form.initials.data.upper(),
-                'logoFile': logo
+                'logoFile': logo,
+                'objective': objective,
+                'status': status
             }
 
             dao.find_one_and_update(None, {
@@ -369,6 +373,12 @@ def edit_covenants():
             })
             dao.find_one_and_update(None, {
                 '$set' : {'institutionsWithCovenant.' + index + '.name' : form.name.data}
+            })
+            dao.find_one_and_update(None, {
+                '$set' : {'institutionsWithCovenant.' + index + '.objective' : form.objective.data}
+            })
+            dao.find_one_and_update(None, {
+                '$set' : {'institutionsWithCovenant.' + index + '.status' : form.status.data}
             })
 
         return redirect(

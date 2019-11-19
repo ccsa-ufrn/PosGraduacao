@@ -154,6 +154,15 @@ class InstitutionsWithCovenantsForm(FlaskForm):
         DataRequired('Digite a sigla da instituição.')
     ])
 
+    objective = StringField('Objectivo do convênio:', validators=[
+        DataRequired('Digite o objectivo do convênio.')
+    ])
+
+    status = SelectField('Status',  choices=[
+        ('ongoing','Em execução'),('finished','Finalizado')], validators=[
+            DataRequired('Especifique o status do convênio.')
+    ])
+
     logo = FileField(validators=[
         DataRequired('Por favor insira um logo em formato .jpeg ou .png')
     ])
@@ -171,6 +180,15 @@ class EditInstitutionsWithCovenantsForm(FlaskForm):
 
     initials = StringField('Sigla da Instituição:', validators=[
         DataRequired('Digite a sigla da instituição.')
+    ])
+
+    objective = StringField('Objectivo do convênio:', validators=[
+        DataRequired('Digite o objectivo do convênio.')
+    ])
+
+    status = SelectField('Status',  choices=[
+        ('ongoing','Em execução'),('finished','Finalizado')], validators=[
+            DataRequired('Especifique o status do convênio.')
     ])
 
     logo = FileField()

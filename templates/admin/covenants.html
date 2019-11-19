@@ -10,16 +10,29 @@
 <form method="POST" action="{{ url_for('admin.covenants') }}" enctype="multipart/form-data">
     <div class="form-group">
     {{ form.csrf_token }}
-    
+
     {{ form.name.label }}<br/>
     {{ form.name(required='true', placeholder="Ex: Universidade Federal do Rio de Janeiro", class="form-control") }}
-    
+
     <br/>
 
     {{ form.initials.label }}<br/>
     {{ form.initials(required='true', placeholder="ex: UFRJ", class="form-control") }}
 
     <br/>
+
+    {{ form.initials.label }}<br/>
+    {{ form.initials(required='true', placeholder="ex: UFRJ", class="form-control") }}
+
+    <br/>
+
+    {{ form.objective.label }}<br/>
+    {{ form.objective(required='true', class="form-control") }}
+
+    <br/>
+
+    {{ form.status.label }}<br/>
+    {{ form.status(required='true', class="form-control") }}
 
     <label class="btn btn-default">
         <span>Carregar documento</span>
@@ -28,7 +41,7 @@
 
     <br/>
     <br/>
-    
+
     {{ form.create(class="form-control") }}
     </div>
 </form>

@@ -20,6 +20,7 @@
         O Programa faz convênio com algumas instituições para lhes garantir abertura de vagas e oportunidades.
     </p>
 
+    <h3>Convênios em execução</h3>
     <div class="panel panel-default">
         <table class="table">
             <thead>
@@ -28,10 +29,38 @@
             </thead>
             {% for institution in integrations_infos.institutionsWithCovenant %}
             {% if "deleted" not in institution %}
+            {% if "finished" not in institution.status %}
             <tr>
                 <td>{{ institution.initials }}</td>
                 <td>{{ institution.name }}</td>
             </tr>
+            <tr>
+                <td><strong>Objetivo: </strong>{{ institution.objective }}</td>
+            </tr>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+
+    <h3>Convênios finalizados</h3>
+    <div class="panel panel-default">
+        <table class="table">
+            <thead>
+                <th>Sigla</th>
+                <th>Instituição</th>
+            </thead>
+            {% for institution in integrations_infos.institutionsWithCovenant %}
+            {% if "deleted" not in institution %}
+            {% if "finished" in institution.status %}
+            <tr>
+                <td>{{ institution.initials }}</td>
+                <td>{{ institution.name }}</td>
+            </tr>
+            <tr>
+                <td><strong>Objetivo: </strong>{{ institution.objective }}</td>
+            </tr>
+            {% endif %}
             {% endif %}
             {% endfor %}
         </table>
