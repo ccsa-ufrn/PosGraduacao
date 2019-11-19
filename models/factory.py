@@ -14,7 +14,7 @@ _COLLECTION_OF_POST_GRADUATIONS = 'postGraduations'
 _COLLECTION_OF_FINAL_REPORTS = 'finalReports'
 _COLLECTION_OF_WEEKLY_SCHEDULES = 'weeklySchedules'
 _COLLECTION_OF_GRADES_OF_SUBJECTS = 'gradesOfSubjects'
-_COLLECTION_OF_BOARDS_OF_PROFESSORS = 'boardsOfProfessors'
+_COLLECTION_OF_BOARD_OF_PROFESSORS = 'boardsOfProfessors'
 _COLLECTION_OF_INTEGRATIONS_INFOS = 'integrationsInfos'
 _COLLECTION_OF_BOARDS_OF_STAFFS = 'boardsOfStaffs'
 _COLLECTION_OF_OFFICIAL_DOCUMENTS = 'officialDocuments'
@@ -71,9 +71,9 @@ class PosGraduationFactory(object):
         """ Gets an instance of a data access object for a certain collection """
         return GenericMongoDAO(_COLLECTION_OF_PUBLICATIONS, self.mongo_id)
 
-    def boards_of_professors_dao(self):
+    def board_of_professors_dao(self):
         """ Gets an instance of a data access object for a certain collection """
-        return GenericMongoDAO(_COLLECTION_OF_BOARDS_OF_PROFESSORS, self.mongo_id)
+        return GenericMongoDAO(_COLLECTION_OF_BOARD_OF_PROFESSORS, self.mongo_id)
 
     def integrations_infos_dao(self):
         """ Gets an instance of a data access object for a certain collection """

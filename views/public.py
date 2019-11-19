@@ -154,8 +154,12 @@ def view_professors(initials):
     """Render a view for professors list."""
 
     try:
-        post_graduation = PosGraduationFactory(initials).post_graduation
-        board_of_professors = SigaaScraper.professors_list(initials)
+        pfactory = PosGraduationFactory(initials)
+        post_graduation = pfactory.post_graduation
+        board_of_professors_sigaa = SigaaScraper.professors_list(initials)
+        board_of_professors_database = list(pfactory.board_of_professors_dao().find_one()['professors'])
+        board_of_professors = board_of_professors_sigaa + board_of_professors_database
+        print(board_of_professors, file=sys.stderr)
 
         return render_template(
             'public/professors.html',

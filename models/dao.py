@@ -268,7 +268,7 @@ class ProjectSigaaDAO(AbstractDAO):
         projects = []
 
         for project_from_sigaa in projects_from_sigaa:
-            
+
             if not project_from_sigaa['situacaoProjeto'] == 'FINALIZADO':
                 members = None #?
                 members = []

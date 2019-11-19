@@ -33,13 +33,12 @@ class SigaaScraper(object):
     @staticmethod
     def professors_list(pg_initials):
         """
-        Return a list of final reports (dicts).
-        Page param should be an integer beginning by 1
+        Return a list of professors (dicts).
         """
 
         url = SigaaScraper._reports_collection_url(pg_initials)
 
-        professors_list = {} 
+        professors_list = []
 
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -47,7 +46,7 @@ class SigaaScraper(object):
         table_lts = soup.select('#conteudo #listagem_tabela #table_lt')
         for group in range(0, len(group_lts)):
             groups_list = []
-            for tr in table_lts[group].select('tbody tr'):
+            for tr in table_lts[group].select('tbody tr')[1:]:
                 tds = tr.select('td')
                 if(tds[4].find('a')):
                     lattes = tds[4].find('a').get('href')
@@ -57,15 +56,13 @@ class SigaaScraper(object):
                     email = tds[5].find('a').get('href')[7:]
                 else:
                     email = 'Não encontrado'
-                groups_list.append({
+                professors_list.append({
                     'name': tds[0].text.strip(),
                     'rank': tds[1].text.strip(),
-                    'level': tds[2].text.strip(),
+                    'rank': tds[2].text.strip(),
                     'phone': tds[3].text.strip(),
                     'lattes': lattes,
                     'email': email,
                 })
-            groups_list.pop(0)
-            professors_list[group_lts[group].text.strip()] = groups_list
         return professors_list
 

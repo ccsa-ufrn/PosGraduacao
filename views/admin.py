@@ -128,7 +128,7 @@ def add_professors():
     form = ProfessorForm()
 
     pfactory = PosGraduationFactory(current_user.pg_initials)
-    dao = pfactory.boards_of_professors_dao()
+    dao = pfactory.board_of_professors_dao()
 
     if form.validate_on_submit() and form.create.data:
         new_professor = {
@@ -163,8 +163,8 @@ def edit_professors():
     form = ProfessorForm()
 
     pfactory = PosGraduationFactory(current_user.pg_initials)
-    dao = pfactory.boards_of_professors_dao()
-    json = pfactory.boards_of_professors_dao().find_one()
+    dao = pfactory.board_of_professors_dao()
+    json = pfactory.board_of_professors_dao().find_one()
     json = dict(json)
     json = dumps(json)
 
@@ -204,8 +204,8 @@ def delete_professors():
     form = ProfessorForm()
 
     pfactory = PosGraduationFactory(current_user.pg_initials)
-    dao = pfactory.boards_of_professors_dao()
-    json = pfactory.boards_of_professors_dao().find_one()
+    dao = pfactory.board_of_professors_dao()
+    json = pfactory.board_of_professors_dao().find_one()
     json = dict(json)
     json = dumps(json)
 
