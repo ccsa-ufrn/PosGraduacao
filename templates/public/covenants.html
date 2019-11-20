@@ -24,18 +24,16 @@
     <div class="panel panel-default">
         <table class="table">
             <thead>
-                <th>Sigla</th>
                 <th>Instituição</th>
             </thead>
             {% for institution in integrations_infos.institutionsWithCovenant %}
             {% if "deleted" not in institution %}
             {% if "finished" not in institution.status %}
             <tr>
-                <td>{{ institution.initials }}</td>
-                <td>{{ institution.name }}</td>
+                <td>{{ institution.initials }} - {{ institution.name }}</td>
             </tr>
             <tr>
-                <td><strong>Objetivo: </strong>{{ institution.objective }}</td>
+                <td><strong>Objeto: </strong>{{ institution.objective }}</td>
             </tr>
             {% endif %}
             {% endif %}
@@ -54,11 +52,10 @@
             {% if "deleted" not in institution %}
             {% if "finished" in institution.status %}
             <tr>
-                <td>{{ institution.initials }}</td>
-                <td>{{ institution.name }}</td>
+                <td>{{ institution.initials }} - {{ institution.name }}</td>
             </tr>
             <tr>
-                <td><strong>Objetivo: </strong>{{ institution.objective }}</td>
+                <td><strong>Objeto: </strong>{{ institution.objective }}</td>
             </tr>
             {% endif %}
             {% endif %}
