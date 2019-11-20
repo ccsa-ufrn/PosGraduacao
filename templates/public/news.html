@@ -18,8 +18,8 @@
     <h3>{{ fullNews.title }}</br>
         <small>{{ fullNews.headLine }}</small>
     </h3>
-    
-    <p style="white-space: pre-wrap">{{ fullNews.body }}</p>
+
+    <p style="white-space: pre-wrap">{{ fullNews.body|safe }}</p>
 
 </section>
 
