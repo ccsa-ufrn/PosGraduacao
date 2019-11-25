@@ -80,6 +80,10 @@ class ParticipationsInEventsForm(FlaskForm):
         DataRequired('Falta localizar a cidade e país.')
     ])
 
+    type_of_participation = SelectField('Tipo de participação', choices=[('cooperation','Acordos de cooperação'), ('parternship','Parcerias'), ('international_events', 'Eventos internacionais')], validators = [
+        DataRequired('Insira o tipo de intercâmbio')
+    ])
+
     index = IntegerField()
 
     create = SubmitField('Adicionar')

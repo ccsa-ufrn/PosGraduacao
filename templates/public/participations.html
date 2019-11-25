@@ -19,13 +19,42 @@
         Ao longo do desenvolvimento das atividades dos discentes e docentes, vários intercâmbios pontuais ocorreram.
     </p>
 
+    <h3>Acordos de cooperação</h3>
     {% for event in integrations_infos.participationsInEvents %}
     {% if "deleted" not in event %}
-    <h3>{{ event.title }}<br/>
-        <small>({% if event.international %}{{ event.international }} | {% endif %}{{ event.year|int }})</small>
-    </h3>
 
-    <p>{{ event.description }}</p>
+    {% if "cooperation" in event.type_of_participation %}
+    <h4>{{ event.title }}<br/>
+        <small>({% if event.international %}{{ event.international }} | {% endif %}{{ event.year|int }})</small>
+    </h4>
+
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
+    <h3>Parcerias</h3>
+    {% for event in integrations_infos.participationsInEvents %}
+    {% if "deleted" not in event %}
+
+    {% if "parternship" in event.type_of_participation %}
+    <h4>{{ event.title }}<br/>
+        <small>({% if event.international %}{{ event.international }} | {% endif %}{{ event.year|int }})</small>
+    </h4>
+
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
+    <h3>Eventos internacionais</h3>
+    {% for event in integrations_infos.participationsInEvents %}
+    {% if "deleted" not in event %}
+
+    {% if "international_events" in event.type_of_participation %}
+    <h4>{{ event.title }}<br/>
+        <small>({% if event.international %}{{ event.international }} | {% endif %}{{ event.year|int }})</small>
+    </h4>
+
+    {% endif %}
     {% endif %}
     {% endfor %}
 

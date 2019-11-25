@@ -10,10 +10,10 @@
 <form method="POST" action="{{ url_for('crud_participation.participations') }}">
     <div class="form-group">
     {{ form.csrf_token }}
-    
+
     {{ form.title.label }}<br/>
     {{ form.title(required='true', class="form-control", placeholder="Ex: Intercâmbio de pesquisa a FGV") }}
-    
+
     <br/>
 
     {{ form.description.label }}<br/>
@@ -23,7 +23,12 @@
 
     {{ form.year.label }}<br/>
     {{ form.year(required='true', class="form-control", type='number', step='1', min='1970', max='2050', placeholder="Ex: 2017") }}
-        
+
+    <br/>
+
+    {{ form.type_of_participation.label }}<br/>
+    {{ form.type_of_participation(required='true', class="form-control") }}
+
     <br/>
 
     {{ form.location.label }}<br/>

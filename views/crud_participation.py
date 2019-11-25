@@ -37,7 +37,8 @@ def participations():
             'title': form.title.data,
             'description': form.description.data,
             'year': form.year.data,
-            'international': form.location.data
+            'international': form.location.data,
+            'type_of_participation': form.type_of_participation.data
         }
 
         dao.find_one_and_update(None, {
@@ -115,7 +116,8 @@ def edit_participations():
             'title': form.title.data,
             'description': form.description.data,
             'year': year,
-            'international': form.location.data
+            'international': form.location.data,
+            'type_of_participation': form.type_of_participation.data
         }
 
         dao.find_one_and_update(None, {

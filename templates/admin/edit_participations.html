@@ -21,7 +21,7 @@ $(document).ready(function() {
             })
         }
     }
-    
+
     $("#list").select2({
         data: listOfParticipations
     });
@@ -33,6 +33,7 @@ $(document).ready(function() {
         $("textarea[name=description]").val(participations.participationsInEvents[indexInParticipations].description);
         $("input[name=year]").val(participations.participationsInEvents[indexInParticipations].year);
         $("input[name=location]").val(participations.participationsInEvents[indexInParticipations].international);
+        $("select[name=type_of_participation]").val(participations.participationsInEvents[indexInParticipations].type_of_participation);
         $("input[name=index]").val(indexInParticipations);
     });
 
@@ -71,6 +72,9 @@ $(document).ready(function() {
     <br/>
     {{ form.location.label }}
     {{ form.location(required='true', class="form-control") }}
+    <br/>
+    {{ form.type_of_participation.label }}
+    {{ form.type_of_participation(required='true', class="form-control") }}
     <br/>
 
     {{ form.create(class="form-control") }}
