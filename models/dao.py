@@ -5,6 +5,7 @@ all DAOs **SHOULD** be created using factory methods.
 """
 from threading import Thread
 import time
+import sys
 
 from models.clients.mongo import DB
 from models.clients import api_sistemas
@@ -170,6 +171,108 @@ class StudentSigaaDAO(AbstractDAO):
                 'class': str(student_from_sigaa['matricula']),
             })
         return students
+
+    def insert_one(self, document: dict):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+    def insert_many(self, document: list):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+    def update(self, document: dict):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+    def delete(self, document: dict):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+class ArticlesSigaaDAO(AbstractDAO):
+
+    def __init__(self, list_of_professors: list = [], type_of_publication: str = ''):
+        self.AUTHORS = []
+        self.ARTICLES = []
+        for professor in list_of_professors:
+            endpoint = api_sistemas.API_URL_ROOT
+            endpoint += '/curriculo-pesquisador/v1/{type_of_publication}?cpf-cnpj={cpf}'
+            endpoint = endpoint.format(type_of_publication=type_of_publication, cpf=professor['cpf'])
+            self.AUTHORS.append({ 'endpoint' : endpoint, 'author' : professor['name']})
+
+    def find_all(self):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def find_one(self, conditions):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def find(self, conditions: dict = {}):
+        bearer_token = api_sistemas.retrieve_token()
+        for author in self.AUTHORS:
+            self.ARTICLES += self._parse((api_sistemas.get_public_data(author['endpoint'], bearer_token)), author['author'])
+        return self.ARTICLES
+
+    def _parse(self, articles_from_sigaa, author):
+        articles = []
+        for article_from_sigaa in articles_from_sigaa:
+            articles.append({
+                'name': article_from_sigaa['nome-producao'],
+                'sequence': article_from_sigaa['sequencia-producao'],
+                'year': article_from_sigaa['ano-producao'],
+                'volume': article_from_sigaa['volume'],
+                'issn': article_from_sigaa['issn'],
+                'author': author,
+                'title_magazine': article_from_sigaa['titulo-periodico-revista'],
+            })
+        return articles
+
+    def insert_one(self, document: dict):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+    def insert_many(self, document: list):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+    def update(self, document: dict):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+    def delete(self, document: dict):
+        raise NotImplementedError("Data from SIGAA are read-only.")
+
+class PublicationsSigaaDAO(AbstractDAO):
+
+    def __init__(self, list_of_professors: list = [], type_of_publication: str = ''):
+        self.AUTHORS = []
+        self.PUBLICATIONS = []
+        for professor in list_of_professors:
+            endpoint = api_sistemas.API_URL_ROOT
+            endpoint += '/curriculo-pesquisador/v1/{type_of_publication}?cpf-cnpj={cpf}'
+            endpoint = endpoint.format(type_of_publication=type_of_publication, cpf=professor['cpf'])
+            self.AUTHORS.append({ 'endpoint' : endpoint, 'author' : professor['name']})
+
+    def find_all(self):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def find_one(self, conditions):
+        raise NotImplementedError("Not implemented method inherited from an abstract class.")
+
+    def find(self, conditions: dict = {}):
+        bearer_token = api_sistemas.retrieve_token()
+        for author in self.AUTHORS:
+            self.PUBLICATIONS += self._parse((api_sistemas.get_public_data(author['endpoint'], bearer_token)), author['author'])
+        return self.PUBLICATIONS
+
+    def _parse(self, publications_from_sigaa, author):
+        publications = []
+        for publication_from_sigaa in publications_from_sigaa:
+            dict_to_add = {'name': publication_from_sigaa['nome-producao'],
+                           'sequence': publication_from_sigaa['sequencia-producao'],
+                           'year': publication_from_sigaa['ano-producao'],
+                           'isbn': publication_from_sigaa['isbn'],
+                           'author': author}
+            if("nome-evento" in publication_from_sigaa):
+                dict_to_add['name_event'] = publication_from_sigaa['nome-evento']
+                dict_to_add['title_anais'] = publication_from_sigaa['titulo-anais']
+            if("cidade-editora" in publication_from_sigaa):
+                dict_to_add['cidade_editora'] = publication_from_sigaa['cidade-editora']
+                dict_to_add['nome_editora'] = publication_from_sigaa['nome-editora']
+                dict_to_add['pais_publicacao'] = publication_from_sigaa['pais-publicacao']
+            publications.append(dict_to_add)
+        return publications
 
     def insert_one(self, document: dict):
         raise NotImplementedError("Data from SIGAA are read-only.")

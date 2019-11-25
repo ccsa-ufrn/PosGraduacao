@@ -14,25 +14,25 @@
     <header class="page-header">
         <h2>Livros publicados</h2>
     </header>
-
-    {% for book in publications.books %}
-    {% if "deleted" not in book %}
-    <h3>{{ book.title }}</h3>
-    {% if book.subtitle != ""  %}
-    <h4>{{ book.subtitle }}</h4>
-    {% endif %}
+    {% for n in range(2017,2021) %}
+    <h3>Livros publicados em {{ n }}</h3>
+    {% for book in publications %}
+    {% if n == book.year %}
     <ul>
-        <li><strong>Autores:</strong> {{ book.authors }}</li>
-        <li><strong>Edição:</strong>  {{ book.edition }}</li>
-        <li><strong>Editora:</strong> {{ book.publisher }}</li>
-        <li><strong>Local de impressão:</strong> {{ book.location }}</li>
+        <li><strong>Author:</strong>  {{ book.author }}</li>
+        <li><strong>Nome:</strong>  {{ book.name }}</li>
         <li><strong>Ano:</strong> {{ book.year }}</li>
-        <li><a href="{{ book.link }}">Link para revista</a></li>
+        <li><strong>Volume:</strong> {{ book.volume }}</li>
+        <li><strong>Sequencia de produção:</strong> {{ book.sequence }}</li>
+        <li><strong>ISBN:</strong> {{ book.isbn }}</li>
+        <li><strong>País publicação:</strong> {{ book.pais_publicacao }}</li>
+        <li><strong>Editora:</strong> {{ book.nome_editora }}</li>
+        <li><strong>Cidade da Editora:</strong> {{ book.cidade_editora }}</li>
     </ul>
-    <br/>
+    <header class="page-header">
+        <h2> </h2>
+    </header>
     {% endif %}
     {% endfor %}
-
-</section>
-
+    {% endfor %}
 {% endblock %}

@@ -1,0 +1,35 @@
+{% extends "public/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/ppgp.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>Trabalhos apresentados</h2>
+    </header>
+    {% for n in range(2017,2021) %}
+    <h3>Trabalhos apresentados em {{ n }}</h3>
+    {% for presentation in publications %}
+    {% if n == presentation.year %}
+    <ul>
+        <li><strong>Author:</strong>  {{ presentation.author }}</li>
+        <li><strong>Nome:</strong>  {{ presentation.name }}</li>
+        <li><strong>Ano:</strong> {{ presentation.year }}</li>
+        <li><strong>Volume:</strong> {{ presentation.volume }}</li>
+        <li><strong>Nome Evento:</strong> {{ presentation.name_event }}</li>
+        <li><strong>Titulo nos anais:</strong> {{ presentation.title_anais }}</li>
+    </ul>
+    <header class="page-header">
+        <h2> </h2>
+    </header>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+{% endblock %}

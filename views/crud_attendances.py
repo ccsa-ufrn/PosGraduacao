@@ -71,35 +71,3 @@ def edit_attendance():
         form=form,
         success_msg=request.args.get('success_msg')
     )
-
-"""
-@crud_attendances.route('/deletar_artigo/', methods=['GET', 'POST'])
-@login_required
-def delete_article():
-
-    form = ArticleForm()
-
-    pfactory = PosGraduationFactory(current_user.pg_initials)
-    dao = pfactory.publications_dao()
-    json = pfactory.publications_dao().find_one()
-    json = dict(json)
-    json = dumps(json)
-
-    if form.validate_on_submit() and form.create.data:
-        index = str(form.index.data)
-        dao.find_one_and_update(None, {
-            '$set': {'articles.' + index + '.deleted' : ''}
-        })
-
-        return redirect(
-            url_for(
-                'crud_attendances.delete_article',
-                success_msg='Arigo deletado com sucesso.'))
-
-    return render_template(
-        'admin/delete_articles.html',
-        publications=json,
-        form=form,
-        success_msg=request.args.get('success_msg')
-    )
-"""

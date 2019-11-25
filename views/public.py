@@ -147,7 +147,18 @@ def view_subjects(initials):
         grades_of_subjects=grades_of_subjects
     )
 
+@app.route('/<string:initials>/impacto/')
+def view_impact(initials):
+    """Render a view for impact."""
 
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/impact.html',
+        std=get_std_for_template(post_graduation),
+    )
 
 @app.route('/<string:initials>/docentes/')
 def view_professors(initials):
@@ -274,7 +285,7 @@ def view_classes(initials):
     """Render a view for classes list."""
 
     form = FindClass()
-    
+
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
     now = datetime.datetime.now()
@@ -345,8 +356,8 @@ def view_books(initials):
 
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
-
-    publications = pfactory.publications_dao().find_one()
+    researchers = list(pfactory.board_of_professors_dao().find_one()['researchers'])
+    publications = pfactory.publications_sigaa_dao(researchers, 'livros-publicados-organizados').find()
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -361,12 +372,28 @@ def view_articles(initials):
 
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
-
-    publications = pfactory.publications_dao().find_one()
+    researchers = list(pfactory.board_of_professors_dao().find_one()['researchers'])
+    publications = pfactory.articles_sigaa_dao(researchers, 'artigos-publicados').find()
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
         'public/articles.html',
+        std=get_std_for_template(post_graduation),
+        publications=publications
+    )
+
+@app.route('/<string:initials>/trabalhos/')
+def view_presentations(initials):
+    """Render a view for trabalhos list."""
+
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+    researchers = list(pfactory.board_of_professors_dao().find_one()['researchers'])
+    publications = pfactory.publications_sigaa_dao(researchers, 'trabalhos-eventos').find()
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/presentations.html',
         std=get_std_for_template(post_graduation),
         publications=publications
     )
@@ -386,7 +413,7 @@ def view_news(initials):
     return render_template(
         'public/news.html',
         std=get_std_for_template(post_graduation),
-        fullNews=fullNews 
+        fullNews=fullNews
     )
 
 @app.route('/<string:initials>/lista_noticias/')
@@ -411,8 +438,8 @@ def view_chapters(initials):
 
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
-
-    publications = pfactory.publications_dao().find_one()
+    researchers = list(pfactory.board_of_professors_dao().find_one()['researchers'])
+    publications = pfactory.publications_sigaa_dao(researchers, 'capitulos-livros').find()
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
@@ -450,6 +477,22 @@ def view_documents_atas(initials):
     # renders an own page or redirect to another (external/404)?
     return render_template(
         'public/documents_atas.html',
+        std=get_std_for_template(post_graduation),
+        documents=documents
+    )
+
+@app.route('/<string:initials>/documentos/regimentos')
+def view_documents_regiments(initials):
+    """Render a view for documents list."""
+
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    documents = pfactory.official_documents_dao().find({'category':'regiments'})
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/documents_regiments.html',
         std=get_std_for_template(post_graduation),
         documents=documents
     )

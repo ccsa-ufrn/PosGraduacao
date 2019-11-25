@@ -6,7 +6,7 @@ A factory of Data Access Objects.
 """
 
 from models.clients import api_sistemas
-from models.dao import GenericMongoDAO, StudentSigaaDAO, ProjectSigaaDAO, ClassesSigaaDAO
+from models.dao import GenericMongoDAO, StudentSigaaDAO, ProjectSigaaDAO, ClassesSigaaDAO, PublicationsSigaaDAO, ArticlesSigaaDAO
 
 # constants for collection names in mongodb
 
@@ -125,3 +125,11 @@ class PosGraduationFactory(object):
     def classes_dao(self, year, period, limit):
         """Gets an instance of a data access object for a certain collection """
         return ClassesSigaaDAO(int(self.id_unit), int(year), int(period), int(limit))
+
+    def publications_sigaa_dao(self, list_of_professors, type_of_publication):
+        """Gets an instance of a data access object for a certain collection """
+        return PublicationsSigaaDAO(list_of_professors, type_of_publication)
+
+    def articles_sigaa_dao(self, list_of_professors, type_of_publication):
+        """Gets an instance of a data access object for a certain collection """
+        return ArticlesSigaaDAO(list_of_professors, type_of_publication)

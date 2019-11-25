@@ -269,6 +269,20 @@ class ProfessorForm(FlaskForm):
 
     create = SubmitField('Adicionar')
 
+class ResearcherForm(FlaskForm):
+    """
+    Form for adding researcher to database
+    """
+    name = StringField('Nome do pesquisador(a):', validators=[
+        DataRequired('Digite o nome do pesquisador(a).')
+    ])
+
+    cpf = StringField('CPF do pesquisador(a):', validators=[
+        DataRequired('Digite o cpf do pesquisador(a).')
+    ])
+
+    create = SubmitField('Adicionar')
+
 class AttendanceForm(FlaskForm):
     """
     Form for adding attendance information to database
@@ -332,7 +346,7 @@ class DocumentForm(FlaskForm):
     ])
 
     category = SelectField('Categoria',  choices=[
-        ('resolucao','Resolução'),('ata','ATA'),('outros','Outros')], validators=[
+        ('resolucao','Resolução'),('ata','ATA'),('outros','Outros'), ('regiments', 'Regimentos')], validators=[
             DataRequired('Especifique o tipo de documento.')
     ])
 
@@ -355,7 +369,7 @@ class EditDocumentForm(FlaskForm):
     ])
 
     category = SelectField('Categoria',  choices=[
-        ('resolucao','Resolução'),('ata','ATA'),('outros','Outros')], validators=[
+        ('resolucao','Resolução'),('ata','ATA'),('outros','Outros'), ('regiments', 'Regimentos')], validators=[
             DataRequired('Especifique o tipo de documento.')
     ])
 

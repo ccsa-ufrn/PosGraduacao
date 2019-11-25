@@ -22,7 +22,7 @@ from views.forms.auth import LoginForm
 from views.forms.content import ParticipationsInEventsForm, \
     ScheduledReportForm, InstitutionsWithCovenantsForm, \
     DocumentForm, SubjectsForm, ProfessorForm, StaffForm, CalendarForm, \
-    EditInstitutionsWithCovenantsForm, EditDocumentForm
+    EditInstitutionsWithCovenantsForm, EditDocumentForm, ResearcherForm
 
 from models.clients.api_sistemas import SigaaError, \
     FailedToGetTokenForSigaaError, UnreachableSigaaError, \
@@ -114,6 +114,38 @@ def user_loader(user_id):
     else:
         return None
 
+@APP.route('/add_researchers/', methods=['GET', 'POST'])
+@login_required
+def add_researcher():
+    """Render a view for researchers."""
+
+    form = ResearcherForm()
+
+    pfactory = PosGraduationFactory(current_user.pg_initials)
+    dao = pfactory.board_of_professors_dao()
+
+    if form.validate_on_submit() and form.create.data:
+        new_researcher = {
+            'name': form.name.data,
+            'cpf': form.cpf.data,
+        }
+
+        dao.find_one_and_update(None, {
+            '$push': {'researchers': new_researcher}
+        })
+
+        return redirect(
+            url_for(
+                'admin.add_researcher',
+                success_msg='Pesquisador adicionado com sucesso.'
+            )
+        )
+
+    return render_template(
+        'admin/add_researcher.html',
+        form=form,
+        success_msg=request.args.get('success_msg')
+    )
 
 ###############################################################################
 #Adicionar deletar e editar professores

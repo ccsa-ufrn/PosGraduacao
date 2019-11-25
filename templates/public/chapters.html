@@ -13,25 +13,26 @@
     <header class="page-header">
         <h2>Capítulos publicados em livros</h2>
     </header>
-
-    {% for chapter in publications.chapters %}
-    {% if "deleted" not in chapter %}
-    <h3>{{ chapter.chapterTitle }}</h3>
-    <h5>Em: {{ chapter.bookTitle }}</h5>
-    <h5>    Feito por: {{ chapter.bookAuthors }}</h5>
+    {% for n in range(2017,2021) %}
+    <h3>Capitulos de livros publicados em {{ n }}</h3>
+    {% for chapter in publications %}
+    {% if n == chapter.year %}
     <ul>
-        <li><strong>Autores:</strong> {{ chapter.chapterAuthors }}</li>
-        <li><strong>Edição:</strong>  {{ chapter.edition }}</li>
-        <li><strong>Editora:</strong> {{ chapter.publisher }}</li>   
-        <li><strong>Local de impressão:</strong> {{ chapter.location }}</li>   
+        <li><strong>Author:</strong>  {{ chapter.author }}</li>
+        <li><strong>Nome:</strong>  {{ chapter.name }}</li>
         <li><strong>Ano:</strong> {{ chapter.year }}</li>
-        <li><strong>Páginas:</strong> {{ chapter.pages }}</li>
-        <li><a href="{{ chapter.link }}">Link para revista</a></li>
+        <li><strong>Sequencia de produção:</strong> {{ chapter.sequence }}</li>
+        <li><strong>ISBN:</strong> {{ chapter.isbn }}</li>
+        <li><strong>País publicação:</strong> {{ chapter.pais_publicacao }}</li>
+        <li><strong>Editora:</strong> {{ chapter.nome_editora }}</li>
+        <li><strong>Cidade da Editora:</strong> {{ chapter.cidade_editora }}</li>
     </ul>
-    <br/>
+    <header class="page-header">
+        <h2> </h2>
+    </header>
     {% endif %}
     {% endfor %}
+    {% endfor %}
 
-</section>
 
 {% endblock %}

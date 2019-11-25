@@ -29,7 +29,7 @@
                 <a href="/admin/" class="navbar-brand">Painel de Controle</a>
             </div>
 
-            <div class="navbar-collapse collapse">                
+            <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user and current_user.is_authenticated %}
                     <li><a href="/{{ current_user.pg_initials }}"> Página pública</a></li>
@@ -38,7 +38,7 @@
                     <li><a href="{{ url_for('admin.logout') }}"> Sair </a></li>
                 </ul>
             </div>
-            
+
         </div>
     </nav>
 
@@ -88,6 +88,7 @@
                     <li><a href="#professors" data-toggle="collapse">Docentes
                         <span class="caret"></span></a>
                         <ul id="professors" class="collapse">
+                            <li><a href="{{ url_for('admin.add_researcher') }}">Adicionar pesquisador</a></li>
                             <li><a href="{{ url_for('admin.add_professors') }}">Adicionar docentes</a></li>
                             <li><a href="{{ url_for('admin.edit_professors') }}">Editar docentes</a></li>
                             <li><a href="{{ url_for('admin.delete_professors') }}">Deletar docentes</a></li>

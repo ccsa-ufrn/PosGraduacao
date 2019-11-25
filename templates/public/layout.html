@@ -20,7 +20,7 @@
 
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            
+
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -37,27 +37,27 @@
             </div>
 
             <div class="navbar-collapse collapse">
-                
+
                 <ul class="nav navbar-nav">
                     {% if std.post_graduation %}
                     <li><a href="/{% if std.post_graduation %}{{ std.post_graduation.initials }}{% endif %}"> 
                         <span class="glyphicon glyphicon-home"></span> Início </a></li>
-                    
+
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-education"></span> Acadêmico <span class="caret"></a>
                         <ul class="dropdown-menu">
-                            
+
                             <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Ensino</li>
-                            
+
                             <li><a href="{{ url_for('public.view_subjects', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-blackboard"></span> Disciplinas</a>
                             </li>
-                            
+
                             <li><a href="{{ url_for('public.view_students', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-list-alt"></span> Discentes</a>
                             </li>
-                            
+
                             <li><a href="{{ url_for('public.view_classes', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-list-alt"></span> Turmas</a>
                             </li>
@@ -65,10 +65,17 @@
                             <li><a href="{{ url_for('public.view_professors', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-apple"></span> Docentes</a>
                             </li>
-                            
+
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Programa</li>
+
+                            <li><a href="{{ url_for('public.view_impact', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-apple"></span> Impacto</a>
+                            </li>
+
                             <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Pesquisa e extensão</li>
-                            
+
                             <li><a href="{{ url_for('public.view_projects', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-search"></span> Projetos</a>
                             </li>
@@ -103,9 +110,12 @@
                             <li><a href="{{ url_for('public.view_chapters', initials=std.post_graduation.initials) }}">
                                     <span class="glyphicon glyphicon-book"></span> Capítulos de livros</a>
                             </li>
+                            <li><a href="{{ url_for('public.view_presentations', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-book"></span> Apresentações em Eventos</a>
+                            </li>
                         </ul>
                     </li>
-                        
+
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-leaf"></span> Coordenação <span class="caret"></a>
                         <ul class="dropdown-menu">
@@ -116,7 +126,7 @@
                             <li><a href="{{ url_for('public.view_covenants', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-globe"></span> Convênios</a>
                             </li>
-                            
+
                             <li><a href="{{ url_for('public.view_calendar', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-calendar"></span> Calendário</a>
                             </li>
@@ -130,6 +140,9 @@
                             </li>
                             <li><a href="{{ url_for('public.view_documents_atas', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-file"></span> ATAs</a>
+                            </li>
+                            <li><a href="{{ url_for('public.view_documents_regiments', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-file"></span> Regimentos</a>
                             </li>
                             <li><a href="{{ url_for('public.view_documents_others', initials=std.post_graduation.initials) }}">
                                 <span class="glyphicon glyphicon-file"></span> Outros</a>

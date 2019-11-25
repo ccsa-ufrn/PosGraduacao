@@ -1,0 +1,35 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+<div class="col-md-6" style="margin-left: -4%">
+<div class="panel panel-danger">
+<div class="panel-heading text-center">
+    <h4>Adicionar pesquisador<h4/>
+</div>
+<div class="panel-body">
+<form method="POST" action="{{ url_for('admin.add_researcher') }}">
+    <div class="form-group">
+    {{ form.csrf_token }}
+    <br/>
+    {{ form.name.label }}<br/>
+    {{ form.name(required='true', class="form-control", placeholder="Ex: Leonardo Martins") }}
+    <br/>
+    {{ form.cpf.label }}<br/>
+    {{ form.cpf(required='true', placeholder="Adicione somente os numeros Ex:12345678912", class="form-control") }}
+    <br/>
+    {{ form.create(class="form-control") }}
+    </div>
+</form>
+<p>
+    Você pode <a onclick="window.history.go(-1); return false;" href="#">voltar à página anterior</a>.
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}
