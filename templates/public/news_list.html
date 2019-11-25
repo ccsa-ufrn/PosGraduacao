@@ -23,7 +23,7 @@
                 <th>Título</th>
             </thead>
             {% for new in news %}
-            {% if "deleted" in new %}
+            {% if "deleted" not in new %}
             <tr>
                 <td>{{ new.date }}</td>
                 <td><a href="{{ url_for('public.view_news', id=new.id, initials=std.post_graduation.initials) }}">{{ new.title }}</a></td>
