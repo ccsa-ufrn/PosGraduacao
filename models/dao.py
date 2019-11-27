@@ -191,7 +191,7 @@ class ArticlesSigaaDAO(AbstractDAO):
         self.ARTICLES = []
         for professor in list_of_professors:
             endpoint = api_sistemas.API_URL_ROOT
-            endpoint += '/curriculo-pesquisador/v1/{type_of_publication}?cpf-cnpj={cpf}'
+            endpoint += '/curriculo-pesquisador/v1/{type_of_publication}?cpf-cnpj={cpf}&limit=100&order-desc=ano-producao'
             endpoint = endpoint.format(type_of_publication=type_of_publication, cpf=professor['cpf'])
             self.AUTHORS.append({ 'endpoint' : endpoint, 'author' : professor['name']})
 
@@ -240,7 +240,7 @@ class PublicationsSigaaDAO(AbstractDAO):
         self.PUBLICATIONS = []
         for professor in list_of_professors:
             endpoint = api_sistemas.API_URL_ROOT
-            endpoint += '/curriculo-pesquisador/v1/{type_of_publication}?cpf-cnpj={cpf}'
+            endpoint += '/curriculo-pesquisador/v1/{type_of_publication}?cpf-cnpj={cpf}&limit=100&order-desc=ano-producao'
             endpoint = endpoint.format(type_of_publication=type_of_publication, cpf=professor['cpf'])
             self.AUTHORS.append({ 'endpoint' : endpoint, 'author' : professor['name']})
 
