@@ -122,8 +122,8 @@ def home(initials):
 
 
 
-@app.route('/<string:initials>/documents/<string:filename>/')
-def download_documents(initials, filename):
+@app.route('/<string:initials>/documents/<string:document>/<string:filename>/')
+def download_documents(initials, filename, document):
     """
     Open a file from static folder.
     """
@@ -448,67 +448,23 @@ def view_chapters(initials):
         publications=publications
     )
 
-
-@app.route('/<string:initials>/documentos/resolucoes')
-def view_documents_resolutions(initials):
+@app.route('/<string:initials>/documents/<string:document>/')
+def view_documents(initials, document):
     """Render a view for documents list."""
 
     pfactory = PosGraduationFactory(initials)
     post_graduation = pfactory.post_graduation
-
-    documents = pfactory.official_documents_dao().find({'category':'resolucao'})
-
-    # renders an own page or redirect to another (external/404)?
-    return render_template(
-        'public/documents_regiments.html',
-        std=get_std_for_template(post_graduation),
-        documents=documents
-    )
-
-@app.route('/<string:initials>/documentos/atas')
-def view_documents_atas(initials):
-    """Render a view for documents list."""
-
-    pfactory = PosGraduationFactory(initials)
-    post_graduation = pfactory.post_graduation
-
-    documents = pfactory.official_documents_dao().find({'category':'ata'})
+    document_types = {'ata': 'Atas',
+                      'regiments': 'Regimentos',
+                      'resolucao': 'Resolução',
+                      'outros': 'Outros',
+                      'reunion': 'Reunião Anual'}
+    documents = pfactory.official_documents_dao().find({'category':document})
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
-        'public/documents_atas.html',
-        std=get_std_for_template(post_graduation),
-        documents=documents
-    )
-
-@app.route('/<string:initials>/documentos/regimentos')
-def view_documents_regiments(initials):
-    """Render a view for documents list."""
-
-    pfactory = PosGraduationFactory(initials)
-    post_graduation = pfactory.post_graduation
-
-    documents = pfactory.official_documents_dao().find({'category':'regiments'})
-
-    # renders an own page or redirect to another (external/404)?
-    return render_template(
-        'public/documents_regiments.html',
-        std=get_std_for_template(post_graduation),
-        documents=documents
-    )
-
-@app.route('/<string:initials>/documentos/outros')
-def view_documents_others(initials):
-    """Render a view for documents list."""
-
-    pfactory = PosGraduationFactory(initials)
-    post_graduation = pfactory.post_graduation
-
-    documents = pfactory.official_documents_dao().find({'category':'outros'})
-
-    # renders an own page or redirect to another (external/404)?
-    return render_template(
-        'public/documents_others.html',
+        'public/documents.html',
+        document_type=document_types[document],
         std=get_std_for_template(post_graduation),
         documents=documents
     )

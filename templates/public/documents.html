@@ -12,7 +12,7 @@
 
 <section>
     <header class="page-header">
-        <h2>&raquo Documentos</h2>
+        <h2>&raquo {{ document_type }}</h2>
     </header>
 
     <div class="panel panel-default">
@@ -27,7 +27,7 @@
             <tr>
                 <td>{{ document.cod }}</td>
                 <td>{{ document.title }}</td>
-                <td><a href="{{ url_for('public.download_documents', initials=std.post_graduation.initials, filename=document.file) }}" target="_blank"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></td>
+                <td><a href="{{ url_for('public.download_documents', initials=std.post_graduation.initials, document=document.category, filename=document.file) }}" target="_blank"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></td>
             </tr>
             {% endif %}
             {% endfor %}
