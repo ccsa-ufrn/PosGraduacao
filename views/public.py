@@ -456,15 +456,21 @@ def view_documents(initials, document):
     post_graduation = pfactory.post_graduation
     document_types = {'ata': 'Atas',
                       'regiments': 'Regimentos',
-                      'resolucao': 'Resolução',
+                      'resolucao': 'Resoluções',
                       'outros': 'Outros',
-                      'reunion': 'Reunião Anual'}
+                      'reunion': 'Planos Quadrienais'}
+    document_numbers = {'ata': 'Ata',
+                      'regiments': 'Regimento',
+                      'resolucao': 'Resolução',
+                      'outros': 'Documento',
+                      'reunion': 'Plano Quadrienal'}
     documents = pfactory.official_documents_dao().find({'category':document})
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
         'public/documents.html',
         document_type=document_types[document],
+        document_number=document_numbers[document],
         std=get_std_for_template(post_graduation),
         documents=documents
     )
