@@ -458,12 +458,12 @@ def view_documents(initials, document):
                       'regiments': 'Regimentos',
                       'resolucao': 'Resoluções',
                       'outros': 'Outros',
-                      'reunion': 'Planos Quadrienais'}
-    document_numbers = {'ata': 'Ata',
-                      'regiments': 'Regimento',
-                      'resolucao': 'Resolução',
-                      'outros': 'Documento',
-                      'reunion': 'Plano Quadrienal'}
+                      'reunion': 'Planos'}
+    document_numbers = {'ata': 'Data',
+                      'regiments': 'Ano',
+                      'resolucao': 'N Resolução',
+                      'outros': 'Ano',
+                      'reunion': 'Ano'}
     documents = pfactory.official_documents_dao().find({'category':document})
 
     # renders an own page or redirect to another (external/404)?

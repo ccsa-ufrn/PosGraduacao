@@ -18,8 +18,12 @@
     <div class="panel panel-default">
         <table class="table">
             <thead>
-                <th>Nº {{ document_number }}</th>
+                <th>{{ document_number }}</th>
+                {% if "Planos" not in document_type %}
                 <th>Título</th>
+                {% else %}
+                <th>Reunião Ordinária/Extraordinária</th>
+                {% endif %}
                 <th>Baixar</th>
             </thead>
             {% for document in documents %}
