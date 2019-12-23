@@ -397,6 +397,28 @@ def view_presentations(initials):
         std=get_std_for_template(post_graduation),
         publications=publications
     )
+@app.route('/<string:initials>/repositorio_ppgp/')
+def view_repositorio(initials):
+    """Render a view for miscelanious searchs in UFRN repository."""
+
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+    page = request.args.get('page')
+    if page is None:
+        page = 1
+    else:
+        page = int(page)
+
+    works, max_page = RIScraper.miscelaneous_list('https://repositorio.ufrn.br/jspui/handle/123456789/25323/browse?type=author&order=ASC&rpp=20&value=Ara%C3%BAjo%2C+Maria+Arlete+Duarte+de+%28org.%29')
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/final_reports.html',
+        std=get_std_for_template(post_graduation),
+        final_reports=works,
+        max_page=max_page,
+        current_page=page
+    )
 
 @app.route('/<string:initials>/noticias/')
 def view_news(initials):

@@ -107,10 +107,10 @@ If you wanna run some tests, this is what you have to do.
 First you need to tell the application what database to use, you can do that by setting an environment variable, after that you can
 run the unit test script test_unit.py
 
-'''sh
+```sh
 export DATABASE_NAME='posgrad-test'
 python test_unit.py
-'''
+```
 
 You should see the application running now. Unfortunately to use the admin function, an admin+password from the PortalCCSA is needed, since the autentication
 is made using this service API.
