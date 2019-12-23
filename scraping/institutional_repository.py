@@ -88,7 +88,7 @@ class RIScraper(object):
             title = table[element + 1]
             author = table[element + 2]
 
-            final_reports.append({
+            miscelaneous_list.append({
                 'author': author.text.strip(),
                 'title': title.text.strip(),
                 'year': date.text.split('-')[2].strip(),

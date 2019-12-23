@@ -398,7 +398,7 @@ def view_presentations(initials):
         publications=publications
     )
 @app.route('/<string:initials>/repositorio_ppgp/')
-def view_repositorio(initials):
+def view_repository(initials):
     """Render a view for miscelanious searchs in UFRN repository."""
 
     pfactory = PosGraduationFactory(initials)
