@@ -409,7 +409,9 @@ def view_repository(initials):
     else:
         page = int(page)
 
-    works, max_page = RIScraper.miscelaneous_list('https://repositorio.ufrn.br/jspui/handle/123456789/25323/browse?type=author&order=ASC&rpp=20&value=Ara%C3%BAjo%2C+Maria+Arlete+Duarte+de+%28org.%29')
+    works, max_page = RIScraper.miscelaneous_list([
+        'https://repositorio.ufrn.br/jspui/handle/123456789/25323/browse?type=author&order=ASC&rpp=20&value=Ara%C3%BAjo%2C+Maria+Arlete+Duarte+de+%28org.%29',
+        'https://repositorio.ufrn.br/jspui/handle/123456789/25352/browse?type=author&order=ASC&rpp=20&value=Ara%C3%BAjo%2C+Maria+Arlete+Duarte+de+%28org.%29'])
 
     # renders an own page or redirect to another (external/404)?
     return render_template(

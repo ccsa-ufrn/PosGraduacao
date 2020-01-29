@@ -1,5 +1,6 @@
 """Scraping functions lib."""
 import re
+import sys
 
 import requests
 from bs4 import BeautifulSoup
@@ -73,26 +74,26 @@ class RIScraper(object):
         return final_reports, int(max_page)
 
     @staticmethod
-    def miscelaneous_list(url):
+    def miscelaneous_list(list_url):
         """
         Return a list of miscelaneous (dicts).
         """
         miscelaneous_list = list()
+        for url in list_url:
+            response = requests.get(url)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            table = soup.select("td[headers]")
+            len_table = len(table)
+            for element in range(0, len_table, 3):
+                date = table[element]
+                title = table[element + 1]
+                author = table[element + 2]
 
-        response = requests.get(url)
-        soup = BeautifulSoup(response.text, 'html.parser')
-        table = soup.select("td[headers]")
-        len_table = len(table)
-        for element in range(0, len_table, 3):
-            date = table[element]
-            title = table[element + 1]
-            author = table[element + 2]
-
-            miscelaneous_list.append({
-                'author': author.text.strip(),
-                'title': title.text.strip(),
-                'year': date.text.split('-')[2].strip(),
-                'link': RIScraper.root() + title.find('a').get('href')[1:]
-            })
+                miscelaneous_list.append({
+                    'author': author.text.strip(),
+                    'title': title.text.strip(),
+                    'year': date.text.split('-')[2].strip(),
+                    'link': RIScraper.root() + title.find('a').get('href')[1:]
+                })
 
         return miscelaneous_list, 1
