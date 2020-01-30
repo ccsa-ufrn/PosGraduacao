@@ -417,6 +417,7 @@ def view_repository(initials):
     return render_template(
         'public/final_reports.html',
         std=get_std_for_template(post_graduation),
+        title='Repositório PPGP',
         final_reports=works,
         max_page=max_page,
         current_page=page
@@ -521,6 +522,7 @@ def view_final_reports(initials):
             'public/final_reports.html',
             std=get_std_for_template(post_graduation),
             final_reports=final_reports,
+            title='Trabalhos de Conclusão',
             current_page=page,
             max_page=max_page,
         )
@@ -549,6 +551,7 @@ def view_final_reports_phd(initials):
             'public/final_reports_phd.html',
             std=get_std_for_template(post_graduation),
             final_reports=final_reports,
+            title='Trabalhos de Conclusão',
             current_page=page,
             max_page=max_page,
         )

@@ -83,15 +83,6 @@
                             </li>
 
                             <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Programa</li>
-
-                            {% if std.post_graduation.initials in 'PPGP' %}
-                            <li><a href="{{ url_for('public.view_impact', initials=std.post_graduation.initials) }}">
-                                <span class="glyphicon glyphicon-apple"></span> Impacto</a>
-                            </li>
-                            {% endif %}
-
-                            <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Pesquisa e extensão</li>
 
                             <li><a href="{{ url_for('public.view_projects', initials=std.post_graduation.initials) }}">
@@ -114,6 +105,16 @@
                             <li><a href="#">
                                 <span class="glyphicon glyphicon-briefcase"></span> Egressos (em breve)</a>
                             </li>
+
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Programa</li>
+
+                            {% if std.post_graduation.initials in 'PPGP' %}
+                            <li><a href="{{ url_for('public.view_impact', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-apple"></span> Impacto</a>
+                            </li>
+                            {% endif %}
+
                         </ul>
                     </li>
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -166,7 +167,7 @@
                                 <span class="glyphicon glyphicon-file"></span> Regimentos</a>
                             </li>
                             <li><a href="{{ url_for('public.view_documents', initials=std.post_graduation.initials, document='reunion' ) }}">
-                                <span class="glyphicon glyphicon-file"></span> Plano Quadrienais</a>
+                                <span class="glyphicon glyphicon-file"></span> Planos Quadrienais</a>
                             </li>
                             <li><a href="{{ url_for('public.view_documents', initials=std.post_graduation.initials, document='outros' ) }}">
                                 <span class="glyphicon glyphicon-file"></span> Outros</a>
