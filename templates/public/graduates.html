@@ -1,0 +1,23 @@
+{% extends "public/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/posgraduacao/css/ppgp.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-page-header">
+    <h1 class="text-center"><small>Pós-Graduação em</small><br/> {{ std.post_graduation.name }}</h1>
+</div>
+
+<section>
+    <header class="page-header">
+        <h2>Egressos</h2>
+    </header>
+    <p>Ao longo dos anos o PPGP realizou pesquisas para saber da situação dos seus alunos egressos, abaixo seguem dois desses documentos, o primeiro em formato de texto e o segundo em formato de apresentação.</p>
+<a href="https://posgraduacao.ccsa.ufrn.br/PPGP/documents/outros/Pesquisa.pdf/" target="_blank">Pesquisa em formato textual</a>
+    </br>
+<a href="https://posgraduacao.ccsa.ufrn.br/PPGP/documents/outros/Slides_pesquisa_egressos_atual.pdf/" target="_blank">Pesquisa em formato de apresentação</a>
+</section>
+
+{% endblock %}

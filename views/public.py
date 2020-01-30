@@ -160,6 +160,19 @@ def view_impact(initials):
         std=get_std_for_template(post_graduation),
     )
 
+@app.route('/<string:initials>/egressos/')
+def view_graduates(initials):
+    """Render a view for graduates."""
+
+    pfactory = PosGraduationFactory(initials)
+    post_graduation = pfactory.post_graduation
+
+    # renders an own page or redirect to another (external/404)?
+    return render_template(
+        'public/graduates.html',
+        std=get_std_for_template(post_graduation),
+    )
+
 @app.route('/<string:initials>/docentes/')
 def view_professors(initials):
     """Render a view for professors list."""
@@ -488,7 +501,7 @@ def view_documents(initials, document):
                       'regiments': 'Ano',
                       'resolucao': 'N Resolução',
                       'outros': 'Ano',
-                      'reunion': 'Ano'}
+                      'reunion': 'Título'}
     documents = pfactory.official_documents_dao().find({'category':document})
 
     # renders an own page or redirect to another (external/404)?

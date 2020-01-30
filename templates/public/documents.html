@@ -19,10 +19,12 @@
         <table class="table">
             <thead>
                 <th>{{ document_number }}</th>
-                {% if "Atas" not in document_type %}
-                <th>Título</th>
-                {% else %}
+                {% if "Atas" in document_type %}
                 <th>Reunião Ordinária/Extraordinária</th>
+                {% elif "Planos" in document_type %}
+                <th>Data de Aprovação</th>
+                {% else %}
+                <th>Título</th>
                 {% endif %}
                 <th>Baixar</th>
             </thead>

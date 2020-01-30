@@ -102,8 +102,8 @@
                             </li>
                             {% endif %}
 
-                            <li><a href="#">
-                                <span class="glyphicon glyphicon-briefcase"></span> Egressos (em breve)</a>
+                            <li><a href="{{ url_for('public.view_graduates', initials=std.post_graduation.initials) }}">
+                                <span class="glyphicon glyphicon-briefcase"></span> Egressos</a>
                             </li>
 
                             <li role="separator" class="divider"></li>
