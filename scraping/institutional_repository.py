@@ -12,7 +12,7 @@ def get_final_report_details(tr):
         'date': tr.find(headers='t1').text.strip(),
         'author': tr.find(headers='t3').text.strip(),
         'title': tr.find(headers='t2').text.strip(),
-        'link': f"https://repositorio.ufrn.br{tr.find(headers='t2').find('a').get('href')}",
+        'link': "https://repositorio.ufrn.br" + tr.find(headers='t2').find('a').get('href')},
     }
     return final_report
 
