@@ -1,10 +1,20 @@
 """Scraping functions lib."""
 import re
+import math
 import sys
 
 import requests
 from bs4 import BeautifulSoup
 
+
+def get_final_report_details(tr):
+    final_report = {
+        'date': tr.find(headers='t1').text.strip(),
+        'author': tr.find(headers='t3').text.strip(),
+        'title': tr.find(headers='t2').text.strip(),
+        'link': f"https://repositorio.ufrn.br{tr.find(headers='t2').find('a').get('href')}",
+    }
+    return final_report
 
 class RIScraper(object):
     """Scraping UFRN's Institutional Repository."""
@@ -42,36 +52,19 @@ class RIScraper(object):
         page -= 1
 
         url = RIScraper._reports_collection_url(pg_initials, modality)
-        url += 'browse?type=dateissued&sort_by=2&order=DESC&rpp={qtt}&etal=-1&null=&offset={first}'
-        url = url.format(qtt=10, first=page*10)
+        url += '?offset=' + str(page * 20)
+        print(url, file=sys.stderr)
 
         final_reports = list()
 
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
-        table = soup.select("td[headers]")
-        len_table = len(table)
-        for element in range(0, len_table, 3):
-            date = table[element]
-            title = table[element + 1]
-            author = table[element + 2]
+        table = soup.select(".table tr")[1:]
 
-            final_reports.append({
-                'author': author.text.strip(),
-                'title': title.text.strip(),
-                'year': date.text.split('-')[2].strip(),
-                'link': RIScraper.root() + title.find('a').get('href')[1:]
-            })
+        page_info = list(filter(lambda x: x.isnumeric(), soup.find(class_='browse_range').text.replace('\n', '').split(' ')))[-1]
 
-        page_info = soup.find('div', {'class': 'panel-heading text-center'})
-
-        page_info = page_info.text.replace('\n', '')
-        search = r'.*Mostrando resultados [0-9]+ a [0-9]+ de (?P<max_page>[0-9]+).*'
-        match = re.match(search, page_info)
-
-        max_page = match.group('max_page') if match is not None else -1
-
-        return final_reports, int(max_page)
+        max_page = math.ceil((int(page_info)/20)) if page_info is not None else 1
+        return list(map(get_final_report_details, table)), int(max_page)
 
     @staticmethod
     def miscelaneous_list(list_url):
