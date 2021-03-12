@@ -34,8 +34,8 @@ except KeyError:
     raise NoAppCredentialsForSigaaError()
 
 # important URLs for APISistemas
-API_URL_ROOT           = 'https://api.info.ufrn.br/' # API root (it's a test security link for now)
-API_TOKEN_ROOT           = 'https://autenticacao.info.ufrn.br/' # API root (it's a test security link for now)
+API_URL_ROOT           = 'https://api.ufrn.br/' # API root (it's a test security link for now)
+API_TOKEN_ROOT           = 'https://autenticacao.ufrn.br/' # API root (it's a test security link for now)
 AUTHORIZATION_ENDPOINT = API_URL_ROOT + 'authz-server/oauth/authorize' # auth
 TOKEN_ENDPOINT         = API_TOKEN_ROOT + 'authz-server/oauth/token' # token
 
