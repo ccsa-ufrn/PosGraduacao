@@ -424,8 +424,16 @@ def view_repository(initials):
 
     works, max_page = RIScraper.miscelaneous_list([
         'https://repositorio.ufrn.br/jspui/handle/123456789/25323/browse?type=author&order=ASC&rpp=20&value=Ara%C3%BAjo%2C+Maria+Arlete+Duarte+de+%28org.%29',
-        'https://repositorio.ufrn.br/jspui/handle/123456789/25352/browse?type=author&order=ASC&rpp=20&value=Ara%C3%BAjo%2C+Maria+Arlete+Duarte+de+%28org.%29'])
-
+        'https://repositorio.ufrn.br/jspui/handle/123456789/25352/browse?type=author&order=ASC&rpp=20&value=Ara%C3%BAjo%2C+Maria+Arlete+Duarte+de+%28org.%29',
+        'https://repositorio.ufrn.br/jspui/handle/123456789/25352/browse?type=author&order=ASC&rpp=20&value=Ara%C3%BAjo%2C+Maria+Arlete+Duarte+de',
+        'https://repositorio.ufrn.br/jspui/handle/123456789/25323/browse?type=author&order=ASC&rpp=20&value=Ara%C3%BAjo%2C+Richard+Medeiros+de'
+    ])
+    inequality = { 'author': 'Mariana Mazzini Marcondes (coordenadora), Maria Arlete Duarte de Araújo, Washington José de Sousa, Gabriellen Karinyn da Silva Monteiro, Diego José do Nascimento Rabelo, Bruno Luan Dantas Cardoso, Suzana Melissa de Moura Mafra da Silva, Denys Daniel da Silva',
+                   'title': 'Relatório anual 2020 - Glossário das Desigualdades',
+                   'year': '2020',
+                   'link': 'https://ccsa.ufrn.br/portal/wp-content/uploads/2021/03/glossario-desigualdades-final-04-03.pdf'
+                  }
+    works.append(inequality)
     # renders an own page or redirect to another (external/404)?
     return render_template(
         'public/final_reports.html',
