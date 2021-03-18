@@ -1,0 +1,11 @@
+#+TITLE: 18 03 2020
+
+* Mudanças Necessárias
+1. Adicionar "compras na adm publica 2020" e "universidades publicas federais no enfrentamento do corona" a pagina "repositorio ppgp"
+   a. Como fazer isso? Simplesmente procurar uma url no mesmo formato do que tem na function view_repository e que tenha essas obras e adicionar ela a lista
+2. Adicionar o relatório das desigualdades
+   a. Esse relatório é um glossário das desigualdades que não está no repositório da UFRN, logo, vamos ter que fazer uma gambiarra de colocar diretamente no template da pagina os dados, utilizando um if para verificar se tá em PPGP ou não
+3. Colocar fabio no lugar de marcos na coordenaca e retirar o nome de luciano como bolsista
+   a. Isso é pra ser trabalhos das pós graduações, mas como nesse caso não tem bolsista, fica pra gente, dessa forma o mais indicado a se fazer é em primeiro lugar ir atras da senha com alguém que saiba, caso não se tenha essa informação mudar a senha do usuario dentro do portal do ccsa pq é de lá que se faz a autenticação
+4. Fazer uma gambiarra pra adicionar o que tiver no repositorio nas  categorias(Mas que categorias? Eu n sei o que é capitulo, o que é livro etc)
+   a. Essa é a pior de todas, no geral livros e artigos geralmente são colocados, entretanto nesse caso as compras da adm pública, relatório sobre a prefeitura de ceara-mirim etc não são pegos pela API da UFRN, porque no caso eles estão na aba "Demais produções técnicas" do Lattes de Arlete e que não é exposto pela API da UFRN, logo o caminho a se fazer é igual ao do glossário das desigualdades embora nesse caso eu acho que vou fazer não no template mas na função já que o formato é mais fácil e são mais obras.
