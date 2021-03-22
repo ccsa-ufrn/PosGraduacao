@@ -28,7 +28,7 @@
                 {% endif %}
                 <th>Baixar</th>
             </thead>
-            {% for document in documents %}
+            {% for document in documents|sort(attribute='cod', reverse = True) %}
             {% if "deleted" not in document %}
             <tr>
                 <td>{{ document.cod }}</td>
