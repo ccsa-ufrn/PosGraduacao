@@ -32,6 +32,9 @@ $(document).ready(function() {
         $("#form-edit").css("visibility", "visible");
         $("input[name=name]").val(integrations.institutionsWithCovenant[indexInCovenants].name);
         $("input[name=initials]").val(integrations.institutionsWithCovenant[indexInCovenants].initials);
+        $("input[name=objective]").val(integrations.institutionsWithCovenant[indexInCovenants].objective);
+        $("input[name=objective]").val(integrations.institutionsWithCovenant[indexInCovenants].objective);
+        $("select[name=status]").val(integrations.institutionsWithCovenant[indexInCovenants].status);
         $("input[name=index]").val(indexInCovenants);
     });
 
@@ -64,6 +67,14 @@ $(document).ready(function() {
     <br/>
     {{ form.initials.label }}
     {{ form.initials(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    <br/>
+    {{ form.objective.label }}
+    {{ form.objective(required='true', class="form-control", readonly="readonly") }}
+    <br/>
+    <br/>
+    {{ form.status.label }}
+    {{ form.status(required='true', class="form-control", readonly="readonly") }}
     <br/>
     {{ form.create(class="form-control") }}
     </div>
