@@ -21,11 +21,6 @@
 
     <br/>
 
-    {{ form.initials.label }}<br/>
-    {{ form.initials(required='true', placeholder="ex: UFRJ", class="form-control") }}
-
-    <br/>
-
     {{ form.objective.label }}<br/>
     {{ form.objective(required='true', class="form-control") }}
 
@@ -34,6 +29,9 @@
     {{ form.status.label }}<br/>
     {{ form.status(required='true', class="form-control") }}
 
+    <br/>
+
+    {{ form.logo.label }}<br/>
     <label class="btn btn-default">
         <span>Carregar documento</span>
         {{ form.logo(style="display:none") }}
