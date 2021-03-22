@@ -236,10 +236,7 @@ class CalendarForm(FlaskForm):
         DataRequired('Digite o título do evento.')
     ])
 
-    initial_date = DateField('Data inicial:', format='%d/%m/%Y', validators=[
-        DataRequired('Escolha a data de começo do evento.')
-    ])
-
+    initial_date = DateField('Data inicial:', format='%d/%m/%Y')
 
     final_date = StringField('Data final(Se existir):')
 
