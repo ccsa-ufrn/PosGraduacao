@@ -32,7 +32,7 @@ pylint==2.5.2
 pymongo==3.10.1
 pyparsing==2.4.7
 requests==2.23.0
-rsa==4.0
+rsa==4.1
 six==1.14.0
 soupsieve==2.0
 toml==0.10.0
