@@ -434,7 +434,13 @@ def view_repository(initials):
                    'year': '2020',
                    'link': 'https://ccsa.ufrn.br/portal/wp-content/uploads/2021/03/glossario-desigualdades-final-04-03.pdf'
                   }
+    ppgp = { 'author': 'Maria Arlete Duarte de Araujo',
+                   'title': 'Programa de Pós-Graduaçao em Gestão Pública 10 Anos de Hisória',
+                   'year': '2020',
+                   'link': 'https://posgraduacao.ccsa.ufrn.br/PPGP/documents/outros/Livro_PPGP_Comemoracao_10_anos.pdf/'
+                  }
     works.append(inequality)
+    works.append(ppgp)
     # renders an own page or redirect to another (external/404)?
     return render_template(
         'public/final_reports.html',
