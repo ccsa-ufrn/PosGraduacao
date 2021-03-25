@@ -1,0 +1,5 @@
+#+TITLE: 25 03 2020
+
+* Mudanças Necessárias
+1. Adicionar um livro ao repositório PPGP
+   a. Só criar o documento do livro como se fosse um dicionario na propria rota do repositorio PPGP e adicionar, e fazer upload na aba documentos pra poder ter um link para colocar no dicionario pra ficar no mesmo formato dos outros
