@@ -1,0 +1,5 @@
+#+TITLE: 28 03 2020
+
+* Mudanças necesárias
+1. Adicionar uma aba "História do Programa" apenas para ppgp
+	a. Como fazer isso? Só criar um if dentro da pasta templates/public/layout verificando se existe PPGP nas iniciasi do programa atual, e criar o link, que nesse caso aponta para um arquivo que já tá uploadado
