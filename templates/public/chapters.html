@@ -13,7 +13,7 @@
     <header class="page-header">
         <h2>Capítulos publicados em livros</h2>
     </header>
-    {% for n in range(2017,2021) %}
+    {% for n in range(2021,2017,-1) %}
     <h3>Capitulos de livros publicados em {{ n }}</h3>
     {% for chapter in publications %}
     {% if n == chapter.year %}
