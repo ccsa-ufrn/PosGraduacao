@@ -14,7 +14,7 @@
     <header class="page-header">
         <h2>Artigos publicados</h2>
     </header>
-    {% for n in range(2017,2021) %}
+    {% for n in range(2021,2017, -1) %}
     <h3>Artigos publicados em {{ n }}</h3>
     {% for article in publications %}
     {% if n == article.year %}
