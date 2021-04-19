@@ -61,6 +61,34 @@
     {% endif %}
     {% endfor %}
 
+    <h3>Pós-Graduação</h3>
+    {% for event in integrations_infos.participationsInEvents %}
+    {% if "deleted" not in event %}
+
+    {% if "posdoc" in event.type_of_participation %}
+    <h4>{{ event.title }}<br/>
+        <small>({% if event.international %}{{ event.international }} | {% endif %}{{ event.year|int }})</small>
+    </h4>
+    <p>{{ event.description }}</p>
+
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
+    <h3>Prêmios Internacionais</h3>
+    {% for event in integrations_infos.participationsInEvents %}
+    {% if "deleted" not in event %}
+
+    {% if "international_prizes" in event.type_of_participation %}
+    <h4>{{ event.title }}<br/>
+        <small>({% if event.international %}{{ event.international }} | {% endif %}{{ event.year|int }})</small>
+    </h4>
+    <p>{{ event.description }}</p>
+
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
 </section>
 
 {% endblock %}

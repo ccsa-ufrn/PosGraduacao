@@ -1,0 +1,7 @@
+#+TITLE: 25 03 2020
+
+* Mudanças Necessárias
+1. Mudar o texto de impacto
+   a. Muda direto no html já que só tem impacto na pagina do ppgp
+1. Adicionar abas em intercambios
+   a. Adiciona no arquivo views/forms/content.py e ajeita o template pra ficar organizado
