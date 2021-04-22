@@ -354,7 +354,7 @@ def view_projects(initials):
                 coordinators_names.append(member)
                 project['members'].remove(member)
         project['coordinators_names'] = coordinators_names
-    coordinator_names = list(map(lambda x: x['coordinators_names'][0]['name'] if x['coordinators_names'] and 'deleted' not in x else 'Sem coordenador', projects))
+    coordinator_names = list(map(lambda x: x['coordinators_names'][0]['name'].strip().title() if x['coordinators_names'] and 'deleted' not in x else 'Sem coordenador', projects))
     coordinator_names.sort()
     coordinators = list(map(lambda x: {'coordinator_name': x, 'projects': list(filter(lambda y: y['coordinators_names'][0]['name'] == x if y['coordinators_names'] else x == 'Sem coordenador', projects))}, list(dict.fromkeys(coordinator_names))))
 
