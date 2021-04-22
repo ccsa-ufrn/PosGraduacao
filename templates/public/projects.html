@@ -15,20 +15,15 @@
         <h2>&raquo Projetos <small>em execução</small></h2>
     </header>
 
-    {% for project in projects %}
+    {% for coordinator in coordinators %}
+	<h2>{{ coordinator.coordinator_name }}</h2>
+    {% for project in coordinator.projects %}
     {% if "deleted" not in project %}
     <h3>{{ project.title }}</h3>
     {% if project.subtitle %}
     <h4>{{ project.subtitle }}</h4>
     {% endif %}
     <ul>
-        <li><strong>Coordenação:</strong>
-            <ul>
-                {% for coordinator in project.coordinators_names %}
-                <li>{{ coordinator.name }}</li>
-                {% endfor %}
-            </ul>
-        </li>
         <li><strong>E-mail:</strong> {{ project.email }}</li>
         <li><strong>Dados:</strong>
             <ul>
@@ -47,6 +42,10 @@
     </ul>
     <br/>
     {% endif %}
+    {% endfor %}
+    <header class="page-header">
+        <h2> </h2>
+    </header>
     {% endfor %}
 
 </section>
