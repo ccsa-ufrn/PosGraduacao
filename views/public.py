@@ -354,12 +354,14 @@ def view_projects(initials):
                 coordinators_names.append(member)
                 project['members'].remove(member)
         project['coordinators_names'] = coordinators_names
+    coordinator_names = set(map(lambda x: x['coordinators_names'][0]['name'] if x['coordinators_names'] else 'Sem coordenador', projects))
+    coordinators = list(map(lambda x: {'coordinator_name': x, 'projects': list(filter(lambda y: y['coordinators_names'][0]['name'] == x if y['coordinators_names'] else x == 'Sem coordenador', projects))}, coordinator_names))
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
         'public/projects.html',
         std=get_std_for_template(post_graduation),
-        projects=projects
+        coordinators=coordinators,
     )
 
 
