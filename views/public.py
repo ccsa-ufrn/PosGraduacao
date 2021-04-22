@@ -355,8 +355,9 @@ def view_projects(initials):
                 project['members'].remove(member)
         project['coordinators_names'] = coordinators_names
     coordinator_names = list(map(lambda x: x['coordinators_names'][0]['name'].strip().title() if x['coordinators_names'] and 'deleted' not in x else 'Sem coordenador', projects))
+    coordinator_names = list(dict.fromkeys(coordinator_names))
     coordinator_names.sort()
-    coordinators = list(map(lambda x: {'coordinator_name': x, 'projects': list(filter(lambda y: y['coordinators_names'][0]['name'].strip().title() == x if y['coordinators_names'] else x == 'Sem coordenador', projects))}, list(dict.fromkeys(coordinator_names))))
+    coordinators = list(map(lambda x: {'coordinator_name': x, 'projects': list(filter(lambda y: y['coordinators_names'][0]['name'].strip().title() == x if y['coordinators_names'] else x == 'Sem coordenador', projects))}, coordinator_names))
 
     # renders an own page or redirect to another (external/404)?
     return render_template(
