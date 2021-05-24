@@ -16,6 +16,7 @@
     </header>
 
     {% for coordinator in coordinators %}
+    {% if "Sem coordenador" not in coordinator.coordinator_name %}
 	<h2>{{ coordinator.coordinator_name }}</h2>
     {% for project in coordinator.projects %}
     {% if "deleted" not in project %}
@@ -43,6 +44,7 @@
     <br/>
     {% endif %}
     {% endfor %}
+    {% endif %}
     <header class="page-header">
         <h2> </h2>
     </header>
